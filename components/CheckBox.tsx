@@ -11,6 +11,7 @@ const CheckBox = () => {
     infoConfirm: false,
     serviceConfirm: false,
   });
+  const [showError, setShowError] = useState(false);
 
   const handleAgreedChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -20,6 +21,10 @@ const CheckBox = () => {
       (value) => value === true,
     );
     setAllAgreed(allChecked);
+
+    if (showError) {
+      setShowError(false);
+    }
   };
 
   const handleAllAgreedChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +34,18 @@ const CheckBox = () => {
       serviceConfirm: checked,
     });
     setAllAgreed(checked);
+
+    if (showError) {
+      setShowError(false);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (!allAgreed) {
+      setShowError(true);
+    } else {
+      setShowError(false);
+    }
   };
 
   return (
@@ -73,6 +90,8 @@ const CheckBox = () => {
           </label>
         </li>
       </ul>
+      {showError && <p style={{ color: 'red' }}>모두 동의해주세요.</p>}
+      <button onClick={handleSubmit}>신청하기</button>
     </>
   );
 };
