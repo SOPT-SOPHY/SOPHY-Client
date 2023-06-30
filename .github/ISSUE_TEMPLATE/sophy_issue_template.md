@@ -1,6 +1,6 @@
 ---
-name: "3조의 이슈 템플릿\U0001F60A"
-about: 3조 화이팅!!
+name: "소피 웨비들 이슈 템플릿"
+about: 소피 화이팅!!
 title: ''
 labels: ''
 assignees: ''
