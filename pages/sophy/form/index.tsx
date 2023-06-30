@@ -1,10 +1,11 @@
 import React from 'react';
 import SophyForm from '../../../components/sophy/SophyForm';
+import SophyLayout from '../../../components/sophy/@SophyLayout';
 const index = () => {
   return (
-    <>
-      <SophyForm></SophyForm>
-    </>
+    <SophyLayout title="북토크 개설 신청">
+      <SophyForm />
+    </SophyLayout>
   );
 };
 
