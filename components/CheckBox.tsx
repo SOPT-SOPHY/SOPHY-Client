@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
+import useToast from '../hooks/useToast';
+import Toast from './Toast';
 
 interface Agreeds {
   infoConfirm: boolean;
@@ -12,6 +14,8 @@ const CheckBox = () => {
     serviceConfirm: false,
   });
   const [showError, setShowError] = useState(false);
+  const toastHook = useToast();
+  const { isOpenToast, msg, showToast } = toastHook;
 
   const handleAgreedChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -45,6 +49,7 @@ const CheckBox = () => {
       setShowError(true);
     } else {
       setShowError(false);
+      showToast('신청 완료되었습니다.(토스트 3초 띄우기)');
     }
   };
 
@@ -92,6 +97,7 @@ const CheckBox = () => {
       </ul>
       {showError && <p style={{ color: 'red' }}>모두 동의해주세요.</p>}
       <button onClick={handleSubmit}>신청하기</button>
+      {isOpenToast && <Toast msg={msg} />}
     </>
   );
 };
