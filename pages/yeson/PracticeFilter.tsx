@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { AxiosError } from 'axios';
 
 interface CountryProps {
   alpha3Code: string;
@@ -35,7 +36,7 @@ const App: React.FC = () => {
         setItems(response.data);
       } catch (error) {
         setIsLoaded(true);
-        setError(error);
+        setError(error as AxiosError);
       }
     };
     fetchData();
