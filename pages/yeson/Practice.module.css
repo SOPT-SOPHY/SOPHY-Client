@@ -1,9 +1,3 @@
-*,
-*:after,
-*:before {
-    margin: 0;
-    padding: 0;
-}
 .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -17,31 +11,18 @@
     width: 1px !important;
     white-space: nowrap !important;
 }
-img {
+.img {
     width: 100%;
 }
-:root {
-    --bg: hsl(0, 0%, 98%);
-    --bg-offset: hsl(0, 0%, 100%);
-    --text: hsl(200, 15%, 8%);
-    --gray: hsl(0, 0%, 52%);
-    --border: rgba(0, 0, 0, 0.1);
-}
-ul,
-ol {
-    list-style: none;
-}
-body {
+
+/* body {
     background: var(--bg);
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
-}
-h1,
-h2 {
-    height: 18px;
-}
+} */
+
 .wrapper {
     width: 96%;
     max-width: 1140px;
@@ -60,7 +41,7 @@ h2 {
     transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-  .card:hover {
+.card:hover {
         transform: scale(1.1);
   }
 
