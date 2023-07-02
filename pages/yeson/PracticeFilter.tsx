@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 interface CountryProps {
   alpha3Code: string;
@@ -25,21 +26,19 @@ const App: React.FC = () => {
   );
 
   useEffect(() => {
-    fetch(
-      'https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json',
-    )
-      .then((res) => res.json())
-      .then(
-        (result: CountryProps[]) => {
-          setIsLoaded(true);
-          setItems(result);
-          console.log(result);
-        },
-        (error: Error) => {
-          setIsLoaded(true);
-          setError(error);
-        },
-      );
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json',
+        );
+        setIsLoaded(true);
+        setItems(response.data);
+      } catch (error) {
+        setIsLoaded(true);
+        setError(error);
+      }
+    };
+    fetchData();
   }, []);
 
   const data = Object.values(items);
