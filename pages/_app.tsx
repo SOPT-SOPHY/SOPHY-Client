@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from '../styles/global-style';
 import { theme } from '../styles/theme';
+import './yeson/Practice.css';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
