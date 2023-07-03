@@ -18,9 +18,10 @@ const index = () => {
     router.push('auth/login');
   };
 
-  var a = 1;
+  var a = 3;
 
-  const accessToken 
+  const accessToken
+  
   = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
 
