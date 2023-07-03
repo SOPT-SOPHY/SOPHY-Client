@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import backArrow from '../../assets/icon/backArrow.svg';
@@ -48,11 +48,16 @@ const NextPage = () => {
 
   function filterItems(items: CountryProps[] | null, filterParam: string) {
     if (items) {
-      return items.filter((item) => {
-        return Array.isArray(item.region)
-          ? item.region.includes(filterParam)
-          : item.region === filterParam;
-      });
+      const values: CountryProps[] = [];
+      for (const key in items) {
+        if (
+          items[key].region === filterParam ||
+          (filterParam === 'America' && items[key].region === 'Americas')
+        ) {
+          values.push(items[key]);
+        }
+      }
+      return values;
     }
     return [];
   }
@@ -69,15 +74,14 @@ const NextPage = () => {
           <Title>모집 중인 북토크</Title>
         </Header>
         <SubTitle>{region}</SubTitle>
-        <div>
+        {/* <div>
           {filteredItems.map((item, index) => (
             <div key={index}>
               <p>Name: {item.name}</p>
               <p>Population: {item.population}</p>
-              {/* 다른 속성들도 렌더링하고 싶은 경우, 추가로 렌더링하면 됩니다 */}
             </div>
           ))}
-        </div>
+        </div>  */}
         {filteredItems.map((item, index) => (
           <SingleBookTalk key={index} item={item} />
         ))}

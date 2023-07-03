@@ -20,7 +20,7 @@ const SingleBookTalk: React.FC<SingleBookTalkProps> = ({ item }) => {
   return (
     <BookTalkWrapper>
       <ImageContainer>
-        <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" />
+        {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
       </ImageContainer>
       <TextWrapper>
         <BookName>{item.name}</BookName>
