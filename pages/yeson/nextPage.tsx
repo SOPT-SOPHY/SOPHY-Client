@@ -82,9 +82,11 @@ const NextPage = () => {
             </div>
           ))}
         </div>  */}
-        {filteredItems.map((item, index) => (
-          <SingleBookTalk key={index} item={item} />
-        ))}
+        <SingleBookTalkContainer>
+          {filteredItems.map((item, index) => (
+            <SingleBookTalk key={index} item={item} />
+          ))}
+        </SingleBookTalkContainer>
       </Body>
     </>
   );
@@ -138,4 +140,10 @@ const SubTitle = styled.h2`
 
   margin-left: 1.25rem;
   margin-bottom: 1rem;
+`;
+
+const SingleBookTalkContainer = styled.div`
+  width: 22.9375rem;
+  height: 40rem;
+  overflow: scroll;
 `;
