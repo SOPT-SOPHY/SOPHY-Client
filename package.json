@@ -12,11 +12,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint:staged"
+      "pre-commit": "yarn lint:staged && prettier --write . && eslint --fix ."
     }
   },
   "lint-staged": {
-    "**/*.{tsx, ts}" : [
+    "**/*.{tsx, ts}": [
       "stylelint '**/*.{tsx, ts}' --fix"
     ],
     "*.css": [

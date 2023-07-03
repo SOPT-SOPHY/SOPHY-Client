@@ -18,7 +18,10 @@ const index = () => {
     router.push('auth/login');
   };
 
-  const accessToken = Cookies.get('accessToken');
+  var a = 1;
+
+  const accessToken 
+  = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
 
   useEffect(() => {
@@ -41,6 +44,7 @@ const index = () => {
         Cookies.set('accessToken', newAccessToken);
         router.push('/home');
       })
+
       .catch((error) => {
         console.error('Refresh Token Error:', error);
         // router.push('auth/login');
