@@ -20,8 +20,10 @@ const index = () => {
 
   const a = 3;
   console.log(a);
-  var b = 4;
+  const b = 4;
+  const c = 5;
   console.log(b);
+  console.log(c);
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
