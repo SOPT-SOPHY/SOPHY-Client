@@ -52,8 +52,8 @@ const NextPage = () => {
       const values: CountryProps[] = [];
       for (const key in items) {
         if (
-          items[key].region === filterParam ||
-          (filterParam === 'America' && items[key].region === 'Americas')
+          items[key].region === filterParam
+          // (filterParam === 'America' && items[key].region === 'Americas')
         ) {
           values.push(items[key]);
         }

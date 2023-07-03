@@ -36,10 +36,10 @@ const RegionSelect = () => {
               </SelectBox>
               <DongBoxContainer>
                 <DongBox
-                  onClick={() => handleRegionSelect('America')}
-                  isSelected={selectedRegion === 'America'}>
-                  <li>America</li>
-                  <span>{selectedRegion === 'America' ? '✔' : ''}</span>
+                  onClick={() => handleRegionSelect('Americas')}
+                  isSelected={selectedRegion === 'Americas'}>
+                  <li>Americas</li>
+                  <span>{selectedRegion === 'Americas' ? '✔' : ''}</span>
                 </DongBox>
                 <DongBox
                   onClick={() => handleRegionSelect('Asia')}
