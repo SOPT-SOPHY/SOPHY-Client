@@ -18,12 +18,10 @@ const index = () => {
     router.push('auth/login');
   };
 
-  var a = 3;
-  var b= 2;
+  const a = 3;
+  console.log(a);
 
-  const accessToken
-  
-  = Cookies.get('accessToken');
+  const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
 
   useEffect(() => {
