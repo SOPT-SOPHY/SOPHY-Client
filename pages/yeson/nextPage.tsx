@@ -7,6 +7,7 @@ import SingleBookTalk from '../../components/SingleBookTalk';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { AxiosError } from 'axios';
+import Link from 'next/link';
 
 interface CountryProps {
   alpha3Code: string;
@@ -68,9 +69,11 @@ const NextPage = () => {
     <>
       <Body>
         <Header>
-          <ImageContainer>
-            <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
-          </ImageContainer>
+          <Link href="/yeson/PracticeState">
+            <ImageContainer>
+              <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
+            </ImageContainer>
+          </Link>
           <Title>모집 중인 북토크</Title>
         </Header>
         <SubTitle>{region}</SubTitle>
