@@ -148,14 +148,14 @@ const St = {
 };
 
 const CustomPaging = styled.div`
+  position: fixed;
+  top: 90px;
+  right: 20px;
   z-index: 999;
   padding: 10px;
   color: #fff;
   background-color: rgb(0 0 0 / 50%);
   border-radius: 4px;
-  position: fixed;
-  top: 90px;
-  right: 20px;
 `;
 
 const HorizontalScrollContainer = styled.div`
