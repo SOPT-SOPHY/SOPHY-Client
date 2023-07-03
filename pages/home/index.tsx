@@ -149,7 +149,7 @@ const St = {
 
 const CustomPaging = styled.div`
   position: fixed;
-  top: 90px;
+  top: 9rem;
   right: 20px;
   z-index: 999;
   padding: 10px;
