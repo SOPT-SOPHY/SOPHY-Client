@@ -1,10 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const index = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [isEmailAvailable, setIsEmailAvailable] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+
   const [allAgreed, setAllAgreed] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [marketingAgreed, setMarketingAgreed] = useState(false);
+
+  const handleEmailCheck = async () => {
+    try {
+      // 이메일 중복확인을 위한 API 호출
+      const response = await axios.get(`/api/checkEmail?email=${email}`);
+      const { isAvailable } = response.data;
+      setIsEmailAvailable(isAvailable);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post('/api/signup', {
+        email,
+        password,
+        name,
+        phone,
+      });
+
+      const { token } = response.data;
+
+      Cookies.set('token', token);
+
+      router.push('/auth/login');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleAllAgree = () => {
     setAllAgreed(!allAgreed);
@@ -28,44 +69,98 @@ const index = () => {
     setAllAgreed(false);
   };
 
+  useEffect(() => {
+    if (termsAgreed && privacyAgreed && marketingAgreed) {
+      setAllAgreed(true);
+    }
+  }, [termsAgreed, privacyAgreed, marketingAgreed]);
+
+  const isPasswordMatch = password === confirmPassword;
+  const isFormValid =
+    // isEmailAvailable &&
+    isPasswordMatch &&
+    email &&
+    password &&
+    confirmPassword &&
+    name &&
+    phone &&
+    allAgreed;
+
   return (
     <div>
       <div>이메일</div>
-      <input placeholder="이메일을 입력해주세요" />
-      <button>중복확인</button>
-      <div>비밀번호</div>
-      <input placeholder="비밀번호를 입력해주세요" />
-      <div>비밀번호 확인</div>
-      <input placeholder="비밀번호를 다시 입력해주세요" />
-      <div>이름</div>
-      <input placeholder="이름을 입력해주세요" />
-      <div>휴대전화 번호</div>
-      <input placeholder="번호를 입력해주세요" />
+      <input
+        type="email"
+        placeholder="이메일을 입력해주세요."
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button type="button" onClick={handleEmailCheck}>
+        중복 확인
+      </button>
+      {!isEmailAvailable && <p>유효하지 않은 이메일입니다.</p>}
+      <input
+        type="password"
+        placeholder="비밀번호를 입력해주세요."
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="비밀번호를 다시 입력해주세요."
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
+      {!isPasswordMatch && <p>비밀번호가 일치하지 않습니다.</p>}
+      <input
+        type="text"
+        placeholder="이름을 입력해주세요."
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="tel"
+        placeholder="번호를 입력해주세요."
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+      />
+      <button type="button" onClick={handleSignup} disabled={!isFormValid}>
+        회원가입
+      </button>
+
       <div>
-        <label>
-          <input type="radio" checked={allAgreed} onClick={handleAllAgree} />
+        <label htmlFor="allAgreed">
+          <input
+            type="radio"
+            id="allAgreed"
+            checked={allAgreed}
+            onClick={handleAllAgree}
+          />
           모두 동의합니다
         </label>
         <div>
-          <label>
+          <label htmlFor="termAgreed">
             <input
               type="radio"
+              id="termAgreed"
               checked={termsAgreed}
               onClick={handleTermsAgree}
             />
             이용약관 동의
           </label>
-          <label>
+          <label htmlFor="privacyAgreed">
             <input
               type="radio"
+              id="privacyAgreed"
               checked={privacyAgreed}
               onClick={handlePrivacyAgree}
             />
             개인정보 취급방침 동의
           </label>
-          <label>
+          <label htmlFor="marketingAgreed">
             <input
               type="radio"
+              id="marketingAgreed"
               checked={marketingAgreed}
               onClick={handleMarketingAgree}
             />

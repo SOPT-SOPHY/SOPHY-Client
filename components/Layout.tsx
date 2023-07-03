@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 
 interface LayoutProps {
@@ -7,7 +8,7 @@ interface LayoutProps {
   noFooter?: boolean;
 }
 
-const Layout = (props: LayoutProps) => {
+function Layout(props: LayoutProps) {
   const { children, noHeader, noMenuBar, noFooter } = props;
 
   return (
@@ -18,6 +19,6 @@ const Layout = (props: LayoutProps) => {
       {!noFooter && <div>푸터</div>}
     </>
   );
-};
+}
 
 export default Layout;
