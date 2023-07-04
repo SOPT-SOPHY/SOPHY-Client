@@ -6,16 +6,9 @@ import {
   checkAllRegion,
 } from '../recoil/AuthorRegion.tsx/selectors';
 type TModalText = {
-  ref: React.ForwardedRef<HTMLDivElement>;
   isClicked: boolean;
 };
 const RegionModal = ({ onClose }: any) => {
-  const [clickedRegion, setClickedRegion] = useRecoilState(selectedRegionList);
-  // const [clickedRegionIndex, setClickedRegionIndex] = useState(0);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [clickedAllRegion, setclickedAllRegion] =
-    useRecoilState(checkAllRegion);
-  const colorChange = useRef<HTMLDivElement>();
   const regions = [
     '가능동',
     '가능 1동',
@@ -26,6 +19,21 @@ const RegionModal = ({ onClose }: any) => {
     '민락동',
     '산곡동',
   ];
+  const [clickedRegion, setClickedRegion] = useRecoilState(selectedRegionList);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [clickedAllRegion, setclickedAllRegion] =
+    useRecoilState(checkAllRegion);
+
+  const regionRef = useRef([]);
+  regionRef.current = [];
+
+  const regionDomRef = useRef();
+  console.log(regionDomRef);
+
+  const addToRefs = (el) => {
+    regionRef.current.push(el);
+    console.log(regionRef.current);
+  };
 
   const handleClickAllRegions = () => {
     setIsClicked((isClicked) => !isClicked);
@@ -35,9 +43,7 @@ const RegionModal = ({ onClose }: any) => {
   const handleClickRegions = (region: string) => {
     const newRegion = [...clickedRegion, region];
     setClickedRegion(newRegion);
-    console.log(colorChange.current);
-
-    colorChange.current.style = 'background:red;';
+    addToRefs({ region });
   };
 
   return (
@@ -53,8 +59,8 @@ const RegionModal = ({ onClose }: any) => {
             <St.ModalText
               isClicked={isClicked}
               onClick={() => handleClickRegions({ region })}
-              ref={colorChange}
-              key={index}>
+              key={index}
+              ref={regionDomRef}>
               {region}
             </St.ModalText>
           ))}
@@ -66,9 +72,7 @@ const RegionModal = ({ onClose }: any) => {
     </St.ModalSection>
   );
 };
-
 export default RegionModal;
-
 const St = {
   ModalSection: styled.section`
     display: flex;
