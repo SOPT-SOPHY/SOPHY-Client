@@ -93,6 +93,9 @@ function Home() {
       break;
   }
 
+  const a = 1;
+  console.log(a);
+
   return (
     <Layout noHeader noFooter noMenuBar>
       <div>Logo</div>
