@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import {
@@ -24,11 +24,28 @@ const RegionModal = ({ onClose }: any) => {
   const [clickedAllRegion, setclickedAllRegion] =
     useRecoilState(checkAllRegion);
 
+  // 선택 시 포커싱
   const regionRef = useRef([]);
   regionRef.current = [];
+  const [length, setLength] = useState(1);
+  const refs = useRef([
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+  ]);
 
-  const regionDomRef = useRef();
-  console.log(regionDomRef);
+  const updateLength = (index) => {
+    setLength(index);
+  };
+
+  useEffect(() => {
+    refs.current[length - 1].current.style = 'color:blue;';
+  }, [length]);
 
   const addToRefs = (el) => {
     regionRef.current.push(el);
@@ -40,10 +57,11 @@ const RegionModal = ({ onClose }: any) => {
     return setclickedAllRegion(!clickedAllRegion);
   };
 
-  const handleClickRegions = (region: string) => {
+  const handleClickRegions = (region: string, index: number) => {
     const newRegion = [...clickedRegion, region];
     setClickedRegion(newRegion);
     addToRefs({ region });
+    updateLength(index);
   };
 
   return (
@@ -58,9 +76,9 @@ const RegionModal = ({ onClose }: any) => {
           {regions.map((region, index) => (
             <St.ModalText
               isClicked={isClicked}
-              onClick={() => handleClickRegions({ region })}
+              onClick={() => handleClickRegions({ region, index })}
               key={index}
-              ref={regionDomRef}>
+              ref={refs.current[index]}>
               {region}
             </St.ModalText>
           ))}
