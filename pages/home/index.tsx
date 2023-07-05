@@ -14,6 +14,9 @@ import Layout from '../../components/Layout';
 function Home() {
   const user = '비회원';
   const router = useRouter();
+
+  var a = 1;
+
   const handleLogout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
@@ -167,14 +170,15 @@ const St = {
 };
 
 const CustomPaging = styled.div`
-  position: fixed;
-  top: 9rem;
-  right: 20px;
-  z-index: 999;
   padding: 10px;
   color: #fff;
   background-color: rgb(0 0 0 / 50%);
   border-radius: 4px;
+
+  position: fixed;
+  top: 9rem;
+  right: 20px;
+  z-index: 999;
 `;
 
 const HorizontalScrollContainer = styled.div`
