@@ -3,8 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import Layout from '../../components/Layout';
 
-const index = () => {
+function Auth() {
   const router = useRouter();
   const token = Cookies.get('token');
 
@@ -13,22 +14,36 @@ const index = () => {
     return null;
   }
   return (
-    <div>
-      <Link href="auth/login">
-        <St.Button>로그인</St.Button>
-      </Link>
-
-      <Link href="auth/signup">
-        <St.Button>회원가입</St.Button>
-      </Link>
-    </div>
+    <Layout noHeader noMenuBar noFooter>
+      <AuthWrapper>
+        <ButtonWrapper>
+          <Link href="auth/login">
+            <Button type="button">로그인</Button>
+          </Link>
+          <Link href="auth/signup">
+            <Button type="button">회원가입</Button>
+          </Link>
+        </ButtonWrapper>
+      </AuthWrapper>
+    </Layout>
   );
-};
+}
 
-export default index;
+export default Auth;
 
-export const St = {
-  Button: styled.div`
-    font-size: 5rem;
-  `,
-};
+const Button = styled.button`
+  width: 27.5rem;
+  height: 4.4rem;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const AuthWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;

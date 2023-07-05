@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
-const index = () => {
+function Mypage() {
   const router = useRouter();
   const user = true;
 
@@ -11,6 +11,6 @@ const index = () => {
     console.log(previousPage);
   }, []);
   return <div>{user ? <div>독자뷰</div> : <div>작가뷰</div>}</div>;
-};
+}
 
-export default index;
+export default Mypage;

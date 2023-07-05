@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { styled } from 'styled-components';
+import Layout from '../../../components/Layout';
 
-const index = () => {
+function Signup() {
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [isEmailAvailable, setIsEmailAvailable] = useState(false);
@@ -30,12 +34,13 @@ const index = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('/api/signup', {
-        email,
-        password,
-        name,
-        phone,
+      const response = await axios.post(`${baseURL}/auth/signup`, {
+        email: 'kim@gmail.com',
+        nickname: '현수',
+        password: '1',
       });
+
+      console.log(response);
 
       const { token } = response.data;
 
@@ -86,10 +91,20 @@ const index = () => {
     phone &&
     allAgreed;
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
-    <div>
-      <div>이메일</div>
-      <input
+    <Layout noHeader noMenuBar noFooter>
+      <Head>
+        <button type="button" onClick={handleGoBack}>
+          뒤로가기
+        </button>
+        <div>회원가입</div>
+      </Head>
+      <InputName>이메일</InputName>
+      <InputSize2
         type="email"
         placeholder="이메일을 입력해주세요."
         value={email}
@@ -99,34 +114,35 @@ const index = () => {
         중복 확인
       </button>
       {!isEmailAvailable && <p>유효하지 않은 이메일입니다.</p>}
-      <input
+      <InputName>비밀번호</InputName>
+      <InputSize1
         type="password"
         placeholder="비밀번호를 입력해주세요."
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input
+      <InputName>비밀번호 확인</InputName>
+      <InputSize1
         type="password"
         placeholder="비밀번호를 다시 입력해주세요."
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       {!isPasswordMatch && <p>비밀번호가 일치하지 않습니다.</p>}
-      <input
+      <InputName>이름</InputName>
+      <InputSize1
         type="text"
         placeholder="이름을 입력해주세요."
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <input
+      <InputName>휴대전화 번호</InputName>
+      <InputSize1
         type="tel"
         placeholder="번호를 입력해주세요."
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
       />
-      <button type="button" onClick={handleSignup} disabled={!isFormValid}>
-        회원가입
-      </button>
 
       <div>
         <label htmlFor="allAgreed">
@@ -168,8 +184,30 @@ const index = () => {
           </label>
         </div>
       </div>
-    </div>
-  );
-};
 
-export default index;
+      <button type="button" onClick={handleSignup} disabled={!isFormValid}>
+        회원가입
+      </button>
+    </Layout>
+  );
+}
+
+export default Signup;
+
+const Head = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 37.5rem;
+`;
+
+const InputName = styled.div`
+  width: 37.5rem;
+`;
+
+const InputSize1 = styled.input`
+  width: 33.7rem;
+`;
+
+const InputSize2 = styled.input`
+  width: 23.6rem;
+`;

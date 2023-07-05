@@ -3,10 +3,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { St } from '..';
+import { styled } from 'styled-components';
+import Image from 'next/image';
+import Layout from '../../../components/Layout';
+import Next from '../../../public/next.svg';
 
-function Index() {
-  // next.js 에서 환경 변수 쓸 땐NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
+function Login() {
+  // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const router = useRouter();
@@ -18,19 +21,19 @@ function Index() {
 
   const accessTokenExpiration = new Date(
     new Date().getTime() + accessTokenExpiredTime * 60000,
-  ); // 현재 시간에 만료 시간을 더해 Date 객체 생성
+  );
   const refreshTokenExpiration = new Date(
     new Date().getTime() + refreshTokenExpiredTime * 60000,
-  ); // 현재 시간에 만료 시간을 더해 Date 객체 생성
+  );
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${baseURL}/api/test/auth/login`, {
-        id: 'test',
-        password: 'testtest',
-        accessTokenExpiredTime,
-        refreshTokenExpiredTime,
+      const response = await axios.post(`${baseURL}/auth/login`, {
+        email: 'kim@gmail.com',
+        password: '1',
       });
+
+      console.log(response);
 
       const { accessToken, refreshToken } = response.data;
 
@@ -47,24 +50,50 @@ function Index() {
     }
   };
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
-    <div>
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <St.Button onClick={handleLogin}>로그인</St.Button>
+    <Layout noHeader noMenuBar noFooter>
+      <button type="button" onClick={handleGoBack}>
+        뒤로가기
+      </button>
+      <div>로그인</div>
+      <Image src={Next} alt="로고 이미지" />
+      <InputWrapper>
+        <LoginInput
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <LoginInput
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </InputWrapper>
+      <Button onClick={handleLogin}>로그인</Button>
       <Link href="/auth/signup">
-        <St.Button>계정이 없으신가요?</St.Button>
+        <Button>계정이 없으신가요?</Button>
       </Link>
-    </div>
+    </Layout>
   );
 }
 
-export default Index;
+export default Login;
+
+const Button = styled.button`
+  width: 27.5rem;
+  height: 4.4rem;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const LoginInput = styled.input`
+  width: 30rem;
+`;

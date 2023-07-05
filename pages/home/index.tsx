@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -10,7 +11,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Layout from '../../components/Layout';
 
-const index = () => {
+function Home() {
+  const user = '비회원';
   const router = useRouter();
   const handleLogout = () => {
     Cookies.remove('accessToken');
@@ -18,18 +20,11 @@ const index = () => {
     router.push('auth/login');
   };
 
-  const a = 3;
-  console.log(a);
-  const b = 4;
-  const c = 5;
-  console.log(b);
-  console.log(c);
-
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
 
   useEffect(() => {
-    if (!refreshToken) {
+    if (user === '회원' && !refreshToken) {
       router.push('auth/login');
     }
   }, [refreshToken]);
@@ -84,8 +79,23 @@ const index = () => {
     beforeChange: (next: any) => setCurrentPage(next),
   };
 
+  let content;
+
+  switch (user) {
+    case '회원':
+      content = <div>회원</div>;
+      break;
+    case '작가':
+      content = <div>작가</div>;
+      break;
+    default:
+      content = <div>비회원</div>;
+      break;
+  }
+
   return (
-    <Layout noHeader noFooter>
+    <Layout noHeader noFooter noMenuBar>
+      <div>Logo</div>
       <St.Header>
         <button type="button" onClick={handleLogout}>
           Logout
@@ -95,8 +105,9 @@ const index = () => {
             <span>{obj.id}</span>
           </div>
         )) */}
-        <Image src={sample} alt="샘플 이미지" />
+        <Image src={sample} alt="상단 배너" />
       </St.Header>
+      {content}
       <div>
         <Slider {...settings}>
           <div>
@@ -141,9 +152,9 @@ const index = () => {
       </HorizontalScrollContainer>
     </Layout>
   );
-};
+}
 
-export default index;
+export default Home;
 
 const St = {
   Header: styled.div`
