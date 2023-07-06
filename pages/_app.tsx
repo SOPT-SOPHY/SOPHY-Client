@@ -1,11 +1,9 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
-
-import { GlobalStyle } from '../styles/global-style';
-import { theme } from '../styles/theme';
-
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { GlobalStyle } from '../styles/global-style';
+import theme from '../styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

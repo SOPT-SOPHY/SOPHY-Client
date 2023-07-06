@@ -1,13 +1,55 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import sample from 'public/next.svg';
-import Layout from '../../components/Layout';
-import { useQuery } from 'react-query';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import theme from '../../styles/theme';
 
-const index = () => {
+function Home() {
+  const user = '비회원';
+  const router = useRouter();
+  const handleLogout = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    router.push('auth/login');
+  };
+
+  const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+
+  useEffect(() => {
+    if (user === '회원' && !refreshToken) {
+      router.push('auth/login');
+    }
+  }, [refreshToken]);
+
+  if (!accessToken) {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/test/auth/refresh`, {
+        refreshToken:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiaWF0IjoxNjg3NzgzNzQ4LCJpc3MiOiJNb3JnYW4iLCJleHAiOjE2ODc3ODczNDgsInN1YiI6InVzZXJJbmZvIn0.DTpLuflN65whAUn1Xreexhl5R3T0bkTISAQSKQM7iy4',
+        accessTokenExpiredTime: 600,
+        refreshTokenExpiredTime: 3600,
+      })
+      .then((response) => {
+        console.log(response);
+        const newAccessToken = response.data.accessToken;
+        Cookies.set('accessToken', newAccessToken);
+        router.push('/home');
+      })
+
+      .catch((error) => {
+        console.error('Refresh Token Error:', error);
+        // router.push('auth/login');
+      });
+  }
+
+  /*
   const { isLoading, error, data } = useQuery(['repoData'], () =>
     axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
       console.log(res.data);
@@ -23,27 +65,154 @@ const index = () => {
   if (isLoading) return 'Loading...';
 
   if (error) return 'An error has occurred: ';
+*/
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    beforeChange: (next: any) => setCurrentPage(next),
+  };
+
+  const settings2 = {
+    className: 'center',
+    infinite: true,
+    centerPadding: '60px',
+    slidesToShow: 5,
+    swipeToSlide: true,
+    afterChange(index) {
+      console.log(
+        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`,
+      );
+    },
+    centerMode: true,
+    centerPadding: '100px',
+  };
+
+  let content;
+
+  switch (user) {
+    case '회원':
+      content = <div>회원</div>;
+      break;
+    case '작가':
+      content = <div>작가</div>;
+      break;
+    default:
+      content = <div>비회원</div>;
+      break;
+  }
 
   return (
-    <Layout noHeader noFooter>
+    <div>
+      <div>Logo</div>
       <St.Header>
-        소피 웨비들
-        {arr.map((obj, index) => (
+        <button type="button" onClick={handleLogout}>
+          Logout
+        </button>
+        {/* arr.map((obj, index) => (
           <div key={index}>
             <span>{obj.id}</span>
           </div>
-        ))}
-        <Image src={sample} alt="샘플 이미지" />
+        )) */}
+        <Image src={sample} alt="상단 배너" />
       </St.Header>
-    </Layout>
+      {content}
+      <div>
+        <Slider {...settings}>
+          <div>
+            <h3>
+              Slide{' '}
+              <St.Page>
+                {currentPage + 1}/{3}
+              </St.Page>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              Slide{' '}
+              <span>
+                {currentPage + 1}/{3}
+              </span>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              Slide{' '}
+              <span>
+                {currentPage + 1}/{3}
+              </span>
+            </h3>
+          </div>
+        </Slider>
+        <CustomPaging>Current Page: {currentPage + 1}</CustomPaging>
+      </div>
+      <div>slider2</div>
+      <div>
+        <h2>Swipe To Slide</h2>
+        <Slider {...settings2}>
+          <Item>1</Item>
+          <Item>
+            <h3>2</h3>
+          </Item>
+          <Item>
+            <h3>3</h3>
+          </Item>
+          <Item>
+            <h3>4</h3>
+          </Item>
+          <Item>
+            <h3>5</h3>
+          </Item>
+          <Item>
+            <h3>6</h3>
+          </Item>
+          <Item>
+            <h3>7</h3>
+          </Item>
+          <Item>
+            <h3>8</h3>
+          </Item>
+          <Item>
+            <h3>9</h3>
+          </Item>
+        </Slider>
+      </div>
+    </div>
   );
-};
+}
 
-export default index;
+export default Home;
 
 const St = {
   Header: styled.div`
-    color: rgb(255, 192, 203);
     font-size: 8rem;
+    color: rgb(255 192 203);
+  `,
+  Page: styled.span`
+    padding-left: 3rem;
   `,
 };
+
+const CustomPaging = styled.div`
+  position: fixed;
+  top: 9rem;
+  right: 20px;
+  z-index: 999;
+  padding: 10px;
+  color: #fff;
+  background-color: rgb(0 0 0 / 50%);
+  border-radius: 4px;
+`;
+
+const Item = styled.div`
+  width: 10px;
+  height: 200px;
+  margin-right: 20px;
+  color: ${theme.colors.yellow};
+  background-color: lightgray;
+`;

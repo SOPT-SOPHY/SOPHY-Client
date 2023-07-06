@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function index() {
+export default function Landing() {
   return <div>랜딩 페이지</div>;
 }
