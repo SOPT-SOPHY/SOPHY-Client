@@ -210,4 +210,5 @@ const Item = styled.div`
   height: 200px;
   color: ${theme.colors.primary};
   background-color: ${theme.colors.green01};
+  ${theme.fonts.display}
 `;
