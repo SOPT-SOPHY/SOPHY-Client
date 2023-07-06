@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:staged": "lint-staged",
-    "lint:css": "stylelint '**/*.{tsx, ts}' --fix"
+    "lint:css": "stylelint '**/*.{tsx, ts}' --fix",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
