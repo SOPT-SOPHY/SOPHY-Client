@@ -16,6 +16,7 @@ function Home() {
   const router = useRouter();
 
   var a = 1;
+  console.log(a);
 
   const handleLogout = () => {
     Cookies.remove('accessToken');
