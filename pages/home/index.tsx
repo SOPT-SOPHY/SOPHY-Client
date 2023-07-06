@@ -11,9 +11,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
 
 function Home() {
-  var e =
-   1;
-  console.log(e);
+  var f = 
+  1;
+  console.log(f);
 
   const user = '비회원';
   const router = useRouter();
