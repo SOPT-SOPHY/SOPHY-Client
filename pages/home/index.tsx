@@ -15,8 +15,8 @@ function Home() {
   const user = '비회원';
   const router = useRouter();
 
-  var d = 1;
-  console.log(d);
+  const e = 1;
+  console.log(e);
 
   const handleLogout = () => {
     Cookies.remove('accessToken');
