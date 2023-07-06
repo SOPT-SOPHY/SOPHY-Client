@@ -24,7 +24,7 @@ const SophyLayout = (props: LayoutProps) => {
 export default SophyLayout;
 const St = {
   Header: styled.header`
-    font-size: 3rem;
     padding: 2rem;
+    font-size: 3rem;
   `,
 };

@@ -19,17 +19,17 @@ const St = {
   ModalSection: styled.section`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 21rem;
     height: 10rem;
-    border-radius: 10px;
-    border: 1px solid #000;
     background: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
   `,
   ModalH1: styled.h1`
-    font-size: 1.2rem;
     padding: 1rem;
+    font-size: 1.2rem;
   `,
   ModalBtn: styled.button`
     padding: 0.8rem;

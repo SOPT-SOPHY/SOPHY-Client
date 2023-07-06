@@ -48,7 +48,6 @@ export default Index;
 const St = {
   Header: styled.h1`
     font-size: 10rem;
-
     color: 'yellow';
   `,
 };

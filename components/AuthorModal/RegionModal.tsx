@@ -5,10 +5,11 @@ import {
   selectedRegionList,
   checkAllRegion,
 } from '../recoil/AuthorRegion.tsx/selectors';
+
 type TModalText = {
   isClicked: boolean;
 };
-const RegionModal = ({ onClose }: any) => {
+function RegionModal({ onClose }: any) {
   const regions = [
     '가능동',
     '가능 1동',
@@ -67,8 +68,8 @@ const RegionModal = ({ onClose }: any) => {
   return (
     <St.ModalSection>
       <St.ModalTextContainer>
-        <St.ModalText isClicked={true}>의정부</St.ModalText>
-        <span></span>
+        <St.ModalText isClicked>의정부</St.ModalText>
+        <span />
         <St.ModalTextList>
           <St.ModalText isClicked={isClicked} onClick={handleClickAllRegions}>
             의정부시 전체
@@ -89,35 +90,36 @@ const RegionModal = ({ onClose }: any) => {
       </St.ModalBtn>
     </St.ModalSection>
   );
-};
+}
 export default RegionModal;
 const St = {
   ModalSection: styled.section`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 21.375rem;
     height: 32.5rem;
-    border-radius: 10px;
-    border: 1px solid #000;
     background: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
   `,
   ModalTextContainer: styled.article`
     display: flex;
     flex-direction: row;
+
     & > span {
       width: 0.0625rem;
       height: 20rem;
-      background: #000;
       margin: 1rem;
+      background: #000;
     }
   `,
   ModalText: styled.div<TModalText>`
-    font-size: 1.2rem;
     padding: 0.5rem;
-    pointer: cursor;
+    font-size: 1.2rem;
     color: ${({ isClicked }) => (isClicked ? 'red' : 'black')};
+    cursor: pointer;
   `,
   ModalTextList: styled.article`
     font-size: 1.2rem;
