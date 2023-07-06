@@ -15,8 +15,8 @@ function Home() {
   const user = '비회원';
   const router = useRouter();
 
-  var a = 1;
-  console.log(a);
+  var c = 1;
+  console.log(c);
 
   const handleLogout = () => {
     Cookies.remove('accessToken');
@@ -171,15 +171,14 @@ const St = {
 };
 
 const CustomPaging = styled.div`
-  padding: 10px;
-  color: #fff;
-  background-color: rgb(0 0 0 / 50%);
-  border-radius: 4px;
-
   position: fixed;
   top: 9rem;
   right: 20px;
   z-index: 999;
+  padding: 10px;
+  color: #fff;
+  background-color: rgb(0 0 0 / 50%);
+  border-radius: 4px;
 `;
 
 const HorizontalScrollContainer = styled.div`
