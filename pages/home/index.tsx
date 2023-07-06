@@ -11,6 +11,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
 
 function Home() {
+  const a = 3;
+  console.log(a);
   const user = '비회원';
   const router = useRouter();
   const handleLogout = () => {
@@ -80,15 +82,9 @@ function Home() {
 
   const settings2 = {
     className: 'center',
-    infinite: true,
-    centerPadding: '60px',
-    slidesToShow: 5,
+    infinite: false,
+    slidesToShow: 2,
     swipeToSlide: true,
-    afterChange(index) {
-      console.log(
-        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`,
-      );
-    },
     centerMode: true,
     centerPadding: '100px',
   };
@@ -212,7 +208,7 @@ const CustomPaging = styled.div`
 const Item = styled.div`
   width: 10px;
   height: 200px;
-  margin-right: 20px;
-  color: ${theme.colors.yellow};
-  background-color: lightgray;
+  color: ${theme.colors.primary};
+  background-color: ${theme.colors.green01};
+  ${theme.fonts.display}
 `;
