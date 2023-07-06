@@ -1,23 +1,9 @@
 const colors = {
-  yellow: '#FBF26C',
-  yellow01: '#FFFAAD',
-  blue: '#212530',
-  lightGrey: '#fafafa',
-  gray000: '#FFFFFF',
-  gray050: '#fafafa',
-  gray100: '#f6f6f6',
-  gray150: '#ebebeb',
-  gray200: '#dcdcdc',
-  gray250: '#c2c2c2',
-  gray300: '#a7a7a7',
-  gray350: '#8e8e8e',
-  gray400: '#717171',
-  gray550: '#444444',
-  gray500: '#2f2f2f',
-  gray600: '#222222',
-  black: '#1E2025',
+  // blackOpacity 지우지 마세요!!
   blackOpacity70: '#111',
   blackOpacity80: '#112',
+  primary: '#57BEBC',
+  green01: '#FAFAFC',
 } as const;
 
 interface Font {
@@ -29,7 +15,7 @@ interface Font {
 
 function FONT({ weight, size, lineHeight, letterSpacing }: Font): string {
   return `
-      font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
+      font-family: 'pretendard'
       font-weight: ${weight};
       font-size: ${size}rem;
       line-height: ${lineHeight}rem;
