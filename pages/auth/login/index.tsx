@@ -35,16 +35,18 @@ function Login() {
 
       console.log(response);
 
-      const { accessToken, refreshToken } = response.data;
+      // eslint-disable-next-line camelcase
+      const { access_token, refresh_token } = response.data.data;
+      console.log(access_token);
 
-      Cookies.set('accessToken', accessToken, {
+      Cookies.set('accessToken', access_token, {
         expires: accessTokenExpiration,
       });
-      Cookies.set('refreshToken', refreshToken, {
+      Cookies.set('refreshToken', refresh_token, {
         expires: refreshTokenExpiration,
       });
 
-      router.push('/home');
+      // router.push('/home');
     } catch (error) {
       console.error('로그인 에러 발생', error);
     }
