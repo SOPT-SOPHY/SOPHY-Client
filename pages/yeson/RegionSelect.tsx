@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import backArrow from '../../assets/icon/backArrow.svg';
+import Link from 'next/link';
 
 const RegionSelect = () => {
+  const [selectedRegion, setSelectedRegion] = useState('');
+
+  const handleRegionSelect = (region: string) => {
+    setSelectedRegion(region);
+  };
+
   return (
     <>
       <Body>
@@ -23,40 +30,44 @@ const RegionSelect = () => {
               </SelectBox>
               <DongBoxContainer>
                 <DongBox>
-                  <ul>의정부시 전체</ul>
+                  <li onClick={() => handleRegionSelect('의정부시 전체')}>
+                    의정부시 전체
+                  </li>
+                </DongBox>
+                <DongBox onClick={() => handleRegionSelect('가능동')}>
+                  <li>가능동</li>
+                </DongBox>
+                <DongBox onClick={() => handleRegionSelect('가능1동')}>
+                  <li>가능1동</li>
+                </DongBox>
+                <DongBox onClick={() => handleRegionSelect('고산동')}>
+                  <li>고산동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>가능동</ul>
+                  <li>금오동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>가능1동</ul>
+                  <li>낙양동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>고산동</ul>
+                  <li>녹양동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>금오동</ul>
+                  <li>민락동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>낙양동</ul>
+                  <li>산곡동</li>
                 </DongBox>
                 <DongBox>
-                  <ul>녹양동</ul>
-                </DongBox>
-                <DongBox>
-                  <ul>민락동</ul>
-                </DongBox>
-                <DongBox>
-                  <ul>산곡동</ul>
-                </DongBox>
-                <DongBox>
-                  <ul>신곡1동</ul>
+                  <li>신곡1동</li>
                 </DongBox>
               </DongBoxContainer>
             </RegionBox>
           </RegionContainer>
         </div>
-        <Button type="button">다음으로</Button>
+        <Link href={`/nextPage?region=${selectedRegion}`} passHref>
+          <Button as="a">다음으로</Button>
+        </Link>
       </Body>
     </>
   );
@@ -182,7 +193,7 @@ const DongBox = styled.div`
 
   position: relative;
 
-  ul {
+  li {
     color: #36393c;
     font-size: 0.875rem;
     font-family: Pretendard;

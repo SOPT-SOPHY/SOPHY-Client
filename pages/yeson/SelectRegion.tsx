@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import RegionModal from '../../components/RegionModal';
 
-const SelectRegion = () => {
+const selectRegion = () => {
   return (
-    <div>SelectRegion</div>
-  )
-}
+    <>
+      <div>SelectRegion</div>
+      <RegionModal />
+    </>
+  );
+};
 
-export default SelectRegion
+export default selectRegion;
