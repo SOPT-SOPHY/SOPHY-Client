@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { styled } from 'styled-components';
 import Image from 'next/image';
 import Layout from '../../../components/Layout';
-import Next from '../../../public/next.svg';
 import { sophyLogoImg } from '../../../assets/img';
+import theme from '../../../styles/theme';
 
 function Login() {
   // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const router = useRouter();
+  // const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -53,10 +53,6 @@ function Login() {
     }
   };
 
-  const handleGoBack = () => {
-    router.back();
-  };
-
   return (
     <Layout noHeader noMenuBar noFooter>
       <Image
@@ -64,25 +60,26 @@ function Login() {
         width={161}
         height={58}
         alt="sophy 로고"
-        style={{ marginTop: '5.9rem' }}
+        style={{ marginTop: '5.9rem', marginBottom: '7.9rem' }}
       />
-      <button type="button" onClick={handleGoBack}>
-        뒤로가기
-      </button>
-      <div>로그인</div>
-      <Image src={Next} alt="로고 이미지" />
-      <InputWrapper>
-        <LoginInput
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <LoginInput
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </InputWrapper>
+      <InputsWrapper>
+        <InputTitle>이메일 주소</InputTitle>
+        <InputWrapper>
+          <LoginInput
+            placeholder="이메일을 입력해주세요"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </InputWrapper>
+        <InputTitle>비밀번호</InputTitle>
+        <InputWrapper>
+          <LoginInput
+            placeholder="비밀번호를 입력해주세요"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </InputWrapper>
+      </InputsWrapper>
       <Button onClick={handleLogin}>로그인</Button>
       <Link href="/auth/signup">
         <Button>계정이 없으신가요?</Button>
@@ -98,12 +95,29 @@ const Button = styled.button`
   height: 4.4rem;
 `;
 
-const InputWrapper = styled.div`
+const InputsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
 
+const InputWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 33.5rem;
+`;
+
 const LoginInput = styled.input`
-  width: 30rem;
+  width: 25rem;
+  border: none;
+  ::placeholder {
+    color: ${theme.colors.gray08};
+  }
+`;
+
+const InputTitle = styled.div`
+  font-size: 2.4rem;
+  width: 33.5rem;
+  ${theme.fonts.subhead4_semibold}
+  color: ${theme.colors.gray01};
 `;
