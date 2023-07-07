@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -9,9 +8,13 @@ import { useRouter } from 'next/router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Layout from '../../components/Layout';
+import theme from '../../styles/theme';
+import useFetchTestData from '../../hooks/queries/test';
 
 function Home() {
+  const a = 3;
+  console.log(a);
+
   const user = '비회원';
   const router = useRouter();
 
@@ -47,7 +50,6 @@ function Home() {
         Cookies.set('accessToken', newAccessToken);
         router.push('/home');
       })
-
       .catch((error) => {
         console.error('Refresh Token Error:', error);
         // router.push('auth/login');
@@ -83,6 +85,15 @@ function Home() {
     beforeChange: (next: any) => setCurrentPage(next),
   };
 
+  const settings2 = {
+    className: 'center',
+    infinite: false,
+    slidesToShow: 2,
+    swipeToSlide: true,
+    centerMode: true,
+    centerPadding: '100px',
+  };
+
   let content;
 
   switch (user) {
@@ -97,8 +108,10 @@ function Home() {
       break;
   }
 
+  useFetchTestData(accessToken);
+
   return (
-    <Layout noHeader noFooter noMenuBar>
+    <div>
       <div>Logo</div>
       <St.Header>
         <button type="button" onClick={handleLogout}>
@@ -107,6 +120,7 @@ function Home() {
         {/* arr.map((obj, index) => (
           <div key={index}>
             <span>{obj.id}</span>
+            <span>{obj.title}</span>
           </div>
         )) */}
         <Image src={sample} alt="상단 배너" />
@@ -141,20 +155,38 @@ function Home() {
         </Slider>
         <CustomPaging>Current Page: {currentPage + 1}</CustomPaging>
       </div>
-      <div>slider</div>
-      <HorizontalScrollContainer>
-        <HorizontalScrollContent>
-          {/* 수평으로 스크롤될 내용 */}
-          <Item>Item 1</Item>
-          <Item>Item 2</Item>
-          <Item>Item 3</Item>
-          <Item>Item 1</Item>
-          <Item>Item 2</Item>
-          <Item>Item 3</Item>
-          {/* 추가적인 아이템들 */}
-        </HorizontalScrollContent>
-      </HorizontalScrollContainer>
-    </Layout>
+      <div>slider2</div>
+      <div>
+        <h2>Swipe To Slide</h2>
+        <Slider {...settings2}>
+          <Item>1</Item>
+          <Item>
+            <h3>2</h3>
+          </Item>
+          <Item>
+            <h3>3</h3>
+          </Item>
+          <Item>
+            <h3>4</h3>
+          </Item>
+          <Item>
+            <h3>5</h3>
+          </Item>
+          <Item>
+            <h3>6</h3>
+          </Item>
+          <Item>
+            <h3>7</h3>
+          </Item>
+          <Item>
+            <h3>8</h3>
+          </Item>
+          <Item>
+            <h3>9</h3>
+          </Item>
+        </Slider>
+      </div>
+    </div>
   );
 }
 
@@ -181,20 +213,10 @@ const CustomPaging = styled.div`
   border-radius: 4px;
 `;
 
-const HorizontalScrollContainer = styled.div`
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-`;
-
-const HorizontalScrollContent = styled.div`
-  display: inline-block;
-`;
-
 const Item = styled.div`
-  display: inline-block;
-  width: 200px;
+  width: 10px;
   height: 200px;
-  margin-right: 20px;
-  background-color: lightgray;
+  color: ${theme.colors.primary};
+  background-color: ${theme.colors.green01};
+  ${theme.fonts.display}
 `;
