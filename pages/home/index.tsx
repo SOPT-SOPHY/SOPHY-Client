@@ -9,10 +9,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
+import useFetchTestData from '../../hooks/queries/test';
 
 function Home() {
   const a = 3;
   console.log(a);
+
   const user = '비회원';
   const router = useRouter();
   const handleLogout = () => {
@@ -44,7 +46,6 @@ function Home() {
         Cookies.set('accessToken', newAccessToken);
         router.push('/home');
       })
-
       .catch((error) => {
         console.error('Refresh Token Error:', error);
         // router.push('auth/login');
@@ -102,6 +103,8 @@ function Home() {
       content = <div>비회원</div>;
       break;
   }
+
+  useFetchTestData(accessToken);
 
   return (
     <div>
