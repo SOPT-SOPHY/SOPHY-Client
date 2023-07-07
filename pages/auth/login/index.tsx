@@ -7,6 +7,7 @@ import { styled } from 'styled-components';
 import Image from 'next/image';
 import Layout from '../../../components/Layout';
 import Next from '../../../public/next.svg';
+import { sophyLogoImg } from '../../../assets/img';
 
 function Login() {
   // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
@@ -58,6 +59,13 @@ function Login() {
 
   return (
     <Layout noHeader noMenuBar noFooter>
+      <Image
+        src={sophyLogoImg}
+        width={161}
+        height={58}
+        alt="sophy 로고"
+        style={{ marginTop: '5.9rem' }}
+      />
       <button type="button" onClick={handleGoBack}>
         뒤로가기
       </button>
