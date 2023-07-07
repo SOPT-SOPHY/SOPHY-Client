@@ -116,6 +116,7 @@ function Home() {
         {/* arr.map((obj, index) => (
           <div key={index}>
             <span>{obj.id}</span>
+            <span>{obj.title}</span>
           </div>
         )) */}
         <Image src={sample} alt="상단 배너" />

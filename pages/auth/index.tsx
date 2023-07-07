@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 
 function Auth() {
+  /*
   const router = useRouter();
   const token = Cookies.get('token');
 
@@ -13,6 +12,7 @@ function Auth() {
     router.push('/main');
     return null;
   }
+  */
   return (
     <Layout noHeader noMenuBar noFooter>
       <AuthWrapper>
