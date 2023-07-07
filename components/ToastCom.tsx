@@ -6,7 +6,7 @@ const ToastCom = () => {
   const { isOpenToast, msg, showToast } = toastHook;
 
   const handleClick = () => {
-    showToast('신청 완료되었습니다.(토스트 3초 띄우기)');
+    showToast('신청이 완료되었습니다.(토스트 3초 띄우기)');
   };
 
   return (
