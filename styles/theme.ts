@@ -25,11 +25,11 @@ const colors = {
   gray09: '#dde0e4',
   gray10: '#eceef0',
   gray11: '#fafac',
-  black: '181818',
-  white: 'ffffff',
-  dangerRed: 'ec2d30',
-  warningOrange: 'fe9b0e',
-  successBlue: '3a70e2',
+  black: '#181818',
+  white: '#ffffff',
+  dangerRed: '#ec2d30',
+  warningOrange: '#fe9b0e',
+  successBlue: '#3a70e2',
 } as const;
 
 interface Font {
