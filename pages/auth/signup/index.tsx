@@ -1,9 +1,18 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { styled } from 'styled-components';
+import Image from 'next/image';
 import Layout from '../../../components/Layout';
+import {
+  GoBackIcon,
+  ColorCheckIcon,
+  GrayCheckIcon,
+} from '../../../assets/icon';
+import theme from '../../../styles/theme';
 
 function Signup() {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -98,12 +107,11 @@ function Signup() {
   return (
     <Layout noHeader noMenuBar noFooter>
       <Head>
-        <button type="button" onClick={handleGoBack}>
-          뒤로가기
-        </button>
-        <div>회원가입</div>
+        <Image src={GoBackIcon} alt="뒤로가기 아이콘" onClick={handleGoBack} />
+        <PageTitle>회원가입</PageTitle>
+        <TitleBlank />
       </Head>
-      <InputName>이메일</InputName>
+      <InputTitle>이메일 주소</InputTitle>
       <InputSize2
         type="email"
         placeholder="이메일을 입력해주세요."
@@ -114,14 +122,14 @@ function Signup() {
         중복 확인
       </button>
       {!isEmailAvailable && <p>유효하지 않은 이메일입니다.</p>}
-      <InputName>비밀번호</InputName>
+      <InputTitle>비밀번호</InputTitle>
       <InputSize1
         type="password"
         placeholder="비밀번호를 입력해주세요."
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <InputName>비밀번호 확인</InputName>
+      <InputTitle>비밀번호 확인</InputTitle>
       <InputSize1
         type="password"
         placeholder="비밀번호를 다시 입력해주세요."
@@ -129,21 +137,21 @@ function Signup() {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       {!isPasswordMatch && <p>비밀번호가 일치하지 않습니다.</p>}
-      <InputName>이름</InputName>
+      <InputTitle>이름 (실명입력)</InputTitle>
       <InputSize1
         type="text"
         placeholder="이름을 입력해주세요."
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <InputName>휴대전화 번호</InputName>
+      <InputTitle>휴대전화 번호 ('-' 구분없이 입력)</InputTitle>
       <InputSize1
         type="tel"
         placeholder="번호를 입력해주세요."
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
       />
-
+      <InputTitle>이용약관 동의</InputTitle>
       <div>
         <label htmlFor="allAgreed">
           <input
@@ -194,9 +202,12 @@ function Signup() {
 
 export default Signup;
 
-const Head = styled.div`
+const Head = styled.header`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
   width: 37.5rem;
 `;
 
@@ -210,4 +221,26 @@ const InputSize1 = styled.input`
 
 const InputSize2 = styled.input`
   width: 23.6rem;
+`;
+
+const PageTitle = styled.div`
+  ${theme.fonts.subhead2_bold};
+`;
+
+const TitleBlank = styled.div`
+  width: 4.4rem;
+  height: 4.4rem;
+`;
+
+const LoginLine = styled.div`
+  width: 33.5rem;
+  border-top: 0.1rem solid ${theme.colors.gray09};
+`;
+
+const InputTitle = styled.div`
+  font-size: 2.4rem;
+  width: 33.5rem;
+  ${theme.fonts.subhead4_semibold}
+  color: ${theme.colors.gray01};
+  margin-bottom: 1rem;
 `;
