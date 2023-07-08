@@ -15,6 +15,7 @@ function BTDetail() {
         <ImageContainer>
           <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
         </ImageContainer>
+        <Title>북토크 상세정보</Title>
       </Header>
       <hr style={{ borderTop: '1px solid #F6F7FA' }} />
       <DetailImg>
@@ -54,16 +55,24 @@ const Body = styled.div`
   padding: 0;
 
   background-color: ${({ theme }) => theme.colors.white};
+
+  border: 1px solid ${({ theme }) => theme.colors.gray11};
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 
+  position: fixed;
+  width: 37.5rem;
   height: 4.4rem;
+  z-index: 2;
 
   margin-top: 4.4rem;
+
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const ImageContainer = styled.div`
@@ -76,8 +85,16 @@ const ImageContainer = styled.div`
   }
 `;
 
+const Title = styled.h1`
+  ${({ theme }) => theme.fonts.subhead2_bold};
+  color: ${({ theme }) => theme.colors.black};
+
+  margin-right: 12.8rem;
+`;
+
 const DetailImg = styled.div`
-  margin-top: 2.1rem;
+  margin-top: 10.9rem; /* 헤더의 높이와 동일하게 조정 */
+
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 1.9rem;
