@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import toastIcon from '../assets/icon/ic_check_toast.svg';
+import toastIcon from '../../assets/icon/ic_check_toast.svg';
 
 interface ToastProps {
   msg: string;
