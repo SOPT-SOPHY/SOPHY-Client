@@ -23,7 +23,7 @@ const colors = {
   gray07: '#bdc5cc',
   gray08: '#cdd2d8',
   gray09: '#dde0e4',
-  gray10: '#eceef0',
+  gray10: '#ECEEF0',
   gray11: '#fafac',
   black: '#181818',
   white: '#ffffff',
