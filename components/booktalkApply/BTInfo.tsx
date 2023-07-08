@@ -271,9 +271,9 @@ const SpaceBox = styled.div`
   width: 33.5rem;
 
   margin-top: 1.6rem;
-  margin-left: 1.6rem;
+  margin-left: 2rem;
   margin-right: 2rem;
-  margin-bottom: 3.2rem;
+  margin-bottom: 1.3rem;
 `;
 
 const SpaceImage = styled.div`
@@ -313,9 +313,9 @@ const SpaceIcon = styled.div`
 
 const SpaceName = styled.h3`
   position: absolute;
-  z-index: 1;
   top: 5.4rem;
   left: 2rem;
+  z-index: 1;
 
   ${({ theme }) => theme.fonts.subhead2_bold};
   color: ${({ theme }) => theme.colors.gray01};
