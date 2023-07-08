@@ -263,7 +263,7 @@ const ToastContainer = styled.div`
   height: 4.8rem;
 
   position: fixed;
-  bottom: 1rem;
+  bottom: 4.8rem;
 
   ${theme.fonts.subhead4_semibold};
 

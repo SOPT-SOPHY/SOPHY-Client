@@ -23,7 +23,6 @@
       "git add"
     ],
     "*.css": [
-      "yarn lint:styles --fix",
       "git add"
     ]
   },
