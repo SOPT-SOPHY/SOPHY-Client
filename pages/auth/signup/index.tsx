@@ -101,8 +101,10 @@ function Signup() {
     if (termsAgreed && privacyAgreed && marketingAgreed) {
       setAllAgreed(true);
     }
-    if (termsAgreed && privacyAgreed) {
+    if (termsAgreed && privacyAgreed && !marketingAgreed) {
       setOnlyEssentialAgreed(true);
+    } else {
+      setOnlyEssentialAgreed(false);
     }
   }, [termsAgreed, privacyAgreed, marketingAgreed]);
 
@@ -116,6 +118,7 @@ function Signup() {
   }, [password, confirmPassword]);
 
   useEffect(() => {
+    const term = onlyEssentialAgreed || allAgreed;
     if (
       // isEmailAvailable &&
       isPasswordMatch &&
@@ -124,7 +127,7 @@ function Signup() {
       confirmPassword &&
       name &&
       phone &&
-      onlyEssentialAgreed
+      term
     ) {
       setIsFormValid(true);
     } else {
@@ -139,6 +142,7 @@ function Signup() {
     name,
     phone,
     onlyEssentialAgreed,
+    allAgreed,
   ]);
 
   const handleGoBack = () => {
