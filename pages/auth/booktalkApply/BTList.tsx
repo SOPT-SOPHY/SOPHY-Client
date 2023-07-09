@@ -35,7 +35,7 @@ function NextPage() {
   const { region } = router.query;
 
   const {
-    data: items,
+    data: fetchedItems,
     isLoading,
     error,
   } = useQuery<CountryProps[], Error | AxiosError>('countries', fetchData);
@@ -48,10 +48,7 @@ function NextPage() {
     return <div>Error: {error.message}</div>;
   }
 
-  function filterItems(
-    filteredItems: CountryProps[] | null,
-    filterParam: string,
-  ) {
+  function filterItems(data: CountryProps[] | null, filterParam: string) {
     // if (filteredItems) {
     //   const values: CountryProps[] = [];
     //   for (const key in filteredItems) {
@@ -62,25 +59,35 @@ function NextPage() {
     //   return values;
     // }
     // return [];
-    if (items) {
-      const values: CountryProps[] = [];
-      Object.keys(items).forEach((key: string) => {
-        const item: CountryProps = items[key];
+    const values: CountryProps[] = [];
+    if (filterParam === 'All' && data) {
+      Object.keys(data).forEach((key: string) => {
+        const item: CountryProps = data[key];
+        values.push(item);
+      });
+      return values;
+    }
+    if (data) {
+      Object.keys(data).forEach((key: string) => {
+        const item: CountryProps = data[key];
         if (item.region === filterParam) {
           values.push(item);
         }
       });
       return values;
     }
+
     return [];
   }
 
-  const filteredItems = items ? filterItems(items, region as string) : [];
+  const resultItems = fetchedItems
+    ? filterItems(fetchedItems, region as string)
+    : [];
 
   return (
     <Body>
       <Header>
-        <Link href="/auth/booktalk/selectRegion">
+        <Link href="/auth/booktalkApply/SelectRegion">
           <ImageContainer>
             <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
           </ImageContainer>
@@ -97,16 +104,8 @@ function NextPage() {
         />
       </SelectBox>
 
-      {/* <div>
-          {filteredItems.map((item, index) => (
-            <div key={index}>
-              <p>Name: {item.name}</p>
-              <p>Population: {item.population}</p>
-            </div>
-          ))}
-        </div> */}
       <SingleBookTalkContainer>
-        {filteredItems.map((item) => (
+        {resultItems.map((item) => (
           <SingleBookTalk key={item.alpha3Code} item={item} />
         ))}
       </SingleBookTalkContainer>

@@ -34,8 +34,20 @@ function SelectRegion() {
               <h1>의정부</h1>
             </SelectBox>
             <DongBoxContainer>
-              <DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('All')}
+                isSelected={selectedRegion === 'All'}>
                 <li>의정부시 전체</li>
+                <span>
+                  {selectedRegion === 'All' && (
+                    <Image
+                      src={icCheck}
+                      width={16}
+                      height={16}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
               </DongBox>
               <DongBox
                 onClick={() => handleRegionSelect('Americas')}
