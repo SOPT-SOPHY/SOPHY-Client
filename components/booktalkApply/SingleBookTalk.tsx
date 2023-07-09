@@ -33,7 +33,8 @@ function SingleBookTalk({ item }: SingleBookTalkProps) {
         </TextWrapper>
         <CountWrapper>
           <Image src={icPeople} width={24} height={24} alt="사람" />
-          <Count>3/6</Count>
+          <Count>3</Count>
+          <TotalCount>/{item.population}</TotalCount>
         </CountWrapper>
       </BookTalkWrapper>
       <HorizontalLine />
@@ -107,6 +108,7 @@ const Space = styled.h3`
 const CountWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   position: absolute;
 
@@ -123,16 +125,13 @@ const CountWrapper = styled.div`
 `;
 
 const Count = styled.h1`
-  ${({ theme }) => theme.fonts.subhead4_semibold};
+  ${({ theme }) => theme.fonts.body2_medium};
   color: ${({ theme }) => theme.colors.primary};
+`;
 
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: -0.408px;
+const TotalCount = styled.h1`
+  ${({ theme }) => theme.fonts.body2_medium};
+  color: ${({ theme }) => theme.colors.gray06};
 `;
 
 const HorizontalLine = styled.hr`
