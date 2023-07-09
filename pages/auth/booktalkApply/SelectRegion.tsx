@@ -128,7 +128,7 @@ function SelectRegion() {
           </RegionBox>
         </RegionContainer>
       </div>
-      <Link href={`./nextPage?region=${selectedRegion}`} passHref>
+      <Link href={`./BTList?region=${selectedRegion}`} passHref>
         <NextButton isactive={selectedRegion}>선택완료</NextButton>
       </Link>
     </Body>
