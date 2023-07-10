@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-// import btnUp from '../../../assets/icon/btn_up.svg';
 import { useQuery } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
+import btnUp from '../../../assets/icon/btn_up.svg';
 import btnDown from '../../../assets/icon/btn_down.svg';
 import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
@@ -30,19 +30,28 @@ const fetchData = async () => {
   }
 };
 
-function NextPage() {
+function BTList() {
   const router = useRouter();
   const { region } = router.query;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleDropdownToggle = () => {
+    setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
+  };
+
+  const handleRegionSelect = () => {
+    setIsOpen(false);
+  };
 
   const {
     data: fetchedItems,
-    isLoading,
+    // isLoading,
     error,
   } = useQuery<CountryProps[], Error | AxiosError>('countries', fetchData);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -94,16 +103,27 @@ function NextPage() {
         </Link>
         <Title>모집 중인 북토크</Title>
       </Header>
-      <SelectBox>
+      <SelectBox onClick={handleDropdownToggle}>
         <SubTitle>{region}</SubTitle>
         <Image
-          src={btnDown}
+          src={isOpen ? btnUp : btnDown}
           width={24}
           height={24}
           alt="selectBox 띄우기 버튼"
         />
       </SelectBox>
-
+      {isOpen && (
+        <DropdownContainer>
+          <DropdownBox>
+            <DropdownItem onClick={() => handleRegionSelect()}>
+              {region}
+            </DropdownItem>
+            <DropdownButton onClick={() => router.back()}>
+              지역 선택
+            </DropdownButton>
+          </DropdownBox>
+        </DropdownContainer>
+      )}
       <SingleBookTalkContainer>
         {resultItems.map((item) => (
           <SingleBookTalk key={item.alpha3Code} item={item} />
@@ -113,9 +133,10 @@ function NextPage() {
   );
 }
 
-export default NextPage;
+export default BTList;
 
 const Body = styled.div`
+  position: relative;
   width: 37.5rem;
 
   margin: 0 auto;
@@ -159,7 +180,7 @@ const Title = styled.h1`
   margin-right: 12.8rem;
 `;
 
-const SelectBox = styled.div`
+const SelectBox = styled.button`
   display: flex;
   align-items: center;
 
@@ -169,11 +190,58 @@ const SelectBox = styled.div`
   margin-left: 2rem;
   margin-bottom: 1.1rem;
   gap: 0.2rem;
+
+  border: none;
+  background-color: transparent;
 `;
 
 const SubTitle = styled.h2`
   ${({ theme }) => theme.fonts.subhead2_bold};
   color: ${({ theme }) => theme.colors.black};
+`;
+
+const DropdownContainer = styled.div`
+  position: absolute;
+  top: 14.1rem;
+  left: 2rem;
+  z-index: 3;
+`;
+
+const DropdownBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  width: 22.7rem;
+  height: 9.2rem;
+  flex-shrink: 0;
+
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 1rem;
+  /* sophy_shadow1 */
+  box-shadow: 1px 1.8014705181121826px 12px 0px rgba(64, 119, 118, 0.17);
+`;
+
+const DropdownItem = styled.button`
+  position: absolute;
+  top: 1.6rem;
+  left: 1.6rem;
+
+  ${({ theme }) => theme.fonts.subhead3_semibold};
+  color: ${({ theme }) => theme.colors.black};
+  border: none;
+  background-color: transparent;
+`;
+
+const DropdownButton = styled.button`
+  position: absolute;
+  top: 5.2rem;
+  left: 1.6rem;
+
+  ${({ theme }) => theme.fonts.body1_medium};
+  color: ${({ theme }) => theme.colors.black};
+  border: none;
+  background-color: transparent;
 `;
 
 const SingleBookTalkContainer = styled.div`
