@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from '../styles/global-style';
 import theme from '../styles/theme';
+import '../public/static/fonts/style.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

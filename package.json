@@ -18,13 +18,11 @@
   },
   "lint-staged": {
     "**/*.{tsx, ts}": [
-      "stylelint '**/*.{tsx, ts}' --fix",
       "yarn prettier --write",
       "yarn eslint --fix",
       "git add"
     ],
     "*.css": [
-      "yarn lint:styles --fix",
       "git add"
     ]
   },

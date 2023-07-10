@@ -1,27 +1,39 @@
 const colors = {
-  yellow: '#FBF26C',
-  yellow01: '#FFFAAD',
-  blue: '#212530',
-  lightGrey: '#fafafa',
-  gray000: '#FFFFFF',
-  gray050: '#fafafa',
-  gray100: '#f6f6f6',
-  gray150: '#ebebeb',
-  gray200: '#dcdcdc',
-  gray250: '#c2c2c2',
-  gray300: '#a7a7a7',
-  gray350: '#8e8e8e',
-  gray400: '#717171',
-  gray550: '#444444',
-  gray500: '#2f2f2f',
-  gray600: '#222222',
-  black: '#1E2025',
+  // blackOpacity 지우지 마세요!!
   blackOpacity70: '#111',
   blackOpacity80: '#112',
+  primary: '#57BEBC',
+  green01: '#FAFAFC',
+  green02: '#eef9f8',
+  green03: '#e6f5f5',
+  green04: '#cbebea',
+  green05: '#57bebc',
+  green06: '#4eaba9',
+  green07: '#469896',
+  green08: '#418f8d',
+  green09: '#347271',
+  green10: '#275555',
+  green11: '#1E4342',
+  gray01: '#36393C',
+  gray02: '#4F5357',
+  gray03: '#7c8389',
+  gray04: '#959ca4',
+  gray05: '#959CA4',
+  gray06: '#AFB8C1',
+  gray07: '#bdc5cc',
+  gray08: '#cdd2d8',
+  gray09: '#dde0e4',
+  gray10: '#ECEEF0',
+  gray11: '#fafac',
+  black: '#181818',
+  white: '#ffffff',
+  dangerRed: '#ec2d30',
+  warningOrange: '#fe9b0e',
+  successBlue: '#3a70e2',
 } as const;
 
 interface Font {
-  weight: 300 | 400 | 500 | 600 | 700 | 800;
+  weight: number;
   size: number;
   lineHeight: number;
   letterSpacing?: number;
@@ -29,38 +41,41 @@ interface Font {
 
 function FONT({ weight, size, lineHeight, letterSpacing }: Font): string {
   return `
-      font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard-Regular';
       font-weight: ${weight};
+      font-style: normal;
       font-size: ${size}rem;
       line-height: ${lineHeight}rem;
       ${letterSpacing && `letter-spacing: -0.0${letterSpacing}rem;`}
-    `;
+  `;
 }
 
 const fonts = {
-  title1: FONT({ weight: 700, size: 4, lineHeight: 5.4 }),
-  title2: FONT({ weight: 700, size: 3, lineHeight: 4.1 }),
-  title3: FONT({ weight: 700, size: 2, lineHeight: 3.2 }),
-  title4: FONT({ weight: 700, size: 2.6, lineHeight: 3.5 }),
-  subtitle1: FONT({ weight: 500, size: 3, lineHeight: 5 }),
-  title4Semibold: FONT({ weight: 600, size: 2, lineHeight: 2.7 }),
-  title5Semibold: FONT({ weight: 600, size: 1.8, lineHeight: 2.5 }),
-  body1: FONT({ weight: 400, size: 1.8, lineHeight: 3 }),
-  body2: FONT({ weight: 400, size: 1.4, lineHeight: 1.9 }),
-  body3: FONT({ weight: 500, size: 2.4, lineHeight: 3.3 }),
-  body4: FONT({ weight: 500, size: 1.6, lineHeight: 3.8 }),
-  body5: FONT({ weight: 700, size: 2.2, lineHeight: 3.0 }),
-  body6: FONT({ weight: 500, size: 2.6, lineHeight: 3.5 }),
-  body7: FONT({ weight: 500, size: 2.2, lineHeight: 3.0 }),
-  body8: FONT({ weight: 600, size: 2.2, lineHeight: 3.8 }),
-  caption: FONT({ weight: 400, size: 1.4, lineHeight: 3.2 }),
-  caption1: FONT({ weight: 600, size: 1.8, lineHeight: 2.5 }),
-  tooltip: FONT({ weight: 400, size: 1.2, lineHeight: 1.8, letterSpacing: 6 }),
-  sizetag: FONT({ weight: 700, size: 1.6, lineHeight: 2.2 }),
-  button1: FONT({ weight: 800, size: 4, lineHeight: 5.4 }),
-  card1: FONT({ weight: 600, size: 1.6, lineHeight: 1.9 }),
-  card2: FONT({ weight: 500, size: 1.4, lineHeight: 1.9 }),
-  body2_DSB: FONT({ weight: 600, size: 1.4, lineHeight: 1.9 }),
+  display: FONT({ weight: 700, size: 3.2, lineHeight: 4 }),
+  headline1: FONT({ weight: 700, size: 2.8, lineHeight: 3.6 }),
+  headline2: FONT({ weight: 700, size: 2, lineHeight: 3.2 }),
+  headline3_bold: FONT({ weight: 700, size: 2.2, lineHeight: 2.8 }),
+  headline3_medium: FONT({ weight: 500, size: 2.2, lineHeight: 2.8 }),
+  subhead1_bold: FONT({ weight: 700, size: 2, lineHeight: 2.6 }),
+  subhead1_medium: FONT({ weight: 500, size: 2, lineHeight: 2.6 }),
+  subhead2_bold: FONT({ weight: 700, size: 1.8, lineHeight: 2.2 }),
+  subhead2_semibold: FONT({ weight: 600, size: 1.8, lineHeight: 2.4 }),
+  subhead2_medium: FONT({ weight: 500, size: 1.8, lineHeight: 2.4 }),
+  subhead3_semibold: FONT({ weight: 600, size: 1.6, lineHeight: 2.4 }),
+  subhead4_bold: FONT({ weight: 700, size: 1.5, lineHeight: 2.4 }),
+  subhead4_semibold: FONT({ weight: 600, size: 1.5, lineHeight: 2.4 }),
+  body1_medium: FONT({ weight: 500, size: 1.5, lineHeight: 2.4 }),
+  body2_bold: FONT({ weight: 700, size: 1.4, lineHeight: 1.6 }),
+  body2_medium: FONT({ weight: 500, size: 1.4, lineHeight: 2 }),
+  body2_regular: FONT({ weight: 400, size: 1.4, lineHeight: 2 }),
+  body3_medium: FONT({ weight: 500, size: 1.2, lineHeight: 1.6 }),
+  body3_regular: FONT({ weight: 400, size: 1.2, lineHeight: 1.6 }),
+  caption: FONT({
+    weight: 500,
+    size: 1,
+    lineHeight: 1.6,
+    letterSpacing: 0.04,
+  }),
 } as const;
 
 const theme = {

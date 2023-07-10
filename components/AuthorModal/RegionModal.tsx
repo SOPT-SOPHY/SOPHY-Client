@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import {
@@ -7,7 +7,7 @@ import {
 } from '../recoil/AuthorRegion.tsx/selectors';
 
 type TModalText = {
-  isClicked: boolean;
+  isClickAll: boolean;
 };
 function RegionModal({ onClose }: any) {
   const regions = [
@@ -20,68 +20,73 @@ function RegionModal({ onClose }: any) {
     '민락동',
     '산곡동',
   ];
-  const [clickedRegion, setClickedRegion] = useRecoilState(selectedRegionList);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [clickedRegion, setClickedRegion] = useRecoilState(selectedRegionList); // 각 지역 선택
+  const [isClickAll, setisClickAll] = useState<boolean>(false);
+  const [clickedId, setClickedId] = useState<number>(-1);
   const [clickedAllRegion, setclickedAllRegion] =
     useRecoilState(checkAllRegion);
 
   // 선택 시 포커싱
-  const regionRef = useRef([]);
-  regionRef.current = [];
-  const [length, setLength] = useState(1);
-  const refs = useRef([
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-  ]);
+  // const regionRef = useRef([]);
+  // regionRef.current = [];
+  // const [length, setLength] = useState(1);
+  // const refs = useRef([
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  //   React.createRef(),
+  // ]);
 
-  const updateLength = (index) => {
-    setLength(index);
-  };
+  // const updateLength = (index) => {
+  //   setLength(index);
+  // };
 
-  useEffect(() => {
-    refs.current[length - 1].current.style = 'color:blue;';
-  }, [length]);
+  // useEffect(() => {
+  //   refs.current[length - 1].current.style = 'color:blue;';
+  // }, [length]);
 
-  const addToRefs = (el) => {
-    regionRef.current.push(el);
-    console.log(regionRef.current);
-  };
+  // const addToRefs = (el) => {
+  //   regionRef.current.push(el);
+  //   console.log(regionRef.current);
+  // };
 
   const handleClickAllRegions = () => {
-    setIsClicked((isClicked) => !isClicked);
+    setisClickAll((isClickAll) => !isClickAll);
     return setclickedAllRegion(!clickedAllRegion);
   };
 
   const handleClickRegions = (region: string, index: number) => {
     const newRegion = [...clickedRegion, region];
     setClickedRegion(newRegion);
-    addToRefs({ region });
-    updateLength(index);
+    setClickedId(index);
+
+    // addToRefs({ region });
+    // updateLength(index);
   };
 
   return (
     <St.ModalSection>
       <St.ModalTextContainer>
-        <St.ModalText isClicked>의정부</St.ModalText>
+        <St.ModalText isClickAll>의정부</St.ModalText>
         <span />
         <St.ModalTextList>
-          <St.ModalText isClicked={isClicked} onClick={handleClickAllRegions}>
+          <St.ModalText isClickAll={isClickAll} onClick={handleClickAllRegions}>
             의정부시 전체
           </St.ModalText>
           {regions.map((region, index) => (
-            <St.ModalText
-              isClicked={isClicked}
-              onClick={() => handleClickRegions({ region, index })}
-              key={index}
-              ref={refs.current[index]}>
+            <St.ModalTextList
+              onClick={() => handleClickRegions(region, index)}
+              isClickAll={isClickAll}
+              isClick={clickedId === index}
+              key={region}
+              // className={`${select === region ? 'select' : ''}`}
+            >
               {region}
-            </St.ModalText>
+            </St.ModalTextList>
           ))}
         </St.ModalTextList>
       </St.ModalTextContainer>
@@ -118,8 +123,11 @@ const St = {
   ModalText: styled.div<TModalText>`
     padding: 0.5rem;
     font-size: 1.2rem;
-    color: ${({ isClicked }) => (isClicked ? 'red' : 'black')};
+
+    background-color: ${({ isClickAll }) => (isClickAll ? 'red' : 'black')};
     cursor: pointer;
+
+    background-color: ${({ isClick }) => (isClick ? 'gray' : 'white')};
   `,
   ModalTextList: styled.article`
     font-size: 1.2rem;
