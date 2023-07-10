@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import backArrow from '../../../assets/icon/ic_backArrow.svg';
-import icCheck from '../../../assets/icon/ic_check.svg';
+import backArrow from '../../assets/icon/ic_backArrow.svg';
+import icCheck from '../../assets/icon/ic_check.svg';
 
 interface DongBoxProps {
   isSelected?: boolean;

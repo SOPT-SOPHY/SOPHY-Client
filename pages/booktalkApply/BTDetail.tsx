@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import backArrow from '../../../assets/icon/ic_backArrow.svg';
-import detailImage from '../../../assets/img/detailImage.png';
-import BTInfo from '../../../components/booktalkApply/BTInfo';
-import BTData from '../../../data/BTData';
-import CheckBox from '../../../components/booktalkApply/CheckBox';
+import backArrow from '../../assets/icon/ic_backArrow.svg';
+import detailImage from '../../assets/img/detailImage.png';
+import BTInfo from '../../components/booktalkApply/BTInfo';
+import BTData from '../../data/BTData';
+import CheckBox from '../../components/booktalkApply/CheckBox';
 
 function BTDetail() {
   const filteredData = BTData.filter((data) => data.id === 1);

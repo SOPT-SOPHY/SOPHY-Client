@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { useQuery } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
-import btnUp from '../../../assets/icon/btn_up.svg';
-import btnDown from '../../../assets/icon/btn_down.svg';
-import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
-import backArrow from '../../../assets/icon/ic_backArrow.svg';
+import btnUp from '../../assets/icon/btn_up.svg';
+import btnDown from '../../assets/icon/btn_down.svg';
+import SingleBookTalk from '../../components/booktalkApply/SingleBookTalk';
+import backArrow from '../../assets/icon/ic_backArrow.svg';
 
 interface CountryProps {
   alpha3Code: string;
@@ -96,7 +96,7 @@ function BTList() {
   return (
     <Body>
       <Header>
-        <Link href="/auth/booktalkApply/SelectRegion">
+        <Link href="/booktalkApply/SelectRegion">
           <ImageContainer>
             <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
           </ImageContainer>
