@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 import Image from 'next/image';
-import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
+import ModalPortal from '../ModalPortal';
+import AuthorModal from './AuthorModal';
 import {
   AddPhoto,
   DownButton,
@@ -15,6 +15,13 @@ import {
 } from '../../assets/icon';
 
 function AuthorForm() {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const HandleModal = () => {
+    setModalOpen(true);
+  };
+  const HandleModalShow = () => {
+    setModalOpen(false);
+  };
   return (
     <>
       <FormSection>
@@ -108,10 +115,12 @@ function AuthorForm() {
           />
         </IntroduceContainer>
       </FormSection>
-
-      <Link href="confirm">
-        <AuthorButton>다음</AuthorButton>
-      </Link>
+      <AuthorModalButton onClick={HandleModal}>다음</AuthorModalButton>
+      {modalOpen && (
+        <ModalPortal>
+          <AuthorModal onClose={HandleModalShow} />
+        </ModalPortal>
+      )}
     </>
   );
 }
@@ -315,4 +324,15 @@ const IntroduceInput = styled.input`
   &::placeholder {
     color: ${theme.colors.gray06};
   }
+`;
+const AuthorModalButton = styled.button`
+  margin-left: 2rem;
+  margin-bottom: 11.2rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.white};
+  border-radius: 0.375rem;
+  background: ${theme.colors.green05};
+  border: none;
 `;

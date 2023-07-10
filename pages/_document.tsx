@@ -76,6 +76,7 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          <div id="modal-root" />
           <Main />
           <NextScript />
         </body>

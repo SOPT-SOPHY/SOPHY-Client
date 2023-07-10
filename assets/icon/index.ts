@@ -13,3 +13,4 @@ export { default as ClockIcon } from './ClockIcon.svg';
 export { default as ScheduleIcon } from './ScheduleIcon.svg';
 export { default as DownButton } from './DownButton.svg';
 export { default as NextButton } from './NextButton.svg';
+export { default as BookIcon } from './BookIcon.svg';
