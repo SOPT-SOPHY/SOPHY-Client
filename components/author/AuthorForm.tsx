@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import AuthorButton from './AuthorButton';
+import theme from '../../styles/theme';
 
 function AuthorForm() {
   return (
     <>
-      <Title>신청 폼 쭈ㅉ웅</Title>
+      <UploadImage />
       <Link href="detail">
         <AuthorButton>완료 2/2</AuthorButton>
       </Link>
@@ -15,7 +16,8 @@ function AuthorForm() {
 }
 
 export default AuthorForm;
-const Title = styled.h1`
-  margin: 1rem;
-  font-size: 2rem;
+const UploadImage = styled.div`
+  width: 33.5rem;
+  height: 18.4rem;
+  color: ${theme.colors.gray11};
 `;
