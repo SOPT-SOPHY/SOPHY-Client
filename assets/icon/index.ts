@@ -9,3 +9,7 @@ export { default as ActiveCheckboxIcon } from './ActiveCheckboxIcon.svg';
 export { default as MoreIcon } from './MoreIcon.svg';
 export { default as BackButton } from './BackButton.svg';
 export { default as AddPhoto } from './AddPhoto.svg';
+export { default as ClockIcon } from './ClockIcon.svg';
+export { default as ScheduleIcon } from './ScheduleIcon.svg';
+export { default as DownButton } from './DownButton.svg';
+export { default as NextButton } from './NextButton.svg';
