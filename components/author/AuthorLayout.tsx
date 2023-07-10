@@ -6,10 +6,12 @@ import theme from '../../styles/theme';
 
 interface LayoutProps {
   children: React.ReactNode;
-  title: string;
+  noPageNum: false;
+  noPageTitle: false;
+  title: null;
 }
 function AuthorLayout(props: LayoutProps) {
-  const { children, title } = props;
+  const { children, noPageNum, noPageTitle, title } = props;
 
   return (
     <Header>
@@ -28,10 +30,12 @@ function AuthorLayout(props: LayoutProps) {
         />
       </div>
 
-      <PageNumber>
-        <span>3</span>/ 3
-      </PageNumber>
-      <PageTitle>{title}</PageTitle>
+      {!noPageNum && (
+        <PageNumber>
+          <span>3</span>/ 3
+        </PageNumber>
+      )}
+      {!noPageTitle && <PageTitle>{title}</PageTitle>}
       {children}
     </Header>
   );

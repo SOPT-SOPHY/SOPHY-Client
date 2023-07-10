@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 
-// interface Props {
-//   children: React.ReactNode;
-// }
-function AuthorButton() {
-  //   const { children } = props;
+interface Props {
+  children: React.ReactNode;
+}
+function AuthorButton(props: Props) {
+  const { children } = props;
 
-  return <NextButton type="button">다음</NextButton>;
+  return <NextButton type="button">{children}</NextButton>;
 }
 
 export default AuthorButton;

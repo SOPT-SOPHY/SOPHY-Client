@@ -109,8 +109,8 @@ function AuthorForm() {
         </IntroduceContainer>
       </FormSection>
 
-      <Link href="detail">
-        <AuthorButton />
+      <Link href="confirm">
+        <AuthorButton>다음</AuthorButton>
       </Link>
     </>
   );
