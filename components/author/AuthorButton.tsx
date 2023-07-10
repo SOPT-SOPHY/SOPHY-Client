@@ -13,7 +13,8 @@ function AuthorButton() {
 
 export default AuthorButton;
 const NextButton = styled.button`
-  margin: 0 2rem;
+  margin-left: 2rem;
+  margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;
   font: ${theme.fonts.subhead3_semibold};

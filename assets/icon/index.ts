@@ -8,3 +8,4 @@ export { default as InactiveCheckboxIcon } from './InactiveCheckboxIcon.svg';
 export { default as ActiveCheckboxIcon } from './ActiveCheckboxIcon.svg';
 export { default as MoreIcon } from './MoreIcon.svg';
 export { default as BackButton } from './BackButton.svg';
+export { default as AddPhoto } from './AddPhoto.svg';

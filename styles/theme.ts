@@ -41,7 +41,7 @@ interface Font {
 
 function FONT({ weight, size, lineHeight, letterSpacing }: Font): string {
   return `
-      font-family: 'Pretendard-Regular';
+      font-family: 'pretendard', sans-serif;
       font-weight: ${weight};
       font-style: normal;
       font-size: ${size}rem;
