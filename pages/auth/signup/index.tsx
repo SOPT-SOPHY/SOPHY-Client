@@ -19,6 +19,12 @@ import {
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 
+interface StyledComponentProps {
+  string?: string | null;
+  boolean?: boolean | null;
+  confirmPassword?: string | null;
+}
+
 function Signup() {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -30,10 +36,10 @@ function Signup() {
   const [isPasswordAvailable, setIsPasswordAvailable] = useState<
     boolean | null
   >(null);
-  const [password, setPassword] = useState<string | null>('');
-  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [phone, setPhone] = useState<string | null>(null);
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean | null>(null);
 
   const [allAgreed, setAllAgreed] = useState(false);
@@ -110,9 +116,9 @@ function Signup() {
 
   useEffect(() => {
     if (password === '') {
-      setPassword(null);
+      setPassword('');
     } else if (confirmPassword === '') {
-      setConfirmPassword(null);
+      setConfirmPassword('');
     } else if (password === confirmPassword) setIsPasswordMatch(true);
     else setIsPasswordMatch(false);
   }, [password, confirmPassword]);
@@ -233,7 +239,7 @@ function Signup() {
         />
       </InputWrapper>
       <LoginLine boolean={isPasswordAvailable} />
-      {password === null ? (
+      {password === '' ? (
         <InputConditionMessage>
           비밀번호는 8~16자, 영문, 숫자를 포함해야 합니다.
         </InputConditionMessage>
@@ -496,7 +502,7 @@ const Input = styled.input`
   }
 `;
 
-const LoginLine = styled.div`
+const LoginLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>
@@ -505,7 +511,7 @@ const LoginLine = styled.div`
         : theme.colors.dangerRed};
 `;
 
-const ConfirmPasswordLine = styled.div`
+const ConfirmPasswordLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>
@@ -525,7 +531,7 @@ const DoubleCheckButton = styled.button`
   color: ${theme.colors.gray05};
 `;
 
-const ValidationMessage = styled.div`
+const ValidationMessage = styled.div<StyledComponentProps>`
   margin-top: 0.4rem;
   height: 1.6rem;
   width: 33.5rem;
