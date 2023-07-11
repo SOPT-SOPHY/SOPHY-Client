@@ -14,7 +14,7 @@ interface RegionProps {
 
 function AuthorRegion() {
   //   const [isAllClicked, setIsAllClicked] = useState<boolean>(false); // 의정부시 전체가 선택되었는지 유무
-  const [clickedId, setClickedId] = useState<Array>([]);
+  const [clickedId, setClickedId] = useState<number[]>([]);
   const regions = [
     '가능동',
     '가능 1동',
@@ -37,9 +37,15 @@ function AuthorRegion() {
   const handleClickRegions = (region: string, index: number) => {
     setClickedId([index]);
   };
+
   return (
     <Region>
-      <AuthorLayout pageNum="1" title="지역을 선택해주세요" />
+      <AuthorLayout
+        noPageNum={false}
+        noPageTitle={false}
+        pageNum="1"
+        title="지역을 선택해주세요"
+      />
       <RegionSection>
         <RegionWrapper>
           <UpperRegion>의정부</UpperRegion>
@@ -82,7 +88,7 @@ const Region = styled.div`
 const RegionSection = styled.div`
   width: 33.5rem;
   height: 50rem;
-  margin: 2.4rem 0rem 4.5rem 2rem;
+  margin: 2.4rem 0rem 4.5rem 0rem;
 
   border-radius: 0.8rem;
   border: none;
@@ -130,6 +136,6 @@ const Regions = styled.div<RegionProps>`
   color: ${({ isClick }) =>
     isClick ? theme.colors.primary : theme.colors.gray02};
 `;
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ isClick: boolean }>`
   display: ${({ isClick }) => (isClick ? 'block' : 'none')};
 `;

@@ -132,7 +132,6 @@ const Form = styled.div`
   flex-direction: column;
 `;
 const FormSection = styled.div`
-  margin: 0rem 2rem;
   margin-top: 2.4rem;
 `;
 const UploadImage = styled.div`
@@ -332,7 +331,6 @@ const IntroduceInput = styled.input`
   }
 `;
 const AuthorModalButton = styled.button`
-  margin-left: 2rem;
   margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;

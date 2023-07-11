@@ -7,8 +7,8 @@ import theme from '../../styles/theme';
 
 interface LayoutProps {
   // ModalOpen: false;
-  noPageNum: false;
-  noPageTitle: false;
+  noPageNum: boolean;
+  noPageTitle: boolean;
   pageNum: string;
   title: string;
 }
@@ -22,23 +22,17 @@ function AuthorLayout(props: LayoutProps) {
 
   return (
     <Layout>
-      {/* <Background modalOpen={modalOpen} /> */}
       <Header>
-        <div>
-          <Image
-            src={BackButton}
-            alt="뒤로가기"
-            onClick={handleGoBack}
-            //   height={44}
-            //   width={44}
-            // style={{
-            //   marginTop: '13px',
-            //   marginLeft: '17px',
-            //   marginBottom: '13px',
-            //   marginRight: '17px',
-            // }}
-          />
-        </div>
+        <Image
+          src={BackButton}
+          alt="뒤로가기"
+          onClick={handleGoBack}
+          height={44}
+          width={44}
+          style={{
+            marginLeft: '-17px',
+          }}
+        />
 
         {!noPageNum && (
           <PageNumber>
@@ -47,7 +41,6 @@ function AuthorLayout(props: LayoutProps) {
         )}
         {!noPageTitle && <PageTitle>{title}</PageTitle>}
       </Header>
-      {/* {children} */}
     </Layout>
   );
 }
@@ -61,16 +54,10 @@ const Layout = styled.div`
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-
-  & .div {
-    margin-top: 1.3rem;
-    margin-left: 1.7rem;
-  }
 `;
 
 const PageNumber = styled.h1`
   margin-top: 0.8rem;
-  margin-left: 2rem;
   color: ${theme.colors.gray06};
   font: ${theme.fonts.subhead2_medium};
   & > span {
@@ -82,6 +69,5 @@ const PageNumber = styled.h1`
 
 const PageTitle = styled.h1`
   margin-top: 1.6rem;
-  margin-left: 2rem;
   font: ${theme.fonts.headline2};
 `;

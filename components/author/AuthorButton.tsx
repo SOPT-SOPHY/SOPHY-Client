@@ -24,7 +24,6 @@ const NextButtonWrapper = styled.div`
   background: ${theme.colors.white};
 `;
 const NextButton = styled.button`
-  margin-left: 2rem;
   margin-bottom: 11.2rem;
   margin-top: 2.6rem;
 

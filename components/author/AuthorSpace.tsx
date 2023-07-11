@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,13 @@ import theme from '../../styles/theme';
 import { BackButton } from '../../assets/icon';
 import { logincompleteImg } from '../../assets/img';
 
+interface SpaceProps {
+  isClick?: boolean;
+  onClick?: () => void;
+}
+
 function AuthorSpace() {
+  const [clickedId, setClickedId] = useState<number>(-1);
   const spaces = [
     {
       image: logincompleteImg,
@@ -70,13 +76,23 @@ function AuthorSpace() {
   const handleGoBack = () => {
     router.back();
   };
+  const handleClickSpaces = (index: number) => {
+    setClickedId(index);
+  };
   return (
     <Space>
       <Layout>
         <Header>
-          <div>
-            <Image src={BackButton} alt="뒤로가기" onClick={handleGoBack} />
-          </div>
+          <Image
+            src={BackButton}
+            alt="뒤로가기"
+            onClick={handleGoBack}
+            height={44}
+            width={44}
+            style={{
+              marginLeft: '-17px',
+            }}
+          />
           <PageNumber>
             <span>2</span>/ 3
           </PageNumber>
@@ -84,12 +100,16 @@ function AuthorSpace() {
         </Header>
       </Layout>
       <SpaceSection>
-        {spaces.map((space) => (
+        {spaces.map((space, index) => (
           <SpaceContainer key={space.info}>
             {/* <Image src={space.image} alt="공간 이미지" width={72} heigth={72} /> */}
-            <SpaceWrapper>
+            <SpaceWrapper
+              onClick={() => handleClickSpaces(index)}
+              isClick={clickedId === index}>
               <SpaceImage />
-              <SpaceInfo>
+              <SpaceInfo
+                onClick={() => handleClickSpaces(index)}
+                isClick={clickedId === index}>
                 <SpaceName>{space.info}</SpaceName>
                 <SpaceAddress>{space.address}</SpaceAddress>
                 <MaxPeople>{space.people}</MaxPeople>
@@ -124,15 +144,10 @@ const Layout = styled.div`
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-  & .div {
-    margin-top: 1.3rem;
-    margin-left: 1.7rem;
-  }
 `;
 
 const PageNumber = styled.h1`
   margin-top: 0.8rem;
-  margin-left: 2rem;
   color: ${theme.colors.gray06};
   font: ${theme.fonts.subhead2_medium};
   & > span {
@@ -144,25 +159,29 @@ const PageNumber = styled.h1`
 
 const PageTitle = styled.h1`
   margin-top: 1.6rem;
-  margin-left: 2rem;
   font: ${theme.fonts.headline2};
 `;
 
 const SpaceSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
-  margin-left: 2rem;
+  margin-top: 14rem; //14 + 3
+
+  height: 51.8rem;
+  overflow-y: auto;
 `;
 const SpaceContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const SpaceWrapper = styled.div`
+const SpaceWrapper = styled.div<SpaceProps>`
   display: flex;
   gap: 1.6rem;
-  margin-bottom: 1.6rem;
-  margin-top: 1.6rem;
+
+  padding-bottom: 1.6rem;
+  padding-top: 1.6rem;
+  background: ${({ isClick }) =>
+    isClick ? theme.colors.green03 : theme.colors.white};
 `;
 const SpaceImage = styled.div`
   width: 7.2rem;
@@ -175,16 +194,18 @@ const SpaceInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 0.5rem;
+  color: ${({ isClick }) =>
+    isClick ? theme.colors.green08 : theme.colors.black};
 `;
 const SpaceName = styled.h1`
   margin-bottom: 0.6rem;
   fonts: ${theme.fonts.body2_bold};
-  color: ${theme.colors.black};
+  /* color: ${theme.colors.black}; */
 `;
 const SpaceAddress = styled.h2`
   margin-bottom: 0.8rem;
   fonts: ${theme.fonts.body3_regular};
-  color: ${theme.colors.black};
+  /* color: ${theme.colors.black}; */
 `;
 const MaxPeople = styled.span`
   fonts: ${theme.fonts.body3_regular};
