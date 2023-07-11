@@ -218,7 +218,7 @@ function Signup() {
           중복 확인
         </DoubleCheckButton>
       </EmailInputWrapper>
-      <LoginLine boolean={isEmailAvailable} />
+      <LoginLine boolean={isEmailAvailable} string={email} />
       {isEmailAvailable === null ? (
         <></>
       ) : isEmailAvailable ? (
@@ -242,7 +242,7 @@ function Signup() {
           onChange={handlePasswordChange}
         />
       </InputWrapper>
-      <LoginLine boolean={isPasswordAvailable} />
+      <PasswordLine boolean={isPasswordAvailable} />
       {password === '' ? (
         <InputConditionMessage>
           비밀번호는 8~16자, 영문, 숫자를 포함해야 합니다.
@@ -299,7 +299,7 @@ function Signup() {
           onChange={handleNameChange}
         />
       </InputWrapper>
-      <LoginLine boolean />
+      <LoginLine boolean string={name} />
       <InputMultipleConditionMessage>
         소피는 <PrimaryColorSpan>한글 실명</PrimaryColorSpan>으로 운영되고
         있습니다.
@@ -318,7 +318,7 @@ function Signup() {
           onChange={phoneChange}
         />
       </InputWrapper>
-      <LoginLine boolean />
+      <LoginLine boolean string={phone} />
       <InputTitle>
         <InputTitleContent>이용약관 동의</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
@@ -326,9 +326,17 @@ function Signup() {
       <AllAgreeButton type="button" onClick={handleAllAgree}>
         네, 모두 동의합니다
         {allAgreed ? (
-          <Image src={ColorCheckIcon} alt="유색의 체크 모양의 아이콘" />
+          <Image
+            src={ColorCheckIcon}
+            alt="유색의 체크 모양의 아이콘"
+            style={{ marginLeft: '0.6rem' }}
+          />
         ) : (
-          <Image src={GrayCheckIcon} alt="무색의 체크 모양의 아이콘" />
+          <Image
+            src={GrayCheckIcon}
+            alt="무색의 체크 모양의 아이콘"
+            style={{ marginLeft: '0.6rem' }}
+          />
         )}
       </AllAgreeButton>
       <div>
@@ -507,6 +515,15 @@ const Input = styled.input`
 `;
 
 const LoginLine = styled.div<StyledComponentProps>`
+  width: 33.5rem;
+  border-top: 0.1rem solid
+    ${(props) =>
+      props.string && props?.string?.length > 0
+        ? theme.colors.primary
+        : theme.colors.gray09};
+`;
+
+const PasswordLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>

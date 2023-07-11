@@ -15,6 +15,12 @@ interface ButtonProps {
   isLoginAvailable: boolean;
 }
 
+interface StyledComponentProps {
+  string?: string | null;
+  boolean?: boolean | null;
+  confirmPassword?: string | null;
+}
+
 function Login() {
   // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -118,7 +124,7 @@ function Login() {
           ) : (
             <NonEmailInput />
           )}
-          <LoginLine />
+          <LoginLine string={emailError} />
           {emailError ? (
             <ErrorMessage>{emailError}</ErrorMessage>
           ) : (
@@ -140,7 +146,7 @@ function Login() {
               setShowPswd(!showPswd);
             }}
           />
-          <LoginLine />
+          <PasswordLine string={password} />
         </InputWrapper>
       </InputsWrapper>
       <Button onClick={handleLogin} isLoginAvailable={isLoginAvailable}>
@@ -204,9 +210,19 @@ const LoginInput = styled.input`
   }
 `;
 
-const LoginLine = styled.div`
+const LoginLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
-  border-top: 0.1rem solid ${theme.colors.gray09};
+  border-top: 0.1rem solid
+    ${(props) => (props.string ? theme.colors.dangerRed : theme.colors.gray09)};
+`;
+
+const PasswordLine = styled.div<StyledComponentProps>`
+  width: 33.5rem;
+  border-top: 0.1rem solid
+    ${(props) =>
+      props.string && props.string.length > 0
+        ? theme.colors.primary
+        : theme.colors.gray09};
 `;
 
 const InputTitle = styled.div`
