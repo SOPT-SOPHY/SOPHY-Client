@@ -4,10 +4,12 @@ import Image from 'next/image';
 import AuthorButton from './AuthorButton';
 import { logincompleteImg } from '../../assets/img';
 import theme from '../../styles/theme';
+import AuthorLayout from './@AuthorLayout';
 
 function AuthorConfirm() {
   return (
     <>
+      <AuthorLayout noPageNum noPageTitle title="" />
       <ConfirmSection>
         <Image
           src={logincompleteImg}

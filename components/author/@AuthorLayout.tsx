@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useRecoilValue } from 'recoil';
-
 import { useRouter } from 'next/router';
 import { BackButton } from '../../assets/icon';
 import theme from '../../styles/theme';
-import { isModalOpen } from '../recoil/selector';
 
 interface LayoutProps {
-  children: React.ReactNode;
   // ModalOpen: false;
   noPageNum: false;
   noPageTitle: false;
@@ -17,8 +13,7 @@ interface LayoutProps {
   title: string;
 }
 function AuthorLayout(props: LayoutProps) {
-  const { children, noPageNum, noPageTitle, pageNum, title } = props;
-  const modalOpen = useRecoilValue(isModalOpen);
+  const { noPageNum, noPageTitle, pageNum, title } = props;
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -27,8 +22,8 @@ function AuthorLayout(props: LayoutProps) {
 
   return (
     <Layout>
-      <Background modalOpen={modalOpen} />
-      <Header modalOpen={modalOpen}>
+      {/* <Background modalOpen={modalOpen} /> */}
+      <Header>
         <div>
           <Image
             src={BackButton}
@@ -52,7 +47,7 @@ function AuthorLayout(props: LayoutProps) {
         )}
         {!noPageTitle && <PageTitle>{title}</PageTitle>}
       </Header>
-      {children}
+      {/* {children} */}
     </Layout>
   );
 }
@@ -67,26 +62,10 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
 
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 14rem;
-
-  background: ${({ modalOpen }) =>
-    modalOpen ? 'rgba(0,0,0,0.0)' : theme.colors.white};
-
-  /* background: ${theme.colors.white}; */
   & .div {
     margin-top: 1.3rem;
     margin-left: 1.7rem;
   }
-`;
-
-const Background = styled.div`
-  /* position: fixed;
-  z-index: -99;
-  background: 'rgba(0,0,0,0.6)';
-  display: ${({ modalOpen }) => (modalOpen ? 'block' : 'none')}; */
 `;
 
 const PageNumber = styled.h1`

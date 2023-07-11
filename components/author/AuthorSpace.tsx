@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
+import { BackButton } from '../../assets/icon';
 import { logincompleteImg } from '../../assets/img';
 
 function AuthorSpace() {
@@ -63,8 +65,24 @@ function AuthorSpace() {
       people: '최대 8명',
     },
   ];
+  const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
   return (
     <>
+      <Layout>
+        <Header>
+          <div>
+            <Image src={BackButton} alt="뒤로가기" onClick={handleGoBack} />
+          </div>
+          <PageNumber>
+            <span>2</span>/ 3
+          </PageNumber>
+          <PageTitle>공간을 선택해주세요</PageTitle>
+        </Header>
+      </Layout>
       <SpaceSection>
         {spaces.map((space) => (
           <SpaceContainer key={space.info}>
@@ -89,10 +107,50 @@ function AuthorSpace() {
 }
 
 export default AuthorSpace;
+const Layout = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 14rem;
+
+  display: flex;
+  flex-direction: column;
+
+  background: ${theme.colors.white};
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+
+  & .div {
+    margin-top: 1.3rem;
+    margin-left: 1.7rem;
+  }
+`;
+
+const PageNumber = styled.h1`
+  margin-top: 0.8rem;
+  margin-left: 2rem;
+  color: ${theme.colors.gray06};
+  font: ${theme.fonts.subhead2_medium};
+  & > span {
+    margin-right: 0.19rem;
+    color: #56b5b3;
+    font: ${theme.fonts.headline3_bold};
+  }
+`;
+
+const PageTitle = styled.h1`
+  margin-top: 1.6rem;
+  margin-left: 2rem;
+  font: ${theme.fonts.headline2};
+`;
+
 const SpaceSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 15.3rem;
+  margin-top: 3rem;
   margin-left: 2rem;
 `;
 const SpaceContainer = styled.div`

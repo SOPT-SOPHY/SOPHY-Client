@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
 import AuthorModal from './@AuthorModal';
+import { isModalOpen } from '../recoil/selector';
 import {
   AddPhoto,
   DownButton,
@@ -14,7 +15,7 @@ import {
   // InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
-import { isModalOpen } from '../recoil/selector';
+import AuthorLayout from './@AuthorLayout';
 
 function AuthorForm() {
   const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
@@ -26,6 +27,7 @@ function AuthorForm() {
   };
   return (
     <>
+      <AuthorLayout pageNum="3" title="신청서를 작성해주세요" />
       <FormSection>
         <UploadImage>
           <Image src={AddPhoto} alt="이미지 업로드" />
@@ -36,25 +38,21 @@ function AuthorForm() {
           <TitleInput type="text" placeholder="북토크 제목을 입력해주세요" />
           <InputUnderLine />
         </InputContainer>
-
         <FormHeading>분야 선택</FormHeading>
         <CategoryContainer>
           <CategoryDropDown>카테고리를 선택해주세요</CategoryDropDown>
           <Image src={DownButton} alt="드롭다운" width={24} height={24} />
         </CategoryContainer>
-
         <FormHeading>도서 정보 불러오기</FormHeading>
         <BookInfoContainer>
           <BookInfoButton>내 도서 관리로 이동하기</BookInfoButton>
           <Image src={NextButton} alt="이동버튼" width={24} height={24} />
         </BookInfoContainer>
-
         <FormHeading>개최 일정</FormHeading>
         <DayContainer>
           <Image src={ScheduleIcon} alt="달력" width={24} height={24} />
           <DayInput type="text" placeholder="YY/MM/DD" />
         </DayContainer>
-
         <HourContainer>
           <StartWrapper>
             <FormHeading>시작 시간</FormHeading>
@@ -117,6 +115,7 @@ function AuthorForm() {
           />
         </IntroduceContainer>
       </FormSection>
+
       <AuthorModalButton onClick={HandleModal}>다음</AuthorModalButton>
       {modalOpen && (
         <ModalPortal>
@@ -130,7 +129,7 @@ function AuthorForm() {
 export default AuthorForm;
 const FormSection = styled.div`
   margin: 0rem 2rem;
-  margin-top: 14.4rem;
+  margin-top: 2.4rem;
 `;
 const UploadImage = styled.div`
   display: flex;
