@@ -1,8 +1,13 @@
 import React from 'react';
-import AuthorForm from '../../../components/author/AuthorConfirm';
+import AuthorConfirm from '../../../components/author/AuthorConfirm';
+import Layout from '../../../components/Layout';
 
 const index = () => {
-  return <AuthorForm />;
+  return (
+    <Layout noHeader noMenuBar noFooter>
+      <AuthorConfirm />
+    </Layout>
+  );
 };
 
 export default index;

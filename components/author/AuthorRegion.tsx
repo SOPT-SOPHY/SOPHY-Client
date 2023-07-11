@@ -7,6 +7,11 @@ import AuthorButton from './AuthorButton';
 import { ColorCheckIcon } from '../../assets/icon/index';
 import AuthorLayout from './@AuthorLayout';
 
+interface RegionProps {
+  isClick?: boolean;
+  onClick?: () => void;
+}
+
 function AuthorRegion() {
   //   const [isAllClicked, setIsAllClicked] = useState<boolean>(false); // 의정부시 전체가 선택되었는지 유무
   const [clickedId, setClickedId] = useState<Array>([]);
@@ -33,7 +38,7 @@ function AuthorRegion() {
     setClickedId([index]);
   };
   return (
-    <>
+    <Region>
       <AuthorLayout pageNum="1" title="지역을 선택해주세요" />
       <RegionSection>
         <RegionWrapper>
@@ -65,11 +70,15 @@ function AuthorRegion() {
       <Link href="space">
         <AuthorButton>다음</AuthorButton>
       </Link>
-    </>
+    </Region>
   );
 }
 
 export default AuthorRegion;
+const Region = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const RegionSection = styled.div`
   width: 33.5rem;
   height: 50rem;
@@ -110,7 +119,7 @@ const LowerRegion = styled.div`
   gap: 2.2rem;
   margin-top: 2.4rem;
 `;
-const Regions = styled.div`
+const Regions = styled.div<RegionProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;

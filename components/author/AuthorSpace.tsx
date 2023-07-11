@@ -71,7 +71,7 @@ function AuthorSpace() {
     router.back();
   };
   return (
-    <>
+    <Space>
       <Layout>
         <Header>
           <div>
@@ -102,27 +102,28 @@ function AuthorSpace() {
       <Link href="form">
         <AuthorButton>다음</AuthorButton>
       </Link>
-    </>
+    </Space>
   );
 }
 
 export default AuthorSpace;
+const Space = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Layout = styled.div`
   position: fixed;
   top: 0;
   width: 100vw;
   height: 14rem;
-
   display: flex;
   flex-direction: column;
-
   background: ${theme.colors.white};
 `;
 
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-
   & .div {
     margin-top: 1.3rem;
     margin-left: 1.7rem;
@@ -159,7 +160,6 @@ const SpaceContainer = styled.div`
 `;
 const SpaceWrapper = styled.div`
   display: flex;
-
   gap: 1.6rem;
   margin-bottom: 1.6rem;
   margin-top: 1.6rem;
@@ -169,7 +169,6 @@ const SpaceImage = styled.div`
   height: 7.2rem;
   border-radius: 1rem;
   border: none;
-
   background: ${theme.colors.gray11};
 `;
 const SpaceInfo = styled.div`

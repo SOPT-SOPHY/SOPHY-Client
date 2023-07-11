@@ -26,7 +26,7 @@ function AuthorForm() {
     setModalOpen(false);
   };
   return (
-    <>
+    <Form>
       <AuthorLayout pageNum="3" title="신청서를 작성해주세요" />
       <FormSection>
         <UploadImage>
@@ -122,11 +122,15 @@ function AuthorForm() {
           <AuthorModal onClose={HandleModalShow} />
         </ModalPortal>
       )}
-    </>
+    </Form>
   );
 }
 
 export default AuthorForm;
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const FormSection = styled.div`
   margin: 0rem 2rem;
   margin-top: 2.4rem;

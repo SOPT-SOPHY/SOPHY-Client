@@ -8,7 +8,7 @@ import AuthorLayout from './@AuthorLayout';
 
 function AuthorConfirm() {
   return (
-    <>
+    <Confirm>
       <AuthorLayout noPageNum noPageTitle title="" />
       <ConfirmSection>
         <Image
@@ -26,10 +26,14 @@ function AuthorConfirm() {
         </ConfirmSubTitle>
       </ConfirmSection>
       <AuthorButton>나의 소피에서 확인하기</AuthorButton>
-    </>
+    </Confirm>
   );
 }
 export default AuthorConfirm;
+const Confirm = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ConfirmSection = styled.div`
   display: flex;
   flex-direction: column;
