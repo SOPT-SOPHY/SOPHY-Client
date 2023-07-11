@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRecoilValue } from 'recoil';
+
+import { useRouter } from 'next/router';
 import { BackButton } from '../../assets/icon';
 import theme from '../../styles/theme';
+import { isModalOpen } from '../recoil/selector';
 
 interface LayoutProps {
   children: React.ReactNode;
+  // ModalOpen: false;
   noPageNum: false;
   noPageTitle: false;
   pageNum: string;
@@ -13,14 +18,22 @@ interface LayoutProps {
 }
 function AuthorLayout(props: LayoutProps) {
   const { children, noPageNum, noPageTitle, pageNum, title } = props;
+  const modalOpen = useRecoilValue(isModalOpen);
+  const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
 
   return (
     <Layout>
-      <Header>
+      <Background modalOpen={modalOpen} />
+      <Header modalOpen={modalOpen}>
         <div>
           <Image
             src={BackButton}
             alt="뒤로가기"
+            onClick={handleGoBack}
             //   height={44}
             //   width={44}
             // style={{
@@ -49,6 +62,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const Header = styled.header`
   display: flex;
   flex-direction: column;
@@ -58,11 +72,21 @@ const Header = styled.header`
   width: 100vw;
   height: 14rem;
 
-  background: ${theme.colors.white};
+  background: ${({ modalOpen }) =>
+    modalOpen ? 'rgba(0,0,0,0.0)' : theme.colors.white};
+
+  /* background: ${theme.colors.white}; */
   & .div {
     margin-top: 1.3rem;
     margin-left: 1.7rem;
   }
+`;
+
+const Background = styled.div`
+  /* position: fixed;
+  z-index: -99;
+  background: 'rgba(0,0,0,0.6)';
+  display: ${({ modalOpen }) => (modalOpen ? 'block' : 'none')}; */
 `;
 
 const PageNumber = styled.h1`

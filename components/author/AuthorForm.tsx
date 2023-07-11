@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
 import AuthorModal from './@AuthorModal';
@@ -13,9 +14,10 @@ import {
   // InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
+import { isModalOpen } from '../recoil/selector';
 
 function AuthorForm() {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
   const HandleModal = () => {
     setModalOpen(true);
   };
