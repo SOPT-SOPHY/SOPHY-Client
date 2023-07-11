@@ -28,9 +28,6 @@ import SimpleSlider from '../../components/SimpleSlider';
 import HotBookTalkSlider from '../../components/HotBookTalkSlider';
 
 function Home() {
-  const a = 3;
-  console.log(a);
-
   // const user = '비회원';
   const router = useRouter();
 

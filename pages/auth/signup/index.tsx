@@ -117,8 +117,12 @@ function Signup() {
   useEffect(() => {
     if (password === '') {
       setPassword('');
+      setIsPasswordMatch(false);
     } else if (confirmPassword === '') {
       setConfirmPassword('');
+      if (password !== '') {
+        setIsPasswordMatch(false);
+      }
     } else if (password === confirmPassword) setIsPasswordMatch(true);
     else setIsPasswordMatch(false);
   }, [password, confirmPassword]);
@@ -515,7 +519,7 @@ const ConfirmPasswordLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>
-      props.boolean || props.boolean === null || props.confirmPassword === null
+      props.boolean || props.boolean === null || props.confirmPassword === ''
         ? theme.colors.gray09
         : theme.colors.dangerRed};
 `;
