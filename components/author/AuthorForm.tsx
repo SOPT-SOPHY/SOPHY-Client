@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
-import AuthorModal from './AuthorModal';
+import AuthorModal from './@AuthorModal';
 import {
   AddPhoto,
   DownButton,

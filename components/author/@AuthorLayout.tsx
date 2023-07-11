@@ -8,10 +8,11 @@ interface LayoutProps {
   children: React.ReactNode;
   noPageNum: false;
   noPageTitle: false;
-  title: null;
+  pageNum: string;
+  title: string;
 }
 function AuthorLayout(props: LayoutProps) {
-  const { children, noPageNum, noPageTitle, title } = props;
+  const { children, noPageNum, noPageTitle, pageNum, title } = props;
 
   return (
     <Header>
@@ -32,7 +33,7 @@ function AuthorLayout(props: LayoutProps) {
 
       {!noPageNum && (
         <PageNumber>
-          <span>3</span>/ 3
+          <span>{pageNum}</span>/ 3
         </PageNumber>
       )}
       {!noPageTitle && <PageTitle>{title}</PageTitle>}
