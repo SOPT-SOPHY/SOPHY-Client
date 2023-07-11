@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import AuthorButton from './AuthorButton';
 import { ColorCheckIcon } from '../../assets/icon/index';
 import AuthorLayout from './@AuthorLayout';
+import { regionSelect } from '../recoil/selector';
 
 interface RegionProps {
   isClick?: boolean;
@@ -13,7 +15,8 @@ interface RegionProps {
 }
 
 function AuthorRegion() {
-  //   const [isAllClicked, setIsAllClicked] = useState<boolean>(false); // 의정부시 전체가 선택되었는지 유무
+  const [selectedRegions, setSelectedRegions] = useRecoilState(regionSelect); // 각 지역 선택
+  const [isAllClicked, setIsAllClicked] = useState<boolean>(true); // 의정부시 전체가 선택되었는지 유무
   const [clickedId, setClickedId] = useState<number[]>([]);
   const regions = [
     '가능동',
@@ -22,21 +25,44 @@ function AuthorRegion() {
     '금오동',
     '낙양동',
     '녹양동',
-    '민락동',
-    '산곡동',
+    '예현동',
+    '동휘동',
+    '보미동',
+    '연우동',
+    '민지동',
+    '경민동',
+    '현수동',
+    '수현동',
+    '성오동',
   ];
   const handleClickAllRegions = () => {
-    // setIsAllClicked((isAllClicked) => !isAllClicked);
-    let newRegions: Array<number> = [];
+    setIsAllClicked((isAllClicked) => !isAllClicked);
+    if (!isAllClicked) {
+      setClickedId([]);
+      return;
+    }
+    const newRegions: Array<number> = [];
     for (let i = 0; i < regions.length; i += 1) {
-      newRegions = [...clickedId, i];
+      newRegions.push(i);
     }
     setClickedId(newRegions);
   };
 
   const handleClickRegions = (region: string, index: number) => {
+    if (clickedId.includes(index)) {
+      setClickedId([]);
+      return;
+    }
+
     setClickedId([index]);
   };
+
+  useEffect(() => {
+    const finalRegions: string[] = [];
+    clickedId.forEach((id) => finalRegions.push(regions[id]));
+    setSelectedRegions(finalRegions);
+    console.log(selectedRegions);
+  }, [clickedId]);
 
   return (
     <Region>
@@ -51,8 +77,18 @@ function AuthorRegion() {
           <UpperRegion>의정부</UpperRegion>
           <Divider />
           <LowerRegion>
-            <Regions onClick={() => handleClickAllRegions()}>
+            <Regions
+              onClick={() => handleClickAllRegions()}
+              isClick={!isAllClicked}>
               의정부시 전체
+              <ImageContainer isClick={!isAllClicked}>
+                <Image
+                  src={ColorCheckIcon}
+                  alt="체크 표시"
+                  width={16}
+                  height={12}
+                />
+              </ImageContainer>
             </Regions>
             {regions.map((region, index) => (
               <Regions
@@ -122,8 +158,12 @@ const LowerRegion = styled.div`
   flex-direction: column;
 
   width: 14.8rem;
+
+  height: 46.8rem;
   gap: 2.2rem;
   margin-top: 2.4rem;
+
+  overflow-y: auto;
 `;
 const Regions = styled.div<RegionProps>`
   display: flex;

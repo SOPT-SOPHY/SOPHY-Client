@@ -54,6 +54,7 @@ const fonts = {
   display: FONT({ weight: 700, size: 3.2, lineHeight: 4 }),
   headline1: FONT({ weight: 700, size: 2.8, lineHeight: 3.6 }),
   headline2: FONT({ weight: 700, size: 2, lineHeight: 3.2 }),
+  headline2_bold: FONT({ weight: 700, size: 2, lineHeight: 3.2 }),
   headline3_bold: FONT({ weight: 700, size: 2.2, lineHeight: 2.8 }),
   headline3_medium: FONT({ weight: 500, size: 2.2, lineHeight: 2.8 }),
   subhead1_bold: FONT({ weight: 700, size: 2, lineHeight: 2.6 }),

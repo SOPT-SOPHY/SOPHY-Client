@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSetRecoilState } from 'recoil';
+
 import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
 import { BackButton } from '../../assets/icon';
 import { logincompleteImg } from '../../assets/img';
+import { spaceSelect } from '../recoil/selector';
 
 interface SpaceProps {
   isClick?: boolean;
@@ -14,59 +17,69 @@ interface SpaceProps {
 }
 
 function AuthorSpace() {
+  const setSelectedSpaces = useSetRecoilState(spaceSelect); // 각 지역 선택
   const [clickedId, setClickedId] = useState<number>(-1);
   const spaces = [
     {
+      id: 0,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '가능동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 10명',
     },
     {
+      id: 1,
       image: logincompleteImg,
       info: '송산3동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 1명',
     },
     {
+      id: 2,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '고산동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 8명',
     },
     {
+      id: 3,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '금오동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 10명',
     },
     {
+      id: 4,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '낙양동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 1명',
     },
     {
+      id: 5,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '예현동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 8명',
     },
     {
+      id: 6,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '수현동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 10명',
     },
     {
+      id: 7,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '성오동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 1명',
     },
     {
+      id: 8,
       image: logincompleteImg,
-      info: '송산3동 작은도서관',
+      info: '민지동 작은도서관',
       address: '경기도 의정부시 용민로 230',
       people: '최대 8명',
     },
@@ -79,6 +92,11 @@ function AuthorSpace() {
   const handleClickSpaces = (index: number) => {
     setClickedId(index);
   };
+
+  useEffect(() => {
+    setSelectedSpaces(clickedId);
+  }, [clickedId]);
+
   return (
     <Space>
       <Layout>
@@ -100,16 +118,14 @@ function AuthorSpace() {
         </Header>
       </Layout>
       <SpaceSection>
-        {spaces.map((space, index) => (
+        {spaces.map((space) => (
           <SpaceContainer key={space.info}>
             {/* <Image src={space.image} alt="공간 이미지" width={72} heigth={72} /> */}
             <SpaceWrapper
-              onClick={() => handleClickSpaces(index)}
-              isClick={clickedId === index}>
+              onClick={() => handleClickSpaces(space.id)}
+              isClick={clickedId === space.id}>
               <SpaceImage />
-              <SpaceInfo
-                onClick={() => handleClickSpaces(index)}
-                isClick={clickedId === index}>
+              <SpaceInfo isClick={clickedId === space.id}>
                 <SpaceName>{space.info}</SpaceName>
                 <SpaceAddress>{space.address}</SpaceAddress>
                 <MaxPeople>{space.people}</MaxPeople>
@@ -180,11 +196,11 @@ const SpaceWrapper = styled.div<SpaceProps>`
 
   cursor: pointer;
   padding: 1.6rem;
+  background: ${({ isClick }) =>
+    isClick ? theme.colors.green03 : theme.colors.white};
   &:hover {
     background: ${theme.colors.gray11};
   }
-  background: ${({ isClick }) =>
-    isClick ? theme.colors.green03 : theme.colors.white};
 `;
 const SpaceImage = styled.div`
   width: 7.2rem;

@@ -5,13 +5,12 @@ import { useRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
 import AuthorModal from './@AuthorModal';
-import { isModalOpen } from '../recoil/selector';
 import {
   AddPhoto,
   DownButton,
   NextButton,
   ClockIcon,
-  ScheduleIcon,
+  ScheduleBigIcon,
   // InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
@@ -50,7 +49,7 @@ function AuthorForm() {
         </BookInfoContainer>
         <FormHeading>개최 일정</FormHeading>
         <DayContainer>
-          <Image src={ScheduleIcon} alt="달력" width={24} height={24} />
+          <Image src={ScheduleBigIcon} alt="달력" width={24} height={24} />
           <DayInput type="text" placeholder="YY/MM/DD" />
         </DayContainer>
         <HourContainer>
