@@ -71,7 +71,7 @@ export default AuthorRegion;
 const RegionSection = styled.div`
   width: 33.5rem;
   height: 50rem;
-  margin: 1.6rem 0rem 4.5rem 2rem;
+  margin: 15.6rem 0rem 4.5rem 2rem;
 
   border-radius: 0.8rem;
   border: none;

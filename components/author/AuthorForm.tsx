@@ -128,6 +128,7 @@ function AuthorForm() {
 export default AuthorForm;
 const FormSection = styled.div`
   margin: 0rem 2rem;
+  margin-top: 14.4rem;
 `;
 const UploadImage = styled.div`
   display: flex;

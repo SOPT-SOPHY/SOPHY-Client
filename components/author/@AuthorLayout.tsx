@@ -15,38 +15,50 @@ function AuthorLayout(props: LayoutProps) {
   const { children, noPageNum, noPageTitle, pageNum, title } = props;
 
   return (
-    <Header>
-      <div>
-        <Image
-          src={BackButton}
-          alt="뒤로가기"
-          //   height={44}
-          //   width={44}
-          // style={{
-          //   marginTop: '13px',
-          //   marginLeft: '17px',
-          //   marginBottom: '13px',
-          //   marginRight: '17px',
-          // }}
-        />
-      </div>
+    <Layout>
+      <Header>
+        <div>
+          <Image
+            src={BackButton}
+            alt="뒤로가기"
+            //   height={44}
+            //   width={44}
+            // style={{
+            //   marginTop: '13px',
+            //   marginLeft: '17px',
+            //   marginBottom: '13px',
+            //   marginRight: '17px',
+            // }}
+          />
+        </div>
 
-      {!noPageNum && (
-        <PageNumber>
-          <span>{pageNum}</span>/ 3
-        </PageNumber>
-      )}
-      {!noPageTitle && <PageTitle>{title}</PageTitle>}
+        {!noPageNum && (
+          <PageNumber>
+            <span>{pageNum}</span>/ 3
+          </PageNumber>
+        )}
+        {!noPageTitle && <PageTitle>{title}</PageTitle>}
+      </Header>
       {children}
-    </Header>
+    </Layout>
   );
 }
 
 export default AuthorLayout;
-
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Header = styled.header`
   display: flex;
   flex-direction: column;
+
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 14rem;
+
+  background: ${theme.colors.white};
   & .div {
     margin-top: 1.3rem;
     margin-left: 1.7rem;
