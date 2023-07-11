@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-const fetchTestData = async (accessToken) => {
+const fetchTestData = async (accessToken: any) => {
   const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -19,7 +19,7 @@ const fetchTestData = async (accessToken) => {
   }
 };
 
-const useFetchTestData = (accessToken) => {
+const useFetchTestData = (accessToken: any) => {
   return useQuery('testData', () => fetchTestData(accessToken));
 };
 
