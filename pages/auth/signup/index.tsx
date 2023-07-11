@@ -19,6 +19,12 @@ import {
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 
+interface StyledComponentProps {
+  string?: string | null;
+  boolean?: boolean | null;
+  confirmPassword?: string | null;
+}
+
 function Signup() {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -30,10 +36,10 @@ function Signup() {
   const [isPasswordAvailable, setIsPasswordAvailable] = useState<
     boolean | null
   >(null);
-  const [password, setPassword] = useState<string | null>('');
-  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [phone, setPhone] = useState<string | null>(null);
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean | null>(null);
 
   const [allAgreed, setAllAgreed] = useState(false);
@@ -110,9 +116,13 @@ function Signup() {
 
   useEffect(() => {
     if (password === '') {
-      setPassword(null);
+      setPassword('');
+      setIsPasswordMatch(false);
     } else if (confirmPassword === '') {
-      setConfirmPassword(null);
+      setConfirmPassword('');
+      if (password !== '') {
+        setIsPasswordMatch(false);
+      }
     } else if (password === confirmPassword) setIsPasswordMatch(true);
     else setIsPasswordMatch(false);
   }, [password, confirmPassword]);
@@ -208,7 +218,7 @@ function Signup() {
           중복 확인
         </DoubleCheckButton>
       </EmailInputWrapper>
-      <LoginLine boolean={isEmailAvailable} />
+      <LoginLine boolean={isEmailAvailable} string={email} />
       {isEmailAvailable === null ? (
         <></>
       ) : isEmailAvailable ? (
@@ -232,8 +242,8 @@ function Signup() {
           onChange={handlePasswordChange}
         />
       </InputWrapper>
-      <LoginLine boolean={isPasswordAvailable} />
-      {password === null ? (
+      <PasswordLine boolean={isPasswordAvailable} />
+      {password === '' ? (
         <InputConditionMessage>
           비밀번호는 8~16자, 영문, 숫자를 포함해야 합니다.
         </InputConditionMessage>
@@ -289,7 +299,7 @@ function Signup() {
           onChange={handleNameChange}
         />
       </InputWrapper>
-      <LoginLine boolean />
+      <LoginLine boolean string={name} />
       <InputMultipleConditionMessage>
         소피는 <PrimaryColorSpan>한글 실명</PrimaryColorSpan>으로 운영되고
         있습니다.
@@ -308,7 +318,7 @@ function Signup() {
           onChange={phoneChange}
         />
       </InputWrapper>
-      <LoginLine boolean />
+      <LoginLine boolean string={phone} />
       <InputTitle>
         <InputTitleContent>이용약관 동의</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
@@ -316,9 +326,17 @@ function Signup() {
       <AllAgreeButton type="button" onClick={handleAllAgree}>
         네, 모두 동의합니다
         {allAgreed ? (
-          <Image src={ColorCheckIcon} alt="유색의 체크 모양의 아이콘" />
+          <Image
+            src={ColorCheckIcon}
+            alt="유색의 체크 모양의 아이콘"
+            style={{ marginLeft: '0.6rem' }}
+          />
         ) : (
-          <Image src={GrayCheckIcon} alt="무색의 체크 모양의 아이콘" />
+          <Image
+            src={GrayCheckIcon}
+            alt="무색의 체크 모양의 아이콘"
+            style={{ marginLeft: '0.6rem' }}
+          />
         )}
       </AllAgreeButton>
       <div>
@@ -496,7 +514,16 @@ const Input = styled.input`
   }
 `;
 
-const LoginLine = styled.div`
+const LoginLine = styled.div<StyledComponentProps>`
+  width: 33.5rem;
+  border-top: 0.1rem solid
+    ${(props) =>
+      props.string && props?.string?.length > 0
+        ? theme.colors.primary
+        : theme.colors.gray09};
+`;
+
+const PasswordLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>
@@ -505,11 +532,11 @@ const LoginLine = styled.div`
         : theme.colors.dangerRed};
 `;
 
-const ConfirmPasswordLine = styled.div`
+const ConfirmPasswordLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
   border-top: 0.1rem solid
     ${(props) =>
-      props.boolean || props.boolean === null || props.confirmPassword === null
+      props.boolean || props.boolean === null || props.confirmPassword === ''
         ? theme.colors.gray09
         : theme.colors.dangerRed};
 `;
@@ -525,7 +552,7 @@ const DoubleCheckButton = styled.button`
   color: ${theme.colors.gray05};
 `;
 
-const ValidationMessage = styled.div`
+const ValidationMessage = styled.div<StyledComponentProps>`
   margin-top: 0.4rem;
   height: 1.6rem;
   width: 33.5rem;
