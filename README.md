@@ -67,6 +67,7 @@
 - Recoil
 - Axios
 - React Query
+- React Slick
 
 <br/>
 
