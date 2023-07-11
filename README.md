@@ -106,3 +106,10 @@
 ```
 
 <br/>
+
+## ✨ OUR TEAM
+
+| <프로필 사진> | <프로필 사진> | <프로필사진"> | 
+| :---: | :---: | :---: |
+| <div align = "center"><b>현수</b></div> | <div align = "center"><b>보미</b></div> | <div align = "center"><b>예현</b></div>  | 
+| [@borimong](https://github.com/borimong) | [@](https://github.com/) | [@](https://github.com/) | 
