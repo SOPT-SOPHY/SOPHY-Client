@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
@@ -23,6 +24,10 @@ import {
   NavHomeColorIcon,
   NavPersonGrayIcon,
   NavPinGrayIcon,
+  InterestingRegionMoreIcon,
+  Ranking1Icon,
+  Ranking2Icon,
+  Ranking3Icon,
 } from '../../assets/icon';
 import SimpleSlider from '../../components/SimpleSlider';
 import HotBookTalkSlider from '../../components/HotBookTalkSlider';
@@ -30,6 +35,8 @@ import HotBookTalkSlider from '../../components/HotBookTalkSlider';
 function Home() {
   // const user = '비회원';
   const router = useRouter();
+  const isRegionSet = false;
+  const isWriter = true;
 
   /*
   const handleLogout = () => {
@@ -183,23 +190,69 @@ function Home() {
       </RegionBookTalkUnderWrapper>
         */}
       </TopBackground>
-      <UserRegionWrapper>
-        <PlaceNameWrapper>
-          <Image
-            src={PinIcon}
-            alt="핀 아이콘"
-            style={{ marginLeft: '1.4rem' }}
-          />
-          <PlaceName>의정부시 민락동</PlaceName>
-        </PlaceNameWrapper>
-        <PlaceNumber>
-          <BoldPlaceNumber>15개</BoldPlaceNumber>의 소피 북토크가 기다리고
-          있어요
-        </PlaceNumber>
-      </UserRegionWrapper>
-      <SliderWrapper>
-        <SimpleSlider />
-      </SliderWrapper>
+      {isWriter ? (
+        <WriterRegionWrapper>
+          <WriterRegionText>이번달, 지식이 가득했던 지역들!</WriterRegionText>
+          <RegionRankingWrapper>
+            <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
+            의정부시 민락동
+          </RegionRankingWrapper>
+          <RegionRankingWrapper>
+            <Image src={Ranking2Icon} alt="랭킹 2위 아이콘" />
+            의정부시 의정부동
+          </RegionRankingWrapper>
+          <RegionRankingWrapper>
+            <Image src={Ranking3Icon} alt="랭킹 3위 아이콘" />
+            의정부시 호원동
+          </RegionRankingWrapper>
+        </WriterRegionWrapper>
+      ) : isRegionSet ? (
+        <UserRegionWrapper>
+          <PlaceNameWrapper>
+            <Image
+              src={PinIcon}
+              alt="핀 아이콘"
+              style={{ marginLeft: '1.4rem' }}
+            />
+            <PlaceName>의정부시 민락동</PlaceName>
+          </PlaceNameWrapper>
+          <PlaceNumber>
+            <BoldPlaceNumber>15개</BoldPlaceNumber>의 소피 북토크가 기다리고
+            있어요
+          </PlaceNumber>
+        </UserRegionWrapper>
+      ) : (
+        <UserRegionRecommendationWrapper>
+          <PlaceNameWrapper>
+            <Image
+              src={PinIcon}
+              alt="핀 아이콘"
+              style={{ marginLeft: '1.4rem' }}
+            />
+            <PlaceName>가장 가까운</PlaceName>
+            <PlaceUnderName>북토크를 찾아드릴게요</PlaceUnderName>
+            <InterestingRegion>
+              <InterestingRegionText>
+                관심지역 설정하기
+                <Image
+                  src={InterestingRegionMoreIcon}
+                  alt="관심 지역 더 보기 아이콘"
+                  style={{ marginLeft: '0.6rem' }}
+                />
+              </InterestingRegionText>
+            </InterestingRegion>
+          </PlaceNameWrapper>
+        </UserRegionRecommendationWrapper>
+      )}
+      {isWriter ? (
+        <AuthorSliderWrapper>
+          <SimpleSlider />
+        </AuthorSliderWrapper>
+      ) : (
+        <SliderWrapper>
+          <SimpleSlider />
+        </SliderWrapper>
+      )}
       <HotBookTalk>
         지금 인기있는
         <br /> 소피 북토크 모아보기
@@ -241,6 +294,7 @@ function Home() {
           </IconsWrapper>
         </Footer>
       </FooterWrapper>
+      {isWriter && <OpenBookTalkButton>북토크 개설하기</OpenBookTalkButton>}
       <St.Header>
         {/* 
          <button type="button" onClick={handleLogout}>
@@ -420,6 +474,63 @@ const UserRegionWrapper = styled.div`
   box-shadow: 0.1rem 0.18rem 1.2rem rgba(64, 119, 118, 17%);
 `;
 
+const UserRegionRecommendationWrapper = styled.div`
+  width: 33.5rem;
+  height: 14.8rem;
+
+  position: relative;
+  top: -5.2rem;
+
+  background-color: ${theme.colors.white};
+  border-radius: 1rem;
+
+  border-bottom: 3.2rem;
+
+  box-shadow: 0.1rem 0.18rem 1.2rem rgba(64, 119, 118, 17%);
+`;
+
+const WriterRegionWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  width: 33.5rem;
+  height: 18rem;
+
+  position: relative;
+  top: -5.2rem;
+
+  background-color: ${theme.colors.white};
+  border-radius: 1rem;
+
+  border-bottom: 2.5rem;
+
+  box-shadow: 0.1rem 0.18rem 1.2rem rgba(64, 119, 118, 17%);
+`;
+
+const WriterRegionText = styled.div`
+  width: 33.5rem;
+
+  color: ${theme.colors.gray01};
+  ${theme.fonts.subhead4_semibold};
+
+  text-align: center;
+
+  margin-top: 1.8rem;
+`;
+
+const RegionRankingWrapper = styled.div`
+  width: 5rem;
+  height: 8.7rem;
+
+  color: ${theme.colors.gray02};
+  ${theme.fonts.body2_medium};
+
+  text-align: center;
+
+  margin: 0 2.2rem;
+`;
+
 const PlaceNameWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -432,6 +543,38 @@ const PlaceNameWrapper = styled.div`
 const PlaceName = styled.div`
   color: ${theme.colors.gray01};
   ${theme.fonts.subhead1_bold};
+`;
+
+const PlaceUnderName = styled.div`
+  color: ${theme.colors.gray01};
+  ${theme.fonts.subhead1_bold};
+
+  width: 30rem;
+  margin-left: 4.5rem;
+  margin-bottom: 1.6rem;
+`;
+
+const InterestingRegion = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 14.1rem;
+  height: 3.6rem;
+
+  color: ${theme.colors.green01};
+  background-color: ${theme.colors.primary};
+
+  border-radius: 0.8rem;
+  border: none;
+
+  margin-left: 17.4rem;
+`;
+
+const InterestingRegionText = styled.div`
+  display: flex;
+  align-items: center;
+  width: 11.1rem;
 `;
 
 const PlaceNumber = styled.div`
@@ -453,6 +596,15 @@ const SliderWrapper = styled.div`
   overflow-y: hidden;
   height: 9.9rem;
   margin-bottom: 1.6rem;
+  margin-top: -2rem;
+`;
+
+const AuthorSliderWrapper = styled.div`
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 9.9rem;
+  margin-bottom: 1.6rem;
+  margin-top: -2.7rem;
 `;
 
 const HotBookTalk = styled.div`
@@ -478,7 +630,9 @@ const MoreHotBookTalk = styled.div`
   margin-left: 11.5rem;
 `;
 
-const HotBookTalkSliderWrapper = styled.div``;
+const HotBookTalkSliderWrapper = styled.div`
+  margin-bottom: 9rem;
+`;
 
 const Footer = styled.div`
   display: flex;
@@ -494,10 +648,14 @@ const Footer = styled.div`
 
   margin-top: 1rem;
 
+  background-color: ${theme.colors.white};
+
   box-shadow: 0rem -0.4rem 0.8rem rgba(54, 57, 60, 4%);
 `;
 
 const FooterWrapper = styled.div`
+  position: fixed;
+  bottom: 0;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
@@ -525,4 +683,27 @@ const IconsWrapper = styled.div`
   width: 32.5rem;
   display: flex;
   justify-content: space-between;
+`;
+
+const OpenBookTalkButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  bottom: 10.7rem;
+  margin-left: 23.4rem;
+
+  width: 12.1rem;
+  height: 4.8rem;
+
+  border-radius: 99.9rem;
+  border: none;
+
+  ${theme.fonts.body2_bold};
+
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.white};
+
+  z-index: 5;
 `;

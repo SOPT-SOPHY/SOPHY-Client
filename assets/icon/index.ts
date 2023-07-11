@@ -24,3 +24,7 @@ export { default as PointIcon } from './PointIcon.svg';
 export { default as ScheduleIcon } from './ScheduleIcon.svg';
 export { default as NavHomeColorIcon } from './NavHomeColorIcon.svg';
 export { default as NavHomeGrayIcon } from './NavHomeGrayIcon.svg';
+export { default as InterestingRegionMoreIcon } from './InterestingRegionMoreIcon.svg';
+export { default as Ranking1Icon } from './Ranking1Icon.svg';
+export { default as Ranking2Icon } from './Ranking2Icon.svg';
+export { default as Ranking3Icon } from './Ranking3Icon.svg';
