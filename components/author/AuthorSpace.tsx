@@ -178,8 +178,11 @@ const SpaceWrapper = styled.div<SpaceProps>`
   display: flex;
   gap: 1.6rem;
 
-  padding-bottom: 1.6rem;
-  padding-top: 1.6rem;
+  cursor: pointer;
+  padding: 1.6rem;
+  &:hover {
+    background: ${theme.colors.gray11};
+  }
   background: ${({ isClick }) =>
     isClick ? theme.colors.green03 : theme.colors.white};
 `;
@@ -190,7 +193,7 @@ const SpaceImage = styled.div`
   border: none;
   background: ${theme.colors.gray11};
 `;
-const SpaceInfo = styled.div`
+const SpaceInfo = styled.div<SpaceProps>`
   display: flex;
   flex-direction: column;
   padding-top: 0.5rem;
