@@ -331,6 +331,12 @@ const CategoryContainer = styled.div<Props>`
   cursor: pointer;
   background: ${theme.colors.gray11};
   fonts: ${theme.fonts.body2_regular};
+  color: ${({ setPrimary, setGray }) =>
+    setGray
+      ? theme.colors.gray08
+      : setPrimary
+      ? theme.colors.primary
+      : theme.colors.gray01};
 
   &:hover {
     color: ${theme.colors.primary};
