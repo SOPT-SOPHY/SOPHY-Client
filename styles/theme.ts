@@ -24,7 +24,7 @@ const colors = {
   gray08: '#CDD2D8',
   gray09: '#dde0e4',
   gray10: '#ECEEF0',
-  gray11: '#fafac',
+  gray11: '#fafafc',
   black: '#181818',
   white: '#ffffff',
   dangerRed: '#ec2d30',
