@@ -141,7 +141,9 @@ function SelectRegion() {
         </RegionContainer>
       </div>
       <Link href={`./BTList?region=${selectedRegion}`} passHref>
-        <NextButton isactive={selectedRegion}>선택완료</NextButton>
+        <NextButtonWrapper>
+          <NextButton isactive={selectedRegion}>선택완료</NextButton>
+        </NextButtonWrapper>
       </Link>
     </Body>
   );
@@ -156,8 +158,6 @@ const Body = styled.div`
   padding: 0;
 
   background-color: ${({ theme }) => theme.colors.white};
-
-  border: 1px solid ${({ theme }) => theme.colors.gray01};
 `;
 
 const Header = styled.div`
@@ -170,8 +170,6 @@ const Header = styled.div`
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
-
-  margin-top: 4.4rem;
 
   background-color: ${({ theme }) => theme.colors.white};
 `;
@@ -328,7 +326,13 @@ const NextButton = styled.button<{ isactive: string }>`
     !props.isactive &&
     css`
       /* 신청하기 버튼이 비활성화된 상태일 때의 스타일 */
+      background-color: ${({ theme }) => theme.colors.gray11};
       color: ${({ theme }) => theme.colors.gray07};
       cursor: not-allowed;
     `};
+`;
+
+const NextButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 4.8rem;
 `;
