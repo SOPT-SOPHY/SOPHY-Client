@@ -108,7 +108,7 @@ function BTList() {
             <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
           </ImageContainer>
         </Link>
-        <Title>모집 중인 북토크</Title>
+        <Title>우리 동네 북토크</Title>
       </Header>
       <SelectBoxContainer>
         <SelectBox onClick={handleDropdownToggle}>
