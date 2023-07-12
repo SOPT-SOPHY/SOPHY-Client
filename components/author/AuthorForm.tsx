@@ -32,6 +32,8 @@ function AuthorForm() {
   const [category, setCategory] = useState<string>('카테고리를 선택해주세요');
   const [preInfo, setPreInfo] = useState<number>(-1);
   const [freeCheck, setFreeCheck] = useState<boolean>(false);
+  const [cost, setCost] = useState<number>(0);
+  const [people, setPeople] = useState<number>(0);
 
   const HandleModal = () => {
     setModalOpen(true);
@@ -66,6 +68,24 @@ function AuthorForm() {
       return;
     }
     setPreInfo(index);
+  };
+  const handleCost = (e) => {
+    const regex = /^[0-9]+$/;
+    if (!regex.test(e.target.value)) {
+      alert('숫자로 입력해주세요');
+    } else {
+      setCost(e.target.value);
+      console.log(cost);
+    }
+  };
+  const handlePeople = (e) => {
+    const regex = /^[0-9]+$/;
+    if (!regex.test(e.target.value)) {
+      alert('숫자로 입력해주세요');
+    } else {
+      setPeople(e.target.value);
+      console.log(people);
+    }
   };
   return (
     <Form>
@@ -158,6 +178,7 @@ function AuthorForm() {
           <TitleInput
             type="text"
             placeholder="참여 인원을 숫자로 작성해주세요"
+            onChange={handlePeople}
           />
           <InputUnderLine />
         </InputContainer>
@@ -168,6 +189,7 @@ function AuthorForm() {
           <TitleInput
             type="text"
             placeholder="참가비를 원 단위로 작성해주세요"
+            onChange={handleCost}
           />
           <InputUnderLine />
           <CheckBox>
