@@ -117,8 +117,8 @@ function SelectRegion() {
                   {selectedRegion === 'Oceania' && (
                     <Image
                       src={icCheck}
-                      width={16}
-                      height={16}
+                      width={24}
+                      height={24}
                       alt="지역선택 체크 아이콘"
                     />
                   )}
@@ -233,15 +233,15 @@ const SelectBox = styled.div`
 
   margin-left: 1rem;
 
-  background-color: ${({ theme }) => theme.colors.green03};
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 0.6rem;
 
   h1 {
     margin-top: 0.8rem;
     margin-left: 1.6rem;
 
-    ${({ theme }) => theme.fonts.body1_medium};
-    color: ${({ theme }) => theme.colors.green05};
+    ${({ theme }) => theme.fonts.subhead4_bold};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -286,8 +286,8 @@ const DongBox = styled.div<DongBoxProps>`
     transform: translateY(-50%);
 
     img {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 2.4rem;
+      height: 2.4rem;
 
       fill: ${({ isSelected, theme }) =>
         isSelected ? theme.colors.primary : 'transparent'};
