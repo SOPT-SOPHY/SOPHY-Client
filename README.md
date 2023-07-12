@@ -1,6 +1,7 @@
 # 📚 소피 [SOPHY]
-
-![Untitled](https://github.com/SOPT-SOPHY/SOPHY-Client/assets/86764406/4f0ab5c8-75a9-44d7-bf13-bbfd4cf065f8)
+<p align="center">
+  <img width="400" height=400" src="https://github.com/SOPT-SOPHY/SOPHY-Client/assets/86764406/4f0ab5c8-75a9-44d7-bf13-bbfd4cf065f8">
+</p>
 
 ## 작가와 함께 하는 우리 동네 지적 대화 플랫폼 ‘소피’!
 
@@ -82,6 +83,11 @@
 |-- 📁 lib
 |-- 📁 node_modules
 |-- 📁 pages
+       |-- 📁 auth
+       |-- 📁 author
+       |-- 📁 booktalkApply
+       |-- 📁 home
+       |-- 📁 mypage
        |-- _app.tsx
        |-- _document.tsx
 |-- 📁 public
@@ -91,9 +97,7 @@
        |-- styled.d.ts
        |-- theme.ts
 |-- 📁 types
-|-- App.jsx
 |-- .babelrc
-|-- .env
 |-- .eslintrc.json
 |-- .gitignore
 |-- .prettierrc
@@ -109,7 +113,7 @@
 
 ## ✨ OUR TEAM
 
-| <프로필 사진> | <프로필 사진> | <프로필사진"> | 
+| <img src="https://avatars.githubusercontent.com/u/86764406?v=4" width="40%"> | <img src="https://avatars.githubusercontent.com/u/49463954?v=4" width="70%"> | <img src="https://avatars.githubusercontent.com/u/91827379?v=4" width="40%"> | 
 | :---: | :---: | :---: |
 | <div align = "center"><b>현수</b></div> | <div align = "center"><b>보미</b></div> | <div align = "center"><b>예현</b></div>  | 
-| [@borimong](https://github.com/borimong) | [@](https://github.com/) | [@](https://github.com/) | 
+| [@borimong](https://github.com/borimong) | [@kwonET](https://github.com/kwonET) | [@yesongoget](https://github.com/yesongoget) | 
