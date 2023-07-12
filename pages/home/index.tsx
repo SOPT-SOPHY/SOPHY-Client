@@ -192,7 +192,7 @@ function Home() {
       </TopBackground>
       {isWriter ? (
         <WriterRegionWrapper>
-          <WriterRegionText>이번달, 지식이 가득했던 지역들!</WriterRegionText>
+          <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
           <RegionRankingWrapper>
             <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
             의정부시 민락동

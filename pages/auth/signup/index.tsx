@@ -203,6 +203,7 @@ function Signup() {
         <PageTitle>회원가입</PageTitle>
         <TitleBlank />
       </Head>
+      <HeadBlank />
       <InputTitle>
         <InputTitleContent>이메일 주소</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
@@ -444,9 +445,16 @@ const Head = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  width: 37.5rem;
+  position: fixed;
 
-  margin-bottom: 0.8rem;
+  background-color: ${theme.colors.white};
+
+  width: 37.5rem;
+`;
+
+const HeadBlank = styled.div`
+  width: 37.5rem;
+  height: 4.4rem;
 `;
 
 const PageTitle = styled.div`
