@@ -20,7 +20,7 @@ function BTDetail() {
         </Link>
         <Title>북토크 상세정보</Title>
       </Header>
-      <hr style={{ borderTop: '1px solid #F6F7FA' }} />
+      {/* <hr style={{ borderTop: '1px solid #F6F7FA' }} /> */}
       <DetailImg>
         <Image src={detailImage} width={335} height={184} alt="북토크이미지" />
       </DetailImg>
@@ -72,8 +72,6 @@ const Header = styled.div`
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
-
-  margin-top: 4.4rem;
 
   background-color: ${({ theme }) => theme.colors.white};
 `;

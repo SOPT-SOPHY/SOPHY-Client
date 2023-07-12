@@ -5,10 +5,17 @@ import Image from 'next/image';
 import { useQuery } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
+import theme from '../../styles/theme';
 import btnUp from '../../assets/icon/btn_up.svg';
 import btnDown from '../../assets/icon/btn_down.svg';
 import SingleBookTalk from '../../components/booktalkApply/SingleBookTalk';
 import backArrow from '../../assets/icon/ic_backArrow.svg';
+import {
+  NavBookGrayIcon,
+  NavHomeColorIcon,
+  NavPersonGrayIcon,
+  NavPinGrayIcon,
+} from '../../assets/icon';
 
 interface CountryProps {
   alpha3Code: string;
@@ -57,7 +64,7 @@ function BTList() {
     return <div>Error: {error.message}</div>;
   }
 
-  function filterItems(data: CountryProps[] | null, filterParam: string) {
+  const filterItems = (data: CountryProps[] | null, filterParam: string) => {
     // if (filteredItems) {
     //   const values: CountryProps[] = [];
     //   for (const key in filteredItems) {
@@ -87,7 +94,7 @@ function BTList() {
     }
 
     return [];
-  }
+  };
 
   const resultItems = fetchedItems
     ? filterItems(fetchedItems, region as string)
@@ -101,17 +108,19 @@ function BTList() {
             <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
           </ImageContainer>
         </Link>
-        <Title>모집 중인 북토크</Title>
+        <Title>우리 동네 북토크</Title>
       </Header>
-      <SelectBox onClick={handleDropdownToggle}>
-        <SubTitle>{region}</SubTitle>
-        <Image
-          src={isOpen ? btnUp : btnDown}
-          width={24}
-          height={24}
-          alt="selectBox 띄우기 버튼"
-        />
-      </SelectBox>
+      <SelectBoxContainer>
+        <SelectBox onClick={handleDropdownToggle}>
+          <SubTitle>{region}</SubTitle>
+          <Image
+            src={isOpen ? btnUp : btnDown}
+            width={24}
+            height={24}
+            alt="selectBox 띄우기 버튼"
+          />
+        </SelectBox>
+      </SelectBoxContainer>
       {isOpen && (
         <DropdownContainer>
           <DropdownBox>
@@ -129,6 +138,31 @@ function BTList() {
           <SingleBookTalk key={item.alpha3Code} item={item} />
         ))}
       </SingleBookTalkContainer>
+      <FooterWrapper>
+        <Footer>
+          <IconsWrapper>
+            <IconWrapper>
+              <Image src={NavHomeColorIcon} alt="홈 화면 바로가기 아이콘" />
+              <IconText>홈</IconText>
+            </IconWrapper>
+            <IconWrapper>
+              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
+              <UnClickedIconText>지역</UnClickedIconText>
+            </IconWrapper>
+            <IconWrapper>
+              <Image
+                src={NavBookGrayIcon}
+                alt="소피스토리 화면 바로가기 아이콘"
+              />
+              <UnClickedIconText>소피스토리</UnClickedIconText>
+            </IconWrapper>
+            <IconWrapper>
+              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
+              <UnClickedIconText>MY</UnClickedIconText>
+            </IconWrapper>
+          </IconsWrapper>
+        </Footer>
+      </FooterWrapper>
     </Body>
   );
 }
@@ -153,12 +187,10 @@ const Header = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  position: sticky;
+  position: fixed;
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
-
-  margin-top: 4.4rem;
 
   background-color: ${({ theme }) => theme.colors.white};
 `;
@@ -180,19 +212,30 @@ const Title = styled.h1`
   margin-right: 12.8rem;
 `;
 
+const SelectBoxContainer = styled.div`
+  position: fixed;
+  width: 37.5rem;
+  height: 5.3rem;
+  top: 4.4rem;
+
+  z-index: 3;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+
 const SelectBox = styled.button`
   display: flex;
   align-items: center;
 
   height: 2.4rem;
+  /* z-index: 2; */
 
   margin-top: 2.1rem;
   margin-left: 2rem;
-  margin-bottom: 1.1rem;
+
   gap: 0.2rem;
 
   border: none;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const SubTitle = styled.h2`
@@ -201,9 +244,10 @@ const SubTitle = styled.h2`
 `;
 
 const DropdownContainer = styled.div`
-  position: absolute;
-  top: 14.1rem;
-  left: 2rem;
+  position: fixed;
+
+  top: 9.7rem;
+  margin-left: 2rem;
   z-index: 3;
 `;
 
@@ -246,7 +290,57 @@ const DropdownButton = styled.button`
 
 const SingleBookTalkContainer = styled.div`
   width: 37.5rem;
-  height: 40rem;
+  margin-top: 9.7rem;
+  margin-bottom: 8.3rem;
+`;
 
-  overflow-y: scroll;
+const Footer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  width: 37.5rem;
+  height: 8.3rem;
+
+  padding-left: 3rem;
+  padding-right: 3rem;
+
+  margin-top: 1rem;
+
+  background-color: ${theme.colors.white};
+
+  box-shadow: 0rem -0.4rem 0.8rem rgba(54, 57, 60, 4%);
+`;
+
+const FooterWrapper = styled.div`
+  position: fixed;
+  bottom: 0;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+`;
+
+const IconWrapper = styled.div`
+  text-align: center;
+  width: 4.9rem;
+  height: 5.1rem;
+`;
+
+const IconText = styled.div`
+  color: ${theme.colors.green06};
+  ${theme.fonts.caption};
+  text-align: center;
+`;
+
+const UnClickedIconText = styled.div`
+  color: ${theme.colors.gray06};
+  ${theme.fonts.caption};
+  text-align: center;
+`;
+
+const IconsWrapper = styled.div`
+  width: 32.5rem;
+  display: flex;
+  justify-content: space-between;
 `;
