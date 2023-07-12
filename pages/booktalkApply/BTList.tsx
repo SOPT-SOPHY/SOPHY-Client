@@ -57,7 +57,7 @@ function BTList() {
     return <div>Error: {error.message}</div>;
   }
 
-  function filterItems(data: CountryProps[] | null, filterParam: string) {
+  const filterItems = (data: CountryProps[] | null, filterParam: string) => {
     // if (filteredItems) {
     //   const values: CountryProps[] = [];
     //   for (const key in filteredItems) {
@@ -87,7 +87,7 @@ function BTList() {
     }
 
     return [];
-  }
+  };
 
   const resultItems = fetchedItems
     ? filterItems(fetchedItems, region as string)
