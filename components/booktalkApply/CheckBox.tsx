@@ -218,7 +218,7 @@ const StyledButton = styled.button<{ checked: boolean }>`
   margin-bottom: 2rem;
 
   border-radius: 0.6rem;
-  background-color: ${({ theme }) => theme.colors.gray11};
+  background-color: ${({ theme }) => theme.colors.green01};
   border: none;
 
   ${CheckIconWrapper} {

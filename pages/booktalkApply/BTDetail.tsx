@@ -73,8 +73,6 @@ const Header = styled.div`
   height: 4.4rem;
   z-index: 2;
 
-  margin-top: 4.4rem;
-
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -96,7 +94,7 @@ const Title = styled.h1`
 `;
 
 const DetailImg = styled.div`
-  margin-top: 10.9rem; /* 헤더의 높이와 동일하게 조정 */
+  margin-top: 6.5rem;
 
   margin-left: 2rem;
   margin-right: 2rem;
