@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
@@ -11,37 +11,121 @@ import {
   NextButton,
   ClockIcon,
   ScheduleBigIcon,
-  // InactiveCheckboxIcon,
+  InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
+import { isModalOpen } from '../recoil/selector';
 import AuthorLayout from './@AuthorLayout';
+import DropDown from './DropDown';
 
+interface Props {
+  onClick: () => void;
+  isClick?: boolean;
+  setGray?: boolean;
+  setPrimary?: boolean;
+  setBlack?: boolean;
+}
 function AuthorForm() {
   const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+  const [imageSource, setImageSource]: any = useState(null);
+  const [dropDown, setDropDown] = useState<boolean>(false);
+  const [category, setCategory] = useState<string>('카테고리를 선택해주세요');
+  const [preInfo, setPreInfo] = useState<number>(-1);
+  const [freeCheck, setFreeCheck] = useState<boolean>(false);
+
   const HandleModal = () => {
     setModalOpen(true);
   };
   const HandleModalShow = () => {
     setModalOpen(false);
   };
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = () => {
+      setImageSource(reader.result);
+    };
+
+    // const formData = new FormData();
+    // formData.append('files', e.target.files[0]);
+    // 서버 axios로 전달
+    // await axios({
+    //   method: 'post',
+    //   url: '/api/files/images',
+    //   data: formData,
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
+  };
+  const handlePreInfoButton = (index: number) => {
+    if (index === preInfo) {
+      setPreInfo(-1);
+      return;
+    }
+    setPreInfo(index);
+  };
   return (
     <Form>
-      <AuthorLayout pageNum="3" title="신청서를 작성해주세요" />
+      <AuthorLayout
+        noPageNum={false}
+        noPageTitle={false}
+        pageNum="3"
+        title="신청서를 작성해주세요"
+      />
       <FormSection>
-        <UploadImage>
+        <UploadImage htmlFor="file">
+          {imageSource && (
+            <Image
+              src={imageSource}
+              alt="업로드 이미지"
+              width={335}
+              height={184}
+              style={{
+                position: 'absolute',
+                objectFit: 'cover',
+                borderRadius: '0.8rem',
+              }}
+            />
+          )}
           <Image src={AddPhoto} alt="이미지 업로드" />
           <UploadText>대표 이미지를 업로드해주세요.</UploadText>
         </UploadImage>
+        <UploadInput
+          accept="image/*"
+          type="file"
+          id="file"
+          onChange={(e) => handleUpload(e)}
+        />
         <InputContainer>
           <FormHeading>북토크 제목</FormHeading>
           <TitleInput type="text" placeholder="북토크 제목을 입력해주세요" />
           <InputUnderLine />
         </InputContainer>
+
+        {/* 분야선택 */}
         <FormHeading>분야 선택</FormHeading>
-        <CategoryContainer>
-          <CategoryDropDown>카테고리를 선택해주세요</CategoryDropDown>
+        <CategoryContainer
+          onClick={() => {
+            setDropDown(!dropDown);
+          }}
+          setGray={category === '카테고리를 선택해주세요'}
+          setPrimary={dropDown === true}
+          setBlack={!dropDown && category !== '카테고리를 선택해주세요'}>
+          <CategoryDropDown>{category}</CategoryDropDown>
           <Image src={DownButton} alt="드롭다운" width={24} height={24} />
         </CategoryContainer>
+        <DropDownWrapper>
+          {dropDown && (
+            <DropDown
+              giveCategory={(giveCategory) => setCategory(giveCategory)}
+              giveSelected={(giveSelected) => setDropDown(giveSelected)}
+            />
+          )}
+        </DropDownWrapper>
+
         <FormHeading>도서 정보 불러오기</FormHeading>
         <BookInfoContainer>
           <BookInfoButton>내 도서 관리로 이동하기</BookInfoButton>
@@ -77,33 +161,76 @@ function AuthorForm() {
           />
           <InputUnderLine />
         </InputContainer>
+
+        {/* 참가비 및 무료 버튼 */}
         <InputContainer>
           <FormHeading>참가비</FormHeading>
           <TitleInput
             type="text"
             placeholder="참가비를 원 단위로 작성해주세요"
           />
-
           <InputUnderLine />
           <CheckBox>
-            <Image
-              src={ActiveCheckboxIcon}
-              alt="체크 아이콘"
-              width={20}
-              height={20}
-            />
-            무료
+            <div>무료</div>
+            <ImageWrapper
+              onClick={() => {
+                setFreeCheck((prev) => !prev);
+              }}>
+              {freeCheck ? (
+                <Image
+                  src={ActiveCheckboxIcon}
+                  alt="체크 아이콘"
+                  width={20}
+                  height={20}
+                  style={{ cursor: 'pointer' }}
+                />
+              ) : (
+                <Image
+                  src={InactiveCheckboxIcon}
+                  alt="체크 비활성화 아이콘"
+                  width={20}
+                  height={20}
+                  style={{ cursor: 'pointer' }}
+                />
+              )}
+            </ImageWrapper>
           </CheckBox>
         </InputContainer>
+
+        {/* 사전정보 버튼 */}
         <PreInfoContainer>
           <FormHeading>사전 정보</FormHeading>
           <PreInfoButtonWrapper>
-            <PreInfoButton>미리 읽어와주세요</PreInfoButton>
-            <PreInfoButton>발췌문을 드려요</PreInfoButton>
+            <PreInfoButton
+              onClick={() => {
+                handlePreInfoButton(0);
+              }}
+              isClick={preInfo === 0}>
+              미리 읽어와주세요
+            </PreInfoButton>
+            <PreInfoButton
+              onClick={() => {
+                handlePreInfoButton(1);
+              }}
+              isClick={preInfo === 1}>
+              발췌문을 드려요
+            </PreInfoButton>
           </PreInfoButtonWrapper>
           <PreInfoButtonWrapper>
-            <PreInfoButton>질문을 준비해주세요</PreInfoButton>
-            <PreInfoButton>편하게 와주세요</PreInfoButton>
+            <PreInfoButton
+              onClick={() => {
+                handlePreInfoButton(2);
+              }}
+              isClick={preInfo === 2}>
+              질문을 준비해주세요
+            </PreInfoButton>
+            <PreInfoButton
+              onClick={() => {
+                handlePreInfoButton(3);
+              }}
+              isClick={preInfo === 3}>
+              편하게 와주세요
+            </PreInfoButton>
           </PreInfoButtonWrapper>
         </PreInfoContainer>
         <IntroduceContainer>
@@ -133,7 +260,7 @@ const Form = styled.div`
 const FormSection = styled.div`
   margin-top: 2.4rem;
 `;
-const UploadImage = styled.div`
+const UploadImage = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,8 +268,17 @@ const UploadImage = styled.div`
   width: 33.5rem;
   height: 18.4rem;
   margin: 2.4rem 0rem;
+  cursor: pointer;
   border-radius: 0.8rem;
   background: ${theme.colors.gray11};
+`;
+const UploadInput = styled.input`
+  display: none;
+  /* position: absolute;
+  width: 33.5rem;
+  height: 18.4rem;
+  border: none;
+  background: none; */
 `;
 const UploadText = styled.span`
   margin-top: 1.4rem;
@@ -164,12 +300,14 @@ const CheckBox = styled.div`
   fonts: ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
 `;
+const ImageWrapper = styled.div``;
 const TitleInput = styled.input`
   width: 33.5rem;
   margin: 1rem 0rem;
   border: none;
   fonts: ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray08};
+  color: ${theme.colors.gray01};
+
   &::placeholder {
     fonts: ${theme.fonts.body2_regular};
     color: ${theme.colors.gray08};
@@ -180,23 +318,30 @@ const InputUnderLine = styled.div`
   height: 0.1rem;
   background: ${theme.colors.gray09};
 `;
-const CategoryContainer = styled.div`
+const CategoryContainer = styled.div<Props>`
   display: flex;
-
+  justify-content: space-between;
   margin-top: 0.8rem;
   padding: 1.2rem;
   width: 33.5rem;
   height: 4.4rem;
 
-  gap: 15rem;
   border-radius: 0.6rem;
   border: none;
-
+  cursor: pointer;
   background: ${theme.colors.gray11};
   fonts: ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray06};
+
+  &:hover {
+    color: ${theme.colors.primary};
+  }
 `;
 const CategoryDropDown = styled.div``;
+const DropDownWrapper = styled.div`
+  position: absolute;
+  top: 57.7rem;
+  z-index: 3;
+`;
 const BookInfoContainer = styled.div`
   display: flex;
 
@@ -209,6 +354,7 @@ const BookInfoContainer = styled.div`
 
   border-radius: 0.6rem;
   border: none;
+  cursor: pointer;
 
   color: ${theme.colors.green08};
   fonts: ${theme.fonts.body2_medium};
@@ -304,14 +450,18 @@ const PreInfoButtonWrapper = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
-const PreInfoButton = styled.div`
+const PreInfoButton = styled.div<Props>`
   padding: 1rem 1.6rem;
   margin-top: 1.2rem;
   border-radius: 2rem;
   border: none;
-  fonts: ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray05};
-  background: ${theme.colors.gray11};
+  cursor: pointer;
+  fonts: ${({ isClick }) =>
+    isClick ? theme.fonts.body2_medium : theme.fonts.body2_regular};
+  color: ${({ isClick }) =>
+    isClick ? theme.colors.green01 : theme.colors.gray05};
+  background: ${({ isClick }) =>
+    isClick ? theme.colors.primary : theme.colors.gray11};
 `;
 const IntroduceContainer = styled.div``;
 const IntroduceInput = styled.input`
