@@ -19,6 +19,7 @@ interface SingleBookTalkProps {
 function SingleBookTalk({ item }: SingleBookTalkProps) {
   return (
     <>
+      <HorizontalLine />
       <BookTalkWrapper>
         <ImageContainer>
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
@@ -37,7 +38,6 @@ function SingleBookTalk({ item }: SingleBookTalkProps) {
           <TotalCount>/{item.population}</TotalCount>
         </CountWrapper>
       </BookTalkWrapper>
-      <HorizontalLine />
     </>
   );
 }
@@ -77,10 +77,17 @@ const ImageContainer = styled.div`
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  width: 16.2rem;
 `;
 
 const BookName = styled.h1`
+  height: 2.4rem;
   margin-bottom: 0.3rem;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   ${({ theme }) => theme.fonts.subhead3_semibold};
   color: ${({ theme }) => theme.colors.gray01};
@@ -88,6 +95,10 @@ const BookName = styled.h1`
 
 const WriterName = styled.h2`
   margin-bottom: 1.9rem;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   ${({ theme }) => theme.fonts.body3_medium};
   color: ${({ theme }) => theme.colors.gray01};
@@ -101,6 +112,10 @@ const Date = styled.h3`
 `;
 
 const Space = styled.h3`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
   ${({ theme }) => theme.fonts.body3_regular};
   color: ${({ theme }) => theme.colors.gray04};
 `;
@@ -112,10 +127,11 @@ const CountWrapper = styled.div`
 
   position: absolute;
 
-  top: 8rem;
-  left: 28.8rem;
-
+  margin-top: 8rem;
+  margin-left: 28.8rem;
   margin-right: 2rem;
+
+  /* margin-right: 2rem; */
 
   img {
     width: 2.4rem;
