@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import backArrow from '../../../assets/icon/ic_backArrow.svg';
-import detailImage from '../../../assets/img/detailImage.png';
-import BTInfo from '../../../components/booktalkApply/BTInfo';
-import BTData from '../../../data/BTData';
-import CheckBox from '../../../components/booktalkApply/CheckBox';
+import Link from 'next/link';
+import backArrow from '../../assets/icon/ic_backArrow.svg';
+import detailImage from '../../assets/img/detailImage.png';
+import BTInfo from '../../components/booktalkApply/BTInfo';
+import BTData from '../../data/BTData';
+import CheckBox from '../../components/booktalkApply/CheckBox';
 
 function BTDetail() {
   const filteredData = BTData.filter((data) => data.id === 1);
   return (
     <Body>
       <Header>
-        <ImageContainer>
-          <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
-        </ImageContainer>
+        <Link href="/booktalkApply/BTList">
+          <ImageContainer>
+            <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
+          </ImageContainer>
+        </Link>
         <Title>북토크 상세정보</Title>
       </Header>
       <hr style={{ borderTop: '1px solid #F6F7FA' }} />

@@ -10,6 +10,17 @@ import { sophyLogoImg } from '../../../assets/img';
 import { DeleteButtonIcon, HideButtonIcon } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 
+interface ButtonProps {
+  onClick: () => void;
+  isLoginAvailable: boolean;
+}
+
+interface StyledComponentProps {
+  string?: string | null;
+  boolean?: boolean | null;
+  confirmPassword?: string | null;
+}
+
 function Login() {
   // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -102,7 +113,7 @@ function Login() {
           <LoginInput
             placeholder="이메일을 입력해주세요"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: any) => setEmail(e.target.value)}
           />
           {email.length > 0 ? (
             <DeleteButton
@@ -113,7 +124,7 @@ function Login() {
           ) : (
             <NonEmailInput />
           )}
-          <LoginLine />
+          <LoginLine string={emailError} />
           {emailError ? (
             <ErrorMessage>{emailError}</ErrorMessage>
           ) : (
@@ -125,7 +136,7 @@ function Login() {
           <LoginInput
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: any) => setPassword(e.target.value)}
             type={showPswd ? 'text' : 'password'}
           />
           <HideButton
@@ -135,7 +146,7 @@ function Login() {
               setShowPswd(!showPswd);
             }}
           />
-          <LoginLine />
+          <PasswordLine string={password} />
         </InputWrapper>
       </InputsWrapper>
       <Button onClick={handleLogin} isLoginAvailable={isLoginAvailable}>
@@ -154,7 +165,7 @@ function Login() {
 
 export default Login;
 
-const Button = styled.button`
+const Button = styled.button<ButtonProps>`
   width: 33.5rem;
   height: 5.2rem;
 
@@ -199,9 +210,19 @@ const LoginInput = styled.input`
   }
 `;
 
-const LoginLine = styled.div`
+const LoginLine = styled.div<StyledComponentProps>`
   width: 33.5rem;
-  border-top: 0.1rem solid ${theme.colors.gray09};
+  border-top: 0.1rem solid
+    ${(props) => (props.string ? theme.colors.dangerRed : theme.colors.gray09)};
+`;
+
+const PasswordLine = styled.div<StyledComponentProps>`
+  width: 33.5rem;
+  border-top: 0.1rem solid
+    ${(props) =>
+      props.string && props.string.length > 0
+        ? theme.colors.primary
+        : theme.colors.gray09};
 `;
 
 const InputTitle = styled.div`
