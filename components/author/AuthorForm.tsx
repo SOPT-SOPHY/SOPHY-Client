@@ -332,6 +332,7 @@ function AuthorForm() {
               type="text"
               placeholder="참가비를 원 단위로 작성해주세요"
               onChange={(e) => handleCost(e)}
+              value={!freeCheck && cost ? cost : ''}
               disabled={!!freeCheck}
             />
             {cost ? <WonSpan>원</WonSpan> : <span />}
