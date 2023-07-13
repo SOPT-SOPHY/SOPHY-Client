@@ -172,6 +172,7 @@ const Regions = styled.div<RegionProps>`
   padding-bottom: 0.8rem;
   padding-right: 0.8rem;
 
+  cursor: pointer;
   fonts: ${theme.fonts.body1_medium};
   color: ${({ isClick }) =>
     isClick ? theme.colors.primary : theme.colors.gray02};
