@@ -45,6 +45,7 @@ function AuthorForm() {
 
   const HandleModal = () => {
     setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const HandleModalShow = () => {
     setModalOpen(false);
@@ -205,23 +206,29 @@ function AuthorForm() {
       />
       <FormSection>
         {/* 대표이미지 */}
-        <UploadImage htmlFor="file">
-          {imageSource && (
+
+        {imageSource ? (
+          <UploadImageWrapper>
             <Image
               src={imageSource}
               alt="업로드 이미지"
               width={335}
               height={184}
               style={{
-                position: 'absolute',
-                objectFit: 'cover',
+                // marginTop: '2.4rem',
+                // marginBottom: '2.4rem',
+                // position: 'relative ',
+                objectFit: 'fill',
                 borderRadius: '0.8rem',
               }}
             />
-          )}
-          <Image src={AddPhoto} alt="이미지 업로드" />
-          <UploadText>대표 이미지를 업로드해주세요.</UploadText>
-        </UploadImage>
+          </UploadImageWrapper>
+        ) : (
+          <UploadImage htmlFor="file">
+            <Image src={AddPhoto} alt="이미지 업로드" />
+            <UploadText>대표 이미지를 업로드해주세요.</UploadText>
+          </UploadImage>
+        )}
         <UploadInput
           accept="image/*"
           type="file"
@@ -423,6 +430,13 @@ const Form = styled.div`
 `;
 const FormSection = styled.div`
   margin-top: 2.4rem;
+`;
+const UploadImageWrapper = styled.div`
+  width: 33.5rem;
+  height: 18.4rem;
+  margin: 2.4rem 0rem;
+  border-radius: 0.8rem;
+  background: ${theme.colors.gray11};
 `;
 const UploadImage = styled.label`
   display: flex;
