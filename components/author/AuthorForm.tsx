@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
@@ -27,13 +27,16 @@ interface Props {
 }
 function AuthorForm() {
   const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+
   const [imageSource, setImageSource]: any = useState(null);
   const [dropDown, setDropDown] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('카테고리를 선택해주세요');
-  const [preInfo, setPreInfo] = useState<number>(-1);
+  const [preInfo, setPreInfo] = useState<number>(0);
   const [freeCheck, setFreeCheck] = useState<boolean>(false);
-  const [cost, setCost] = useState<number>(0);
+  // const [cost, setCost] = useState<number>(0);
   const [people, setPeople] = useState<number>(0);
+
+  // const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const HandleModal = () => {
     setModalOpen(true);
@@ -41,6 +44,7 @@ function AuthorForm() {
   const HandleModalShow = () => {
     setModalOpen(false);
   };
+
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!e.target.files) return;
@@ -62,22 +66,35 @@ function AuthorForm() {
     //   },
     // });
   };
-  const handlePreInfoButton = (index: number) => {
+  const handlePreInfo = (index: number) => {
     if (index === preInfo) {
-      setPreInfo(-1);
+      setPreInfo(0);
       return;
     }
     setPreInfo(index);
   };
-  const handleCost = (e) => {
-    const regex = /^[0-9]+$/;
-    if (!regex.test(e.target.value)) {
-      alert('숫자로 입력해주세요');
-    } else {
-      setCost(e.target.value);
-      console.log(cost);
-    }
+
+  const [inputValue, setInputValue] = useState({
+    value: '원',
+    setValue: (newValue) => {
+      setInputValue({ ...inputValue, value: newValue });
+    },
+  });
+
+  // const handleCost = (e: any) => {
+  //   const regex = /^[0-9]+$/;
+  //   if (regex.test(e.target.value)) {
+  //     setCost(`${e.target.value}원`);
+  //     setInputValue(`${e.target.value}원`);
+  //   } else {
+  //     e.target.value = '';
+  //   }
+  // };
+
+  const onFocus = (e) => {
+    e.target.selectionStart = 0;
   };
+
   const handlePeople = (e) => {
     const regex = /^[0-9]+$/;
     if (!regex.test(e.target.value)) {
@@ -87,6 +104,15 @@ function AuthorForm() {
       console.log(people);
     }
   };
+
+  useEffect(() => {
+    if (imageSource && category && preInfo) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [imageSource, category, preInfo]);
+
   return (
     <Form>
       <AuthorLayout
@@ -186,11 +212,17 @@ function AuthorForm() {
         {/* 참가비 및 무료 버튼 */}
         <InputContainer>
           <FormHeading>참가비</FormHeading>
-          <TitleInput
-            type="text"
-            placeholder="참가비를 원 단위로 작성해주세요"
-            onChange={handleCost}
-          />
+          <CostInputWrapper>
+            <CostInput
+              type="text"
+              placeholder="참가비를 원 단위로 작성해주세요"
+              onChange={(e: any) => setInputValue(e.target.value)}
+              // value={true ? inputValue.value : ''}
+              onFocus={onFocus}
+            />
+            {cost && <span>원</span>}
+          </CostInputWrapper>
+
           <InputUnderLine />
           <CheckBox>
             <div>무료</div>
@@ -225,32 +257,32 @@ function AuthorForm() {
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(0);
+                handlePreInfo(1);
               }}
-              isClick={preInfo === 0}>
+              isClick={preInfo === 1}>
               미리 읽어와주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(1);
+                handlePreInfo(2);
               }}
-              isClick={preInfo === 1}>
+              isClick={preInfo === 2}>
               발췌문을 드려요
             </PreInfoButton>
           </PreInfoButtonWrapper>
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(2);
+                handlePreInfo(3);
               }}
-              isClick={preInfo === 2}>
+              isClick={preInfo === 3}>
               질문을 준비해주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(3);
+                handlePreInfo(4);
               }}
-              isClick={preInfo === 3}>
+              isClick={preInfo === 4}>
               편하게 와주세요
             </PreInfoButton>
           </PreInfoButtonWrapper>
@@ -313,6 +345,23 @@ const FormHeading = styled.h1`
   color: ${theme.colors.gray01};
 `;
 const InputContainer = styled.div``;
+const CostInputWrapper = styled.div`
+  display: flex;
+  width: 33.5rem;
+  height: 4rem;
+`;
+const CostInput = styled.input`
+  /* display: inline-block; */
+  width: 100%;
+  border: none;
+  fonts: ${theme.fonts.body2_regular};
+  color: ${theme.colors.gray01};
+
+  &::placeholder {
+    fonts: ${theme.fonts.body2_regular};
+    color: ${theme.colors.gray08};
+  }
+`;
 const CheckBox = styled.div`
   display: flex;
   flex-direction: row-reverse;
