@@ -109,6 +109,7 @@ function AuthorSpace() {
             width={44}
             style={{
               marginLeft: '-17px',
+              cursor: 'pointer',
             }}
           />
           <PageNumber>

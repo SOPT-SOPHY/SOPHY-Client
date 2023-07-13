@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
@@ -27,20 +27,30 @@ interface Props {
 }
 function AuthorForm() {
   const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
-  const [imageSource, setImageSource]: any = useState(null);
   const [dropDown, setDropDown] = useState<boolean>(false);
+
+  const [imageSource, setImageSource]: any = useState(null);
+  const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('카테고리를 선택해주세요');
-  const [preInfo, setPreInfo] = useState<number>(-1);
-  const [freeCheck, setFreeCheck] = useState<boolean>(false);
-  const [cost, setCost] = useState<number>(0);
+  const [date, setDate] = useState<string>('');
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
   const [people, setPeople] = useState<number>(0);
+  const [cost, setCost] = useState<number>(0);
+  const [freeCheck, setFreeCheck] = useState<boolean>(false);
+  const [preInfo, setPreInfo] = useState<number>(0);
+  const [introduction, setIntroduction] = useState<string>('');
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const HandleModal = () => {
     setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const HandleModalShow = () => {
     setModalOpen(false);
   };
+
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!e.target.files) return;
@@ -62,31 +72,130 @@ function AuthorForm() {
     //   },
     // });
   };
-  const handlePreInfoButton = (index: number) => {
+  const handleTitle = (e: any) => {
+    setTitle(e.target.value);
+  };
+  // 개최 날짜
+  const handleDate = (e: any) => {
+    const regex = /^[0-9\b /]{0,8}$/;
+    if (regex.test(e.target.value)) {
+      setDate(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setDate('');
+    }
+  };
+  useEffect(() => {
+    if (date.length === 6) {
+      setDate(date.replace(/(\d{2})(\d{2})(\d{2})/, '$1/$2/$3'));
+    }
+  }, [date]);
+
+  // 시작 시간
+  const handleStartTime = (e: any) => {
+    const regex = /^[0-9\b :]{0,5}$/;
+    if (regex.test(e.target.value)) {
+      setStartTime(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setStartTime('');
+    }
+  };
+  useEffect(() => {
+    if (startTime.length === 4) {
+      setStartTime(startTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+    }
+  }, [startTime]);
+
+  // 종료 시간
+  const handleEndTime = (e: any) => {
+    const regex = /^[0-9\b :]{0,5}$/;
+    if (regex.test(e.target.value)) {
+      setEndTime(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setEndTime('');
+    }
+  };
+  useEffect(() => {
+    if (endTime.length === 4) {
+      setEndTime(endTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+    }
+  }, [endTime]);
+
+  const handlePreInfo = (index: number) => {
     if (index === preInfo) {
-      setPreInfo(-1);
+      setPreInfo(0);
       return;
     }
     setPreInfo(index);
   };
-  const handleCost = (e) => {
+
+  const handleCost = (e: any) => {
     const regex = /^[0-9]+$/;
-    if (!regex.test(e.target.value)) {
-      alert('숫자로 입력해주세요');
-    } else {
+    if (regex.test(e.target.value)) {
       setCost(e.target.value);
-      console.log(cost);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setCost(0);
     }
   };
+
   const handlePeople = (e) => {
     const regex = /^[0-9]+$/;
-    if (!regex.test(e.target.value)) {
-      alert('숫자로 입력해주세요');
-    } else {
+    if (regex.test(e.target.value)) {
       setPeople(e.target.value);
-      console.log(people);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setPeople(0);
     }
   };
+
+  const handleIntroduction = (e: any) => {
+    setIntroduction(e.target.value);
+  };
+
+  useEffect(() => {
+    if (
+      imageSource &&
+      title &&
+      category &&
+      date &&
+      startTime &&
+      endTime &&
+      people &&
+      (cost || freeCheck) &&
+      preInfo &&
+      introduction
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [
+    imageSource,
+    title,
+    category,
+    date,
+    startTime,
+    endTime,
+    cost,
+    freeCheck,
+    people,
+    preInfo,
+    introduction,
+  ]);
+
   return (
     <Form>
       <AuthorLayout
@@ -96,32 +205,45 @@ function AuthorForm() {
         title="신청서를 작성해주세요"
       />
       <FormSection>
-        <UploadImage htmlFor="file">
-          {imageSource && (
+        {/* 대표이미지 */}
+
+        {imageSource ? (
+          <UploadImageWrapper>
             <Image
               src={imageSource}
               alt="업로드 이미지"
               width={335}
               height={184}
               style={{
-                position: 'absolute',
-                objectFit: 'cover',
+                // marginTop: '2.4rem',
+                // marginBottom: '2.4rem',
+                // position: 'relative ',
+                objectFit: 'fill',
                 borderRadius: '0.8rem',
               }}
             />
-          )}
-          <Image src={AddPhoto} alt="이미지 업로드" />
-          <UploadText>대표 이미지를 업로드해주세요.</UploadText>
-        </UploadImage>
+          </UploadImageWrapper>
+        ) : (
+          <UploadImage htmlFor="file">
+            <Image src={AddPhoto} alt="이미지 업로드" />
+            <UploadText>대표 이미지를 업로드해주세요.</UploadText>
+          </UploadImage>
+        )}
         <UploadInput
           accept="image/*"
           type="file"
           id="file"
           onChange={(e) => handleUpload(e)}
         />
+
+        {/* 제목 */}
         <InputContainer>
           <FormHeading>북토크 제목</FormHeading>
-          <TitleInput type="text" placeholder="북토크 제목을 입력해주세요" />
+          <TitleInput
+            type="text"
+            placeholder="북토크 제목을 입력해주세요"
+            onChange={(e) => handleTitle(e)}
+          />
           <InputUnderLine />
         </InputContainer>
 
@@ -154,43 +276,67 @@ function AuthorForm() {
         <FormHeading>개최 일정</FormHeading>
         <DayContainer>
           <Image src={ScheduleBigIcon} alt="달력" width={24} height={24} />
-          <DayInput type="text" placeholder="YY/MM/DD" />
+          <DayInput
+            type="text"
+            placeholder="YY/MM/DD"
+            value={date || ''}
+            onChange={(e) => handleDate(e)}
+          />
         </DayContainer>
         <HourContainer>
           <StartWrapper>
             <FormHeading>시작 시간</FormHeading>
             <StartHourBox>
               <Image src={ClockIcon} alt="시계" />
-              <StartHourInput type="text" placeholder="HH:MM" />
+              <StartHourInput
+                type="text"
+                placeholder="HH:MM"
+                value={startTime || ''}
+                onChange={(e) => handleStartTime(e)}
+              />
             </StartHourBox>
           </StartWrapper>
           <EndWrapper>
             <FormHeading>종료 시간</FormHeading>
             <EndHourBox>
               <Image src={ClockIcon} alt="시계" />
-              <EndHourInput type="text" placeholder="HH:MM" />
+              <EndHourInput
+                type="text"
+                placeholder="HH:MM"
+                value={endTime || ''}
+                onChange={(e) => handleEndTime(e)}
+              />
             </EndHourBox>
           </EndWrapper>
         </HourContainer>
         <SubDescription>24시간 기준으로 입력해주세요. ex) 19:30</SubDescription>
         <InputContainer>
           <FormHeading>참여 인원</FormHeading>
-          <TitleInput
-            type="text"
-            placeholder="참여 인원을 숫자로 작성해주세요"
-            onChange={handlePeople}
-          />
+          <NumInputWrapper>
+            <NumInput
+              type="text"
+              placeholder="참여 인원을 숫자로 작성해주세요"
+              onChange={(e) => handlePeople(e)}
+            />
+            {people ? <WonSpan>명</WonSpan> : <span />}
+          </NumInputWrapper>
+
           <InputUnderLine />
         </InputContainer>
 
         {/* 참가비 및 무료 버튼 */}
         <InputContainer>
           <FormHeading>참가비</FormHeading>
-          <TitleInput
-            type="text"
-            placeholder="참가비를 원 단위로 작성해주세요"
-            onChange={handleCost}
-          />
+          <NumInputWrapper>
+            <NumInput
+              type="text"
+              placeholder="참가비를 원 단위로 작성해주세요"
+              onChange={(e) => handleCost(e)}
+              value={!freeCheck && cost ? cost : ''}
+              disabled={!!freeCheck}
+            />
+            {cost ? <WonSpan>원</WonSpan> : <span />}
+          </NumInputWrapper>
           <InputUnderLine />
           <CheckBox>
             <div>무료</div>
@@ -225,32 +371,32 @@ function AuthorForm() {
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(0);
+                handlePreInfo(1);
               }}
-              isClick={preInfo === 0}>
+              isClick={preInfo === 1}>
               미리 읽어와주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(1);
+                handlePreInfo(2);
               }}
-              isClick={preInfo === 1}>
+              isClick={preInfo === 2}>
               발췌문을 드려요
             </PreInfoButton>
           </PreInfoButtonWrapper>
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(2);
+                handlePreInfo(3);
               }}
-              isClick={preInfo === 2}>
+              isClick={preInfo === 3}>
               질문을 준비해주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfoButton(3);
+                handlePreInfo(4);
               }}
-              isClick={preInfo === 3}>
+              isClick={preInfo === 4}>
               편하게 와주세요
             </PreInfoButton>
           </PreInfoButtonWrapper>
@@ -258,13 +404,17 @@ function AuthorForm() {
         <IntroduceContainer>
           <FormHeading>북토크 소개글</FormHeading>
           <IntroduceInput
-            type="text"
             placeholder="북토크 소개글을 작성해주세요"
+            maxLength="1000"
+            onChange={(e) => handleIntroduction(e)}
           />
         </IntroduceContainer>
       </FormSection>
-
-      <AuthorModalButton onClick={HandleModal}>다음</AuthorModalButton>
+      {isFormValid ? (
+        <AuthorModalButton onClick={HandleModal}>다음</AuthorModalButton>
+      ) : (
+        <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
+      )}
       {modalOpen && (
         <ModalPortal>
           <AuthorModal onClose={HandleModalShow} />
@@ -281,6 +431,13 @@ const Form = styled.div`
 `;
 const FormSection = styled.div`
   margin-top: 2.4rem;
+`;
+const UploadImageWrapper = styled.div`
+  width: 33.5rem;
+  height: 18.4rem;
+  margin: 2.4rem 0rem;
+  border-radius: 0.8rem;
+  background: ${theme.colors.gray11};
 `;
 const UploadImage = styled.label`
   display: flex;
@@ -313,6 +470,31 @@ const FormHeading = styled.h1`
   color: ${theme.colors.gray01};
 `;
 const InputContainer = styled.div``;
+const NumInputWrapper = styled.div`
+  display: flex;
+  width: 33.5rem;
+  height: 4rem;
+`;
+const NumInput = styled.input`
+  width: inherit;
+  border: none;
+  fonts: ${theme.fonts.body2_regular};
+  color: ${theme.colors.gray01};
+  border-radius: 0.6rem;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    fonts: ${theme.fonts.body2_regular};
+    color: ${theme.colors.gray08};
+  }
+`;
+const WonSpan = styled.span`
+  height: 4rem;
+  padding-top: 1rem;
+  fonts: ${theme.fonts.body2_regular};
+  color: ${theme.colors.gray01};
+`;
 const CheckBox = styled.div`
   display: flex;
   flex-direction: row-reverse;
@@ -327,6 +509,7 @@ const TitleInput = styled.input`
   width: 33.5rem;
   margin: 1rem 0rem;
   border: none;
+  outline: none;
   fonts: ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
 
@@ -408,6 +591,7 @@ const DayInput = styled.input`
 
   border: none;
   background: none;
+  outline: none;
   &::placeholder {
     background: ${theme.colors.gray11};
   }
@@ -442,6 +626,7 @@ const StartHourInput = styled.input`
   width: 10rem;
   border: none;
   background: none;
+  outline: none;
   &::placeholder {
     background: ${theme.colors.gray11};
   }
@@ -461,6 +646,7 @@ const EndHourInput = styled.input`
   width: 10rem;
   border: none;
   background: none;
+  outline: none;
   &::placeholder {
     background: ${theme.colors.gray11};
   }
@@ -492,17 +678,18 @@ const PreInfoButton = styled.div<Props>`
     isClick ? theme.colors.primary : theme.colors.gray11};
 `;
 const IntroduceContainer = styled.div``;
-const IntroduceInput = styled.input`
+const IntroduceInput = styled.textarea`
   width: 33.5rem;
   height: 10rem;
-  padding: 1.2rem 15.8rem 6.8rem 1.2rem;
+  padding: 1.2rem;
   margin-top: 0.8rem;
   margin-bottom: 5rem;
+
   background: ${theme.colors.gray11};
   border-radius: 0.6rem;
   border: none;
-  color: ${theme.colors.gray06};
-
+  color: ${theme.colors.gray01};
+  outline: none;
   &::placeholder {
     color: ${theme.colors.gray06};
   }
@@ -515,5 +702,18 @@ const AuthorModalButton = styled.button`
   color: ${theme.colors.white};
   border-radius: 0.375rem;
   background: ${theme.colors.green05};
+  border: none;
+`;
+const InactiveAuthorModalButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 11.2rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.gray07};
+  border-radius: 0.375rem;
+  background: ${theme.colors.gray11};
   border: none;
 `;
