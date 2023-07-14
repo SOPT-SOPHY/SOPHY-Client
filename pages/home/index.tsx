@@ -1,9 +1,8 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
 // import sample from 'public/next.svg';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 // import Slider from 'react-slick';
@@ -31,14 +30,18 @@ import {
 } from '../../assets/icon';
 import SimpleSlider from '../../components/SimpleSlider';
 import HotBookTalkSlider from '../../components/HotBookTalkSlider';
+import api from '../../apis';
 
 function Home() {
   // const user = '비회원';
   const router = useRouter();
   const isRegionSet = false;
   const isWriter = true;
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
   /*
+  const memberId = 1;
+
   const handleLogout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
@@ -47,6 +50,30 @@ function Home() {
   */
 
   const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+
+  useEffect(() => {
+    if (!refreshToken && !accessToken) {
+      router.push('auth/login');
+    }
+  }, [accessToken, refreshToken, router]);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  const handleRegion = async () => {
+    try {
+      const response = await api.get(`${baseURL}/member/my-info/4`, config);
+      console.log(response);
+    } catch (error) {
+      console.error('홈 에러 발생', error);
+      // handleLogout();
+      // router.push('/auth/login');
+    }
+  };
   // const refreshToken = Cookies.get('refreshToken');
 
   /*
@@ -56,7 +83,7 @@ function Home() {
     }
   }, [refreshToken]);
   */
-
+  /*
   if (!accessToken) {
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/test/auth/refresh`, {
@@ -76,7 +103,7 @@ function Home() {
         // router.push('auth/login');
       });
   }
-
+*/
   /*
   const { isLoading, error, data } = useQuery(['repoData'], () =>
     axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
@@ -135,6 +162,9 @@ function Home() {
 
   return (
     <Layout noHeader noMenuBar noFooter>
+      <button type="button" onClick={handleRegion}>
+        버튼
+      </button>
       <TopBackground image={HomeTopImg}>
         <Image
           src={MainLogoIcon}

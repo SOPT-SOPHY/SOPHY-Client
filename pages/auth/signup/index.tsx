@@ -53,7 +53,8 @@ function Signup() {
   const handleEmailCheck = async () => {
     try {
       // 이메일 중복확인을 위한 API 호출
-      const response = await axios.get(`/api/checkEmail?email=${email}`);
+      const response = await axios.get(`${baseURL}/auth/dupl-check`);
+      console.log(response);
       const { isAvailable } = response.data;
       setIsEmailAvailable(isAvailable);
     } catch (e: any) {
@@ -64,9 +65,10 @@ function Signup() {
   const handleSignup = async () => {
     try {
       const response = await axios.post(`${baseURL}/auth/signup`, {
-        email: 'kim@gmail.com',
-        nickname: '현수',
-        password: '1',
+        email,
+        name,
+        password,
+        phone_num: phone,
       });
 
       console.log(response);

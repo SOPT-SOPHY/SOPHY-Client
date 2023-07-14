@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import router from 'next/router';
 import styled from 'styled-components';
 import Layout from '../../../components/Layout';
 import {
+  ColoredCheckboxIcon,
+  ColoredRadioIcon,
   EmptyCheckboxIcon,
   EmptyRadioIcon,
   GoBackIcon,
@@ -14,6 +16,10 @@ function ManagingInfo() {
   const handleGoBack = () => {
     router.back();
   };
+
+  const [marketingTerm, setMarketingTerm] = useState(false);
+
+  const [gender, setGender] = useState('');
 
   return (
     <Layout noFooter noMenuBar noHeader>
@@ -34,14 +40,14 @@ function ManagingInfo() {
         <InputTitleContent>이름</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>01012341234</Input>
+        <Input>김현수</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
         <InputTitleContent>휴대폰 번호</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>sophy327@gmail.com</Input>
+        <Input>01076771072</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
@@ -57,25 +63,28 @@ function ManagingInfo() {
       <RadioWrapper>
         <Radio>
           <Image
-            src={EmptyRadioIcon}
+            src={gender !== '여성' ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
+            onClick={() => setGender('여성')}
           />
           여성
         </Radio>
         <Radio>
           <Image
-            src={EmptyRadioIcon}
+            src={gender !== '남성' ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
+            onClick={() => setGender('남성')}
           />
           남성
         </Radio>
         <Radio>
           <Image
-            src={EmptyRadioIcon}
+            src={gender !== '선택안함' ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
+            onClick={() => setGender('선택안함')}
           />
           선택안함
         </Radio>
@@ -101,11 +110,21 @@ function ManagingInfo() {
       </RegionSelectionWrapper>
       <LoginLine />
       <TermWrapper>
-        <Image
-          src={EmptyCheckboxIcon}
-          alt="체크되지 않은 체크 박스 아이콘"
-          style={{ marginRight: '0.8rem' }}
-        />
+        {marketingTerm ? (
+          <Image
+            src={ColoredCheckboxIcon}
+            alt="체크된 체크 박스 아이콘"
+            style={{ marginRight: '0.8rem' }}
+            onClick={() => setMarketingTerm(!marketingTerm)}
+          />
+        ) : (
+          <Image
+            src={EmptyCheckboxIcon}
+            alt="체크되지 않은 체크 박스 아이콘"
+            style={{ marginRight: '0.8rem' }}
+            onClick={() => setMarketingTerm(!marketingTerm)}
+          />
+        )}
         (선택)마케팅 정보수신 동의
         <TermContent>
           마케팅 정보 수신에 동의하시면, 1)소피 매거진 제공 2)제휴 혜택 안내
