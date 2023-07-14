@@ -53,7 +53,8 @@ function Signup() {
   const handleEmailCheck = async () => {
     try {
       // 이메일 중복확인을 위한 API 호출
-      const response = await axios.get(`/api/checkEmail?email=${email}`);
+      const response = await axios.get(`${baseURL}/auth/dupl-check`);
+      console.log(response);
       const { isAvailable } = response.data;
       setIsEmailAvailable(isAvailable);
     } catch (e: any) {
@@ -64,9 +65,10 @@ function Signup() {
   const handleSignup = async () => {
     try {
       const response = await axios.post(`${baseURL}/auth/signup`, {
-        email: 'kim@gmail.com',
-        nickname: '현수',
-        password: '1',
+        email,
+        name,
+        password,
+        phone_num: phone,
       });
 
       console.log(response);
@@ -203,6 +205,7 @@ function Signup() {
         <PageTitle>회원가입</PageTitle>
         <TitleBlank />
       </Head>
+      <HeadBlank />
       <InputTitle>
         <InputTitleContent>이메일 주소</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
@@ -444,9 +447,16 @@ const Head = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  width: 37.5rem;
+  position: fixed;
 
-  margin-bottom: 0.8rem;
+  background-color: ${theme.colors.white};
+
+  width: 37.5rem;
+`;
+
+const HeadBlank = styled.div`
+  width: 37.5rem;
+  height: 4.4rem;
 `;
 
 const PageTitle = styled.div`

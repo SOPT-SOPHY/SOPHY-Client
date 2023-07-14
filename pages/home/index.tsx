@@ -1,16 +1,14 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
 // import sample from 'public/next.svg';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 // import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
-import useFetchTestData from '../../hooks/queries/test';
 import Layout from '../../components/Layout';
 import HomeTopImg from '../../assets/img/HomeTopImg.png';
 import {
@@ -31,14 +29,20 @@ import {
 } from '../../assets/icon';
 import SimpleSlider from '../../components/SimpleSlider';
 import HotBookTalkSlider from '../../components/HotBookTalkSlider';
+import {
+  uesFetchMemberHome,
+  uesFetchNonMemberHome,
+} from '../../hooks/queries/home';
 
 function Home() {
   // const user = '비회원';
   const router = useRouter();
   const isRegionSet = false;
-  const isWriter = true;
+  const isWriter = false;
 
   /*
+  const memberId = 1;
+
   const handleLogout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
@@ -47,6 +51,34 @@ function Home() {
   */
 
   const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+  const memberId = Cookies.get('memberId');
+
+  useEffect(() => {
+    if (!refreshToken && !accessToken && memberId) {
+      router.push('auth/login');
+    }
+  }, [accessToken, refreshToken, router]);
+
+  const data = memberId ? uesFetchMemberHome() : uesFetchNonMemberHome();
+  console.log(data);
+
+  /*
+  const handleRegion = async () => {
+    try {
+      const response = await api.get(`${baseURL}/member/my-info/4`, config);
+      console.log(response);
+      return response.data.data;
+    } catch (error) {
+      console.error('홈 에러 발생', error);
+      // handleLogout();
+      // router.push('/auth/login');
+    }
+  };
+
+  const { data } = handleRegion();
+  console.log(data);
+  */
   // const refreshToken = Cookies.get('refreshToken');
 
   /*
@@ -56,7 +88,7 @@ function Home() {
     }
   }, [refreshToken]);
   */
-
+  /*
   if (!accessToken) {
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/test/auth/refresh`, {
@@ -76,7 +108,7 @@ function Home() {
         // router.push('auth/login');
       });
   }
-
+*/
   /*
   const { isLoading, error, data } = useQuery(['repoData'], () =>
     axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
@@ -129,12 +161,18 @@ function Home() {
       content = <div>비회원</div>;
       break;
   }
-  */
 
-  useFetchTestData(accessToken);
+    useFetchTestData(accessToken);
+
+  */
 
   return (
     <Layout noHeader noMenuBar noFooter>
+      {/*
+      <button type="button" onClick={handleRegion}>
+        버튼
+      </button>
+  */}
       <TopBackground image={HomeTopImg}>
         <Image
           src={MainLogoIcon}
@@ -146,10 +184,20 @@ function Home() {
           }}
         />
         <TopText>
-          <TopBoldText>이성오님,</TopBoldText>{' '}
-          <TopTextUnder>반가워요</TopTextUnder>
+          {memberId ? (
+            <>
+              <TopBoldText>{data?.name}님,</TopBoldText>
+              <TopTextUnder>반가워요</TopTextUnder>
+            </>
+          ) : (
+            <>
+              <TopBoldText>안녕하세요</TopBoldText>
+              <NonMemberTopTextUnder />
+            </>
+          )}
+
           <br />
-          <div>오늘도 소피로운 하루 보내세요</div>
+          <TopTextUnder>오늘도 소피로운 하루 보내세요</TopTextUnder>
         </TopText>
         <ScheduledBookTalkWrapper>
           <ScheduledBookTalk>
@@ -162,7 +210,15 @@ function Home() {
               <ScheduledBookTalkText>예정된 북토크</ScheduledBookTalkText>
             </ScheduledBookTalkInnerTextWrapper>
             <ScheduledBookTalkInnerTextWrapper>
-              <ScheduledBookTalkNumberText>2개</ScheduledBookTalkNumberText>
+              {memberId ? (
+                <ScheduledBookTalkNumberText>
+                  {data?.booktalk_count}개
+                </ScheduledBookTalkNumberText>
+              ) : (
+                <ScheduledBookTalkNumberText>
+                  로그인 후 사용가능
+                </ScheduledBookTalkNumberText>
+              )}
               <Image
                 src={HomeMoreIcon}
                 alt="더보기 아이콘"
@@ -192,7 +248,7 @@ function Home() {
       </TopBackground>
       {isWriter ? (
         <WriterRegionWrapper>
-          <WriterRegionText>이번달, 지식이 가득했던 지역들!</WriterRegionText>
+          <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
           <RegionRankingWrapper>
             <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
             의정부시 민락동
@@ -267,7 +323,7 @@ function Home() {
         </MoreHotBookTalk>
       </HotBookTalk>
       <HotBookTalkSliderWrapper>
-        <HotBookTalkSlider />
+        <HotBookTalkSlider data={data?.booktalk_deadline_upcoming} />
       </HotBookTalkSliderWrapper>
       <FooterWrapper>
         <Footer>
@@ -289,7 +345,7 @@ function Home() {
             </IconWrapper>
             <IconWrapper>
               <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
-              <UnClickedIconText>MY</UnClickedIconText>
+              <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>
@@ -363,8 +419,12 @@ const TopText = styled.div`
 `;
 
 const TopTextUnder = styled.div`
-  margin-top: 0.4rem;
-  margin-left: 0.5rem;
+  width: 24rem;
+  margin-top: 0.2rem;
+`;
+
+const NonMemberTopTextUnder = styled.div`
+  width: 23.5rem;
 `;
 
 const TopBoldText = styled.span`
