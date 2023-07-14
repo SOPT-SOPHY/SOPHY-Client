@@ -31,6 +31,7 @@ function AuthorLayout(props: LayoutProps) {
           width={44}
           style={{
             marginLeft: '-17px',
+            cursor: 'pointer',
           }}
         />
 
