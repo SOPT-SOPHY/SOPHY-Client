@@ -63,8 +63,8 @@ api.interceptors.response.use(
             {
               access_token: accessToken,
               refresh_token: refreshToken,
-              access_token_expired_time: 5,
-              refresh_token_expired_time: 10,
+              access_token_expired_time: 3000,
+              refresh_token_expired_time: 4000,
             },
           );
           // 리프레시 토큰 에러처리

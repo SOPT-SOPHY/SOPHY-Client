@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
-import useFetchTestData from '../../hooks/queries/test';
 import Layout from '../../components/Layout';
 import HomeTopImg from '../../assets/img/HomeTopImg.png';
 import {
@@ -30,14 +29,16 @@ import {
 } from '../../assets/icon';
 import SimpleSlider from '../../components/SimpleSlider';
 import HotBookTalkSlider from '../../components/HotBookTalkSlider';
-import api from '../../apis';
+import {
+  uesFetchMemberHome,
+  uesFetchNonMemberHome,
+} from '../../hooks/queries/home';
 
 function Home() {
   // const user = '비회원';
   const router = useRouter();
   const isRegionSet = false;
-  const isWriter = true;
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+  const isWriter = false;
 
   /*
   const memberId = 1;
@@ -51,29 +52,33 @@ function Home() {
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
+  const memberId = Cookies.get('memberId');
 
   useEffect(() => {
-    if (!refreshToken && !accessToken) {
+    if (!refreshToken && !accessToken && memberId) {
       router.push('auth/login');
     }
   }, [accessToken, refreshToken, router]);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
+  const data = memberId ? uesFetchMemberHome() : uesFetchNonMemberHome();
+  console.log(data);
 
+  /*
   const handleRegion = async () => {
     try {
       const response = await api.get(`${baseURL}/member/my-info/4`, config);
       console.log(response);
+      return response.data.data;
     } catch (error) {
       console.error('홈 에러 발생', error);
       // handleLogout();
       // router.push('/auth/login');
     }
   };
+
+  const { data } = handleRegion();
+  console.log(data);
+  */
   // const refreshToken = Cookies.get('refreshToken');
 
   /*
@@ -156,15 +161,18 @@ function Home() {
       content = <div>비회원</div>;
       break;
   }
-  */
 
-  useFetchTestData(accessToken);
+    useFetchTestData(accessToken);
+
+  */
 
   return (
     <Layout noHeader noMenuBar noFooter>
+      {/*
       <button type="button" onClick={handleRegion}>
         버튼
       </button>
+  */}
       <TopBackground image={HomeTopImg}>
         <Image
           src={MainLogoIcon}
@@ -176,10 +184,20 @@ function Home() {
           }}
         />
         <TopText>
-          <TopBoldText>이성오님,</TopBoldText>{' '}
-          <TopTextUnder>반가워요</TopTextUnder>
+          {memberId ? (
+            <>
+              <TopBoldText>{data?.name}님,</TopBoldText>
+              <TopTextUnder>반가워요</TopTextUnder>
+            </>
+          ) : (
+            <>
+              <TopBoldText>안녕하세요</TopBoldText>
+              <NonMemberTopTextUnder />
+            </>
+          )}
+
           <br />
-          <div>오늘도 소피로운 하루 보내세요</div>
+          <TopTextUnder>오늘도 소피로운 하루 보내세요</TopTextUnder>
         </TopText>
         <ScheduledBookTalkWrapper>
           <ScheduledBookTalk>
@@ -192,7 +210,15 @@ function Home() {
               <ScheduledBookTalkText>예정된 북토크</ScheduledBookTalkText>
             </ScheduledBookTalkInnerTextWrapper>
             <ScheduledBookTalkInnerTextWrapper>
-              <ScheduledBookTalkNumberText>2개</ScheduledBookTalkNumberText>
+              {memberId ? (
+                <ScheduledBookTalkNumberText>
+                  {data?.booktalk_count}개
+                </ScheduledBookTalkNumberText>
+              ) : (
+                <ScheduledBookTalkNumberText>
+                  로그인 후 사용가능
+                </ScheduledBookTalkNumberText>
+              )}
               <Image
                 src={HomeMoreIcon}
                 alt="더보기 아이콘"
@@ -297,7 +323,7 @@ function Home() {
         </MoreHotBookTalk>
       </HotBookTalk>
       <HotBookTalkSliderWrapper>
-        <HotBookTalkSlider />
+        <HotBookTalkSlider data={data?.booktalk_deadline_upcoming} />
       </HotBookTalkSliderWrapper>
       <FooterWrapper>
         <Footer>
@@ -319,7 +345,7 @@ function Home() {
             </IconWrapper>
             <IconWrapper>
               <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
-              <UnClickedIconText>MY</UnClickedIconText>
+              <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>
@@ -393,8 +419,12 @@ const TopText = styled.div`
 `;
 
 const TopTextUnder = styled.div`
-  margin-top: 0.4rem;
-  margin-left: 0.5rem;
+  width: 24rem;
+  margin-top: 0.2rem;
+`;
+
+const NonMemberTopTextUnder = styled.div`
+  width: 23.5rem;
 `;
 
 const TopBoldText = styled.span`

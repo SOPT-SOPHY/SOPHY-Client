@@ -46,18 +46,19 @@ function Login() {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
         password,
-        access_token_expired_time: 5,
-        refresh_token_expired_time: 10,
+        access_token_expired_time: 3000,
+        refresh_token_expired_time: 4000,
       });
 
       console.log(response);
 
       // eslint-disable-next-line camelcase
-      const { access_token, refresh_token } = response.data.data;
+      const { access_token, refresh_token, member_id } = response.data.data;
       console.log(access_token);
 
       Cookies.set('accessToken', access_token);
       Cookies.set('refreshToken', refresh_token);
+      Cookies.set('memberId', member_id);
 
       router.push('/home');
     } catch (error) {

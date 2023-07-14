@@ -94,7 +94,7 @@ function ManagingInfo() {
         <InputTitleContent>생년월일</InputTitleContent>
       </InputTitle>
       <BirthInputWrapper>
-        <BirthInput>1999년 09월 09일</BirthInput>
+        <BirthInput />
       </BirthInputWrapper>
       <BirthNotice>
         회원님의 성별, 생년월일은 맞춤 서비스를 제공하는 데 사용됩니다.
@@ -236,7 +236,7 @@ const BirthInputWrapper = styled.div`
   margin-bottom: 0.6rem;
 `;
 
-const BirthInput = styled.div`
+const BirthInput = styled.input`
   width: 33.5rem;
   height: 2.4rem;
   border: none;
