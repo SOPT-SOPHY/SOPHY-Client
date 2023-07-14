@@ -10,6 +10,7 @@ import {
   NavPinGrayIcon,
 } from '../../assets/icon';
 import Card from '../../components/mypage/Card';
+import PredictedBT from '../../components/mypage/PredictedBT';
 
 function MySophy() {
   return (
@@ -42,6 +43,14 @@ function MySophy() {
         </NonLocalCertification>
       </Profile>
       <Card />
+      <PredictedBT />
+      <ListWrapper>
+        <List>
+          <h1>작가 인증하기</h1>
+          <h1>개인정보 처리 방침</h1>
+          <h1>서비스 이용 약관</h1>
+        </List>
+      </ListWrapper>
       <FooterWrapper>
         <Footer>
           <IconsWrapper>
@@ -205,4 +214,21 @@ const IconsWrapper = styled.div`
   width: 32.5rem;
   display: flex;
   justify-content: space-between;
+`;
+
+const ListWrapper = styled.div`
+  margin-top: 3.2rem;
+  margin-left: 2rem;
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+
+  h1 {
+    ${({ theme }) => theme.fonts.body1_medium};
+    color: ${({ theme }) => theme.colors.black};
+  }
 `;
