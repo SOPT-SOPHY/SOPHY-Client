@@ -35,3 +35,8 @@ export { default as InterestingRegionMoreIcon } from './InterestingRegionMoreIco
 export { default as Ranking1Icon } from './Ranking1Icon.svg';
 export { default as Ranking2Icon } from './Ranking2Icon.svg';
 export { default as Ranking3Icon } from './Ranking3Icon.svg';
+export { default as PeopleIcon } from './PeopleIcon.svg';
+export { default as ColoredCheckboxIcon } from './ColoredCheckboxIcon.svg';
+export { default as EmptyCheckboxIcon } from './EmptyCheckboxIcon.svg';
+export { default as ColoredRadioIcon } from './ColoredRadioIcon.svg';
+export { default as EmptyRadioIcon } from './EmptyRadioIcon.svg';

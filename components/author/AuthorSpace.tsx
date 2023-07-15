@@ -9,7 +9,7 @@ import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
 import { BackButton } from '../../assets/icon';
 import { logincompleteImg } from '../../assets/img';
-import { spaceSelect } from '../recoil/selector';
+import { spaceSelect } from '../../atoms/selector';
 
 interface SpaceProps {
   isClick?: boolean;
