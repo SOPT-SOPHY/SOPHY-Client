@@ -1,7 +1,7 @@
 import api from '.';
 
-export const fetchRegionBooktalk = async () => {
-  const { data } = await api.get('booktalk/search');
+export const fetchRegionSpace = async () => {
+  const { data } = await api.get('/place?city=UIJEONG');
 
   return data;
 };

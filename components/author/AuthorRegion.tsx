@@ -20,20 +20,17 @@ function AuthorRegion() {
   const [clickedId, setClickedId] = useState<number[]>([]);
   const regions = [
     '가능동',
-    '가능 1동',
     '고산동',
     '금오동',
     '낙양동',
     '녹양동',
-    '예현동',
-    '동휘동',
-    '보미동',
-    '연우동',
-    '민지동',
-    '경민동',
-    '현수동',
-    '수현동',
-    '성오동',
+    '민락동',
+    '신곡동',
+
+    '의정부동',
+    '호원동',
+    '장암동',
+    '용현동',
   ];
   const handleClickAllRegions = () => {
     setIsAllClicked((isAllClicked) => !isAllClicked);
