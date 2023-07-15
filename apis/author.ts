@@ -1,9 +1,7 @@
 import api from '.';
 
 export const fetchRegionBooktalk = async () => {
-  const { data } = await api.get('booktalk/search', {
-    city: 0,
-  });
+  const { data } = await api.get('booktalk/search');
 
   return data;
 };
