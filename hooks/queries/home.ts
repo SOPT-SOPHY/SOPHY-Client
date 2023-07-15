@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { fetchMemberHome, fetchNonMemberHome } from '../../apis/home';
+// 테스트
 
 const QUERY_KEY = {
   memberHome: 'memberHome',
