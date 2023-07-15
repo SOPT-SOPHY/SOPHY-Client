@@ -14,36 +14,66 @@ import icSchedule from '../../assets/icon/ic_schedule.svg';
 import sophySpaceinfo from '../../assets/img/sophy_spaceinfo.svg';
 
 interface BTInfoProps {
+  // booktalk_image_url: string;
   title: string;
-  writer: string;
-  field: string;
-  bookInfo: string;
-  date: string;
-  people: number;
-  price: string;
-  preInfo: string;
-  introduction: string;
-  spaceName: string;
-  spaceAddress: string;
+  book_category: string;
+  book: string;
+  start_date: string;
+  // end_date: string;
+  participant: number;
+  participation_fee: number;
+  preliminary_info: string;
+  description: string;
+  place_name: string;
+  place_address: string;
+  author: string;
+  //   {
+  //     "code": 200,
+  //     "message": "북토크 상세정보를 성공적으로 불러왔습니다.",
+  //     "data": {
+  //         "booktalk_image_url": "dwqE@EWQDQFQEWQ",
+  //         "title": "테스트 타이틀2",
+  //         "book_category": "HEALTH_COOKING",
+  //         "book": "책이름",
+  //         "start_date": "2023-07-18T16:00:00",
+  //         "end_date": "2023-07-18T18:00:00",
+  //         "participant": 1,
+  //         "participation_fee": 10000,
+  //         "preliminary_info": "PRE_READING",
+  //         "description": "재밌습니다~",
+  //         "place_name": "장소",
+  //         "place_address": "의정부시 낙양동",
+  //         "author": "작가"
+  //     }
+  // }
 }
 
 function BTInfo({
   title,
-  writer,
-  field,
-  bookInfo,
-  date,
-  people,
-  price,
-  preInfo,
-  introduction,
-  spaceName,
-  spaceAddress,
+  // booktalk_image_url,
+  book_category,
+  book,
+  start_date,
+  participant,
+  participation_fee,
+  preliminary_info,
+  description,
+  place_name,
+  place_address,
+  author,
 }: BTInfoProps) {
   return (
     <>
       <InfoContainer>
         <InfoBox>
+          {/* <DetailImg>
+            <Image
+              src={booktalk_image_url}
+              width={335}
+              height={184}
+              alt="북토크이미지"
+            />
+          </DetailImg> */}
           <IconWrapper>
             <Image src={icBook} width={24} height={24} alt="제목" />
           </IconWrapper>
@@ -62,7 +92,7 @@ function BTInfo({
           <InfoCategory>작가</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{writer}</BtTitle>
+          <BtTitle>{author}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -74,7 +104,7 @@ function BTInfo({
           <InfoCategory>분야</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{field}</BtTitle>
+          <BtTitle>{book_category}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -86,7 +116,7 @@ function BTInfo({
           <InfoCategory>도서정보</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{bookInfo}</BtTitle>
+          <BtTitle>{book}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -98,7 +128,7 @@ function BTInfo({
           <InfoCategory>개최일정</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{date}</BtTitle>
+          <BtTitle>{start_date}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -110,7 +140,7 @@ function BTInfo({
           <InfoCategory>모집인원</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{people}명</BtTitle>
+          <BtTitle>{participant}명</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -122,7 +152,7 @@ function BTInfo({
           <InfoCategory>참가비</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{price}</BtTitle>
+          <BtTitle>{participation_fee}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -134,7 +164,7 @@ function BTInfo({
           <InfoCategory>사전정보</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{preInfo}</BtTitle>
+          <BtTitle>{preliminary_info}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -151,7 +181,7 @@ function BTInfo({
       </InfoContainer>
       {/* <HorizontalLine /> */}
       <IntroductionBox>
-        <IntroductionContent>{introduction}</IntroductionContent>
+        <IntroductionContent>{description}</IntroductionContent>
       </IntroductionBox>
       <SpaceBox>
         <SpaceImage>
@@ -165,8 +195,8 @@ function BTInfo({
             <Image src={icPin} width={28} height={28} alt="핀아이콘" />
             <span>공간정보</span>
           </SpaceIcon>
-          <SpaceName>{spaceName}</SpaceName>
-          <SpaceDetail>{spaceAddress}</SpaceDetail>
+          <SpaceName>{place_name}</SpaceName>
+          <SpaceDetail>{place_address}</SpaceDetail>
         </SpaceImage>
       </SpaceBox>
       <Line />
@@ -188,6 +218,19 @@ const InfoContainer = styled.div`
   margin-left: 1.6rem;
   margin-right: 2rem;
 `;
+
+// const DetailImg = styled.div`
+//   margin-top: 2.1rem;
+//   margin-left: 2rem;
+//   margin-right: 2rem;
+//   margin-bottom: 1.9rem;
+
+//   img {
+//     width: 33.5rem;
+//     height: 18.4rem;
+//     flex-shrink: 0;
+//   }
+// `;
 
 const InfoBox = styled.div`
   display: flex;
