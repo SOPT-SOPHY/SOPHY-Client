@@ -10,7 +10,7 @@ import { PinIcon, PointIcon, ScheduleIcon } from '../assets/icon';
 
 export default function SimpleSlider(props: any) {
   const { data } = props;
-  console.log(data);
+  // console.log(data);
   const settings = {
     dots: false,
     infinite: false,

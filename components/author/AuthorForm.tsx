@@ -19,7 +19,7 @@ import AuthorLayout from './@AuthorLayout';
 import DropDown from './DropDown';
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
   isClick?: boolean;
   setGray?: boolean;
   setPrimary?: boolean;
@@ -418,7 +418,9 @@ function AuthorForm() {
           <IntroduceInput
             placeholder="북토크 소개글을 작성해주세요"
             maxLength={1000}
-            onChange={(e: any) => handleIntroduction(e)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              handleIntroduction(e)
+            }
           />
         </IntroduceContainer>
       </FormSection>
