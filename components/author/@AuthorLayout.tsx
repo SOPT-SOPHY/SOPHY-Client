@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -9,7 +10,7 @@ interface LayoutProps {
   // ModalOpen: false;
   noPageNum: boolean;
   noPageTitle: boolean;
-  pageNum: string;
+  pageNum?: string;
   title: string;
 }
 function AuthorLayout(props: LayoutProps) {
