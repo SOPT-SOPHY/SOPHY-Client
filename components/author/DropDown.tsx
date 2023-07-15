@@ -6,7 +6,7 @@ interface CategoryProps {
   onClick?: () => void;
 }
 
-function DropDown({ giveSelected, giveCategory }) {
+function DropDown({ giveSelected, giveCategory }: any) {
   const [clickedCategory, setClickedCategory] = useState<string>('');
   const categories = [
     '인문',
