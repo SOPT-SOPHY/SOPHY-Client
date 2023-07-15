@@ -40,3 +40,5 @@ export { default as ColoredCheckboxIcon } from './ColoredCheckboxIcon.svg';
 export { default as EmptyCheckboxIcon } from './EmptyCheckboxIcon.svg';
 export { default as ColoredRadioIcon } from './ColoredRadioIcon.svg';
 export { default as EmptyRadioIcon } from './EmptyRadioIcon.svg';
+export { default as BlackDownIcon } from './BlackDownIcon.svg';
+export { default as GrayDownIcon } from './GrayDownIcon.svg';
