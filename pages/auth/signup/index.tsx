@@ -18,6 +18,7 @@ import {
   MoreIcon,
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
+import { usePostDuplicatedEmail } from '../../../hooks/queries/auth';
 
 interface StyledComponentProps {
   string?: string | null;
@@ -50,6 +51,17 @@ function Signup() {
 
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const { mutate, data, isError } = usePostDuplicatedEmail();
+
+  useEffect(() => {
+    if (!isError) {
+      setIsEmailAvailable(true);
+    } else {
+      setIsEmailAvailable(false);
+    }
+  }, [isError]);
+
+  /*
   const handleEmailCheck = async () => {
     try {
       // 이메일 중복확인을 위한 API 호출
@@ -60,6 +72,12 @@ function Signup() {
     } catch (e: any) {
       console.log(e);
     }
+  };
+*/
+  const handleEmailDuplicateCheck = (e: any) => {
+    console.log(e.target.value);
+    mutate({ email });
+    console.log(data);
   };
 
   const handleSignup = async () => {
@@ -132,7 +150,7 @@ function Signup() {
   useEffect(() => {
     const term = onlyEssentialAgreed || allAgreed;
     if (
-      // isEmailAvailable &&
+      isEmailAvailable &&
       isPasswordMatch &&
       email &&
       password &&
@@ -217,21 +235,21 @@ function Signup() {
           value={email}
           onChange={(e: any) => setEmail(e.target.value)}
         />
-        <DoubleCheckButton type="button" onClick={handleEmailCheck}>
+        <DoubleCheckButton type="button" onClick={handleEmailDuplicateCheck}>
           중복 확인
         </DoubleCheckButton>
       </EmailInputWrapper>
-      <LoginLine boolean={isEmailAvailable} string={email} />
-      {isEmailAvailable === null ? (
-        <></>
-      ) : isEmailAvailable ? (
-        <ValidationMessage boolean={isEmailAvailable}>
+      <LoginLine boolean={isError} string={email} />
+      {data && !isError ? (
+        <ValidationMessage boolean={!isError}>
           사용 가능한 이메일 주소입니다
         </ValidationMessage>
-      ) : (
-        <ValidationMessage boolean={isEmailAvailable}>
+      ) : isError ? (
+        <ValidationMessage boolean={!isError}>
           이미 사용중인 이메일 주소입니다
         </ValidationMessage>
+      ) : (
+        <></>
       )}
       <InputTitle>
         <InputTitleContent>비밀번호</InputTitleContent>
