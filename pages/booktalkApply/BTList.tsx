@@ -77,15 +77,17 @@ function BTList() {
     // return [];
     const values: CountryProps[] = [];
     if (filterParam === 'All' && data) {
-      Object.keys(data).forEach((key: string) => {
-        const item: CountryProps = data[key];
+      Object.keys(data).forEach((key) => {
+        const numberKey = Number(key);
+        const item: CountryProps = data[numberKey];
         values.push(item);
       });
       return values;
     }
     if (data) {
-      Object.keys(data).forEach((key: string) => {
-        const item: CountryProps = data[key];
+      Object.keys(data).forEach((key) => {
+        const numberKey = Number(key);
+        const item: CountryProps = data[numberKey];
         if (item.region === filterParam) {
           values.push(item);
         }
