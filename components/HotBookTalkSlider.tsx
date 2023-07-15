@@ -1,5 +1,5 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -66,31 +66,36 @@ const Dot = styled.span`
   margin: 0 0.4rem;
 `;
 
-export default class SimpleSlider extends Component {
-  render() {
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      centerMode: true,
-      dotsClass: 'dots_custom',
-    };
-    return (
-      <Container>
-        <StyledSlider {...settings}>
-          <ImageContainer>
+export default function SimpleSlider(props: any) {
+  const { data } = props;
+  console.log(data);
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: true,
+    dotsClass: 'dots_custom',
+  };
+  return (
+    <Container>
+      <StyledSlider {...settings}>
+        {data?.map((item: any) => (
+          <ImageContainer key={item}>
             <SlideCard>
-              <SlideTitle>철학 어디까지 알고있니?</SlideTitle>
+              <SlideTitle>{item.title}</SlideTitle>
               <SlideContent>
                 <Image
                   src={ScheduleIcon}
                   alt="달력 모양 아이콘"
                   style={{ marginRight: '0.4rem' }}
                 />
-                2023.08.12 <Dot /> 16시~17시
+                {item.start_date.slice(0, 4)}.{item.start_date.slice(5, 7)}.
+                {item.start_date.slice(8, 10)}
+                <Dot /> {item.start_date.slice(11, 13)}시~
+                {item.end_date.slice(11, 13)}시
               </SlideContent>
               <SlideContent>
                 <Image
@@ -98,7 +103,7 @@ export default class SimpleSlider extends Component {
                   alt="화살표 모양 아이콘"
                   style={{ marginRight: '0.4rem' }}
                 />
-                홈플러스 문화센터
+                {item.place_name}
               </SlideContent>
               <SlideContent>
                 <Image
@@ -108,74 +113,12 @@ export default class SimpleSlider extends Component {
                   height={18}
                   style={{ marginRight: '0.4rem' }}
                 />
-                경기도 의정부시 금오동
+                {item.place_address}
               </SlideContent>
             </SlideCard>
           </ImageContainer>
-          <ImageContainer>
-            <SlideCard>
-              <SlideTitle>철학 어디까지 알고있니?</SlideTitle>
-              <SlideContent>
-                <Image
-                  src={ScheduleIcon}
-                  alt="달력 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                2023.08.12 <Dot /> 16시~17시
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PointIcon}
-                  alt="화살표 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                홈플러스 문화센터
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PinIcon}
-                  alt="핀 모양 아이콘"
-                  width={18}
-                  height={18}
-                  style={{ marginRight: '0.4rem' }}
-                />
-                경기도 의정부시 금오동
-              </SlideContent>
-            </SlideCard>
-          </ImageContainer>
-          <ImageContainer>
-            <SlideCard>
-              <SlideTitle>철학 어디까지 알고있니?</SlideTitle>
-              <SlideContent>
-                <Image
-                  src={ScheduleIcon}
-                  alt="달력 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                2023.08.12 <Dot /> 16시~17시
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PointIcon}
-                  alt="화살표 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                홈플러스 문화센터
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PinIcon}
-                  alt="핀 모양 아이콘"
-                  width={18}
-                  height={18}
-                  style={{ marginRight: '0.4rem' }}
-                />
-                경기도 의정부시 금오동
-              </SlideContent>
-            </SlideCard>
-          </ImageContainer>
-        </StyledSlider>
-      </Container>
-    );
-  }
+        ))}
+      </StyledSlider>
+    </Container>
+  );
 }

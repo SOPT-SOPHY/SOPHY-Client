@@ -7,7 +7,7 @@ import theme from '../../styles/theme';
 import AuthorButton from './AuthorButton';
 import { ColorCheckIcon } from '../../assets/icon/index';
 import AuthorLayout from './@AuthorLayout';
-import { regionSelect } from '../recoil/selector';
+import { regionSelect } from '../../atoms/selector';
 
 interface RegionProps {
   isClick?: boolean;

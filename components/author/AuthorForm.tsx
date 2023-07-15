@@ -14,7 +14,7 @@ import {
   InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
-import { isModalOpen } from '../recoil/selector';
+import { isModalOpen } from '../../atoms/selector';
 import AuthorLayout from './@AuthorLayout';
 import DropDown from './DropDown';
 
@@ -149,10 +149,10 @@ function AuthorForm() {
     }
   };
 
-  const handlePeople = (e) => {
+  const handlePeople = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9]+$/;
     if (regex.test(e.target.value)) {
-      setPeople(e.target.value);
+      setPeople(Number(e.target.value));
     } else {
       e.target.value = '';
     }
@@ -233,7 +233,7 @@ function AuthorForm() {
           accept="image/*"
           type="file"
           id="file"
-          onChange={(e) => handleUpload(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpload(e)}
         />
 
         {/* 제목 */}
@@ -242,7 +242,9 @@ function AuthorForm() {
           <TitleInput
             type="text"
             placeholder="북토크 제목을 입력해주세요"
-            onChange={(e) => handleTitle(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleTitle(e)
+            }
           />
           <InputUnderLine />
         </InputContainer>
@@ -262,8 +264,10 @@ function AuthorForm() {
         <DropDownWrapper>
           {dropDown && (
             <DropDown
-              giveCategory={(giveCategory) => setCategory(giveCategory)}
-              giveSelected={(giveSelected) => setDropDown(giveSelected)}
+              giveCategory={(giveCategory: string) => setCategory(giveCategory)}
+              giveSelected={(giveSelected: boolean) =>
+                setDropDown(giveSelected)
+              }
             />
           )}
         </DropDownWrapper>
@@ -280,7 +284,7 @@ function AuthorForm() {
             type="text"
             placeholder="YY/MM/DD"
             value={date || ''}
-            onChange={(e) => handleDate(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleDate(e)}
           />
         </DayContainer>
         <HourContainer>
@@ -292,7 +296,9 @@ function AuthorForm() {
                 type="text"
                 placeholder="HH:MM"
                 value={startTime || ''}
-                onChange={(e) => handleStartTime(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleStartTime(e)
+                }
               />
             </StartHourBox>
           </StartWrapper>
@@ -304,7 +310,9 @@ function AuthorForm() {
                 type="text"
                 placeholder="HH:MM"
                 value={endTime || ''}
-                onChange={(e) => handleEndTime(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleEndTime(e)
+                }
               />
             </EndHourBox>
           </EndWrapper>
@@ -316,7 +324,9 @@ function AuthorForm() {
             <NumInput
               type="text"
               placeholder="참여 인원을 숫자로 작성해주세요"
-              onChange={(e) => handlePeople(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handlePeople(e)
+              }
             />
             {people ? <WonSpan>명</WonSpan> : <span />}
           </NumInputWrapper>
@@ -331,7 +341,9 @@ function AuthorForm() {
             <NumInput
               type="text"
               placeholder="참가비를 원 단위로 작성해주세요"
-              onChange={(e) => handleCost(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCost(e)
+              }
               value={!freeCheck && cost ? cost : ''}
               disabled={!!freeCheck}
             />
@@ -405,8 +417,8 @@ function AuthorForm() {
           <FormHeading>북토크 소개글</FormHeading>
           <IntroduceInput
             placeholder="북토크 소개글을 작성해주세요"
-            maxLength="1000"
-            onChange={(e) => handleIntroduction(e)}
+            maxLength={1000}
+            onChange={(e: any) => handleIntroduction(e)}
           />
         </IntroduceContainer>
       </FormSection>
