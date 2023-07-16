@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
 import { BackButton } from '../../assets/icon';
-import { logincompleteImg } from '../../assets/img';
-import { spaceSelect } from '../../atoms/selector';
+import { regionKey, spaceSelect } from '../../atoms/selector';
+import { useFetchRegionSpace } from '../../hooks/queries/author';
 
 interface SpaceProps {
   isClick?: boolean;
@@ -17,73 +17,14 @@ interface SpaceProps {
 }
 
 function AuthorSpace() {
+  const selectedRegionKey = useRecoilValue(regionKey);
+
+  const spaceInfo = selectedRegionKey && useFetchRegionSpace(selectedRegionKey);
+
+  const spaces = spaceInfo?.data;
+
   const setSelectedSpaces = useSetRecoilState(spaceSelect); // 각 지역 선택
   const [clickedId, setClickedId] = useState<number>(-1);
-  const spaces = [
-    {
-      id: 0,
-      image: logincompleteImg,
-      info: '가능동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 10명',
-    },
-    {
-      id: 1,
-      image: logincompleteImg,
-      info: '송산3동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 1명',
-    },
-    {
-      id: 2,
-      image: logincompleteImg,
-      info: '고산동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 8명',
-    },
-    {
-      id: 3,
-      image: logincompleteImg,
-      info: '금오동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 10명',
-    },
-    {
-      id: 4,
-      image: logincompleteImg,
-      info: '낙양동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 1명',
-    },
-    {
-      id: 5,
-      image: logincompleteImg,
-      info: '예현동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 8명',
-    },
-    {
-      id: 6,
-      image: logincompleteImg,
-      info: '수현동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 10명',
-    },
-    {
-      id: 7,
-      image: logincompleteImg,
-      info: '성오동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 1명',
-    },
-    {
-      id: 8,
-      image: logincompleteImg,
-      info: '민지동 작은도서관',
-      address: '경기도 의정부시 용민로 230',
-      people: '최대 8명',
-    },
-  ];
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -119,17 +60,17 @@ function AuthorSpace() {
         </Header>
       </Layout>
       <SpaceSection>
-        {spaces.map((space) => (
+        {spaces?.map((space) => (
           <SpaceContainer key={space.info}>
             {/* <Image src={space.image} alt="공간 이미지" width={72} heigth={72} /> */}
             <SpaceWrapper
-              onClick={() => handleClickSpaces(space.id)}
+              onClick={() => handleClickSpaces(space.place_id)}
               isClick={clickedId === space.id}>
               <SpaceImage />
-              <SpaceInfo isClick={clickedId === space.id}>
-                <SpaceName>{space.info}</SpaceName>
+              <SpaceInfo isClick={clickedId === space.place_id}>
+                <SpaceName>{space.name}</SpaceName>
                 <SpaceAddress>{space.address}</SpaceAddress>
-                <MaxPeople>{space.people}</MaxPeople>
+                <MaxPeople>최대 {space.maximum}명</MaxPeople>
               </SpaceInfo>
             </SpaceWrapper>
             <Divider />

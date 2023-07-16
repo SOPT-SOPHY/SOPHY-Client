@@ -1,7 +1,7 @@
 import api from '.';
 
-export const fetchRegionSpace = async () => {
-  const { data } = await api.get('/place?city=UIJEONG');
+export const fetchRegionSpace = async (key: string) => {
+  const { data } = await api.get(`place/search/${key}`);
 
   return data;
 };
