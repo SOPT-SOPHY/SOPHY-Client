@@ -1,3 +1,4 @@
+/*
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
@@ -24,3 +25,4 @@ const useFetchTestData = (accessToken: any) => {
 };
 
 export default useFetchTestData;
+*/
