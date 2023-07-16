@@ -6,8 +6,8 @@ import NextIcon from '../../assets/icon/NextIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PredictedBTSlider from '../PredictedBTSlider';
-import HotBookTalkSlider from '../HotBookTalkSlider';
-import SimpleSlider from '../SimpleSlider';
+// import HotBookTalkSlider from '../HotBookTalkSlider';
+// import SimpleSlider from '../SimpleSlider';
 
 function PredictedBT() {
   return (
@@ -25,8 +25,8 @@ function PredictedBT() {
         </MoreWrapper>
       </Header>
       <PredictedBTSlider />
-      <SimpleSlider />
-      <HotBookTalkSlider />
+      {/* <SimpleSlider />
+      <HotBookTalkSlider /> */}
       <HorizontalLine />
     </div>
   );
