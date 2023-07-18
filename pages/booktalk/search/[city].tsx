@@ -2,19 +2,21 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+// import { useQuery } from 'react-query';
+// import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
-import theme from '../../styles/theme';
-import btnUp from '../../assets/icon/btn_up.svg';
-import btnDown from '../../assets/icon/btn_down.svg';
-import SingleBookTalk from '../../components/booktalkApply/SingleBookTalk';
-import backArrow from '../../assets/icon/ic_backArrow.svg';
+import theme from '../../../styles/theme';
+import btnUp from '../../../assets/icon/btn_up.svg';
+import btnDown from '../../../assets/icon/btn_down.svg';
+import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
+import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import {
   NavBookGrayIcon,
   NavHomeColorIcon,
   NavPersonGrayIcon,
   NavPinGrayIcon,
-} from '../../assets/icon';
-import { useFetchBooktalkRegion } from '../../hooks/queries/booktalk';
+} from '../../../assets/icon';
+import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
 
 interface BooktalkProps {
   booktalk_id: number;
@@ -31,10 +33,10 @@ interface BooktalkProps {
 
 function BTList() {
   const router = useRouter();
-  const { region } = router.query;
+  const { city } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [booktalkList, city] = useFetchBooktalkRegion(region as string);
+  const [booktalkList] = useFetchBooktalkRegion(city as string);
 
   const handleDropdownToggle = () => {
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
@@ -44,17 +46,22 @@ function BTList() {
     setIsOpen(false);
   };
 
-  const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
-    const values: BooktalkProps[] = [];
-    if (filterParam === 'All' && data) {
-      values.push(...data);
-    } else if (data) {
-      values.push(...data.filter((item) => item.place === filterParam));
-    }
-    return values;
-  };
+  //   const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
+  //     const values: BooktalkProps[] = [];
+  //     if (filterParam === 'All' && data) {
+  //       values.push(...data);
+  //     } else if (data) {
+  //       values.push(...data.filter((item) => item.place === filterParam));
+  //       console.log(values);
+  //     }
+  //     return values;
+  //   };
 
-  const resultItems = filterItems(booktalkList, city);
+  //   const resultItems = filterItems(booktalkList, selectedCity);
+
+  //   const handleNextButtonClick = () => {
+  //     router.push(`/booktalk/search/${city}`);
+  //   };
 
   return (
     <Body>
@@ -68,7 +75,7 @@ function BTList() {
       </Header>
       <SelectBoxContainer>
         <SelectBox onClick={handleDropdownToggle}>
-          <SubTitle>{region}</SubTitle>
+          <SubTitle>{city}</SubTitle>
           <Image
             src={isOpen ? btnUp : btnDown}
             width={24}
@@ -81,7 +88,7 @@ function BTList() {
         <DropdownContainer>
           <DropdownBox>
             <DropdownItem onClick={() => handleRegionSelect()}>
-              {region}
+              {city}
             </DropdownItem>
             <DropdownButton onClick={() => router.back()}>
               지역 선택
@@ -90,9 +97,10 @@ function BTList() {
         </DropdownContainer>
       )}
       <SingleBookTalkContainer>
-        {resultItems.map((item) => (
-          <SingleBookTalk key={item?.booktalk_id} item={item} />
-        ))}
+        {booktalkList &&
+          booktalkList.map((item: BooktalkProps) => (
+            <SingleBookTalk key={item?.booktalk_id} item={item} />
+          ))}
       </SingleBookTalkContainer>
       <FooterWrapper>
         <Footer>

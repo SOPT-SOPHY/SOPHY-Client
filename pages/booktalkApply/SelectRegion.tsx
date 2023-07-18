@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
 import backArrow from '../../assets/icon/ic_backArrow.svg';
 import icCheck from '../../assets/icon/ic_check.svg';
 
@@ -12,10 +13,39 @@ interface DongBoxProps {
 }
 
 function SelectRegion() {
+  const router = useRouter();
   const [selectedRegion, setSelectedRegion] = useState('');
 
   const handleRegionSelect = (region: string) => {
-    setSelectedRegion((prevRegion) => (prevRegion === region ? '' : region));
+    setSelectedRegion(region);
+  };
+
+  const handleNextButtonClick = () => {
+    const encodedRegion = encodeRegion(selectedRegion);
+    router.push(`/booktalk/search/${encodedRegion}`);
+  };
+
+  const encodeRegion = (region: string) => {
+    switch (region) {
+      case '낙양동':
+        return 'NAKYANG_DONG';
+      case '민락동':
+        return 'MINLAK_DONG';
+      case '산곡동':
+        return 'SANGOK_DONG';
+      case '신곡1동':
+        return 'SINGOK1_DONG';
+      case '가능동':
+        return 'GANENG_DONG';
+      case '고산동':
+        return 'GOSAN_DONG';
+      case '금오동':
+        return 'GUMO_DONG';
+      case '가능1동':
+        return 'GANENG1_DONG';
+      default:
+        return '';
+    }
   };
 
   return (
@@ -35,11 +65,11 @@ function SelectRegion() {
             </SelectBox>
             <DongBoxContainer>
               <DongBox
-                onClick={() => handleRegionSelect('All')}
-                isSelected={selectedRegion === 'All'}>
+                onClick={() => handleRegionSelect('의정부시 전체')}
+                isSelected={selectedRegion === '의정부시 전체'}>
                 <li>의정부시 전체</li>
                 <span>
-                  {selectedRegion === 'All' && (
+                  {selectedRegion === '의정부시 전체' && (
                     <Image
                       src={icCheck}
                       width={16}
@@ -50,11 +80,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('Americas')}
-                isSelected={selectedRegion === 'Americas'}>
+                onClick={() => handleRegionSelect('가능동')}
+                isSelected={selectedRegion === '가능동'}>
                 <li>가능동</li>
                 <span>
-                  {selectedRegion === 'Americas' && (
+                  {selectedRegion === '가능동' && (
                     <Image
                       src={icCheck}
                       width={16}
@@ -80,11 +110,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('Africa')}
-                isSelected={selectedRegion === 'Africa'}>
+                onClick={() => handleRegionSelect('고산동')}
+                isSelected={selectedRegion === '고산동'}>
                 <li>고산동</li>
                 <span>
-                  {selectedRegion === 'Africa' && (
+                  {selectedRegion === '고산동' && (
                     <Image
                       src={icCheck}
                       width={16}
@@ -95,11 +125,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('Europe')}
-                isSelected={selectedRegion === 'Europe'}>
+                onClick={() => handleRegionSelect('금오동')}
+                isSelected={selectedRegion === '금오동'}>
                 <li>금오동</li>
                 <span>
-                  {selectedRegion === 'Europe' && (
+                  {selectedRegion === '금오동' && (
                     <Image
                       src={icCheck}
                       width={16}
@@ -110,11 +140,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('Oceania')}
-                isSelected={selectedRegion === 'Oceania'}>
+                onClick={() => handleRegionSelect('낙양동')}
+                isSelected={selectedRegion === '낙양동'}>
                 <li>낙양동</li>
                 <span>
-                  {selectedRegion === 'Oceania' && (
+                  {selectedRegion === '낙양동' && (
                     <Image
                       src={icCheck}
                       width={24}
@@ -140,11 +170,13 @@ function SelectRegion() {
           </RegionBox>
         </RegionContainer>
       </div>
-      <Link href={`./BTList?region=${selectedRegion}`} passHref>
-        <NextButtonWrapper>
-          <NextButton isactive={selectedRegion}>선택완료</NextButton>
-        </NextButtonWrapper>
-      </Link>
+      {/* <Link href={`./BTList?region=${selectedRegion}`} passHref> */}
+      <NextButtonWrapper>
+        <NextButton onClick={handleNextButtonClick} isactive={selectedRegion}>
+          선택완료
+        </NextButton>
+      </NextButtonWrapper>
+      {/* </Link> */}
     </Body>
   );
 }

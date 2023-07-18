@@ -9,12 +9,17 @@ const QUERY_KEY = {
     booktalkDetail: 'booktalkDetail',
 };
 
-export const useFetchBooktalkRegion = () =>{
-    const {data} = useQuery([QUERY_KEY.booktalkRegion], fetchBooktalkRegion);
-    return data;
-} 
+// export const useFetchBooktalkRegion = (city: string) =>{
+//     const {data} = useQuery([QUERY_KEY.booktalkRegion, city], () => fetchBooktalkRegion(city));
+//     return data;
+// } 
 
-export const useFetchBookTalkDetail = () =>{
-    const {data} = useQuery([QUERY_KEY.booktalkDetail], fetchBooktalkDetail);
+export const useFetchBooktalkRegion = (city: string) => {
+    const { data } = useQuery(['booktalkRegion', city], () => fetchBooktalkRegion(city));
+    return [data, city]; // city 값을 반환 배열에 포함
+  };
+
+export const useFetchBookTalkDetail = (id: number) =>{
+    const {data} = useQuery([QUERY_KEY.booktalkDetail, id], ()=> fetchBooktalkDetail(id));
     return data;
 }
