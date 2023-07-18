@@ -46,6 +46,37 @@ function BTList() {
     setIsOpen(false);
   };
 
+  const decodeCity = (city: string) => {
+    switch (city) {
+      case 'UIJEONGBU_SI':
+        return '의정부시 전체';
+      case 'UIJEONGBU_DONG':
+        return '의정부동';
+      case 'HOWON_DONG':
+        return '호원동';
+      case 'NOKYANG_DONG':
+        return '녹양동';
+      case 'NAKYANG_DONG':
+        return '낙양동';
+      case 'MINRAK_DONG':
+        return '민락동';
+      case 'SINGOK_DONG':
+        return '신곡동';
+      case 'JANGAM_DONG':
+        return '장암동';
+      case 'GANEUNG_DONG':
+        return '가능동';
+      case 'GOSAN_DONG':
+        return '고산동';
+      case 'GEUMO_DONG':
+        return '금오동';
+      case 'YOUNGHYUN_DONG':
+        return '영현동';
+      default:
+        return '';
+    }
+  };
+
   //   const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
   //     const values: BooktalkProps[] = [];
   //     if (filterParam === 'All' && data) {
@@ -75,7 +106,7 @@ function BTList() {
       </Header>
       <SelectBoxContainer>
         <SelectBox onClick={handleDropdownToggle}>
-          <SubTitle>{city}</SubTitle>
+          <SubTitle>{decodeCity(city as string)}</SubTitle>
           <Image
             src={isOpen ? btnUp : btnDown}
             width={24}
@@ -88,7 +119,7 @@ function BTList() {
         <DropdownContainer>
           <DropdownBox>
             <DropdownItem onClick={() => handleRegionSelect()}>
-              {city}
+              {decodeCity(city as string)}
             </DropdownItem>
             <DropdownButton onClick={() => router.back()}>
               지역 선택
