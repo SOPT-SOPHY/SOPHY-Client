@@ -8,7 +8,7 @@ import ActiveIcon from '../../assets/icon/checkbox_active.svg';
 import CheckIcon from '../../assets/icon/check_icon.svg';
 import icCheckActive from '../../assets/icon/ic_check_active.svg';
 import icApplied from '../../assets/icon/ic_applied.svg';
-import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
+// import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
 // import Cookies from 'js-cookie';
 interface Agreeds {
   infoConfirm: boolean;
