@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+// import { useRouter } from 'next/router';
 import backArrow from '../../assets/icon/ic_backArrow.svg';
 import detailImage from '../../assets/img/detailImage.png';
 import BTInfo from '../../components/booktalkApply/BTInfo';
-import BTData from '../../data/BTData';
+// import BTData from '../../data/BTData';
 import CheckBox from '../../components/booktalkApply/CheckBox';
+import { useFetchBookTalkDetail } from '../../hooks/queries/booktalk';
 
 function BTDetail() {
-  const filteredData = BTData.filter((data) => data.id === 1);
+  // const router = useRouter();
+  const id = 1;
+  const data = useFetchBookTalkDetail(id as number);
+  // const filteredData = BTData.filter((data) => data.id === 1);
+  useEffect(() => {
+    console.log(data);
+  }, []);
+  // if (!data) return;
   return (
     <Body>
       <Header>
@@ -25,24 +34,25 @@ function BTDetail() {
         <Image src={detailImage} width={335} height={184} alt="북토크이미지" />
       </DetailImg>
       <div>
-        {filteredData.map((data) => {
-          return (
-            <BTInfo
-              key={data.id}
-              title={data.title}
-              writer={data.writer}
-              field={data.field}
-              bookInfo={data.bookinfo}
-              date={data.date}
-              people={data.people}
-              price={data.price}
-              preInfo={data.previnfo}
-              introduction={data.introduction}
-              spaceName={data.spaceName}
-              spaceAddress={data.spaceAddress}
-            />
-          );
-        })}
+        {/* {filteredData.map((data) => {
+        return ( */}
+        <BTInfo
+          // key={data?.id}
+          // booktalk_image_url={data?.booktalk_image_url}
+          title={data?.title}
+          author={data?.author}
+          book_category={data?.book_category}
+          book={data?.book}
+          start_date={data?.start_date}
+          participant={data?.participant}
+          participation_fee={data?.participation_fee}
+          preliminary_info={data?.preliminary_info}
+          description={data?.description}
+          place_name={data?.place_name}
+          place_address={data?.place_address}
+        />
+        {/* ); */}
+        {/* })} */}
       </div>
       <CheckBox />
     </Body>
@@ -76,6 +86,19 @@ const Header = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
+const DetailImg = styled.div`
+  margin-top: 2.1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1.9rem;
+
+  img {
+    width: 33.5rem;
+    height: 18.4rem;
+    flex-shrink: 0;
+  }
+`;
+
 const ImageContainer = styled.div`
   width: 4.4rem;
   height: 4.4rem;
@@ -91,17 +114,4 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.black};
 
   margin-right: 12.8rem;
-`;
-
-const DetailImg = styled.div`
-  margin-top: 2.1rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  margin-bottom: 1.9rem;
-
-  img {
-    width: 33.5rem;
-    height: 18.4rem;
-    flex-shrink: 0;
-  }
 `;

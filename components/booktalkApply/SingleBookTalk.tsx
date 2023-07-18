@@ -3,17 +3,21 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import icPeople from '../../assets/icon/ic_people_count.svg';
 
-interface CountryProps {
-  alpha3Code: string;
-  flag: { large: string };
-  name: string;
-  population: number;
-  region: string | string[];
-  capital: string;
+interface BooktalkProps {
+  booktalk_id: number;
+  preliminary_info: string;
+  title: string;
+  author: string;
+  start_date: string;
+  end_date: string;
+  place: string;
+  participant: number;
+  maximum: number;
+  booktalk_image_url: string;
 }
 
 interface SingleBookTalkProps {
-  item: CountryProps;
+  item: BooktalkProps;
 }
 
 function SingleBookTalk({ item }: SingleBookTalkProps) {
@@ -25,17 +29,17 @@ function SingleBookTalk({ item }: SingleBookTalkProps) {
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
         </ImageContainer>
         <TextWrapper>
-          <BookName>{item.name}</BookName>
-          <WriterName>{item.capital}</WriterName>
-          <Date>{item.population}</Date>
+          <BookName>{item?.title}</BookName>
+          <WriterName>{item?.author}</WriterName>
+          <Date>{item?.start_date}</Date>
           <Space>
-            {Array.isArray(item.region) ? item.region.join(', ') : item.region}
+            {Array.isArray(item?.place) ? item?.place.join(', ') : item?.place}
           </Space>
         </TextWrapper>
         <CountWrapper>
           <Image src={icPeople} width={24} height={24} alt="사람" />
-          <Count>3</Count>
-          <TotalCount>/{item.population}</TotalCount>
+          <Count>{item?.participant}</Count>
+          <TotalCount>/{item?.maximum}</TotalCount>
         </CountWrapper>
       </BookTalkWrapper>
     </>

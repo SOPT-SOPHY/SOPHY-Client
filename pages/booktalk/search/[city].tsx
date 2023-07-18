@@ -2,45 +2,41 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useQuery } from 'react-query';
-import axios, { AxiosError } from 'axios';
+// import { useQuery } from 'react-query';
+// import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
-import theme from '../../styles/theme';
-import btnUp from '../../assets/icon/btn_up.svg';
-import btnDown from '../../assets/icon/btn_down.svg';
-import SingleBookTalk from '../../components/booktalkApply/SingleBookTalk';
-import backArrow from '../../assets/icon/ic_backArrow.svg';
+import theme from '../../../styles/theme';
+import btnUp from '../../../assets/icon/btn_up.svg';
+import btnDown from '../../../assets/icon/btn_down.svg';
+import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
+import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import {
   NavBookGrayIcon,
   NavHomeColorIcon,
   NavPersonGrayIcon,
   NavPinGrayIcon,
-} from '../../assets/icon';
+} from '../../../assets/icon';
+import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
 
-interface CountryProps {
-  alpha3Code: string;
-  flag: { large: string };
-  name: string;
-  population: number;
-  region: string | string[];
-  capital: string;
+interface BooktalkProps {
+  booktalk_id: number;
+  preliminary_info: string;
+  title: string;
+  author: string;
+  start_date: string;
+  end_date: string;
+  place: string;
+  participant: number;
+  maximum: number;
+  booktalk_image_url: string;
 }
-
-const fetchData = async () => {
-  try {
-    const response = await axios.get(
-      'https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json',
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to fetch data');
-  }
-};
 
 function BTList() {
   const router = useRouter();
-  const { region } = router.query;
+  const { city } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [booktalkList] = useFetchBooktalkRegion(city as string);
 
   const handleDropdownToggle = () => {
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
@@ -50,57 +46,22 @@ function BTList() {
     setIsOpen(false);
   };
 
-  const {
-    data: fetchedItems,
-    // isLoading,
-    error,
-  } = useQuery<CountryProps[], Error | AxiosError>('countries', fetchData);
+  //   const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
+  //     const values: BooktalkProps[] = [];
+  //     if (filterParam === 'All' && data) {
+  //       values.push(...data);
+  //     } else if (data) {
+  //       values.push(...data.filter((item) => item.place === filterParam));
+  //       console.log(values);
+  //     }
+  //     return values;
+  //   };
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  //   const resultItems = filterItems(booktalkList, selectedCity);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  const filterItems = (data: CountryProps[] | null, filterParam: string) => {
-    // if (filteredItems) {
-    //   const values: CountryProps[] = [];
-    //   for (const key in filteredItems) {
-    //     if (filteredItems[key].region === filterParam) {
-    //       values.push(filteredItems[key]);
-    //     }
-    //   }
-    //   return values;
-    // }
-    // return [];
-    const values: CountryProps[] = [];
-    if (filterParam === 'All' && data) {
-      Object.keys(data).forEach((key) => {
-        const numberKey = Number(key);
-        const item: CountryProps = data[numberKey];
-        values.push(item);
-      });
-      return values;
-    }
-    if (data) {
-      Object.keys(data).forEach((key) => {
-        const numberKey = Number(key);
-        const item: CountryProps = data[numberKey];
-        if (item.region === filterParam) {
-          values.push(item);
-        }
-      });
-      return values;
-    }
-
-    return [];
-  };
-
-  const resultItems = fetchedItems
-    ? filterItems(fetchedItems, region as string)
-    : [];
+  //   const handleNextButtonClick = () => {
+  //     router.push(`/booktalk/search/${city}`);
+  //   };
 
   return (
     <Body>
@@ -114,7 +75,7 @@ function BTList() {
       </Header>
       <SelectBoxContainer>
         <SelectBox onClick={handleDropdownToggle}>
-          <SubTitle>{region}</SubTitle>
+          <SubTitle>{city}</SubTitle>
           <Image
             src={isOpen ? btnUp : btnDown}
             width={24}
@@ -127,7 +88,7 @@ function BTList() {
         <DropdownContainer>
           <DropdownBox>
             <DropdownItem onClick={() => handleRegionSelect()}>
-              {region}
+              {city}
             </DropdownItem>
             <DropdownButton onClick={() => router.back()}>
               지역 선택
@@ -136,9 +97,10 @@ function BTList() {
         </DropdownContainer>
       )}
       <SingleBookTalkContainer>
-        {resultItems.map((item) => (
-          <SingleBookTalk key={item.alpha3Code} item={item} />
-        ))}
+        {booktalkList &&
+          booktalkList.map((item: BooktalkProps) => (
+            <SingleBookTalk key={item?.booktalk_id} item={item} />
+          ))}
       </SingleBookTalkContainer>
       <FooterWrapper>
         <Footer>
