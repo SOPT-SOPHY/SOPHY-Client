@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
@@ -60,10 +61,20 @@ function Home() {
       Cookies.remove('memberId');
       router.push('auth/login');
     }
-  }, [accessToken, refreshToken, router]);
+  }, [accessToken, refreshToken, router, memberId]);
 
   const data = memberId ? uesFetchMemberHome() : uesFetchNonMemberHome();
   console.log(data);
+  if (!data) return;
+
+  /*
+  const a = uesFetchRegionSpace('NAKYANG_DONG');
+  console.log(a);
+
+
+  const b = uesFetchRegionBooktalk('NAKYANG_DONG');
+  console.log(b);
+  */
 
   /*
   const handleRegion = async () => {
@@ -186,7 +197,7 @@ function Home() {
           }}
         />
         <TopText>
-          {data?.booktalk_count ? (
+          {data.booktalk_count !== null ? (
             <>
               <TopBoldText>{data && data.name}님,</TopBoldText>
               <TopTextUnder>반가워요</TopTextUnder>
@@ -212,7 +223,7 @@ function Home() {
               <ScheduledBookTalkText>예정된 북토크</ScheduledBookTalkText>
             </ScheduledBookTalkInnerTextWrapper>
             <ScheduledBookTalkInnerTextWrapper>
-              {data?.booktalk_count ? (
+              {data?.booktalk_count !== null ? (
                 <ScheduledBookTalkNumberText
                   onClick={() => {
                     if (data?.booktalk_count === 0) {
