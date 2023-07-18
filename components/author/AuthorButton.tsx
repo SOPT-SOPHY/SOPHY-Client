@@ -19,7 +19,7 @@ export default AuthorButton;
 const NextButtonWrapper = styled.div`
   position: fixed;
   top: 65.7rem;
-  width: 100vw;
+  /* width: 100vw; */
   height: 14.4rem;
   background: ${theme.colors.white};
 `;

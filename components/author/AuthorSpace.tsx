@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
-import { BackButton } from '../../assets/icon';
+import { BackButton, PeopleIcon } from '../../assets/icon';
 import { regionKey, spaceSelect } from '../../atoms/selector';
 import { useFetchRegionSpace } from '../../hooks/queries/author';
 
@@ -15,7 +15,13 @@ interface SpaceProps {
   isClick?: boolean;
   onClick?: () => void;
 }
-
+interface SpaceObjProps {
+  address: string;
+  maximum: number;
+  name: string;
+  place_id: number;
+  place_image: string;
+}
 function AuthorSpace() {
   const selectedRegionKey = useRecoilValue(regionKey);
 
@@ -60,17 +66,25 @@ function AuthorSpace() {
         </Header>
       </Layout>
       <SpaceSection>
-        {spaces?.map((space) => (
-          <SpaceContainer key={space.info}>
+        {spaces?.map((space: SpaceObjProps) => (
+          <SpaceContainer key={space.place_id}>
             {/* <Image src={space.image} alt="공간 이미지" width={72} heigth={72} /> */}
             <SpaceWrapper
               onClick={() => handleClickSpaces(space.place_id)}
-              isClick={clickedId === space.id}>
+              isClick={clickedId === space.place_id}>
               <SpaceImage />
               <SpaceInfo isClick={clickedId === space.place_id}>
                 <SpaceName>{space.name}</SpaceName>
                 <SpaceAddress>{space.address}</SpaceAddress>
-                <MaxPeople>최대 {space.maximum}명</MaxPeople>
+                <MaxPeople>
+                  <Image
+                    src={PeopleIcon}
+                    alt="최대명수 아이콘"
+                    width={16}
+                    height={16}
+                  />
+                  <span>최대 {space.maximum}명</span>
+                </MaxPeople>
               </SpaceInfo>
             </SpaceWrapper>
             <Divider />
@@ -169,6 +183,8 @@ const SpaceAddress = styled.h2`
   /* color: ${theme.colors.black}; */
 `;
 const MaxPeople = styled.span`
+  display: flex;
+  gap: 0.4rem;
   fonts: ${theme.fonts.body3_regular};
   color: ${theme.colors.green05};
 `;
