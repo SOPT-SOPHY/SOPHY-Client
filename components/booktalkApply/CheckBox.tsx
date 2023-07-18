@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
