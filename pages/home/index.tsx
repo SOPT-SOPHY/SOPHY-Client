@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
@@ -38,7 +40,7 @@ function Home() {
   // const user = '비회원';
   const router = useRouter();
   const isRegionSet = false;
-  const isWriter = false;
+  const is_author = false;
 
   /*
   const memberId = 1;
@@ -56,12 +58,23 @@ function Home() {
 
   useEffect(() => {
     if (!refreshToken && !accessToken && memberId) {
+      Cookies.remove('memberId');
       router.push('auth/login');
     }
-  }, [accessToken, refreshToken, router]);
+  }, [accessToken, refreshToken, router, memberId]);
 
   const data = memberId ? uesFetchMemberHome() : uesFetchNonMemberHome();
   console.log(data);
+  if (!data) return;
+
+  /*
+  const a = uesFetchRegionSpace('NAKYANG_DONG');
+  console.log(a);
+
+
+  const b = uesFetchRegionBooktalk('NAKYANG_DONG');
+  console.log(b);
+  */
 
   /*
   const handleRegion = async () => {
@@ -184,9 +197,9 @@ function Home() {
           }}
         />
         <TopText>
-          {memberId ? (
+          {data.booktalk_count !== null ? (
             <>
-              <TopBoldText>{data?.name}님,</TopBoldText>
+              <TopBoldText>{data && data.name}님,</TopBoldText>
               <TopTextUnder>반가워요</TopTextUnder>
             </>
           ) : (
@@ -210,12 +223,20 @@ function Home() {
               <ScheduledBookTalkText>예정된 북토크</ScheduledBookTalkText>
             </ScheduledBookTalkInnerTextWrapper>
             <ScheduledBookTalkInnerTextWrapper>
-              {memberId ? (
-                <ScheduledBookTalkNumberText>
+              {data?.booktalk_count !== null ? (
+                <ScheduledBookTalkNumberText
+                  onClick={() => {
+                    if (data?.booktalk_count === 0) {
+                      router.push('/home/emptyBookTalk');
+                    } else {
+                      router.push('/mypage/booktalkList');
+                    }
+                  }}>
                   {data?.booktalk_count}개
                 </ScheduledBookTalkNumberText>
               ) : (
-                <ScheduledBookTalkNumberText>
+                <ScheduledBookTalkNumberText
+                  onClick={() => router.push('/auth/login')}>
                   로그인 후 사용가능
                 </ScheduledBookTalkNumberText>
               )}
@@ -246,7 +267,7 @@ function Home() {
       </RegionBookTalkUnderWrapper>
         */}
       </TopBackground>
-      {isWriter ? (
+      {is_author && data?.booktalk_count ? (
         <WriterRegionWrapper>
           <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
           <RegionRankingWrapper>
@@ -287,20 +308,19 @@ function Home() {
             />
             <PlaceName>가장 가까운</PlaceName>
             <PlaceUnderName>북토크를 찾아드릴게요</PlaceUnderName>
-            <InterestingRegion>
-              <InterestingRegionText>
-                관심지역 설정하기
-                <Image
-                  src={InterestingRegionMoreIcon}
-                  alt="관심 지역 더 보기 아이콘"
-                  style={{ marginLeft: '0.6rem' }}
-                />
-              </InterestingRegionText>
+            <InterestingRegion
+              onClick={() => router.push('/mypage/managingInfo')}>
+              <InterestingRegionText>관심지역 설정하기</InterestingRegionText>
+              <Image
+                src={InterestingRegionMoreIcon}
+                alt="관심 지역 더 보기 아이콘"
+                style={{ marginLeft: '0.6rem' }}
+              />
             </InterestingRegion>
           </PlaceNameWrapper>
         </UserRegionRecommendationWrapper>
       )}
-      {isWriter ? (
+      {is_author && data?.booktalk_count ? (
         <AuthorSliderWrapper>
           <SimpleSlider />
         </AuthorSliderWrapper>
@@ -317,7 +337,7 @@ function Home() {
           alt="하트 아이콘"
           style={{ marginTop: '2.1rem' }}
         />
-        <MoreHotBookTalk>
+        <MoreHotBookTalk onClick={() => router.push('/booktalkApply/BTList')}>
           더보기
           <Image src={HomeLightMoreIcon} alt="더보기 아이콘" />
         </MoreHotBookTalk>
@@ -340,6 +360,7 @@ function Home() {
               <Image
                 src={NavBookGrayIcon}
                 alt="소피스토리 화면 바로가기 아이콘"
+                onClick={() => router.push('/sophyStory')}
               />
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
@@ -350,7 +371,11 @@ function Home() {
           </IconsWrapper>
         </Footer>
       </FooterWrapper>
-      {isWriter && <OpenBookTalkButton>북토크 개설하기</OpenBookTalkButton>}
+      {is_author && data?.booktalk_count && (
+        <OpenBookTalkButton onClick={() => router.push('/author/region')}>
+          북토크 개설하기
+        </OpenBookTalkButton>
+      )}
       <St.Header>
         {/* 
          <button type="button" onClick={handleLogout}>
@@ -468,6 +493,8 @@ const ScheduledBookTalkText = styled.span`
 const ScheduledBookTalkNumberText = styled.span`
   color: ${theme.colors.white};
   ${theme.fonts.subhead2_semibold};
+
+  cursor: pointer;
 `;
 
 const ScheduledBookTalkInnerTextWrapper = styled.div`
@@ -616,6 +643,7 @@ const PlaceUnderName = styled.div`
 
 const InterestingRegion = styled.button`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
@@ -632,9 +660,9 @@ const InterestingRegion = styled.button`
 `;
 
 const InterestingRegionText = styled.div`
-  display: flex;
-  align-items: center;
-  width: 11.1rem;
+  width: 10.1rem;
+
+  ${theme.fonts.body2_regular};
 `;
 
 const PlaceNumber = styled.div`
@@ -688,6 +716,8 @@ const MoreHotBookTalk = styled.div`
 
   margin-top: 2.6rem;
   margin-left: 11.5rem;
+
+  cursor: pointer;
 `;
 
 const HotBookTalkSliderWrapper = styled.div`
@@ -725,6 +755,8 @@ const IconWrapper = styled.div`
   text-align: center;
   width: 4.9rem;
   height: 5.1rem;
+
+  cursor: pointer;
 `;
 
 const IconText = styled.div`
