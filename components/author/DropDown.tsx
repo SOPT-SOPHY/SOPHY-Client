@@ -11,6 +11,8 @@ function DropDown({ giveSelected, giveCategory }: any) {
   const categories = [
     '인문',
     '문학',
+    '사회',
+    '에세이',
     '예술',
     '과학',
     '일상/취미',
@@ -72,14 +74,14 @@ const List = styled.li<CategoryProps>`
   height: 4.4rem;
 
   font: ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray05};
+  color: ${theme.colors.gray01};
   z-index: 1;
   cursor: pointer;
 
   &:hover {
-    background: ${theme.colors.gray05};
-    font: ${theme.fonts.body2_bold};
-    color: ${theme.colors.white};
+    background: ${theme.colors.green02};
+    font: ${theme.fonts.body2_medium};
+    color: ${theme.colors.primary};
   }
 `;
 const ListSpan = styled.span`
