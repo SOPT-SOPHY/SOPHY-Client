@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import router from 'next/router';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import Cookies from 'js-cookie';
 import Layout from '../../../components/Layout';
 import {
   ColoredCheckboxIcon,
@@ -11,43 +14,116 @@ import {
   GoBackIcon,
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
+import { mypageSelectedSpaceState } from '../../../atoms/atom';
+import { uesFetchMyInfo, usePatchMyInfo } from '../../../hooks/queries/mypage';
 
 function ManagingInfo() {
+  const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+  const memberId = Cookies.get('memberId');
+
+  useEffect(() => {
+    if (!refreshToken && !accessToken && memberId) {
+      Cookies.remove('memberId');
+      router.push('/auth/login');
+    }
+  }, [accessToken, refreshToken, router]);
+
   const handleGoBack = () => {
     router.back();
   };
 
-  const [marketingTerm, setMarketingTerm] = useState(false);
+  const { myInfo } = uesFetchMyInfo();
+  const { data, mutate } = usePatchMyInfo();
 
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('선택안함');
+  const [birth, setBirth] = useState('');
+  const [marketingTerm, setMarketingTerm] = useState(false);
+  const [region, setRegion] = useRecoilState(mypageSelectedSpaceState);
+  const [isSaveAvailable, setIsSaveAvailable] = useState(false);
+
+  // 맨 처음 데이터 fetch (get 의 데이터)
+  useEffect(() => {
+    setFinalData(myInfo);
+    setGender(myInfo?.gender);
+    setBirth(myInfo?.birth);
+    setMarketingTerm(myInfo?.marketing_agree);
+  }, [myInfo]);
+
+  // 수정된 이후 데이터 fetch (patch 의 데이터)
+  useEffect(() => {
+    setFinalData(data);
+    setGender(myInfo?.gender);
+    setBirth(myInfo?.birth);
+    setMarketingTerm(myInfo?.marketing_agree);
+  }, [data]);
+
+  const [finalData, setFinalData] = useState<any>();
+
+  const regions = [
+    '의정부시 전체',
+    '의정부시 가능동',
+    '의정부시 가능 1동',
+    '의정부시 고산동',
+    '의정부시 금오동',
+    '의정부시 낙양동',
+    '의정부시 녹양동',
+    '의정부시 민락동',
+    '의정부시 산곡동',
+    '의정부시 산곡 1동',
+  ];
+
+  useEffect(() => {
+    if (gender !== '선택안함' || birth !== '' || marketingTerm !== false) {
+      setIsSaveAvailable(true);
+    } else {
+      setIsSaveAvailable(false);
+    }
+  }, [gender, birth, marketingTerm]);
+
+  const handleSaveButton = () => {
+    mutate({
+      email: myInfo.email,
+      name: myInfo.name,
+      phone_num: myInfo.phone_num,
+      gender,
+      birth,
+      city: region,
+      marketing_agree: marketingTerm,
+    });
+  };
 
   return (
     <Layout noFooter noMenuBar noHeader>
       <Head>
         <Image src={GoBackIcon} alt="뒤로가기 아이콘" onClick={handleGoBack} />
         <PageTitle>내 정보 관리</PageTitle>
-        <TitleBlank>수정</TitleBlank>
+        <TitleBlank
+          isSaveAvailable={isSaveAvailable}
+          onClick={handleSaveButton}>
+          저장
+        </TitleBlank>
       </Head>
       <HeadBlank />
       <InputTitle>
         <InputTitleContent>이메일</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>sophy327@gmail.com</Input>
+        <Input>{finalData?.email}</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
         <InputTitleContent>이름</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>김현수</Input>
+        <Input>{finalData?.name}</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
         <InputTitleContent>휴대폰 번호</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>01076771072</Input>
+        <Input>{finalData?.phone_num}</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
@@ -94,7 +170,11 @@ function ManagingInfo() {
         <InputTitleContent>생년월일</InputTitleContent>
       </InputTitle>
       <BirthInputWrapper>
-        <BirthInput />
+        <BirthInput
+          placeholder="YYYY년 MM월 DD일"
+          onChange={(e: any) => setBirth(e.target.value)}
+          value={birth}
+        />
       </BirthInputWrapper>
       <BirthNotice>
         회원님의 성별, 생년월일은 맞춤 서비스를 제공하는 데 사용됩니다.
@@ -104,8 +184,10 @@ function ManagingInfo() {
         <InputTitleContent>우리동네 설정하기</InputTitleContent>
       </InputTitle>
       <RegionSelectionWrapper>
-        <RegionSelectionButton type="button">
-          우리동네 선택
+        <RegionSelectionButton
+          type="button"
+          onClick={() => router.push('/mypage/managingInfo/selectRegion')}>
+          {region !== null ? regions[region] : '우리동네 선택'}
         </RegionSelectionButton>
       </RegionSelectionWrapper>
       <LoginLine />
@@ -131,7 +213,6 @@ function ManagingInfo() {
           3)이벤트 소식을 빠르게 전해드립니다.
         </TermContent>
       </TermWrapper>
-      <SaveProfileButton type="button">프로필 저장</SaveProfileButton>
       <WithdrawalWrapper>
         <WithdrawalText>로그아웃</WithdrawalText>
         <WithdrawalText>회원탈퇴</WithdrawalText>
@@ -164,7 +245,7 @@ const PageTitle = styled.div`
   ${theme.fonts.subhead2_bold};
 `;
 
-const TitleBlank = styled.div`
+const TitleBlank = styled.div<{ isSaveAvailable: boolean }>`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -174,7 +255,8 @@ const TitleBlank = styled.div`
   width: 2.8rem;
   height: 4.4rem;
 
-  color: ${theme.colors.gray06};
+  color: ${(props) =>
+    props.isSaveAvailable ? theme.colors.primary : theme.colors.gray06};
   ${theme.fonts.subhead3_semibold};
 
   cursor: pointer;
@@ -306,6 +388,8 @@ const RegionSelectionButton = styled.button`
 
   background-color: ${theme.colors.green02};
   color: ${theme.colors.green10};
+
+  cursor: pointer;
 `;
 
 const TermWrapper = styled.div`
@@ -316,7 +400,7 @@ const TermWrapper = styled.div`
   width: 33.5rem;
 
   margin-top: 3.2rem;
-  margin-bottom: 4.8rem;
+  margin-bottom: 4.4rem;
 
   color: ${theme.colors.gray01};
   ${theme.fonts.body1_medium};
@@ -330,23 +414,9 @@ const TermContent = styled.div`
   margin-top: 0.8rem;
 `;
 
-const SaveProfileButton = styled.button`
-  width: 33.5rem;
-  height: 5.2rem;
-
-  ${theme.fonts.subhead3_semibold};
-
-  background-color: ${theme.colors.gray11};
-  color: ${theme.colors.gray07};
-
-  border-radius: 0.6rem;
-  border: none;
-`;
-
 const WithdrawalWrapper = styled.div`
   width: 33.5rem;
 
-  margin-top: 2.8rem;
   margin-bottom: 1.6rem;
 `;
 

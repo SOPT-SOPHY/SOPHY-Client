@@ -16,6 +16,53 @@ export const regionSelect = selector({
     set(selectedRegion, newChange);
   },
 });
+export const regionKey = selector({
+  key: 'regionKey',
+  get: ({ get }) => {
+    const region = get(selectedRegion);
+    let REGION = '';
+    switch (region) {
+      case '가능동':
+        REGION = 'GANEUNG_DONG';
+        break;
+      case '고산동':
+        REGION = 'GOSAN_DONG';
+        break;
+      case '금오동':
+        REGION = 'GEUMO_DONG';
+        break;
+      case '낙양동':
+        REGION = 'NAKYANG_DONG';
+        break;
+      case '녹양동':
+        REGION = 'NOKYANG_DONG';
+        break;
+      case '민락동':
+        REGION = 'MINRAK_DONG';
+        break;
+      case '신곡동':
+        REGION = 'SINGOK_DONG';
+        break;
+      case '용현동':
+        REGION = 'YOUNGHYUN_DONG';
+        break;
+      case '의정부동':
+        REGION = 'UIJEONGBU_DONG';
+        break;
+      case '장암동':
+        REGION = 'JANGAM_DONG';
+        break;
+      case '호원동':
+        REGION = 'HOWON_DONG';
+        break;
+      case '의정부시 전체':
+        REGION = 'UIJEONGBU_SI';
+        break;
+      default:
+    }
+    return REGION;
+  },
+});
 export const spaceSelect = selector({
   key: 'spaceSelect',
   get: ({ get }) => get(selectedSpace),

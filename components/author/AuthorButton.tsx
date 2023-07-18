@@ -8,24 +8,13 @@ interface Props {
 function AuthorButton(props: Props) {
   const { children } = props;
 
-  return (
-    <NextButtonWrapper>
-      <NextButton type="button">{children}</NextButton>;
-    </NextButtonWrapper>
-  );
+  return <NextButton type="button">{children}</NextButton>;
 }
 
 export default AuthorButton;
-const NextButtonWrapper = styled.div`
-  position: fixed;
-  top: 65.7rem;
-  width: 100vw;
-  height: 14.4rem;
-  background: ${theme.colors.white};
-`;
 const NextButton = styled.button`
   margin-bottom: 11.2rem;
-  margin-top: 2.6rem;
+  /* margin-top: 2.6rem; */
 
   width: 33.5rem;
   height: 5.2rem;
