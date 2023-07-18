@@ -2,24 +2,23 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-// import Cookies from 'js-cookie';
+// import { useRouter } from 'next/router';
 import backArrow from '../../assets/icon/ic_backArrow.svg';
 import detailImage from '../../assets/img/detailImage.png';
 import BTInfo from '../../components/booktalkApply/BTInfo';
 // import BTData from '../../data/BTData';
 import CheckBox from '../../components/booktalkApply/CheckBox';
-import { useFetchBookTalkDetail } from '../../hooks/queries/author';
+import { useFetchBookTalkDetail } from '../../hooks/queries/booktalk';
 
 function BTDetail() {
-  const router = useRouter();
-
-  const data = useFetchBookTalkDetail();
+  // const router = useRouter();
+  const id = 1;
+  const data = useFetchBookTalkDetail(id as number);
   // const filteredData = BTData.filter((data) => data.id === 1);
   useEffect(() => {
     console.log(data);
   }, []);
-  if (!data) return;
+  // if (!data) return;
   return (
     <Body>
       <Header>
@@ -39,18 +38,18 @@ function BTDetail() {
         return ( */}
         <BTInfo
           // key={data?.id}
-          // booktalk_image_url={data?.data?.booktalk_image_url}
-          title={data?.data?.title}
-          author={data?.data?.author}
-          book_category={data?.data?.book_category}
-          book={data?.data?.book}
-          start_date={data?.data?.start_date}
-          participant={data?.data?.participant}
-          participation_fee={data?.data?.participation_fee}
-          preliminary_info={data?.data?.preliminary_info}
-          description={data?.data?.description}
-          place_name={data?.data?.place_name}
-          place_address={data?.data?.place_address}
+          // booktalk_image_url={data?.booktalk_image_url}
+          title={data?.title}
+          author={data?.author}
+          book_category={data?.book_category}
+          book={data?.book}
+          start_date={data?.start_date}
+          participant={data?.participant}
+          participation_fee={data?.participation_fee}
+          preliminary_info={data?.preliminary_info}
+          description={data?.description}
+          place_name={data?.place_name}
+          place_address={data?.place_address}
         />
         {/* ); */}
         {/* })} */}
