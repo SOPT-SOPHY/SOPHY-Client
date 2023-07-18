@@ -5,7 +5,7 @@ import { fetchBooktalkRegion,fetchBooktalkDetail } from '../../apis/booktalkAppl
 
 const QUERY_KEY = {
     booktalkRegion: 'booktalkRegion',
-    //post query how? -useMutation 
+    booktalkApply: 'booktalkApply',
     booktalkDetail: 'booktalkDetail',
 };
 
@@ -16,10 +16,23 @@ const QUERY_KEY = {
 
 export const useFetchBooktalkRegion = (city: string) => {
     const { data } = useQuery(['booktalkRegion', city], () => fetchBooktalkRegion(city));
-    return [data, city]; // city 값을 반환 배열에 포함
+    return [data, city]; 
   };
 
 export const useFetchBookTalkDetail = (id: number) =>{
     const {data} = useQuery([QUERY_KEY.booktalkDetail, id], ()=> fetchBooktalkDetail(id));
     return data;
 }
+
+import { useMutation, useQueryClient } from 'react-query';
+import { postBooktalkApply } from '../../apis/booktalkApply';
+
+export const usePostBookTalkApply = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(postBooktalkApply, {
+    onSuccess() {
+      queryClient.invalidateQueries([QUERY_KEY.booktalkApply]);
+    },
+  });
+};

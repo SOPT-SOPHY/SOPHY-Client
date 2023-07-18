@@ -8,7 +8,8 @@ import ActiveIcon from '../../assets/icon/checkbox_active.svg';
 import CheckIcon from '../../assets/icon/check_icon.svg';
 import icCheckActive from '../../assets/icon/ic_check_active.svg';
 import icApplied from '../../assets/icon/ic_applied.svg';
-
+import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
+// import Cookies from 'js-cookie';
 interface Agreeds {
   infoConfirm: boolean;
   serviceConfirm: boolean;
@@ -18,6 +19,13 @@ interface AllAgreedButtonProps {
   onClick: () => void;
   checked: boolean;
 }
+
+// interface BooktalkApplyProps {
+//   data: {
+//     booktalk_id: number;
+//     member_id: number;
+//   };
+// }
 
 function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
   const handleClick = () => {
@@ -92,13 +100,34 @@ function CheckBox() {
     setIsApplied(true);
   };
 
-  const handleSubmit = () => {
+  // const postBookTalkApplyMutation = usePostBookTalkApply();
+
+  const handleSubmit = async () => {
     if (!allAgreed) {
       setShowError(true);
     } else {
       setShowError(false);
-      showToast('신청이 완료되었습니다.');
-      handleToastClose(); // 토스트 메시지 닫고 신청완료로 전환
+      try {
+        // const response = await postBookTalkApplyMutation.mutateAsync({
+        //   booktalk_id: 1,
+        //   member_id: 1,
+        // });
+
+        // if (response.data) {
+        //   const { booktalk_id, member_id } = response.data ?? {}; //response.data가 존재하면 그 값을 사용하고, 존재하지 않으면 빈 객체({})를 사용
+        //   console.log(response.data);
+
+        //   // Cookies.set('memberId', member_id.toString());
+        //   // Cookies.set('booktalkId', booktalk_id.toString());
+
+        showToast('신청이 완료되었습니다.');
+        handleToastClose(); // 토스트 메시지 닫고 신청완료로 전환
+        // } else {
+        //   console.log('response.data가 없음');
+        // }
+      } catch (error) {
+        console.error('북토크 신청 에러 발생', error);
+      }
     }
   };
 
@@ -187,6 +216,8 @@ function CheckBox() {
     </>
   );
 }
+
+export default CheckBox;
 
 const HorizontalLine = styled.hr`
   margin-top: 1.9rem;
@@ -353,5 +384,3 @@ const SubmitButtonStyling = styled.button`
   border-radius: 0.6rem;
   border: none;
 `;
-
-export default CheckBox;
