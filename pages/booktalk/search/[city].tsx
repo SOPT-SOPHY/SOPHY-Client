@@ -46,6 +46,11 @@ function BTList() {
     setIsOpen(false);
   };
 
+  const handleBooktalkClick = (booktalkId: number) => {
+    router.push(`/booktalk/${booktalkId}/detail`);
+    console.log(booktalkId);
+  };
+
   const decodeCity = (city: string) => {
     switch (city) {
       case 'UIJEONGBU_SI':
@@ -130,7 +135,11 @@ function BTList() {
       <SingleBookTalkContainer>
         {booktalkList &&
           booktalkList.map((item: BooktalkProps) => (
-            <SingleBookTalk key={item?.booktalk_id} item={item} />
+            <SingleBookTalk
+              key={item?.booktalk_id}
+              item={item}
+              onClick={() => handleBooktalkClick(item?.booktalk_id)}
+            />
           ))}
       </SingleBookTalkContainer>
       <FooterWrapper>

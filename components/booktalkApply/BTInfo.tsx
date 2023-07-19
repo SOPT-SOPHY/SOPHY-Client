@@ -20,7 +20,6 @@ interface BTInfoProps {
   book_category: string;
   book: string;
   start_date: string;
-  // end_date: string;
   participant: number;
   participation_fee: number;
   preliminary_info: string;
@@ -63,6 +62,9 @@ function BTInfo({
   place_address,
   author,
 }: BTInfoProps) {
+  // const startDate = new Date(start_date);
+  // const endDate = new Date(end_date);
+
   return (
     <>
       <InfoContainer>
