@@ -31,6 +31,7 @@ function AuthorSpace() {
 
   const setSelectedSpaces = useSetRecoilState(spaceSelect); // 각 지역 선택
   const [clickedId, setClickedId] = useState<number>(-1);
+  const [isSpaceValid, setIsSpaceValid] = useState<boolean>(false);
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -42,6 +43,9 @@ function AuthorSpace() {
 
   useEffect(() => {
     setSelectedSpaces(clickedId);
+    if (clickedId !== -1) {
+      setIsSpaceValid(true);
+    }
   }, [clickedId]);
 
   return (
@@ -91,9 +95,13 @@ function AuthorSpace() {
           </SpaceContainer>
         ))}
       </SpaceSection>
-      <Link href="form">
-        <AuthorButton>다음</AuthorButton>
-      </Link>
+      {isSpaceValid ? (
+        <Link href="form">
+          <AuthorButton>다음</AuthorButton>
+        </Link>
+      ) : (
+        <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
+      )}
     </Space>
   );
 }
@@ -192,4 +200,17 @@ const Divider = styled.div`
   width: 33.3rem;
   height: 0.1rem;
   background: ${theme.colors.gray11};
+`;
+const InactiveAuthorModalButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 11.2rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.gray07};
+  border-radius: 0.375rem;
+  background: ${theme.colors.gray11};
+  border: none;
 `;
