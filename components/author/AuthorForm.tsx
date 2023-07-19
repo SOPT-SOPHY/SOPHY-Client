@@ -168,6 +168,11 @@ function AuthorForm() {
       setCost(0);
     }
   };
+  useEffect(() => {
+    if (freeCheck) {
+      setCost(0);
+    }
+  }, [cost, freeCheck]);
 
   const handlePeople = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9]+$/;

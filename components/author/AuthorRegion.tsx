@@ -18,6 +18,7 @@ function AuthorRegion() {
   const setSelectedRegions = useSetRecoilState(regionSelect); // 각 지역 선택
   const [isAllClicked, setIsAllClicked] = useState<boolean>(true); // 의정부시 전체가 선택되었는지 유무
   const [clickedId, setClickedId] = useState<number>(-1);
+  const [isRegionValid, setIsRegionValid] = useState<boolean>(false);
   const regions = [
     '가능동',
     '고산동',
@@ -32,12 +33,12 @@ function AuthorRegion() {
     '호원동',
   ];
   const handleClickAllRegions = () => {
+    setIsAllClicked((isAllClicked) => !isAllClicked);
     if (clickedId === 100) {
       setClickedId(-1);
       return;
     }
     setClickedId(100);
-    setIsAllClicked((isAllClicked) => !isAllClicked);
   };
 
   const handleClickRegions = (index: number) => {
@@ -53,6 +54,14 @@ function AuthorRegion() {
       setSelectedRegions('의정부시 전체');
     } else {
       setSelectedRegions(regions[clickedId]);
+    }
+  }, [clickedId]);
+
+  useEffect(() => {
+    if (clickedId !== -1) {
+      setIsRegionValid(true);
+    } else {
+      setIsRegionValid(false);
     }
   }, [clickedId]);
 
@@ -101,9 +110,13 @@ function AuthorRegion() {
           </LowerRegion>
         </RegionWrapper>
       </RegionSection>
-      <Link href="space">
-        <AuthorButton>다음</AuthorButton>
-      </Link>
+      {isRegionValid ? (
+        <Link href="space">
+          <AuthorButton>다음</AuthorButton>
+        </Link>
+      ) : (
+        <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
+      )}
     </Region>
   );
 }
@@ -171,4 +184,17 @@ const Regions = styled.div<RegionProps>`
 `;
 const ImageContainer = styled.div<{ isClick: boolean }>`
   display: ${({ isClick }) => (isClick ? 'block' : 'none')};
+`;
+const InactiveAuthorModalButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 11.2rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.gray07};
+  border-radius: 0.375rem;
+  background: ${theme.colors.gray11};
+  border: none;
 `;
