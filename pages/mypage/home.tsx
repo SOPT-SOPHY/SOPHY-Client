@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -5,22 +6,30 @@ import { useRouter } from 'next/router';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
+  AuthorCertificationIcon,
+  AuthorMypageMoreIcon,
   LocalCertificationIcon,
   NavBookGrayIcon,
   NavHomeGrayIcon,
   NavPersonColorIcon,
   NavPinGrayIcon,
 } from '../../assets/icon';
-import Card from '../../components/mypage/Card';
 import PredictedBT from '../../components/mypage/PredictedBT';
 import { uesFetchMyInfo, uesFetchMypage } from '../../hooks/queries/mypage';
+import { uesFetchMemberHome } from '../../hooks/queries/home';
+import theme from '../../styles/theme';
+import MyBookSlider from '../../components/MyBookSlider';
+import Card from '../../components/mypage/Card';
 
 function MySophy() {
   const router = useRouter();
 
   const { myInfo } = uesFetchMyInfo();
   const { mypage } = uesFetchMypage();
+  const data = uesFetchMemberHome();
+
   console.log(myInfo);
+  console.log(mypage);
 
   return (
     <Body>
@@ -59,14 +68,58 @@ function MySophy() {
               alt="지역 인증 전 아이콘"
             />
           )}
+          {data?.is_author ? (
+            <Image
+              src={AuthorCertificationIcon}
+              width={87}
+              height={28}
+              alt="작가 인증 후 아이콘"
+              style={{ marginLeft: '0.6rem' }}
+            />
+          ) : (
+            <></>
+          )}
         </NonLocalCertification>
       </Profile>
       <Card
         expected={mypage?.expected_book_talk_count}
         waiting={mypage?.waiting_book_talk_count}
         completed={mypage?.complete_book_talk_count}
+        is_author={data?.is_author}
       />
-      <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+      {data?.is_author ? <>북토크 관리하기</> : <></>}
+      {mypage?.my_page_booktalk_dtos?.length === 0 ? (
+        <>
+          <EmptyExpectedBooktalkTitle>예정된 북토크</EmptyExpectedBooktalkTitle>
+          <EmptyExpectedBooktalk
+            type="button"
+            onClick={() => {
+              if (myInfo?.city === null) {
+                router.push('/booktalk/search/의정부시%20전체');
+              } else {
+                router.push(`/booktalk/search/${myInfo?.city}`);
+              }
+            }}>
+            내 주변 북토크 찾아보기
+          </EmptyExpectedBooktalk>
+        </>
+      ) : (
+        <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+      )}
+      {data?.is_author ? (
+        <>
+          <Devider />
+          <MyBookTitle>
+            내 도서 관리
+            <Image src={AuthorMypageMoreIcon} alt="더보기 아이콘" />
+          </MyBookTitle>
+          <MyBookSlider booktalkList={mypage?.my_book_dtos} />
+          <Devider />
+        </>
+      ) : (
+        <></>
+      )}
+
       <ListWrapper>
         <List>
           <h1>작가 인증하기</h1>
@@ -274,4 +327,52 @@ const List = styled.div`
     ${({ theme }) => theme.fonts.body1_medium};
     color: ${({ theme }) => theme.colors.black};
   }
+`;
+
+const EmptyExpectedBooktalk = styled.button`
+  width: 33.5rem;
+  height: 5.2rem;
+
+  border: none;
+  border-radius: 0.6rem;
+
+  background-color: ${theme.colors.green03};
+  color: ${theme.colors.green08};
+
+  margin-left: 2rem;
+  margin-bottom: 2.8rem;
+`;
+
+const EmptyExpectedBooktalkTitle = styled.div`
+  width: 33.5rem;
+
+  ${theme.fonts.subhead2_bold};
+  color: ${theme.colors.gray01};
+
+  margin-top: 3.2rem;
+  margin-bottom: 1.2rem;
+  margin-left: 2rem;
+`;
+
+const MyBookTitle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  width: 33.5rem;
+  color: ${theme.colors.gray01};
+  ${theme.fonts.subhead2_bold};
+
+  margin-top: 3.2rem;
+  margin-left: 2.1rem;
+  margin-bottom: 1.4rem;
+`;
+
+const Devider = styled.div`
+  width: 33.5rem;
+  height: 0.1rem;
+
+  background-color: ${theme.colors.gray11};
+
+  margin-left: 2rem;
 `;

@@ -15,7 +15,7 @@ export const selectedSpace = atom<number>({
   default: -1,
 });
 
-export const mypageSelectedSpaceState = atom<number | null>({
+export const mypageSelectedSpaceState = atom<string | null>({
   key: 'mypageSelectedSpace',
   default: null,
 });
@@ -23,4 +23,9 @@ export const mypageSelectedSpaceState = atom<number | null>({
 export const memberSelectedSpaceState = atom<number>({
   key: 'memberSelectedSpace',
   default: 0,
+});
+
+export const isRegionChangedState = atom<boolean>({
+  key: 'isRegionChanged',
+  default: false,
 });

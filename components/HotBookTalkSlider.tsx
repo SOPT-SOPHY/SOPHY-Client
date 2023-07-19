@@ -22,48 +22,55 @@ export default function SimpleSlider(props: any) {
     dotsClass: 'dots_custom',
   };
   return (
-    <Container>
-      <StyledSlider {...settings}>
-        {data?.map((item: any) => (
-          <ImageContainer key={item}>
-            <SlideCard>
-              <SlideTitle>{item.title}</SlideTitle>
-              <SlideContent>
-                <Image
-                  src={ScheduleIcon}
-                  alt="달력 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                {item.start_date.slice(0, 4)}.{item.start_date.slice(5, 7)}.
-                {item.start_date.slice(8, 10)}
-                <Dot /> {item.start_date.slice(11, 13)}시~
-                {item.end_date.slice(11, 13)}시
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PointIcon}
-                  alt="화살표 모양 아이콘"
-                  style={{ marginRight: '0.4rem' }}
-                />
-                {item.place_name}
-              </SlideContent>
-              <SlideContent>
-                <Image
-                  src={PinIcon}
-                  alt="핀 모양 아이콘"
-                  width={18}
-                  height={18}
-                  style={{ marginRight: '0.4rem' }}
-                />
-                {item.place_address}
-              </SlideContent>
-            </SlideCard>
-          </ImageContainer>
-        ))}
-      </StyledSlider>
-    </Container>
+    <ContainerWrapper>
+      <Container>
+        <StyledSlider {...settings}>
+          {data?.map((item: any) => (
+            <ImageContainer key={item}>
+              <SlideCard>
+                <SlideTitle>{item.title}</SlideTitle>
+                <SlideContent>
+                  <Image
+                    src={ScheduleIcon}
+                    alt="달력 모양 아이콘"
+                    style={{ marginRight: '0.4rem' }}
+                  />
+                  {item.start_date.slice(0, 4)}.{item.start_date.slice(5, 7)}.
+                  {item.start_date.slice(8, 10)}
+                  <Dot /> {item.start_date.slice(11, 13)}시~
+                  {item.end_date.slice(11, 13)}시
+                </SlideContent>
+                <SlideContent>
+                  <Image
+                    src={PointIcon}
+                    alt="화살표 모양 아이콘"
+                    style={{ marginRight: '0.4rem' }}
+                  />
+                  {item.place_name}
+                </SlideContent>
+                <SlideContent>
+                  <Image
+                    src={PinIcon}
+                    alt="핀 모양 아이콘"
+                    width={18}
+                    height={18}
+                    style={{ marginRight: '0.4rem' }}
+                  />
+                  {item.place_address}
+                </SlideContent>
+              </SlideCard>
+            </ImageContainer>
+          ))}
+        </StyledSlider>
+      </Container>
+    </ContainerWrapper>
   );
 }
+
+const ContainerWrapper = styled.div`
+  width: 37.5rem;
+  overflow-x: hidden;
+`;
 
 const Container = styled.div`
   width: 40rem;

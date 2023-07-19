@@ -18,12 +18,17 @@ import SophyStorySlider from '../../components/SophyStorySlider';
 import { ComputerType, GroupType, LoveType } from '../../assets/img';
 import { uesFetchMemberHome } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
+import { uesFetchSophyStory } from '../../hooks/queries/sophyStory';
+import { usePostBooktalk } from '../../hooks/queries/new';
 
 function SophyStory() {
   const [isSelected, setIsSelected] = useState('category');
   const router = useRouter();
 
   const { myInfo } = uesFetchMyInfo();
+  const { sophyStory } = uesFetchSophyStory();
+  console.log(sophyStory);
+  const { mutate } = usePostBooktalk();
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
@@ -40,6 +45,26 @@ function SophyStory() {
 
   return (
     <Layout noHeader noFooter noMenuBar>
+      <button
+        type="button"
+        onClick={() =>
+          mutate({
+            member_id: 2,
+            place_id: 1,
+            booktalk_image_url: null,
+            title: '북토크1 - 공간1 고산동',
+            book_category: 5,
+            book_id: 1,
+            start_date: '2023-07-11T00:18:11.635829',
+            end_date: '2023-07-13T00:18:11.635821',
+            participant: 20,
+            participation_fee: 3000,
+            preliminary_info: 1,
+            description: '  아',
+          })
+        }>
+        버튼
+      </button>
       <Head>
         지금까지
         <span

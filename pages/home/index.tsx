@@ -39,7 +39,6 @@ import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 
 function Home() {
   const router = useRouter();
-  const is_author = false;
 
   const { myInfo } = uesFetchMyInfo();
 
@@ -283,22 +282,43 @@ function Home() {
       </RegionBookTalkUnderWrapper>
         */}
       </TopBackground>
-      {is_author && data?.booktalk_count ? (
+      {data?.is_author && data?.booktalk_count !== null ? (
         <WriterRegionWrapper>
           <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
           <RegionRankingWrapper>
             <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
-            의정부시 민락동
+            의정부시 {regions[data?.city_ranks[0]]}
           </RegionRankingWrapper>
           <RegionRankingWrapper>
             <Image src={Ranking2Icon} alt="랭킹 2위 아이콘" />
-            의정부시 의정부동
+            의정부시 {regions[data?.city_ranks[1]]}
           </RegionRankingWrapper>
           <RegionRankingWrapper>
             <Image src={Ranking3Icon} alt="랭킹 3위 아이콘" />
-            의정부시 호원동
+            의정부시 {regions[data?.city_ranks[2]]}
           </RegionRankingWrapper>
         </WriterRegionWrapper>
+      ) : data?.name === null ? (
+        <UserRegionRecommendationWrapper>
+          <PlaceNameWrapper>
+            <Image
+              src={PinIcon}
+              alt="핀 아이콘"
+              style={{ marginLeft: '1.4rem' }}
+            />
+            <PlaceName>가장 가까운</PlaceName>
+            <PlaceUnderName>북토크를 찾아드릴게요</PlaceUnderName>
+            <InterestingRegion
+              onClick={() => router.push('/mypage/managingInfo')}>
+              <InterestingRegionText>관심지역 설정하기</InterestingRegionText>
+              <Image
+                src={InterestingRegionMoreIcon}
+                alt="관심 지역 더 보기 아이콘"
+                style={{ marginLeft: '0.6rem' }}
+              />
+            </InterestingRegion>
+          </PlaceNameWrapper>
+        </UserRegionRecommendationWrapper>
       ) : myInfo?.city !== null ? (
         <UserRegionWrapper>
           <PlaceNameWrapper>
@@ -336,7 +356,7 @@ function Home() {
           </PlaceNameWrapper>
         </UserRegionRecommendationWrapper>
       )}
-      {is_author && data?.booktalk_count ? (
+      {data?.is_author && data?.booktalk_count !== null ? (
         <AuthorSliderWrapper>
           <SimpleSlider />
         </AuthorSliderWrapper>
@@ -353,7 +373,7 @@ function Home() {
           alt="하트 아이콘"
           style={{ marginTop: '2.1rem' }}
         />
-        <MoreHotBookTalk onClick={() => router.push('/booktalkApply/BTList')}>
+        <MoreHotBookTalk>
           더보기
           <Image src={HomeLightMoreIcon} alt="더보기 아이콘" />
         </MoreHotBookTalk>
@@ -401,7 +421,7 @@ function Home() {
           </IconsWrapper>
         </Footer>
       </FooterWrapper>
-      {is_author && data?.booktalk_count && (
+      {data?.is_author && data?.booktalk_count !== null && (
         <OpenBookTalkButton onClick={() => router.push('/author/region')}>
           북토크 개설하기
         </OpenBookTalkButton>

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable camelcase */
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -5,7 +7,7 @@ import { useRouter } from 'next/router';
 import MypageMoreIcon from '../../assets/icon/MypageMoreIcon.svg';
 
 function Card(props: any) {
-  const { expected, waiting, completed } = props;
+  const { expected, waiting, completed, is_author } = props;
   const router = useRouter();
   return (
     <CardWrapper>
@@ -18,19 +20,44 @@ function Card(props: any) {
       </CardHeader>
       <HorizontalLine />
       <CardBody>
-        <ExpectedParticipation>
-          <ExpectedParticipationCount>
-            {waiting === null ? 0 : waiting}
-          </ExpectedParticipationCount>
-          <ExpectedTitle>참여예정</ExpectedTitle>
-        </ExpectedParticipation>
-        <Line />
-        <CompletedParticipation>
-          <CompletedParticipationCount>
-            {expected === null ? 0 : expected}
-          </CompletedParticipationCount>
-          <CompletedTitle>참여완료</CompletedTitle>
-        </CompletedParticipation>
+        {is_author ? (
+          <>
+            <ExpectedHolding>
+              <ExpectedHoldingCount>
+                {expected === null ? 0 : expected}
+              </ExpectedHoldingCount>
+            </ExpectedHolding>
+            <ExpectedParticipation>
+              <ExpectedParticipationCount>
+                {waiting === null ? 0 : waiting}
+              </ExpectedParticipationCount>
+              <ExpectedTitle>참여예정</ExpectedTitle>
+            </ExpectedParticipation>
+            <Line />
+            <CompletedParticipation>
+              <CompletedParticipationCount>
+                {completed === null ? 0 : completed}
+              </CompletedParticipationCount>
+              <CompletedTitle>참여완료</CompletedTitle>
+            </CompletedParticipation>
+          </>
+        ) : (
+          <>
+            <ExpectedParticipation>
+              <ExpectedParticipationCount>
+                {waiting === null ? 0 : waiting}
+              </ExpectedParticipationCount>
+              <ExpectedTitle>참여예정</ExpectedTitle>
+            </ExpectedParticipation>
+            <Line />
+            <CompletedParticipation>
+              <CompletedParticipationCount>
+                {expected === null ? 0 : expected}
+              </CompletedParticipationCount>
+              <CompletedTitle>참여완료</CompletedTitle>
+            </CompletedParticipation>{' '}
+          </>
+        )}
       </CardBody>
     </CardWrapper>
   );
@@ -157,3 +184,7 @@ const CompletedTitle = styled.h1`
   ${({ theme }) => theme.fonts.body2_regular};
   color: ${({ theme }) => theme.colors.green04};
 `;
+
+const ExpectedHolding = styled.div``;
+
+const ExpectedHoldingCount = styled.div``;
