@@ -11,3 +11,10 @@ export const fetchBookTalkDetail = async () => {
 
   return data;
 };
+
+export const postBookTalkOpen = async (props: any) => {
+  const {
+    data: { data },
+  } = await api.post(`booktalk`, props);
+  return data;
+};

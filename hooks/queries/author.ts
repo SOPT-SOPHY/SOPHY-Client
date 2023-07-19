@@ -1,9 +1,14 @@
-import { useQuery } from 'react-query';
-import { fetchBookTalkDetail, fetchRegionSpace } from '../../apis/author';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import {
+  fetchBookTalkDetail,
+  fetchRegionSpace,
+  postBookTalkOpen,
+} from '../../apis/author';
 
 const QUERY_KEY = {
   bookTalkDetail: 'bookTalkDetail',
   spaceByRegion: 'spaceByRegion',
+  bookTalkOpen: 'bookTalkOpen',
 };
 
 export const useFetchBookTalkDetail = () => {
@@ -15,4 +20,15 @@ export const useFetchRegionSpace = (selectedRegionKey: string) => {
     fetchRegionSpace(selectedRegionKey),
   );
   return data;
+};
+export const usePostBookTalkOpen = () => {
+  const queryClient = useQueryClient();
+  return useMutation(postBookTalkOpen, {
+    onSuccess() {
+      queryClient.invalidateQueries([QUERY_KEY.bookTalkOpen]);
+    },
+    onError(e) {
+      console.log(e);
+    },
+  });
 };
