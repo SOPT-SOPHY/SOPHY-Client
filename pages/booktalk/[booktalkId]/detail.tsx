@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import detailImage from '../../../assets/img/detailImage.png';
@@ -47,14 +46,23 @@ function BTDetail() {
   // }
 
   // if (!data) return;
+
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <Body>
       <Header>
-        <Link href="/booktalkApply/BTList">
-          <ImageContainer>
-            <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
-          </ImageContainer>
-        </Link>
+        <ImageContainer>
+          <Image
+            src={backArrow}
+            width={44}
+            height={44}
+            alt="뒤로가기"
+            onClick={handleGoBack}
+          />
+        </ImageContainer>
         <Title>북토크 상세정보</Title>
       </Header>
       {/* <hr style={{ borderTop: '1px solid #F6F7FA' }} /> */}
