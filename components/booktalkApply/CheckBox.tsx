@@ -2,6 +2,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
+import Cookies from 'js-cookie';
 import useToast from '../../hooks/toast/useToast';
 import Toast from './Toast';
 import InactiveIcon from '../../assets/icon/checkbox_inactive.svg';
@@ -9,6 +10,7 @@ import ActiveIcon from '../../assets/icon/checkbox_active.svg';
 import CheckIcon from '../../assets/icon/check_icon.svg';
 import icCheckActive from '../../assets/icon/ic_check_active.svg';
 import icApplied from '../../assets/icon/ic_applied.svg';
+import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
 // import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
 // import Cookies from 'js-cookie';
 interface Agreeds {
@@ -59,7 +61,8 @@ function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
   );
 }
 
-function CheckBox() {
+function CheckBox(props: any) {
+  const { booktalk_id } = props;
   const [allAgreed, setAllAgreed] = useState(false);
   const [agreeds, setAgreeds] = useState<Agreeds>({
     infoConfirm: false,
@@ -102,6 +105,7 @@ function CheckBox() {
   };
 
   // const postBookTalkApplyMutation = usePostBookTalkApply();
+  const { mutate } = usePostBookTalkApply();
 
   const handleSubmit = async () => {
     if (!allAgreed) {
@@ -109,6 +113,8 @@ function CheckBox() {
     } else {
       setShowError(false);
       try {
+        const member_id = Cookies.get('memberId');
+        mutate({ booktalk_id, member_id });
         // const response = await postBookTalkApplyMutation.mutateAsync({
         //   booktalk_id: 1,
         //   member_id: 1,

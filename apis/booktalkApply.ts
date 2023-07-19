@@ -5,7 +5,7 @@ import api from '.';
 
 interface BooktalkApplyProps {
   booktalk_id?: number;
-  member_id?: number;
+  member_id?: number | string;
   data?: null;
 }
 
@@ -24,7 +24,7 @@ export const postBooktalkApply = async (
   // const memberId = Cookies.get('memberId');
   const {
     data: { data },
-  } = await api.post(`booktalk/participation`);
+  } = await api.post(`booktalk/participation`, props);
   return data;
 };
 
