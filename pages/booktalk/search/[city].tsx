@@ -12,9 +12,8 @@ import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import {
   NavBookGrayIcon,
-  NavHomeColorIcon,
   NavPersonGrayIcon,
-  NavPinGrayIcon,
+  NavPinColorIcon,
 } from '../../../assets/icon';
 import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
 
@@ -46,6 +45,42 @@ function BTList() {
     setIsOpen(false);
   };
 
+  const handleBooktalkClick = (booktalkId: number) => {
+    router.push(`/booktalk/${booktalkId}/detail`);
+    console.log(booktalkId);
+  };
+
+  const decodeCity = (city: string) => {
+    switch (city) {
+      case 'UIJEONGBU_SI':
+        return '의정부시 전체';
+      case 'UIJEONGBU_DONG':
+        return '의정부동';
+      case 'HOWON_DONG':
+        return '호원동';
+      case 'NOKYANG_DONG':
+        return '녹양동';
+      case 'NAKYANG_DONG':
+        return '낙양동';
+      case 'MINRAK_DONG':
+        return '민락동';
+      case 'SINGOK_DONG':
+        return '신곡동';
+      case 'JANGAM_DONG':
+        return '장암동';
+      case 'GANEUNG_DONG':
+        return '가능동';
+      case 'GOSAN_DONG':
+        return '고산동';
+      case 'GEUMO_DONG':
+        return '금오동';
+      case 'YOUNGHYUN_DONG':
+        return '영현동';
+      default:
+        return '';
+    }
+  };
+
   //   const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
   //     const values: BooktalkProps[] = [];
   //     if (filterParam === 'All' && data) {
@@ -75,7 +110,7 @@ function BTList() {
       </Header>
       <SelectBoxContainer>
         <SelectBox onClick={handleDropdownToggle}>
-          <SubTitle>{city}</SubTitle>
+          <SubTitle>{decodeCity(city as string)}</SubTitle>
           <Image
             src={isOpen ? btnUp : btnDown}
             width={24}
@@ -88,7 +123,7 @@ function BTList() {
         <DropdownContainer>
           <DropdownBox>
             <DropdownItem onClick={() => handleRegionSelect()}>
-              {city}
+              {decodeCity(city as string)}
             </DropdownItem>
             <DropdownButton onClick={() => router.back()}>
               지역 선택
@@ -99,30 +134,43 @@ function BTList() {
       <SingleBookTalkContainer>
         {booktalkList &&
           booktalkList.map((item: BooktalkProps) => (
-            <SingleBookTalk key={item?.booktalk_id} item={item} />
+            <SingleBookTalk
+              key={item?.booktalk_id}
+              item={item}
+              onClick={() => handleBooktalkClick(item?.booktalk_id)}
+            />
           ))}
       </SingleBookTalkContainer>
       <FooterWrapper>
         <Footer>
           <IconsWrapper>
             <IconWrapper>
-              <Image src={NavHomeColorIcon} alt="홈 화면 바로가기 아이콘" />
-              <IconText>홈</IconText>
+              <Image
+                src={NavPersonGrayIcon}
+                alt="홈 화면 바로가기 아이콘"
+                onClick={() => router.push('/home')}
+              />
+              <UnClickedIconText>홈</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
-              <UnClickedIconText>지역</UnClickedIconText>
+              <Image src={NavPinColorIcon} alt="지역 화면 바로가기 아이콘" />
+              <IconText>지역</IconText>
             </IconWrapper>
             <IconWrapper>
               <Image
                 src={NavBookGrayIcon}
                 alt="소피스토리 화면 바로가기 아이콘"
+                onClick={() => router.push('/sophyStory')}
               />
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
-              <UnClickedIconText>MY</UnClickedIconText>
+              <Image
+                src={NavPersonGrayIcon}
+                alt="MY 페이지 바로가기 아이콘"
+                onClick={() => router.push('/mypage/home')}
+              />
+              <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>

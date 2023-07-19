@@ -1,27 +1,33 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Layout from '../../../../components/Layout';
-import { ColorCheckIcon, GoBackIcon } from '../../../../assets/icon';
-import theme from '../../../../styles/theme';
-import {
-  isRegionChangedState,
-  mypageSelectedSpaceState,
-} from '../../../../atoms/atom';
+import Layout from '../../components/Layout';
+import { ColorCheckIcon, GoBackIcon } from '../../assets/icon';
+import theme from '../../styles/theme';
+import { memberSelectedSpaceState } from '../../atoms/atom';
 
 function SelectRegion() {
   const router = useRouter();
-  const [clickedDong, setClickedDong] = useRecoilState<null | string>(
-    mypageSelectedSpaceState,
+  const [clickedDong, setClickedDong] = useRecoilState<number>(
+    memberSelectedSpaceState,
   );
-  const [isRegionChanged, setIsRegionChanged] =
-    useRecoilState<boolean>(isRegionChangedState);
 
-  console.log(clickedDong);
+  const regions = [
+    '의정부시 전체',
+    '의정부시 가능동',
+    '의정부시 가능 1동',
+    '의정부시 고산동',
+    '의정부시 금오동',
+    '의정부시 낙양동',
+    '의정부시 녹양동',
+    '의정부시 민락동',
+    '의정부시 산곡동',
+    '의정부시 산곡 1동',
+  ];
+
   return (
     <Layout noHeader noMenuBar noFooter>
       <Head>
@@ -30,7 +36,7 @@ function SelectRegion() {
           alt="뒤로가기 아이콘"
           onClick={() => {
             router.back();
-            setClickedDong(null);
+            setClickedDong(0);
           }}
         />
         <PageTitle />
@@ -49,53 +55,11 @@ function SelectRegion() {
         <Devider />
         <DongWrapper>
           <Dong
-            dongName="UIJEONGBU_SI"
+            dongNum={0}
             clickedDong={clickedDong}
-            onClick={() => setClickedDong('UIJEONGBU_SI')}>
+            onClick={() => setClickedDong(0)}>
             의정부시 전체
-            {clickedDong === 'UIJEONGBU_SI' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            dongName="UIJEONGBU_DONG"
-            clickedDong={clickedDong}
-            onClick={() => setClickedDong('UIJEONGBU_DONG')}>
-            의정부동
-            {clickedDong === 'UIJEONGBU_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            dongName="HOWON_DONG"
-            clickedDong={clickedDong}
-            onClick={() => setClickedDong('HOWON_DONG')}>
-            호원동
-            {clickedDong === 'HOWON_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            dongName="JANGAM_DONG"
-            clickedDong={clickedDong}
-            onClick={() => setClickedDong('JANGAM_DONG')}>
-            장암동
-            {clickedDong === 'JANGAM_DONG' ? (
+            {clickedDong === 0 ? (
               <Image
                 src={ColorCheckIcon}
                 alt="클릭되었음을 나타내는 체크 이미지"
@@ -106,80 +70,10 @@ function SelectRegion() {
           </Dong>
           <Dong
             clickedDong={clickedDong}
-            dongName="SINGOK_DONG"
-            onClick={() => setClickedDong('SINGOK_DONG')}>
-            신곡동
-            {clickedDong === 'SINGOK_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            clickedDong={clickedDong}
-            dongName="YOUNGHYUN_DONG"
-            onClick={() => setClickedDong('YOUNGHYUN_DONG')}>
-            용현동
-            {clickedDong === 'YOUNGHYUN_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            clickedDong={clickedDong}
-            dongName="MINRAK_DONG"
-            onClick={() => setClickedDong('MINRAK_DONG')}>
-            민락동
-            {clickedDong === 'MINRAK_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            clickedDong={clickedDong}
-            dongName="NAKYANG_DONG"
-            onClick={() => setClickedDong('NAKYANG_DONG')}>
-            낙양동
-            {clickedDong === 'NAKYANG_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            clickedDong={clickedDong}
-            dongName="GEUMO_DONG"
-            onClick={() => setClickedDong('GEUMO_DONG')}>
-            금오동
-            {clickedDong === 'GEUMO_DONG' ? (
-              <Image
-                src={ColorCheckIcon}
-                alt="클릭되었음을 나타내는 체크 이미지"
-              />
-            ) : (
-              <></>
-            )}
-          </Dong>
-          <Dong
-            clickedDong={clickedDong}
-            dongName="GANEUNG_DONG"
-            onClick={() => setClickedDong('GANEUNG_DONG')}>
+            dongNum={1}
+            onClick={() => setClickedDong(1)}>
             가능동
-            {clickedDong === 'GANEUNG_DONG' ? (
+            {clickedDong === 1 ? (
               <Image
                 src={ColorCheckIcon}
                 alt="클릭되었음을 나타내는 체크 이미지"
@@ -190,10 +84,10 @@ function SelectRegion() {
           </Dong>
           <Dong
             clickedDong={clickedDong}
-            dongName="NOKYANG_DONG"
-            onClick={() => setClickedDong('NOKYANG_DONG')}>
-            녹양동
-            {clickedDong === 'NOKYANG_DONG' ? (
+            dongNum={2}
+            onClick={() => setClickedDong(2)}>
+            가능 1동
+            {clickedDong === 2 ? (
               <Image
                 src={ColorCheckIcon}
                 alt="클릭되었음을 나타내는 체크 이미지"
@@ -204,10 +98,94 @@ function SelectRegion() {
           </Dong>
           <Dong
             clickedDong={clickedDong}
-            dongName="GOSAN_DONG"
-            onClick={() => setClickedDong('GOSAN_DONG')}>
+            dongNum={3}
+            onClick={() => setClickedDong(3)}>
             고산동
-            {clickedDong === 'GOSAN_DONG' ? (
+            {clickedDong === 3 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={4}
+            onClick={() => setClickedDong(4)}>
+            금오동
+            {clickedDong === 4 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={5}
+            onClick={() => setClickedDong(5)}>
+            낙양동
+            {clickedDong === 5 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={6}
+            onClick={() => setClickedDong(6)}>
+            녹양동
+            {clickedDong === 6 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={7}
+            onClick={() => setClickedDong(7)}>
+            민락동
+            {clickedDong === 7 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={8}
+            onClick={() => setClickedDong(8)}>
+            산곡동
+            {clickedDong === 8 ? (
+              <Image
+                src={ColorCheckIcon}
+                alt="클릭되었음을 나타내는 체크 이미지"
+              />
+            ) : (
+              <></>
+            )}
+          </Dong>
+          <Dong
+            clickedDong={clickedDong}
+            dongNum={9}
+            onClick={() => setClickedDong(9)}>
+            신곡1동
+            {clickedDong === 9 ? (
               <Image
                 src={ColorCheckIcon}
                 alt="클릭되었음을 나타내는 체크 이미지"
@@ -220,11 +198,8 @@ function SelectRegion() {
       </RegionWrapper>
       <RegionSelectedButton
         type="button"
-        onClick={() => {
-          setIsRegionChanged(true);
-          router.push('/mypage/managingInfo');
-        }}>
-        완료
+        onClick={() => router.push(`/booktalk/search/${regions[clickedDong]}`)}>
+        선택완료
       </RegionSelectedButton>
     </Layout>
   );
@@ -316,7 +291,7 @@ const DongWrapper = styled.div`
   margin-top: 2.4rem;
 `;
 
-const Dong = styled.div<{ dongName: string; clickedDong: string | null }>`
+const Dong = styled.div<{ dongNum: number; clickedDong: number | null }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -328,12 +303,12 @@ const Dong = styled.div<{ dongName: string; clickedDong: string | null }>`
   margin-bottom: 2.2rem;
 
   color: ${(props) =>
-    props.dongName === props.clickedDong
+    props.dongNum === props.clickedDong
       ? theme.colors.primary
       : theme.colors.gray02};
 
   ${(props) =>
-    props.dongName === props.clickedDong
+    props.dongNum === props.clickedDong
       ? theme.fonts.subhead4_bold
       : theme.fonts.body1_medium};
 

@@ -95,7 +95,7 @@ function Signup() {
 
       Cookies.set('token', token);
 
-      router.push('/auth/login');
+      router.push('/auth/firstSignup');
     } catch (e: any) {
       console.log(e);
     }
@@ -219,7 +219,11 @@ function Signup() {
   return (
     <Layout noHeader noMenuBar noFooter>
       <Head>
-        <Image src={GoBackIcon} alt="뒤로가기 아이콘" onClick={handleGoBack} />
+        <GoBackImage
+          src={GoBackIcon}
+          alt="뒤로가기 아이콘"
+          onClick={handleGoBack}
+        />
         <PageTitle>회원가입</PageTitle>
         <TitleBlank />
       </Head>
@@ -472,6 +476,10 @@ const Head = styled.header`
   width: 37.5rem;
 `;
 
+const GoBackImage = styled(Image)`
+  cursor: pointer;
+`;
+
 const HeadBlank = styled.div`
   width: 37.5rem;
   height: 4.4rem;
@@ -682,7 +690,7 @@ const SignupButton = styled.button`
 
   border-radius: 0.6rem;
   border: none;
-
+  font: ${theme.fonts.subhead3_semibold};
   background-color: ${(props) =>
     props.disabled ? theme.colors.gray11 : theme.colors.primary};
   color: ${(props) =>

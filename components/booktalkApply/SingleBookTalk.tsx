@@ -18,13 +18,19 @@ interface BooktalkProps {
 
 interface SingleBookTalkProps {
   item: BooktalkProps;
+  onClick?: (booktalkId: number) => void;
 }
 
-function SingleBookTalk({ item }: SingleBookTalkProps) {
+function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
+  const handleBooktalkClick = () => {
+    if (onClick) {
+      onClick(item?.booktalk_id);
+    }
+  };
   return (
     <>
       <HorizontalLine />
-      <BookTalkWrapper>
+      <BookTalkWrapper onClick={handleBooktalkClick}>
         <ImageContainer>
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
         </ImageContainer>
@@ -45,6 +51,10 @@ function SingleBookTalk({ item }: SingleBookTalkProps) {
     </>
   );
 }
+
+SingleBookTalk.defaultProps = {
+  onClick: undefined, // 허스키 기본값 설정
+};
 
 export default SingleBookTalk;
 

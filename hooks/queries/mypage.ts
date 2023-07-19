@@ -1,8 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { fetchMyInfo, patchMyInfo, postMyInfo } from '../../apis/mypage';
+import {
+  fetchMyInfo,
+  fetchMypage,
+  patchMyInfo,
+  postMyInfo,
+} from '../../apis/mypage';
 
 const QUERY_KEY = {
   myInfo: 'myInfo',
+  mypage: 'mypage',
+};
+
+export const uesFetchMypage = () => {
+  const { data } = useQuery([QUERY_KEY.mypage], fetchMypage);
+  return { mypage: data };
 };
 
 export const uesFetchMyInfo = () => {
