@@ -87,15 +87,15 @@ function AuthorForm() {
   };
   // 개최 날짜
   const handleDate = (e: any) => {
-    // const regex = /^[0-9\b /]{0,8}$/;
-    // if (regex.test(e.target.value)) {
-    setDate(e.target.value);
-    // } else {
-    //   e.target.value = '';
-    // }
-    // if (e.target.value === '') {
-    //   setDate('');
-    // }
+    const regex = /^[0-9\b /]{0,8}$/;
+    if (regex.test(e.target.value)) {
+      setDate(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setDate('');
+    }
   };
   useEffect(() => {
     if (date.length === 8) {
@@ -346,7 +346,7 @@ function AuthorForm() {
             <EndHourBox>
               <Image src={ClockIcon} alt="시계" />
               <EndHourInput
-                type="text"
+                type="time"
                 placeholder="HH:MM"
                 value={endTime || ''}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
