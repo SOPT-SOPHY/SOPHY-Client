@@ -9,7 +9,8 @@ import PredictedBTSlider from '../PredictedBTSlider';
 // import HotBookTalkSlider from '../HotBookTalkSlider';
 // import SimpleSlider from '../SimpleSlider';
 
-function PredictedBT() {
+function PredictedBT(props: any) {
+  const { booktalkList } = props;
   return (
     <div>
       <Header>
@@ -24,7 +25,7 @@ function PredictedBT() {
           />
         </MoreWrapper>
       </Header>
-      <PredictedBTSlider />
+      <PredictedBTSlider booktalkList={booktalkList} />
       {/* <SimpleSlider />
       <HotBookTalkSlider /> */}
       <HorizontalLine />

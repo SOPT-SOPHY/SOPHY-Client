@@ -51,8 +51,6 @@ function BTDetail() {
           place_name={data?.place_name}
           place_address={data?.place_address}
         />
-        {/* ); */}
-        {/* })} */}
       </div>
       <CheckBox />
     </Body>

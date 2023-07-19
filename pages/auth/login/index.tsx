@@ -38,10 +38,6 @@ function Login() {
   const [isLoginAvailable, setIsLoginAvailable] = useState(false);
 
   const handleLogin = async () => {
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000);
     try {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
@@ -143,7 +139,7 @@ function Login() {
         로그인
       </Button>
       <FindingUserInfo>
-        <LinkText>이메일 찾기</LinkText> <Separator>|</Separator>{' '}
+        <LinkText>이메일 찾기</LinkText> <Separator>|</Separator>
         <LinkText>비밀번호 찾기</LinkText>
       </FindingUserInfo>
       {showToast && (

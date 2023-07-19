@@ -19,3 +19,8 @@ export const mypageSelectedSpaceState = atom<number | null>({
   key: 'mypageSelectedSpace',
   default: null,
 });
+
+export const memberSelectedSpaceState = atom<number>({
+  key: 'memberSelectedSpace',
+  default: 0,
+});

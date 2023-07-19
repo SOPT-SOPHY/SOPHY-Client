@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Image from 'next/image';
@@ -16,10 +17,13 @@ import {
 import SophyStorySlider from '../../components/SophyStorySlider';
 import { ComputerType, GroupType, LoveType } from '../../assets/img';
 import { uesFetchMemberHome } from '../../hooks/queries/home';
+import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 
 function SophyStory() {
   const [isSelected, setIsSelected] = useState('category');
   const router = useRouter();
+
+  const { myInfo } = uesFetchMyInfo();
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
@@ -96,7 +100,17 @@ function SophyStory() {
               <UnClickedIconText>홈</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
+              <Image
+                src={NavPinGrayIcon}
+                alt="지역 화면 바로가기 아이콘"
+                onClick={() => {
+                  if (myInfo?.city === null) {
+                    router.push('/booktalk/search/의정부시%20전체');
+                  } else {
+                    router.push(`/booktalk/search/${myInfo?.city}`);
+                  }
+                }}
+              />
               <UnClickedIconText>지역</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
@@ -107,7 +121,11 @@ function SophyStory() {
               <IconText>소피스토리</IconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
+              <Image
+                src={NavPersonGrayIcon}
+                alt="MY 페이지 바로가기 아이콘"
+                onClick={() => router.push('/mypage/home')}
+              />
               <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>

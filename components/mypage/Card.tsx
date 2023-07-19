@@ -1,25 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import MypageMoreIcon from '../../assets/icon/MypageMoreIcon.svg';
 
-function Card() {
+function Card(props: any) {
+  const { expected, waiting, completed } = props;
+  const router = useRouter();
   return (
     <CardWrapper>
       <CardHeader>
         <CardTitle>소피와 함께한 북토크</CardTitle>
-        <Count>10개</Count>
+        <Count onClick={() => router.push('/sophyStory')}>
+          {completed === null ? 0 : completed}개
+        </Count>
         <Image src={MypageMoreIcon} width={6} height={11} alt="사람" />
       </CardHeader>
       <HorizontalLine />
       <CardBody>
         <ExpectedParticipation>
-          <ExpectedParticipationCount>0</ExpectedParticipationCount>
+          <ExpectedParticipationCount>
+            {waiting === null ? 0 : waiting}
+          </ExpectedParticipationCount>
           <ExpectedTitle>참여예정</ExpectedTitle>
         </ExpectedParticipation>
         <Line />
         <CompletedParticipation>
-          <CompletedParticipationCount>10</CompletedParticipationCount>
+          <CompletedParticipationCount>
+            {expected === null ? 0 : expected}
+          </CompletedParticipationCount>
           <CompletedTitle>참여완료</CompletedTitle>
         </CompletedParticipation>
       </CardBody>
@@ -74,6 +83,8 @@ const Count = styled.span`
 
   ${({ theme }) => theme.fonts.subhead1_bold};
   color: ${({ theme }) => theme.colors.white};
+
+  cursor: pointer;
 `;
 
 const HorizontalLine = styled.hr`

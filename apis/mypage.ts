@@ -1,6 +1,14 @@
 import Cookies from 'js-cookie';
 import api from '.';
 
+export const fetchMypage = async () => {
+  const memberId = Cookies.get('memberId');
+  const {
+    data: { data },
+  } = await api.get(`member/my-page/${memberId}`);
+  return data;
+};
+
 export const fetchMyInfo = async () => {
   const memberId = Cookies.get('memberId');
   const {

@@ -219,7 +219,11 @@ function Signup() {
   return (
     <Layout noHeader noMenuBar noFooter>
       <Head>
-        <Image src={GoBackIcon} alt="뒤로가기 아이콘" onClick={handleGoBack} />
+        <GoBackImage
+          src={GoBackIcon}
+          alt="뒤로가기 아이콘"
+          onClick={handleGoBack}
+        />
         <PageTitle>회원가입</PageTitle>
         <TitleBlank />
       </Head>
@@ -470,6 +474,10 @@ const Head = styled.header`
   background-color: ${theme.colors.white};
 
   width: 37.5rem;
+`;
+
+const GoBackImage = styled(Image)`
+  cursor: pointer;
 `;
 
 const HeadBlank = styled.div`
