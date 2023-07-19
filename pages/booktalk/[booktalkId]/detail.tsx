@@ -89,7 +89,7 @@ function BTDetail() {
           place_address={data?.place_address}
         />
       </div>
-      <CheckBox />
+      <CheckBox booktalk_id={id?.booktalkId} />
     </Body>
   );
 }
