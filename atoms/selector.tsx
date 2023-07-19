@@ -1,5 +1,10 @@
 import { selector } from 'recoil';
-import { selectedRegion, selectedSpace, modalOpen } from './atom';
+import {
+  selectedRegion,
+  selectedSpace,
+  modalOpen,
+  completedForm,
+} from './atom';
 
 // 모달 열렸는지 유무
 export const isModalOpen = selector({
@@ -68,5 +73,13 @@ export const spaceSelect = selector({
   get: ({ get }) => get(selectedSpace),
   set: ({ set }, newChange) => {
     set(selectedSpace, newChange);
+  },
+});
+
+export const formComplete = selector({
+  key: 'formComplete',
+  get: ({ get }) => get(completedForm),
+  set: ({ set }, newForm) => {
+    set(completedForm, newForm);
   },
 });

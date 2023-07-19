@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import Cookies from 'js-cookie';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
 import AuthorModal from './@AuthorModal';
@@ -14,9 +15,11 @@ import {
   InactiveCheckboxIcon,
   ActiveCheckboxIcon,
 } from '../../assets/icon';
-import { isModalOpen } from '../../atoms/selector';
+import { isModalOpen, formComplete, spaceSelect } from '../../atoms/selector';
 import AuthorLayout from './@AuthorLayout';
 import DropDown from './DropDown';
+import { getFullDate } from '../../utils/date';
+import { getCategory, getPreInfo } from '../../utils/form';
 
 interface Props {
   onClick?: () => void;
@@ -26,19 +29,26 @@ interface Props {
   setBlack?: boolean;
 }
 function AuthorForm() {
+  const memberId = Cookies.get('memberId');
+  const placeId = useRecoilValue(spaceSelect);
+  const setCompleteForm = useSetRecoilState(formComplete);
   const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
   const [dropDown, setDropDown] = useState<boolean>(false);
 
   const [imageSource, setImageSource]: any = useState(null);
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('카테고리를 선택해주세요');
+
   const [date, setDate] = useState<string>('');
   const [startTime, setStartTime] = useState<string>('');
   const [endTime, setEndTime] = useState<string>('');
+  const [fullStartTime, setFullStartTime] = useState<string>('');
+  const [fullEndTime, setFullEndTime] = useState<string>('');
+
   const [people, setPeople] = useState<number>(0);
   const [cost, setCost] = useState<number>(0);
   const [freeCheck, setFreeCheck] = useState<boolean>(false);
-  const [preInfo, setPreInfo] = useState<number>(0);
+  const [preInfo, setPreInfo] = useState<string>('');
   const [introduction, setIntroduction] = useState<string>('');
 
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
@@ -77,64 +87,74 @@ function AuthorForm() {
   };
   // 개최 날짜
   const handleDate = (e: any) => {
-    const regex = /^[0-9\b /]{0,8}$/;
-    if (regex.test(e.target.value)) {
-      setDate(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-    if (e.target.value === '') {
-      setDate('');
-    }
+    // const regex = /^[0-9\b /]{0,8}$/;
+    // if (regex.test(e.target.value)) {
+    setDate(e.target.value);
+    // } else {
+    //   e.target.value = '';
+    // }
+    // if (e.target.value === '') {
+    //   setDate('');
+    // }
   };
   useEffect(() => {
-    if (date.length === 6) {
-      setDate(date.replace(/(\d{2})(\d{2})(\d{2})/, '$1/$2/$3'));
+    if (date.length === 8) {
+      // setDate(date.replace(/(\d{2})(\d{2})(\d{2})/, '$1/$2/$3'));
+      setDate(date);
     }
   }, [date]);
 
   // 시작 시간
   const handleStartTime = (e: any) => {
-    const regex = /^[0-9\b :]{0,5}$/;
-    if (regex.test(e.target.value)) {
-      setStartTime(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-    if (e.target.value === '') {
-      setStartTime('');
-    }
+    // const regex = /^[0-9\b :]{0,5}$/;
+    // if (regex.test(e.target.value)) {
+    setStartTime(e.target.value);
+    // } else {
+    //   e.target.value = '';
+    // }
+    // if (e.target.value === '') {
+    //   setStartTime('');
+    // }
   };
   useEffect(() => {
-    if (startTime.length === 4) {
-      setStartTime(startTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+    if (startTime.length === 5) {
+      // setStartTime(startTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+      setStartTime(startTime);
+      if (date.length === 8) {
+        setFullStartTime(getFullDate(date, startTime));
+        console.log(fullStartTime);
+      }
     }
-  }, [startTime]);
+  }, [date, startTime]);
 
   // 종료 시간
   const handleEndTime = (e: any) => {
-    const regex = /^[0-9\b :]{0,5}$/;
-    if (regex.test(e.target.value)) {
-      setEndTime(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-    if (e.target.value === '') {
-      setEndTime('');
-    }
+    // const regex = /^[0-9\b :]{0,5}$/;
+    // if (regex.test(e.target.value)) {
+    setEndTime(e.target.value);
+    // } else {
+    //   e.target.value = '';
+    // }
+    // if (e.target.value === '') {
+    //   setEndTime('');
+    // }
   };
   useEffect(() => {
-    if (endTime.length === 4) {
-      setEndTime(endTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+    if (endTime.length === 5) {
+      setEndTime(endTime);
+      if (date.length === 8) {
+        setFullEndTime(getFullDate(date, endTime));
+        console.log(fullEndTime);
+      }
     }
-  }, [endTime]);
+  }, [date, endTime]);
 
-  const handlePreInfo = (index: number) => {
-    if (index === preInfo) {
-      setPreInfo(0);
+  const handlePreInfo = (info: string) => {
+    if (preInfo === info) {
+      setPreInfo('');
       return;
     }
-    setPreInfo(index);
+    setPreInfo(info);
   };
 
   const handleCost = (e: any) => {
@@ -148,6 +168,11 @@ function AuthorForm() {
       setCost(0);
     }
   };
+  useEffect(() => {
+    if (freeCheck) {
+      setCost(0);
+    }
+  }, [cost, freeCheck]);
 
   const handlePeople = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9]+$/;
@@ -179,6 +204,20 @@ function AuthorForm() {
       introduction
     ) {
       setIsFormValid(true);
+      setCompleteForm({
+        member_id: Number(memberId),
+        place_id: placeId,
+        booktalk_image_url: null,
+        title,
+        book_category: getCategory(category), // or "LITERATURE"
+        book_id: 4,
+        start_date: fullStartTime,
+        end_date: fullEndTime,
+        participant: people,
+        participation_fee: Number(cost),
+        preliminary_info: getPreInfo(preInfo), // or "PROVIDE_EXCERPT"
+        description: introduction,
+      });
     } else {
       setIsFormValid(false);
     }
@@ -383,32 +422,32 @@ function AuthorForm() {
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfo(1);
+                handlePreInfo('미리 읽어와주세요');
               }}
-              isClick={preInfo === 1}>
+              isClick={preInfo === '미리 읽어와주세요'}>
               미리 읽어와주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfo(2);
+                handlePreInfo('발췌문을 드려요');
               }}
-              isClick={preInfo === 2}>
+              isClick={preInfo === '발췌문을 드려요'}>
               발췌문을 드려요
             </PreInfoButton>
           </PreInfoButtonWrapper>
           <PreInfoButtonWrapper>
             <PreInfoButton
               onClick={() => {
-                handlePreInfo(3);
+                handlePreInfo('질문을 준비해주세요');
               }}
-              isClick={preInfo === 3}>
+              isClick={preInfo === '질문을 준비해주세요'}>
               질문을 준비해주세요
             </PreInfoButton>
             <PreInfoButton
               onClick={() => {
-                handlePreInfo(4);
+                handlePreInfo('편하게 와주세요');
               }}
-              isClick={preInfo === 4}>
+              isClick={preInfo === '편하게 와주세요'}>
               편하게 와주세요
             </PreInfoButton>
           </PreInfoButtonWrapper>
