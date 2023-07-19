@@ -28,7 +28,9 @@ export const postBooktalkApply = async (
   return data;
 };
 
-export const fetchBooktalkDetail = async (id: number) => {
+export const fetchBooktalkDetail = async (
+  id: string | string[] | undefined,
+) => {
   const {
     data: { data },
   } = await api.get(`booktalk/${id}/detail`); // 1번 test

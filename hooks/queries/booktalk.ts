@@ -19,10 +19,11 @@ export const useFetchBooktalkRegion = (city: string) => {
     return [data, city]; 
   };
 
-export const useFetchBookTalkDetail = (id: number) =>{
-    const {data} = useQuery([QUERY_KEY.booktalkDetail, id], ()=> fetchBooktalkDetail(id));
-    return data;
-}
+  export const useFetchBookTalkDetail = (id: string | string[] | undefined) => {
+    const { data } = useQuery(['booktalkDetail', id], () => fetchBooktalkDetail(id));
+    return data || {};
+  };
+  
 
 import { useMutation, useQueryClient } from 'react-query';
 import { postBooktalkApply } from '../../apis/booktalkApply';

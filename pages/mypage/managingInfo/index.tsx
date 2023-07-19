@@ -33,13 +33,13 @@ function ManagingInfo() {
   }, [accessToken, refreshToken, router]);
 
   const handleGoBack = () => {
-    router.back();
+    router.push('/mypage/home');
   };
 
   const { myInfo } = uesFetchMyInfo();
   const { data, mutate } = usePatchMyInfo();
 
-  const [gender, setGender] = useState('선택안함');
+  const [gender, setGender] = useState<null | string>(null);
   const [birth, setBirth] = useState('');
   const [marketingTerm, setMarketingTerm] = useState(false);
   const [region, setRegion] = useRecoilState(mypageSelectedSpaceState);
@@ -172,10 +172,10 @@ function ManagingInfo() {
         </Radio>
         <Radio>
           <Image
-            src={gender !== '선택안함' ? EmptyRadioIcon : ColoredRadioIcon}
+            src={gender !== null ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
-            onClick={() => setGender('선택안함')}
+            onClick={() => setGender(null)}
           />
           선택안함
         </Radio>
