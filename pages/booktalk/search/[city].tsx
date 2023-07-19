@@ -314,6 +314,7 @@ const Footer = styled.div`
 
   width: 37.5rem;
   height: 8.3rem;
+  cursor: pointer;
 
   padding-left: 3rem;
   padding-right: 3rem;

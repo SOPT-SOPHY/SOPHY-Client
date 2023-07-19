@@ -83,6 +83,7 @@ const BookTalkWrapper = styled.div`
   flex-direction: row;
 
   position: relative;
+  cursor: pointer;
 
   margin-top: 1.7rem;
   margin-bottom: 1.3rem;

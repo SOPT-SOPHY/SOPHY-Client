@@ -305,6 +305,7 @@ const Header = styled.div`
 const ImageContainer = styled.div`
   width: 4.4rem;
   height: 4.4rem;
+  cursor: pointer;
 
   img {
     width: 4.4rem;
@@ -394,6 +395,7 @@ const DongBox = styled.div<DongBoxProps>`
   width: 16.1rem;
   height: 4rem;
   flex-shrink: 0;
+  cursor: pointer;
 
   background-color: ${({ theme }) => theme.colors.gray12};
 
