@@ -323,6 +323,8 @@ const RegionContainer = styled.div`
   flex-shrink: 0;
 
   height: 55rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   margin-top: 2.4rem;
   margin-left: 2rem;
