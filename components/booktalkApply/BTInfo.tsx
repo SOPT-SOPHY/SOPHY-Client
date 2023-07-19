@@ -78,13 +78,6 @@ function BTInfo({
 
   const formattedDateTime = `${formattedStartTime}~${formattedEndTime}`;
 
-  // const formattedDateTimeWithCircle = (
-  //   <>
-  //     {formattedDateTime}{' '}
-  //     <Image src={ellipseIcon} width={4} height={4} alt="원" />
-  //   </>
-  // );
-
   return (
     <>
       <InfoContainer>
