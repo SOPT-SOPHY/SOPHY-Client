@@ -2,10 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
 import theme from '../../styles/theme';
 import { BookIcon } from '../../assets/icon';
+import { usePostBookTalkOpen } from '../../hooks/queries/author';
+import { formComplete } from '../../atoms/selector';
 
 function AuthorModal({ onClose }: any) {
+  const form = useRecoilValue(formComplete);
+  const { mutate, data } = usePostBookTalkOpen();
+  const handleOpen = () => {
+    mutate(form);
+    console.log(data);
+  };
   return (
     <ModalSection>
       <ModalBackground />
@@ -26,7 +35,9 @@ function AuthorModal({ onClose }: any) {
             취소
           </ModalCancelButton>
           <Link href="confirm">
-            <ModalConfirmButton type="button">신청하기</ModalConfirmButton>
+            <ModalConfirmButton type="button" onClick={handleOpen}>
+              신청하기
+            </ModalConfirmButton>
           </Link>
         </ButtonWrapper>
       </Modal>
