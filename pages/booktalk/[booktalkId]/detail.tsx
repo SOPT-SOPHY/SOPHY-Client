@@ -1,23 +1,51 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
-import backArrow from '../../assets/icon/ic_backArrow.svg';
-import detailImage from '../../assets/img/detailImage.png';
-import BTInfo from '../../components/booktalkApply/BTInfo';
+import { useRouter } from 'next/router';
+import backArrow from '../../../assets/icon/ic_backArrow.svg';
+import detailImage from '../../../assets/img/detailImage.png';
+import BTInfo from '../../../components/booktalkApply/BTInfo';
 // import BTData from '../../data/BTData';
-import CheckBox from '../../components/booktalkApply/CheckBox';
-import { useFetchBookTalkDetail } from '../../hooks/queries/booktalk';
+import CheckBox from '../../../components/booktalkApply/CheckBox';
+import { useFetchBookTalkDetail } from '../../../hooks/queries/booktalk';
 
 function BTDetail() {
-  // const router = useRouter();
-  const id = 1;
-  const data = useFetchBookTalkDetail(id as number);
+  const router = useRouter();
+  const id = router.query;
+  console.log(id?.booktalkId);
+  // const id = 1;
+  // const data = useFetchBookTalkDetail(id as number);
+  //   const id = 1;
+  //   const data = useFetchBookTalkDetail(id as number);
+  // const booktalkId = typeof id === 'string' ? parseInt(id, 10) : undefined;
+  // const booktalkId =
+  //   typeof id === 'string'
+  //     ? parseInt(id, 10)
+  //     : typeof id === 'number'
+  //     ? id
+  //     : undefined;
+
+  // const { data, isLoading, isError } = useFetchBookTalkDetail(booktalkId);
+  const data = useFetchBookTalkDetail(id?.booktalkId);
+  // let data = {};
+  // if (typeof booktalkId === 'number') {
+  //   data = useFetchBookTalkDetail(booktalkId);
+  // }
   // const filteredData = BTData.filter((data) => data.id === 1);
-  useEffect(() => {
-    console.log(data);
-  }, []);
+
+  console.log(data);
+
+  // if (isLoading) {
+  //   // 로딩 중 화면
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (isError) {
+  //   // 에러 발생 화면
+  //   return <div>Error occurred</div>;
+  // }
+
   // if (!data) return;
   return (
     <Body>
@@ -44,6 +72,7 @@ function BTDetail() {
           book_category={data?.book_category}
           book={data?.book}
           start_date={data?.start_date}
+          // end_date={data?.end_date}
           participant={data?.participant}
           participation_fee={data?.participation_fee}
           preliminary_info={data?.preliminary_info}

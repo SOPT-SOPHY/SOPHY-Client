@@ -52,7 +52,7 @@ export const completedForm = atom<FormProps>({
   },
 });
 
-// export const mypageSelectedSpaceState = atom<number | null>({
-//   key: 'mypageSelectedSpace',
-//   default: null,
-// });
+export const mypageSelectedSpaceState = atom<number | null>({
+  key: 'mypageSelectedSpace',
+  default: null,
+});
