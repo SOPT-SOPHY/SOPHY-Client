@@ -80,7 +80,7 @@ function BTDetail() {
           book_category={data?.book_category}
           book={data?.book}
           start_date={data?.start_date}
-          // end_date={data?.end_date}
+          end_date={data?.end_date}
           participant={data?.participant}
           participation_fee={data?.participation_fee}
           preliminary_info={data?.preliminary_info}
