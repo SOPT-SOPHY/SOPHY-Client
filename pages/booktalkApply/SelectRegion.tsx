@@ -25,6 +25,10 @@ function SelectRegion() {
     router.push(`/booktalk/search/${encodedRegion}`);
   };
 
+  const handlePreviousButtonClick = () => {
+    router.back();
+  };
+
   const encodeRegion = (region: string) => {
     switch (region) {
       case '의정부시 전체':
@@ -60,7 +64,13 @@ function SelectRegion() {
     <Body>
       <Header>
         <ImageContainer>
-          <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
+          <Image
+            src={backArrow}
+            width={44}
+            height={44}
+            alt="뒤로가기"
+            onClick={handlePreviousButtonClick}
+          />
         </ImageContainer>
         <Title>지역 선택</Title>
       </Header>
