@@ -14,7 +14,6 @@ const api = axios.create({
   headers: { Authorization: `Bearer ${accessToken}` }, // data type
 });
 
-// Add a request interceptor
 api.interceptors.request.use(
   function (config: any) {
     const accessToken = Cookies.get('accessToken');
@@ -30,11 +29,9 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${accessToken}`;
       return config;
     }
-    // Do something before request is sent
     console.log('request start', config);
   },
   function (error) {
-    // Do something with request error
     console.log('request error', error);
     return Promise.reject(error);
   },

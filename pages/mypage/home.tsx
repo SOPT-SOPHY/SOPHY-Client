@@ -1,27 +1,45 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
+  AuthorCertificationIcon,
+  AuthorMypageMoreIcon,
+  LocalCertificationIcon,
   NavBookGrayIcon,
-  NavHomeColorIcon,
-  NavPersonGrayIcon,
+  NavHomeGrayIcon,
+  NavPersonColorIcon,
   NavPinGrayIcon,
 } from '../../assets/icon';
-import Card from '../../components/mypage/Card';
 import PredictedBT from '../../components/mypage/PredictedBT';
+import { uesFetchMyInfo, uesFetchMypage } from '../../hooks/queries/mypage';
+import { uesFetchMemberHome } from '../../hooks/queries/home';
+import theme from '../../styles/theme';
+import MyBookSlider from '../../components/MyBookSlider';
+import Card from '../../components/mypage/Card';
 
 function MySophy() {
+  const router = useRouter();
+
+  const { myInfo } = uesFetchMyInfo();
+  const { mypage } = uesFetchMypage();
+  const data = uesFetchMemberHome();
+
+  console.log(myInfo);
+  console.log(mypage);
+
   return (
     <Body>
       <Header>
-        *<Title>나의 소피</Title>
+        <Title>나의 소피</Title>
       </Header>
       <Profile>
         <UserWrapper>
           <UserName>
-            <h1>구경민</h1>
+            <h1>{mypage?.name}</h1>
             <h2>님</h2>
           </UserName>
           <ButtonWrapper>
@@ -30,20 +48,78 @@ function MySophy() {
               width={20}
               height={20}
               alt="유저 정보 수정 아이콘"
+              onClick={() => router.push('/mypage/managingInfo')}
             />
           </ButtonWrapper>
         </UserWrapper>
         <NonLocalCertification>
-          <Image
-            src={NonLocalCertificationIcon}
-            width={87}
-            height={28}
-            alt="지역 인증 전 아이콘"
-          />
+          {myInfo?.city ? (
+            <Image
+              src={LocalCertificationIcon}
+              width={87}
+              height={28}
+              alt="지역 인증 후 아이콘"
+            />
+          ) : (
+            <Image
+              src={NonLocalCertificationIcon}
+              width={87}
+              height={28}
+              alt="지역 인증 전 아이콘"
+            />
+          )}
+          {data?.is_author ? (
+            <Image
+              src={AuthorCertificationIcon}
+              width={87}
+              height={28}
+              alt="작가 인증 후 아이콘"
+              style={{ marginLeft: '0.6rem' }}
+            />
+          ) : (
+            <></>
+          )}
         </NonLocalCertification>
       </Profile>
-      <Card />
-      <PredictedBT />
+      <Card
+        expected={mypage?.expected_book_talk_count}
+        waiting={mypage?.waiting_book_talk_count}
+        completed={mypage?.complete_book_talk_count}
+        is_author={data?.is_author}
+      />
+      {data?.is_author ? <>북토크 관리하기</> : <></>}
+      {mypage?.my_page_booktalk_dtos?.length === 0 ? (
+        <>
+          <EmptyExpectedBooktalkTitle>예정된 북토크</EmptyExpectedBooktalkTitle>
+          <EmptyExpectedBooktalk
+            type="button"
+            onClick={() => {
+              if (myInfo?.city === null) {
+                router.push('/booktalk/search/의정부시%20전체');
+              } else {
+                router.push(`/booktalk/search/${myInfo?.city}`);
+              }
+            }}>
+            내 주변 북토크 찾아보기
+          </EmptyExpectedBooktalk>
+        </>
+      ) : (
+        <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+      )}
+      {data?.is_author ? (
+        <>
+          <Devider />
+          <MyBookTitle>
+            내 도서 관리
+            <Image src={AuthorMypageMoreIcon} alt="더보기 아이콘" />
+          </MyBookTitle>
+          <MyBookSlider booktalkList={mypage?.my_book_dtos} />
+          <Devider />
+        </>
+      ) : (
+        <></>
+      )}
+
       <ListWrapper>
         <List>
           <h1>작가 인증하기</h1>
@@ -55,23 +131,42 @@ function MySophy() {
         <Footer>
           <IconsWrapper>
             <IconWrapper>
-              <Image src={NavHomeColorIcon} alt="홈 화면 바로가기 아이콘" />
-              <IconText>홈</IconText>
+              <Image
+                src={NavHomeGrayIcon}
+                alt="홈 화면 바로가기 아이콘"
+                onClick={() => router.push('/home')}
+              />
+              <UnClickedIconText>홈</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
+              <Image
+                src={NavPinGrayIcon}
+                alt="지역 화면 바로가기 아이콘"
+                onClick={() => {
+                  if (myInfo?.city === null) {
+                    router.push('/booktalk/search/의정부시%20전체');
+                  } else {
+                    router.push(`/booktalk/search/${myInfo?.city}`);
+                  }
+                }}
+              />
               <UnClickedIconText>지역</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
               <Image
                 src={NavBookGrayIcon}
                 alt="소피스토리 화면 바로가기 아이콘"
+                onClick={() => router.push('/sophyStory')}
               />
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
-              <UnClickedIconText>MY</UnClickedIconText>
+              <Image
+                src={NavPersonColorIcon}
+                alt="MY 페이지 바로가기 아이콘"
+                onClick={() => router.push('/mypage/home')}
+              />
+              <IconText>나의 소피</IconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>
@@ -219,6 +314,7 @@ const IconsWrapper = styled.div`
 const ListWrapper = styled.div`
   margin-top: 3.2rem;
   margin-left: 2rem;
+  margin-bottom: 8.3rem;
 `;
 
 const List = styled.div`
@@ -231,4 +327,52 @@ const List = styled.div`
     ${({ theme }) => theme.fonts.body1_medium};
     color: ${({ theme }) => theme.colors.black};
   }
+`;
+
+const EmptyExpectedBooktalk = styled.button`
+  width: 33.5rem;
+  height: 5.2rem;
+
+  border: none;
+  border-radius: 0.6rem;
+
+  background-color: ${theme.colors.green03};
+  color: ${theme.colors.green08};
+
+  margin-left: 2rem;
+  margin-bottom: 2.8rem;
+`;
+
+const EmptyExpectedBooktalkTitle = styled.div`
+  width: 33.5rem;
+
+  ${theme.fonts.subhead2_bold};
+  color: ${theme.colors.gray01};
+
+  margin-top: 3.2rem;
+  margin-bottom: 1.2rem;
+  margin-left: 2rem;
+`;
+
+const MyBookTitle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  width: 33.5rem;
+  color: ${theme.colors.gray01};
+  ${theme.fonts.subhead2_bold};
+
+  margin-top: 3.2rem;
+  margin-left: 2.1rem;
+  margin-bottom: 1.4rem;
+`;
+
+const Devider = styled.div`
+  width: 33.5rem;
+  height: 0.1rem;
+
+  background-color: ${theme.colors.gray11};
+
+  margin-left: 2rem;
 `;

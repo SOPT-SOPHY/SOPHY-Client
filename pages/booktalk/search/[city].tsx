@@ -12,9 +12,8 @@ import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import {
   NavBookGrayIcon,
-  NavHomeColorIcon,
   NavPersonGrayIcon,
-  NavPinGrayIcon,
+  NavPinColorIcon,
 } from '../../../assets/icon';
 import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
 
@@ -146,23 +145,32 @@ function BTList() {
         <Footer>
           <IconsWrapper>
             <IconWrapper>
-              <Image src={NavHomeColorIcon} alt="홈 화면 바로가기 아이콘" />
-              <IconText>홈</IconText>
+              <Image
+                src={NavPersonGrayIcon}
+                alt="홈 화면 바로가기 아이콘"
+                onClick={() => router.push('/home')}
+              />
+              <UnClickedIconText>홈</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
-              <UnClickedIconText>지역</UnClickedIconText>
+              <Image src={NavPinColorIcon} alt="지역 화면 바로가기 아이콘" />
+              <IconText>지역</IconText>
             </IconWrapper>
             <IconWrapper>
               <Image
                 src={NavBookGrayIcon}
                 alt="소피스토리 화면 바로가기 아이콘"
+                onClick={() => router.push('/sophyStory')}
               />
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
-              <UnClickedIconText>MY</UnClickedIconText>
+              <Image
+                src={NavPersonGrayIcon}
+                alt="MY 페이지 바로가기 아이콘"
+                onClick={() => router.push('/mypage/home')}
+              />
+              <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>

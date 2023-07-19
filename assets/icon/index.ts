@@ -42,3 +42,6 @@ export { default as ColoredRadioIcon } from './ColoredRadioIcon.svg';
 export { default as EmptyRadioIcon } from './EmptyRadioIcon.svg';
 export { default as BlackDownIcon } from './BlackDownIcon.svg';
 export { default as GrayDownIcon } from './GrayDownIcon.svg';
+export { default as LocalCertificationIcon } from './LocalCertificationIcon.svg';
+export { default as AuthorCertificationIcon } from './AuthorCertificationIcon.svg';
+export { default as AuthorMypageMoreIcon } from './AuthorMypageMoreIcon.svg';

@@ -35,12 +35,27 @@ import {
   uesFetchMemberHome,
   uesFetchNonMemberHome,
 } from '../../hooks/queries/home';
+import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 
 function Home() {
-  // const user = '비회원';
   const router = useRouter();
-  const isRegionSet = false;
-  const is_author = false;
+
+  const { myInfo } = uesFetchMyInfo();
+
+  const regions: any = {
+    UIJEONGBU_SI: '의정부시',
+    UIJEONGBU_DONG: '의정부동',
+    HOWON_DONG: '호원동',
+    JANGAM_DONG: '장암동',
+    SINGOK_DONG: '신곡동',
+    YOUNGHYUN_DONG: '용현동',
+    MINRAK_DONG: '민락동',
+    NAKYANG_DONG: '낙양동',
+    GEUMO_DONG: '금오동',
+    GANEUNG_DONG: '가능동',
+    NOKYANG_DONG: '녹양동',
+    GOSAN_DONG: '고산동',
+  };
 
   /*
   const memberId = 1;
@@ -267,23 +282,44 @@ function Home() {
       </RegionBookTalkUnderWrapper>
         */}
       </TopBackground>
-      {is_author && data?.booktalk_count ? (
+      {data?.is_author && data?.booktalk_count !== null ? (
         <WriterRegionWrapper>
           <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
           <RegionRankingWrapper>
             <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
-            의정부시 민락동
+            의정부시 {regions[data?.city_ranks[0]]}
           </RegionRankingWrapper>
           <RegionRankingWrapper>
             <Image src={Ranking2Icon} alt="랭킹 2위 아이콘" />
-            의정부시 의정부동
+            의정부시 {regions[data?.city_ranks[1]]}
           </RegionRankingWrapper>
           <RegionRankingWrapper>
             <Image src={Ranking3Icon} alt="랭킹 3위 아이콘" />
-            의정부시 호원동
+            의정부시 {regions[data?.city_ranks[2]]}
           </RegionRankingWrapper>
         </WriterRegionWrapper>
-      ) : isRegionSet ? (
+      ) : data?.name === null ? (
+        <UserRegionRecommendationWrapper>
+          <PlaceNameWrapper>
+            <Image
+              src={PinIcon}
+              alt="핀 아이콘"
+              style={{ marginLeft: '1.4rem' }}
+            />
+            <PlaceName>가장 가까운</PlaceName>
+            <PlaceUnderName>북토크를 찾아드릴게요</PlaceUnderName>
+            <InterestingRegion
+              onClick={() => router.push('/mypage/managingInfo')}>
+              <InterestingRegionText>관심지역 설정하기</InterestingRegionText>
+              <Image
+                src={InterestingRegionMoreIcon}
+                alt="관심 지역 더 보기 아이콘"
+                style={{ marginLeft: '0.6rem' }}
+              />
+            </InterestingRegion>
+          </PlaceNameWrapper>
+        </UserRegionRecommendationWrapper>
+      ) : myInfo?.city !== null ? (
         <UserRegionWrapper>
           <PlaceNameWrapper>
             <Image
@@ -291,11 +327,11 @@ function Home() {
               alt="핀 아이콘"
               style={{ marginLeft: '1.4rem' }}
             />
-            <PlaceName>의정부시 민락동</PlaceName>
+            <PlaceName>의정부시 {regions[myInfo?.city]}</PlaceName>
           </PlaceNameWrapper>
           <PlaceNumber>
-            <BoldPlaceNumber>15개</BoldPlaceNumber>의 소피 북토크가 기다리고
-            있어요
+            <BoldPlaceNumber>{data?.my_city_booktalk_count}개</BoldPlaceNumber>
+            의 소피 북토크가 기다리고 있어요
           </PlaceNumber>
         </UserRegionWrapper>
       ) : (
@@ -320,7 +356,7 @@ function Home() {
           </PlaceNameWrapper>
         </UserRegionRecommendationWrapper>
       )}
-      {is_author && data?.booktalk_count ? (
+      {data?.is_author && data?.booktalk_count !== null ? (
         <AuthorSliderWrapper>
           <SimpleSlider />
         </AuthorSliderWrapper>
@@ -337,7 +373,7 @@ function Home() {
           alt="하트 아이콘"
           style={{ marginTop: '2.1rem' }}
         />
-        <MoreHotBookTalk onClick={() => router.push('/booktalkApply/BTList')}>
+        <MoreHotBookTalk>
           더보기
           <Image src={HomeLightMoreIcon} alt="더보기 아이콘" />
         </MoreHotBookTalk>
@@ -353,7 +389,17 @@ function Home() {
               <IconText>홈</IconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPinGrayIcon} alt="지역 화면 바로가기 아이콘" />
+              <Image
+                src={NavPinGrayIcon}
+                alt="지역 화면 바로가기 아이콘"
+                onClick={() => {
+                  if (data?.my_city_booktalk_count === null) {
+                    router.push('/booktalk/search/의정부시%20전체');
+                  } else {
+                    router.push(`/booktalk/search/${myInfo?.city}`);
+                  }
+                }}
+              />
               <UnClickedIconText>지역</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
@@ -365,13 +411,17 @@ function Home() {
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
             <IconWrapper>
-              <Image src={NavPersonGrayIcon} alt="MY 페이지 바로가기 아이콘" />
+              <Image
+                src={NavPersonGrayIcon}
+                alt="MY 페이지 바로가기 아이콘"
+                onClick={() => router.push('/mypage/home')}
+              />
               <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
           </IconsWrapper>
         </Footer>
       </FooterWrapper>
-      {is_author && data?.booktalk_count && (
+      {data?.is_author && data?.booktalk_count !== null && (
         <OpenBookTalkButton onClick={() => router.push('/author/region')}>
           북토크 개설하기
         </OpenBookTalkButton>

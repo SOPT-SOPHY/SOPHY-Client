@@ -21,36 +21,44 @@ export default function SophyStorySlider() {
     dotsClass: 'dots_custom',
   };
   return (
-    <Container>
-      <StyledSlider {...settings}>
-        <ImageContainer>
-          <Image
-            src={SophyStoryRomanceCard}
-            alt="로맨스 카드"
-            width={303}
-            height={323}
-          />
-        </ImageContainer>
-        <ImageContainer>
-          <Image
-            src={SophyStoryMoneyCard}
-            alt="화폐 카드"
-            width={303}
-            height={323}
-          />
-        </ImageContainer>
-        <ImageContainer>
-          <Image
-            src={SophyStoryRomanceCard}
-            alt="로맨스 카드"
-            width={303}
-            height={323}
-          />
-        </ImageContainer>
-      </StyledSlider>
-    </Container>
+    <ContainerWrapper>
+      <Container>
+        <StyledSlider {...settings}>
+          <ImageContainer>
+            <Image
+              src={SophyStoryRomanceCard}
+              alt="로맨스 카드"
+              width={303}
+              height={323}
+            />
+          </ImageContainer>
+          <ImageContainer>
+            <Image
+              src={SophyStoryMoneyCard}
+              alt="화폐 카드"
+              width={303}
+              height={323}
+            />
+          </ImageContainer>
+          <ImageContainer>
+            <Image
+              src={SophyStoryRomanceCard}
+              alt="로맨스 카드"
+              width={303}
+              height={323}
+            />
+          </ImageContainer>
+        </StyledSlider>
+      </Container>
+    </ContainerWrapper>
   );
 }
+
+const ContainerWrapper = styled.div`
+  width: 37.5rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
 
 const Container = styled.div`
   width: 40rem;

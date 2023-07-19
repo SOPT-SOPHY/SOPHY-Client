@@ -18,6 +18,21 @@ export const selectedSpace = atom<number>({
   default: -1,
 });
 
+export const mypageSelectedSpaceState = atom<string | null>({
+  key: 'mypageSelectedSpace',
+  default: null,
+});
+
+export const memberSelectedSpaceState = atom<number>({
+  key: 'memberSelectedSpace',
+  default: 0,
+});
+
+export const isRegionChangedState = atom<boolean>({
+  key: 'isRegionChanged',
+  default: false,
+});
+
 interface FormProps {
   member_id: number;
   place_id: number;
@@ -50,9 +65,4 @@ export const completedForm = atom<FormProps>({
     description:
       '2019년 오늘의 작가상, 2020년 문학동네 젊은작가상을 수상한 김초엽 작가의 북토크. 인간의 몸은 과학기술과 어떻게 만나야 할까? 김초엽 작가와 함께 하는 시간!',
   },
-});
-
-export const mypageSelectedSpaceState = atom<number | null>({
-  key: 'mypageSelectedSpace',
-  default: null,
 });

@@ -14,7 +14,10 @@ import {
   GoBackIcon,
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
-import { mypageSelectedSpaceState } from '../../../atoms/atom';
+import {
+  isRegionChangedState,
+  mypageSelectedSpaceState,
+} from '../../../atoms/atom';
 import { uesFetchMyInfo, usePatchMyInfo } from '../../../hooks/queries/mypage';
 
 function ManagingInfo() {
@@ -30,17 +33,27 @@ function ManagingInfo() {
   }, [accessToken, refreshToken, router]);
 
   const handleGoBack = () => {
-    router.back();
+    router.push('/mypage/home');
   };
 
   const { myInfo } = uesFetchMyInfo();
   const { data, mutate } = usePatchMyInfo();
 
-  const [gender, setGender] = useState('선택안함');
+  const [gender, setGender] = useState<null | string>(null);
   const [birth, setBirth] = useState('');
   const [marketingTerm, setMarketingTerm] = useState(false);
   const [region, setRegion] = useRecoilState(mypageSelectedSpaceState);
   const [isSaveAvailable, setIsSaveAvailable] = useState(false);
+  const [isRegionChanged, setIsRegionChanged] =
+    useRecoilState(isRegionChangedState);
+  useEffect(() => {
+    if (isRegionChanged) {
+      setRegion(region);
+    } else {
+      setRegion(myInfo?.city);
+    }
+    console.log(myInfo?.city);
+  }, [myInfo]);
 
   // 맨 처음 데이터 fetch (get 의 데이터)
   useEffect(() => {
@@ -60,18 +73,20 @@ function ManagingInfo() {
 
   const [finalData, setFinalData] = useState<any>();
 
-  const regions = [
-    '의정부시 전체',
-    '의정부시 가능동',
-    '의정부시 가능 1동',
-    '의정부시 고산동',
-    '의정부시 금오동',
-    '의정부시 낙양동',
-    '의정부시 녹양동',
-    '의정부시 민락동',
-    '의정부시 산곡동',
-    '의정부시 산곡 1동',
-  ];
+  const regions: any = {
+    UIJEONGBU_SI: '전체',
+    UIJEONGBU_DONG: '의정부동',
+    HOWON_DONG: '호원동',
+    JANGAM_DONG: '장암동',
+    SINGOK_DONG: '신곡동',
+    YOUNGHYUN_DONG: '용현동',
+    MINRAK_DONG: '민락동',
+    NAKYANG_DONG: '낙양동',
+    GEUMO_DONG: '금오동',
+    GANEUNG_DONG: '가능동',
+    NOKYANG_DONG: '녹양동',
+    GOSAN_DONG: '고산동',
+  };
 
   useEffect(() => {
     if (gender !== '선택안함' || birth !== '' || marketingTerm !== false) {
@@ -157,10 +172,10 @@ function ManagingInfo() {
         </Radio>
         <Radio>
           <Image
-            src={gender !== '선택안함' ? EmptyRadioIcon : ColoredRadioIcon}
+            src={gender !== null ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
-            onClick={() => setGender('선택안함')}
+            onClick={() => setGender(null)}
           />
           선택안함
         </Radio>
@@ -186,8 +201,10 @@ function ManagingInfo() {
       <RegionSelectionWrapper>
         <RegionSelectionButton
           type="button"
-          onClick={() => router.push('/mypage/managingInfo/selectRegion')}>
-          {region !== null ? regions[region] : '우리동네 선택'}
+          onClick={() => {
+            router.push('/mypage/managingInfo/selectRegion');
+          }}>
+          {region !== null ? `의정부시 ${regions[region]}` : '우리동네 선택'}
         </RegionSelectionButton>
       </RegionSelectionWrapper>
       <LoginLine />
@@ -388,6 +405,8 @@ const RegionSelectionButton = styled.button`
 
   background-color: ${theme.colors.green02};
   color: ${theme.colors.green10};
+
+  ${theme.fonts.body1_medium};
 
   cursor: pointer;
 `;
