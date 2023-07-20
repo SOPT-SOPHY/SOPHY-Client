@@ -239,27 +239,44 @@ function Home() {
             </ScheduledBookTalkInnerTextWrapper>
             <ScheduledBookTalkInnerTextWrapper>
               {data?.booktalk_count !== null ? (
-                <ScheduledBookTalkNumberText
-                  onClick={() => {
-                    if (data?.booktalk_count === 0) {
-                      router.push('/home/emptyBookTalk');
-                    } else {
-                      router.push('/mypage/booktalkList');
-                    }
-                  }}>
-                  {data?.booktalk_count}개
-                </ScheduledBookTalkNumberText>
+                <>
+                  <ScheduledBookTalkNumberText
+                    onClick={() => {
+                      if (data?.booktalk_count === 0) {
+                        router.push('/home/emptyBookTalk');
+                      } else {
+                        router.push('/mypage/booktalkList');
+                      }
+                    }}>
+                    {data?.booktalk_count}개
+                  </ScheduledBookTalkNumberText>
+                  <Image
+                    src={HomeMoreIcon}
+                    alt="더보기 아이콘"
+                    style={{ marginRight: '1.2rem' }}
+                    onClick={() => {
+                      if (data?.booktalk_count === 0) {
+                        router.push('/home/emptyBookTalk');
+                      } else {
+                        router.push('/mypage/booktalkList');
+                      }
+                    }}
+                  />
+                </>
               ) : (
-                <ScheduledBookTalkNumberText
-                  onClick={() => router.push('/auth')}>
-                  로그인 후 사용가능
-                </ScheduledBookTalkNumberText>
+                <>
+                  <ScheduledBookTalkNumberText
+                    onClick={() => router.push('/auth')}>
+                    로그인 후 사용가능
+                  </ScheduledBookTalkNumberText>
+                  <Image
+                    src={HomeMoreIcon}
+                    alt="더보기 아이콘"
+                    style={{ marginRight: '1.2rem' }}
+                    onClick={() => router.push('/auth')}
+                  />
+                </>
               )}
-              <Image
-                src={HomeMoreIcon}
-                alt="더보기 아이콘"
-                style={{ marginRight: '1.2rem' }}
-              />
             </ScheduledBookTalkInnerTextWrapper>
           </ScheduledBookTalk>
         </ScheduledBookTalkWrapper>
@@ -284,7 +301,9 @@ function Home() {
       </TopBackground>
       {data?.is_author && data?.booktalk_count !== null ? (
         <WriterRegionWrapper>
-          <WriterRegionText>이번달, 소피가 가득했던 지역들!</WriterRegionText>
+          <WriterRegionText>
+            이번 달, 책과 이야기로 가득한 지역은
+          </WriterRegionText>
           <RegionRankingWrapper>
             <Image src={Ranking1Icon} alt="랭킹 1위 아이콘" />
             의정부시 {regions[data?.city_ranks[0]]}

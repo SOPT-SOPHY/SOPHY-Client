@@ -119,6 +119,7 @@ function ManagingInfo() {
       marketing_agree: marketingTerm,
     });
     setHasValueChanged(false);
+    setIsRegionChanged(false);
   };
 
   return (
