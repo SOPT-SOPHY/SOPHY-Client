@@ -37,6 +37,10 @@ function SophyStory() {
       Cookies.remove('memberId');
       router.push('auth/login');
     }
+    if (!memberId) {
+      alert('비회원은 접근할 수 없는 페이지예요 :(');
+      router.push('auth');
+    }
   }, [accessToken, refreshToken, router]);
 
   const data = uesFetchMemberHome();
@@ -108,7 +112,7 @@ function SophyStory() {
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
                   if (myInfo?.city === null) {
-                    router.push('/booktalk/search/의정부시%20전체');
+                    router.push('/booktalk/search/UIJEONGBU_SI');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
                   }

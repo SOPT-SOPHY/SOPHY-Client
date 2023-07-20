@@ -116,7 +116,7 @@ function MySophy() {
             type="button"
             onClick={() => {
               if (myInfo?.city === null) {
-                router.push('/booktalk/search/의정부시%20전체');
+                router.push('/booktalk/search/UIJEONGBU_SI');
               } else {
                 router.push(`/booktalk/search/${myInfo?.city}`);
               }
@@ -183,7 +183,7 @@ function MySophy() {
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
                   if (myInfo?.city === null) {
-                    router.push('/booktalk/search/의정부시%20전체');
+                    router.push('/booktalk/search/UIJEONGBU_SI');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
                   }
@@ -374,6 +374,8 @@ const EmptyExpectedBooktalk = styled.button`
 
   border: none;
   border-radius: 0.6rem;
+
+  ${theme.fonts.subhead4_semibold};
 
   background-color: ${theme.colors.green03};
   color: ${theme.colors.green08};
