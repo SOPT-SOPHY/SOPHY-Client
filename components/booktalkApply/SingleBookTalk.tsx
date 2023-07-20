@@ -43,7 +43,6 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
 
   return (
     <>
-      <HorizontalLine />
       <BookTalkWrapper onClick={handleBooktalkClick}>
         <ImageContainer>
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
@@ -66,6 +65,7 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
           <TotalCount>/{item?.maximum}</TotalCount>
         </CountWrapper>
       </BookTalkWrapper>
+      <HorizontalLine />
     </>
   );
 }
