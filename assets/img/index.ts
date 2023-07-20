@@ -11,3 +11,4 @@ export { default as SophyStoryRomanceCard } from './SophyStoryRomanceCard.png';
 export { default as LoveType } from './LoveType.png';
 export { default as GroupType } from './GroupType.png';
 export { default as ComputerType } from './ComputerType.png';
+export { default as AuthorBooktalkManageImg } from './AuthorBooktalkManageImg.png';

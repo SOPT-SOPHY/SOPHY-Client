@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
+  AuthorBooktalkManageMoreIcon,
   AuthorCertificationIcon,
   AuthorMypageMoreIcon,
   LocalCertificationIcon,
@@ -20,6 +21,7 @@ import { uesFetchMemberHome } from '../../hooks/queries/home';
 import theme from '../../styles/theme';
 import MyBookSlider from '../../components/MyBookSlider';
 import Card from '../../components/mypage/Card';
+import { AuthorBooktalkManageImg } from '../../assets/img';
 
 function MySophy() {
   const router = useRouter();
@@ -66,6 +68,7 @@ function MySophy() {
               width={87}
               height={28}
               alt="지역 인증 전 아이콘"
+              onClick={() => router.push('/mypage/managingInfo/selectRegion')}
             />
           )}
           {data?.is_author ? (
@@ -87,7 +90,24 @@ function MySophy() {
         completed={mypage?.complete_book_talk_count}
         is_author={data?.is_author}
       />
-      {data?.is_author ? <>북토크 관리하기</> : <></>}
+      {data?.is_author ? (
+        <AuthorBooktalkManageWrapper>
+          <Image
+            src={AuthorBooktalkManageImg}
+            alt="북토크 관리하기 이미지"
+            width={193}
+            height={42}
+            style={{ marginLeft: '2.8rem' }}
+          />
+          <Image
+            src={AuthorBooktalkManageMoreIcon}
+            alt="더 보기 아이콘"
+            style={{ marginLeft: '11rem' }}
+          />
+        </AuthorBooktalkManageWrapper>
+      ) : (
+        <></>
+      )}
       {mypage?.my_page_booktalk_dtos?.length === 0 ? (
         <>
           <EmptyExpectedBooktalkTitle>예정된 북토크</EmptyExpectedBooktalkTitle>
@@ -104,7 +124,9 @@ function MySophy() {
           </EmptyExpectedBooktalk>
         </>
       ) : (
-        <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+        <>
+          <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+        </>
       )}
       {data?.is_author ? (
         <>
@@ -375,4 +397,10 @@ const Devider = styled.div`
   background-color: ${theme.colors.gray11};
 
   margin-left: 2rem;
+`;
+
+const AuthorBooktalkManageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 `;

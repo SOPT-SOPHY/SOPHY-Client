@@ -251,7 +251,7 @@ function Home() {
                 </ScheduledBookTalkNumberText>
               ) : (
                 <ScheduledBookTalkNumberText
-                  onClick={() => router.push('/auth/login')}>
+                  onClick={() => router.push('/auth')}>
                   로그인 후 사용가능
                 </ScheduledBookTalkNumberText>
               )}
@@ -308,8 +308,7 @@ function Home() {
             />
             <PlaceName>가장 가까운</PlaceName>
             <PlaceUnderName>북토크를 찾아드릴게요</PlaceUnderName>
-            <InterestingRegion
-              onClick={() => router.push('/mypage/managingInfo')}>
+            <InterestingRegion onClick={() => router.push('/auth')}>
               <InterestingRegionText>관심지역 설정하기</InterestingRegionText>
               <Image
                 src={InterestingRegionMoreIcon}
@@ -320,7 +319,8 @@ function Home() {
           </PlaceNameWrapper>
         </UserRegionRecommendationWrapper>
       ) : myInfo?.city !== null ? (
-        <UserRegionWrapper>
+        <UserRegionWrapper
+          onClick={() => router.push(`/booktalk/search/${myInfo?.city}`)}>
           <PlaceNameWrapper>
             <Image
               src={PinIcon}
@@ -394,7 +394,7 @@ function Home() {
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
                   if (data?.my_city_booktalk_count === null) {
-                    router.push('/booktalk/search/의정부시%20전체');
+                    router.push('/booktalk/search/UIJEONGBU_SI');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
                   }
@@ -406,7 +406,13 @@ function Home() {
               <Image
                 src={NavBookGrayIcon}
                 alt="소피스토리 화면 바로가기 아이콘"
-                onClick={() => router.push('/sophyStory')}
+                onClick={() => {
+                  if (data?.name === null) {
+                    router.push('/auth');
+                  } else {
+                    router.push('/sophyStory');
+                  }
+                }}
               />
               <UnClickedIconText>소피스토리</UnClickedIconText>
             </IconWrapper>
@@ -414,7 +420,13 @@ function Home() {
               <Image
                 src={NavPersonGrayIcon}
                 alt="MY 페이지 바로가기 아이콘"
-                onClick={() => router.push('/mypage/home')}
+                onClick={() => {
+                  if (data?.name === null) {
+                    router.push('/auth');
+                  } else {
+                    router.push('/mypage/home');
+                  }
+                }}
               />
               <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>
@@ -609,6 +621,8 @@ const UserRegionWrapper = styled.div`
   border-bottom: 3.2rem;
 
   box-shadow: 0.1rem 0.18rem 1.2rem rgba(64, 119, 118, 17%);
+
+  cursor: pointer;
 `;
 
 const UserRegionRecommendationWrapper = styled.div`

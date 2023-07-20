@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -15,15 +16,19 @@ function PredictedBT(props: any) {
     <div>
       <Header>
         <Title>예정된 북토크</Title>
-        <MoreWrapper>
-          <More>더보기</More>
-          <Image
-            src={NextIcon}
-            width={20}
-            height={20}
-            alt="유저 정보 수정 아이콘"
-          />
-        </MoreWrapper>
+        {booktalkList?.length === 0 ? (
+          <></>
+        ) : (
+          <MoreWrapper>
+            <More>더보기</More>
+            <Image
+              src={NextIcon}
+              width={20}
+              height={20}
+              alt="유저 정보 수정 아이콘"
+            />
+          </MoreWrapper>
+        )}
       </Header>
       <PredictedBTSlider booktalkList={booktalkList} />
       {/* <SimpleSlider />
