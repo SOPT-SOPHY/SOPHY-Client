@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import detailImage from '../../../assets/img/detailImage.png';
@@ -47,14 +46,23 @@ function BTDetail() {
   // }
 
   // if (!data) return;
+
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <Body>
       <Header>
-        <Link href="/booktalkApply/BTList">
-          <ImageContainer>
-            <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
-          </ImageContainer>
-        </Link>
+        <ImageContainer>
+          <Image
+            src={backArrow}
+            width={44}
+            height={44}
+            alt="뒤로가기"
+            onClick={handleGoBack}
+          />
+        </ImageContainer>
         <Title>북토크 상세정보</Title>
       </Header>
       {/* <hr style={{ borderTop: '1px solid #F6F7FA' }} /> */}
@@ -72,7 +80,7 @@ function BTDetail() {
           book_category={data?.book_category}
           book={data?.book}
           start_date={data?.start_date}
-          // end_date={data?.end_date}
+          end_date={data?.end_date}
           participant={data?.participant}
           participation_fee={data?.participation_fee}
           preliminary_info={data?.preliminary_info}
@@ -96,7 +104,7 @@ const Body = styled.div`
 
   background-color: ${({ theme }) => theme.colors.white};
 
-  border: 1px solid ${({ theme }) => theme.colors.gray11};
+  /* border: 1px solid ${({ theme }) => theme.colors.gray11}; */
 `;
 
 const Header = styled.div`
@@ -129,6 +137,7 @@ const DetailImg = styled.div`
 const ImageContainer = styled.div`
   width: 4.4rem;
   height: 4.4rem;
+  cursor: pointer;
 
   img {
     width: 4.4rem;

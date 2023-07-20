@@ -190,7 +190,7 @@ const Body = styled.div`
 
   background-color: ${({ theme }) => theme.colors.white};
 
-  border: 2px solid ${({ theme }) => theme.colors.gray11};
+  /* border: 2px solid ${({ theme }) => theme.colors.gray11}; */
 `;
 
 const Header = styled.div`
@@ -314,6 +314,7 @@ const Footer = styled.div`
 
   width: 37.5rem;
   height: 8.3rem;
+  cursor: pointer;
 
   padding-left: 3rem;
   padding-right: 3rem;
