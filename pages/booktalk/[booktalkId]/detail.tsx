@@ -104,7 +104,7 @@ const Body = styled.div`
 
   background-color: ${({ theme }) => theme.colors.white};
 
-  border: 1px solid ${({ theme }) => theme.colors.gray11};
+  /* border: 1px solid ${({ theme }) => theme.colors.gray11}; */
 `;
 
 const Header = styled.div`
