@@ -303,8 +303,11 @@ const DropdownButton = styled.button`
 
 const SingleBookTalkContainer = styled.div`
   width: 37.5rem;
+  height: 100%;
   /* margin-top: 9.7rem; */
   margin-bottom: 8.3rem;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
 `;
 
 const Footer = styled.div`
