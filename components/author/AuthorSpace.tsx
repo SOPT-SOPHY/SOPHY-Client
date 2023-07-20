@@ -74,12 +74,12 @@ function AuthorSpace() {
           <SpaceContainer key={space.place_id}>
             {/* <Image src={space.image} alt="공간 이미지" width={72} heigth={72} /> */}
             <SpaceWrapper
-              onClick={() => handleClickSpaces(space.place_id)}
-              isClick={clickedId === space.place_id}>
+              onClick={() => handleClickSpaces(space?.place_id)}
+              isClick={clickedId === space?.place_id}>
               <SpaceImage />
-              <SpaceInfo isClick={clickedId === space.place_id}>
-                <SpaceName>{space.name}</SpaceName>
-                <SpaceAddress>{space.address}</SpaceAddress>
+              <SpaceInfo isClick={clickedId === space?.place_id}>
+                <SpaceName>{space?.name}</SpaceName>
+                <SpaceAddress>{space?.address}</SpaceAddress>
                 <MaxPeople>
                   <Image
                     src={PeopleIcon}
@@ -87,7 +87,7 @@ function AuthorSpace() {
                     width={16}
                     height={16}
                   />
-                  <span>최대 {space.maximum}명</span>
+                  <span>최대 {space?.maximum}명</span>
                 </MaxPeople>
               </SpaceInfo>
             </SpaceWrapper>
