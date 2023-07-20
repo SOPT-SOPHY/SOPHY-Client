@@ -81,6 +81,10 @@ function BTList() {
     }
   };
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   //   const filterItems = (data: BooktalkProps[] | null, filterParam: string) => {
   //     const values: BooktalkProps[] = [];
   //     if (filterParam === 'All' && data) {
@@ -101,11 +105,17 @@ function BTList() {
   return (
     <Body>
       <Header>
-        <Link href="/booktalkApply/SelectRegion">
-          <ImageContainer>
-            <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
-          </ImageContainer>
-        </Link>
+        {/* <Link href="/booktalkApply/SelectRegion"> */}
+        <ImageContainer>
+          <Image
+            src={backArrow}
+            width={30}
+            height={30}
+            alt="뒤로가기"
+            onClick={handleGoBack}
+          />
+        </ImageContainer>
+        {/* </Link> */}
         <Title>우리 동네 북토크</Title>
       </Header>
       <SelectBoxContainer>
