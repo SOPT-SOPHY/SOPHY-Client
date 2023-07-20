@@ -17,10 +17,7 @@ export const getDate: object = (beforeDate: string) => {
 
 export const getFullDate: any = (userDate: string, userTime: string) => {
   const date = userDate.replace(/\//g, '-');
-  if (userTime.length < 4) {
-    return '';
-  }
-  // const time = `${userTime.slice(0, 2)}:${userTime.slice(2, 5)}`;
-  const fullTime = `20${date}T${userTime}:00`;
+  const time = `${userTime.slice(0, 2)}:${userTime.slice(2, 5)}`;
+  const fullTime = `20${date}T${time}:00`;
   return fullTime;
 };

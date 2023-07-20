@@ -12,6 +12,8 @@ function AuthorModal({ onClose }: any) {
   const form = useRecoilValue(formComplete);
   const { mutate, data } = usePostBookTalkOpen();
   const handleOpen = () => {
+    console.log(form);
+
     mutate(form);
     console.log(data);
   };

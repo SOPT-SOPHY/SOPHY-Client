@@ -111,7 +111,12 @@ function ManagingInfo() {
   return (
     <Layout noFooter noMenuBar noHeader>
       <Head>
-        <Image src={GoBackIcon} alt="뒤로가기 아이콘" onClick={handleGoBack} />
+        <Image
+          src={GoBackIcon}
+          alt="뒤로가기 아이콘"
+          onClick={handleGoBack}
+          style={{ cursor: 'pointer' }}
+        />
         <PageTitle>내 정보 관리</PageTitle>
         <TitleBlank
           isSaveAvailable={isSaveAvailable}
