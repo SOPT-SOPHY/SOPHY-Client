@@ -8,7 +8,8 @@ import Image from 'next/image';
 import { SophyStoryRomanceCard, SophyStoryMoneyCard } from '../assets/img';
 import theme from '../styles/theme';
 
-export default function SophyStorySlider() {
+export default function SophyStorySlider(props: any) {
+  const { sophyStory } = props;
   // console.log(data);
   const settings = {
     dots: true,
@@ -24,14 +25,17 @@ export default function SophyStorySlider() {
     <ContainerWrapper>
       <Container>
         <StyledSlider {...settings}>
-          <ImageContainer>
-            <Image
-              src={SophyStoryRomanceCard}
-              alt="로맨스 카드"
-              width={303}
-              height={323}
-            />
-          </ImageContainer>
+          {sophyStory?.map((item: any) => (
+            <ImageContainer key={item}>
+              <Image
+                src={SophyStoryRomanceCard}
+                alt="로맨스 카드"
+                width={303}
+                height={323}
+              />
+            </ImageContainer>
+          ))}
+
           <ImageContainer>
             <Image
               src={SophyStoryMoneyCard}

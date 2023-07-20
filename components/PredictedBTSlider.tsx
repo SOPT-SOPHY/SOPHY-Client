@@ -166,7 +166,7 @@ export default function SimpleSlider(props: any) {
               <ImageContainer />
               <DdayContainer>D-{countDday(item?.start_date)}</DdayContainer>
               <div className="title">{item?.title}</div>
-              <div className="author">{item?.author}작가</div>
+              <div className="author">{item?.author} 작가</div>
             </SliderItem>
           ))}
           <SliderItem>

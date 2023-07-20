@@ -5,13 +5,16 @@ import styled from 'styled-components';
 import Layout from '../../../components/Layout';
 import { SignupConfirm } from '../../../assets/img';
 import theme from '../../../styles/theme';
+import { uesFetchMemberHome } from '../../../hooks/queries/home';
 
 const firstSignup = () => {
   const router = useRouter();
+  const data = uesFetchMemberHome();
+
   return (
     <Layout noHeader noMenuBar noFooter>
       <Title>
-        이성오님,
+        {data?.name}님,
         <br />
         회원가입을 축하합니다!
       </Title>

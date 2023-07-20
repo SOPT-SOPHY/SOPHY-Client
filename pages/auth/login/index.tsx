@@ -8,7 +8,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Layout from '../../../components/Layout';
 import { sophyLogoImg } from '../../../assets/img';
-import { DeleteButtonIcon, HideButtonIcon } from '../../../assets/icon';
+import {
+  DeleteButtonIcon,
+  GoBackIcon,
+  HideButtonIcon,
+} from '../../../assets/icon';
 import theme from '../../../styles/theme';
 
 interface ButtonProps {
@@ -86,6 +90,13 @@ function Login() {
 
   return (
     <Layout noHeader noMenuBar noFooter>
+      <GoBackImageWrapper>
+        <GoBackImage
+          src={GoBackIcon}
+          alt="뒤로가기 아이콘"
+          onClick={() => router.push('/auth')}
+        />
+      </GoBackImageWrapper>
       <Image
         src={sophyLogoImg}
         width={161}
@@ -283,4 +294,12 @@ const ToastContainer = styled.div`
 const NonEmailInput = styled.div`
   width: 3.6rem;
   height: 3.6rem;
+`;
+
+const GoBackImage = styled(Image)`
+  cursor: pointer;
+`;
+
+const GoBackImageWrapper = styled.div`
+  width: 37.5rem;
 `;
