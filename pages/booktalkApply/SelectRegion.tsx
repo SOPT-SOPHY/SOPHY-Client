@@ -53,7 +53,7 @@ function SelectRegion() {
         return 'GOSAN_DONG';
       case '금오동':
         return 'GEUMO_DONG';
-      case '영현동':
+      case '용현동':
         return 'YOUNGHYUN_DONG';
       default:
         return '';
@@ -233,11 +233,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('영현동')}
-                isSelected={selectedRegion === '영현동'}>
-                <li>영현동</li>
+                onClick={() => handleRegionSelect('용현동')}
+                isSelected={selectedRegion === '용현동'}>
+                <li>용현동</li>
                 <span>
-                  {selectedRegion === '영현동' && (
+                  {selectedRegion === '용현동' && (
                     <Image
                       src={icCheck}
                       width={24}
@@ -385,6 +385,10 @@ const DongBoxContainer = styled.ul`
   top: 1.6rem;
   left: 50%;
   gap: 0.6rem;
+
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray12};
 
   list-style-type: none;
 `;
