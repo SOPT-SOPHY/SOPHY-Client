@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
+  AuthorAuthorizationIcon,
   AuthorBooktalkManageMoreIcon,
   AuthorCertificationIcon,
   AuthorMypageMoreIcon,
@@ -144,9 +145,25 @@ function MySophy() {
 
       <ListWrapper>
         <List>
-          <h1>작가 인증하기</h1>
-          <h1>개인정보 처리 방침</h1>
-          <h1>서비스 이용 약관</h1>
+          {data?.is_author ? (
+            <>
+              <h1>개인정보 처리 방침</h1>
+              <h1>서비스 이용 약관</h1>
+            </>
+          ) : (
+            <>
+              <AuthorAuthorization>
+                <Image
+                  src={AuthorAuthorizationIcon}
+                  alt="작가 인증 아이콘"
+                  style={{ marginRight: '0.2rem' }}
+                />
+                작가 인증하기
+              </AuthorAuthorization>
+              <RuleText>개인정보 처리 방침</RuleText>
+              <RuleText>서비스 이용 약관</RuleText>
+            </>
+          )}
         </List>
       </ListWrapper>
       <FooterWrapper>
@@ -403,4 +420,17 @@ const AuthorBooktalkManageWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+`;
+
+const AuthorAuthorization = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  ${theme.fonts.body1_medium}
+`;
+
+const RuleText = styled.div`
+  color: ${theme.colors.gray05};
+  ${theme.fonts.body1_medium};
 `;

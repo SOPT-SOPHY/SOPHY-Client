@@ -41,6 +41,9 @@ function ManagingInfo() {
 
   const [gender, setGender] = useState<null | string>(null);
   const [birth, setBirth] = useState('');
+  const [birthYear, setBirthYear] = useState<number>();
+  const [birthMonth, setBirthMonth] = useState<number>();
+  const [birthDay, setBirthDay] = useState<number>();
   const [marketingTerm, setMarketingTerm] = useState(false);
   const [region, setRegion] = useRecoilState(mypageSelectedSpaceState);
   const [isSaveAvailable, setIsSaveAvailable] = useState(false);
@@ -60,6 +63,9 @@ function ManagingInfo() {
     setFinalData(myInfo);
     setGender(myInfo?.gender);
     setBirth(myInfo?.birth);
+    setBirthYear(myInfo?.birth?.slice(0, 4));
+    setBirthMonth(myInfo?.birth?.slice(4, 6));
+    setBirthDay(myInfo?.birth?.slice(6, 8));
     setMarketingTerm(myInfo?.marketing_agree);
   }, [myInfo]);
 
@@ -68,6 +74,9 @@ function ManagingInfo() {
     setFinalData(data);
     setGender(myInfo?.gender);
     setBirth(myInfo?.birth);
+    setBirthYear(myInfo?.birth?.slice(0, 4));
+    setBirthMonth(myInfo?.birth?.slice(4, 6));
+    setBirthDay(myInfo?.birth?.slice(6, 8));
     setMarketingTerm(myInfo?.marketing_agree);
   }, [data]);
 
@@ -102,7 +111,7 @@ function ManagingInfo() {
       name: myInfo.name,
       phone_num: myInfo.phone_num,
       gender,
-      birth,
+      birth: `${birthYear}${birthMonth}${birthDay}`,
       city: region,
       marketing_agree: marketingTerm,
     });
@@ -190,10 +199,28 @@ function ManagingInfo() {
         <InputTitleContent>생년월일</InputTitleContent>
       </InputTitle>
       <BirthInputWrapper>
-        <BirthInput
+        {/* <BirthInput
           placeholder="YYYY년 MM월 DD일"
           onChange={(e: any) => setBirth(e.target.value)}
           value={birth}
+        /> */}
+        <BirthYearInput
+          placeholder="YYYY"
+          type="number"
+          onChange={(e: any) => setBirthYear(e.target.value)}
+          value={birthYear}
+        />
+        <BirthMonthInput
+          placeholder="MM"
+          type="number"
+          onChange={(e: any) => setBirthMonth(e.target.value)}
+          value={birthMonth}
+        />
+        <BirthDayInput
+          placeholder="DD"
+          type="number"
+          onChange={(e: any) => setBirthDay(e.target.value)}
+          value={birthDay}
         />
       </BirthInputWrapper>
       <BirthNotice>
@@ -334,7 +361,6 @@ const Input = styled.div`
 const BirthInputWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   width: 33.5rem;
 
   margin-bottom: 0.6rem;
@@ -451,4 +477,68 @@ const WithdrawalText = styled.div`
   color: ${theme.colors.gray05};
 
   margin-bottom: 1.6rem;
+`;
+
+const BirthYearInput = styled.input`
+  width: 7.2rem;
+  height: 3.2rem;
+  border-radius: 0.6rem;
+
+  border: 0.1rem solid ${theme.colors.gray08};
+
+  padding-left: 1.2rem;
+
+  margin-right: 0.8rem;
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.colors.primary};
+  }
+
+  ::placeholder {
+    color: ${theme.colors.gray08};
+    ${theme.fonts.body1_medium};
+  }
+`;
+
+const BirthMonthInput = styled.input`
+  width: 5.8rem;
+  height: 3.2rem;
+  border-radius: 0.6rem;
+
+  padding-left: 1.2rem;
+
+  border: 0.1rem solid ${theme.colors.gray08};
+
+  margin-right: 0.8rem;
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.colors.primary};
+  }
+
+  ::placeholder {
+    color: ${theme.colors.gray08};
+    ${theme.fonts.body1_medium};
+  }
+`;
+
+const BirthDayInput = styled.input`
+  width: 5.8rem;
+  height: 3.2rem;
+  border-radius: 0.6rem;
+
+  padding-left: 1.2rem;
+
+  border: 0.1rem solid ${theme.colors.gray08};
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.colors.primary};
+  }
+
+  ::placeholder {
+    color: ${theme.colors.gray08};
+    ${theme.fonts.body1_medium};
+  }
 `;
