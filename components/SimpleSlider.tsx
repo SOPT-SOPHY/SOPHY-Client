@@ -1,56 +1,72 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { HomeBannerImg } from '../assets/img';
 import theme from '../styles/theme';
 
-export default class SimpleSlider extends Component {
-  render() {
-    const settings = {
-      dots: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      centerMode: true,
-      dotsClass: 'dots_custom',
-    };
-    return (
-      <Container>
-        <StyledSlider {...settings}>
-          <ImageContainer>
-            <Image
-              src={HomeBannerImg}
-              alt="배너 이미지"
-              width={313}
-              height={84}
-            />
-          </ImageContainer>
-          <ImageContainer>
-            <Image
-              src={HomeBannerImg}
-              alt="배너 이미지"
-              width={313}
-              height={84}
-            />
-          </ImageContainer>
-          <ImageContainer>
-            <Image
-              src={HomeBannerImg}
-              alt="배너 이미지"
-              width={313}
-              height={84}
-            />
-          </ImageContainer>
-        </StyledSlider>
-      </Container>
-    );
-  }
+export default function SimpleSlider() {
+  const router = useRouter();
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: true,
+    dotsClass: 'dots_custom',
+  };
+
+  return (
+    <Container>
+      <StyledSlider {...settings}>
+        <ImageContainer>
+          <Image
+            src={HomeBannerImg}
+            alt="배너 이미지"
+            width={313}
+            height={84}
+            onClick={() =>
+              router.push(
+                'https://www.notion.so/1fc2a417ca5445bd9d5bdf8a9cb5105a',
+              )
+            }
+          />
+        </ImageContainer>
+        <ImageContainer>
+          <Image
+            src={HomeBannerImg}
+            alt="배너 이미지"
+            width={313}
+            height={84}
+            onClick={() =>
+              router.push(
+                'https://www.notion.so/1fc2a417ca5445bd9d5bdf8a9cb5105a',
+              )
+            }
+          />
+        </ImageContainer>
+        <ImageContainer>
+          <Image
+            src={HomeBannerImg}
+            alt="배너 이미지"
+            width={313}
+            height={84}
+            onClick={() =>
+              router.push(
+                'https://www.notion.so/1fc2a417ca5445bd9d5bdf8a9cb5105a',
+              )
+            }
+          />
+        </ImageContainer>
+      </StyledSlider>
+    </Container>
+  );
 }
 
 const Container = styled.div`

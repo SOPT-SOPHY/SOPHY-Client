@@ -47,7 +47,7 @@ function SophyStory() {
         지금까지
         <span
           style={{ color: `${theme.colors.primary}`, marginLeft: '0.3rem' }}>
-          3개의
+          {sophyStory?.length}개의
         </span>
         <br />
         소피스토리를 엮었어요
@@ -68,7 +68,7 @@ function SophyStory() {
           />
         </DateButton>
       </ButtonWrapper>
-      <SophyStorySlider />
+      <SophyStorySlider sophyStory={sophyStory} />
       <SophyType>{data?.name}님의 소피타입</SophyType>
       <Image
         src={LoveType}

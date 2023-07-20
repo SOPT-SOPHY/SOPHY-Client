@@ -21,7 +21,6 @@ function SelectRegion() {
   const [isRegionChanged, setIsRegionChanged] =
     useRecoilState<boolean>(isRegionChangedState);
 
-  console.log(clickedDong);
   return (
     <Layout noHeader noMenuBar noFooter>
       <Head>
@@ -218,14 +217,18 @@ function SelectRegion() {
           </Dong>
         </DongWrapper>
       </RegionWrapper>
-      <RegionSelectedButton
-        type="button"
-        onClick={() => {
-          setIsRegionChanged(true);
-          router.push('/mypage/managingInfo');
-        }}>
-        완료
-      </RegionSelectedButton>
+      {clickedDong ? (
+        <RegionSelectedButton
+          type="button"
+          onClick={() => {
+            setIsRegionChanged(true);
+            router.push('/mypage/managingInfo');
+          }}>
+          완료
+        </RegionSelectedButton>
+      ) : (
+        <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
+      )}
     </Layout>
   );
 }
@@ -296,7 +299,7 @@ const City = styled.div`
   background-color: ${theme.colors.green05};
   color: ${theme.colors.green01};
 
-  ${theme.fonts.subhead4_bold};
+  font: ${theme.fonts.subhead4_bold};
 `;
 
 const Devider = styled.div`
@@ -310,10 +313,16 @@ const Devider = styled.div`
 `;
 
 const DongWrapper = styled.div`
-  width: 14.1rem;
-  height: 50rem;
+  display: flex;
+  flex-direction: column;
 
+  width: 14.8rem;
+
+  height: 46.8rem;
+  gap: 2.2rem;
   margin-top: 2.4rem;
+
+  overflow-y: auto;
 `;
 
 const Dong = styled.div<{ dongName: string; clickedDong: string | null }>`
@@ -322,10 +331,8 @@ const Dong = styled.div<{ dongName: string; clickedDong: string | null }>`
   justify-content: space-between;
   align-items: center;
 
-  width: 14.1rem;
-  height: 2.4rem;
-
-  margin-bottom: 2.2rem;
+  padding-bottom: 0.8rem;
+  padding-right: 0.8rem;
 
   color: ${(props) =>
     props.dongName === props.clickedDong
@@ -344,7 +351,7 @@ const RegionSelectedButton = styled.button`
   width: 33.5rem;
   height: 5.2rem;
 
-  ${theme.fonts.subhead3_semibold};
+  font: ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.white};
   background-color: ${theme.colors.primary};
 
@@ -353,4 +360,18 @@ const RegionSelectedButton = styled.button`
 
   margin-top: 4.5rem;
   margin-bottom: 4rem;
+`;
+const InactiveAuthorModalButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4.5rem;
+  margin-bottom: 4rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.gray07};
+  border-radius: 0.375rem;
+  background: ${theme.colors.gray11};
+  border: none;
 `;
