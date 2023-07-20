@@ -87,64 +87,62 @@ function AuthorForm() {
   };
   // 개최 날짜
   const handleDate = (e: any) => {
-    // const regex = /^[0-9\b /]{0,8}$/;
-    // if (regex.test(e.target.value)) {
-    setDate(e.target.value);
-    // } else {
-    //   e.target.value = '';
-    // }
-    // if (e.target.value === '') {
-    //   setDate('');
-    // }
+    const regex = /^[0-9\b]{0,6}$/;
+    if (regex.test(e.target.value)) {
+      setDate(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setDate('');
+    }
   };
   useEffect(() => {
-    if (date.length === 8) {
-      // setDate(date.replace(/(\d{2})(\d{2})(\d{2})/, '$1/$2/$3'));
-      setDate(date);
+    if (date.length === 6) {
+      setDate(date.replace(/(\d{2})(\d{2})(\d{2})/, '$1/$2/$3'));
     }
   }, [date]);
 
   // 시작 시간
   const handleStartTime = (e: any) => {
-    // const regex = /^[0-9\b :]{0,5}$/;
-    // if (regex.test(e.target.value)) {
-    setStartTime(e.target.value);
-    // } else {
-    //   e.target.value = '';
-    // }
-    // if (e.target.value === '') {
-    //   setStartTime('');
-    // }
+    const regex = /^[0-9\b]{0,4}$/;
+    if (regex.test(e.target.value)) {
+      setStartTime(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setStartTime('');
+    }
   };
   useEffect(() => {
-    if (startTime.length === 5) {
-      // setStartTime(startTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
-      setStartTime(startTime);
+    if (startTime.length === 4) {
+      setStartTime(startTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
+
+      // setStartTime(startTime);
       if (date.length === 8) {
         setFullStartTime(getFullDate(date, startTime));
-        console.log(fullStartTime);
       }
     }
   }, [date, startTime]);
 
   // 종료 시간
   const handleEndTime = (e: any) => {
-    // const regex = /^[0-9\b :]{0,5}$/;
-    // if (regex.test(e.target.value)) {
-    setEndTime(e.target.value);
-    // } else {
-    //   e.target.value = '';
-    // }
-    // if (e.target.value === '') {
-    //   setEndTime('');
-    // }
+    const regex = /^[0-9\b]{0,4}$/;
+    if (regex.test(e.target.value)) {
+      setEndTime(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+    if (e.target.value === '') {
+      setEndTime('');
+    }
   };
   useEffect(() => {
-    if (endTime.length === 5) {
-      setEndTime(endTime);
+    if (endTime.length === 4) {
+      setEndTime(endTime.replace(/(\d{2})(\d{2})/, '$1:$2'));
       if (date.length === 8) {
         setFullEndTime(getFullDate(date, endTime));
-        console.log(fullEndTime);
       }
     }
   }, [date, endTime]);
