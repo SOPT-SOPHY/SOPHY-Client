@@ -394,7 +394,7 @@ function Home() {
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
                   if (data?.my_city_booktalk_count === null) {
-                    router.push('/booktalk/search/의정부시%20전체');
+                    router.push('/booktalkApply/SelectRegion');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
                   }

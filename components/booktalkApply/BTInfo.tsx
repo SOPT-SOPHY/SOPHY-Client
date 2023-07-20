@@ -13,6 +13,7 @@ import icPreinfo from '../../assets/icon/ic_preinformation.svg';
 import icQuotes from '../../assets/icon/ic_quotes.svg';
 import icSchedule from '../../assets/icon/ic_schedule.svg';
 import sophySpaceinfo from '../../assets/img/sophy_spaceinfo.svg';
+import ellipseIcon from '../../assets/icon/EllipseIcon.svg';
 
 interface BTInfoProps {
   // booktalk_image_url: string;
@@ -20,6 +21,7 @@ interface BTInfoProps {
   book_category: string;
   book: string;
   start_date: string;
+  end_date: string;
   participant: number;
   participation_fee: number;
   preliminary_info: string;
@@ -54,6 +56,7 @@ function BTInfo({
   book_category,
   book,
   start_date,
+  end_date,
   participant,
   participation_fee,
   preliminary_info,
@@ -62,8 +65,18 @@ function BTInfo({
   place_address,
   author,
 }: BTInfoProps) {
-  // const startDate = new Date(start_date);
-  // const endDate = new Date(end_date);
+  const startDate = new Date(start_date);
+  const endDate = new Date(end_date);
+
+  const formattedStartDate = `${startDate
+    .getFullYear()
+    .toString()
+    .slice(2)}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일`;
+
+  const formattedStartTime = `${startDate.getHours()}시`;
+  const formattedEndTime = `${endDate.getHours()}시`;
+
+  const formattedDateTime = `${formattedStartTime}~${formattedEndTime}`;
 
   return (
     <>
@@ -131,7 +144,11 @@ function BTInfo({
           <InfoCategory>개최일정</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{start_date}</BtTitle>
+          <BtTitle>
+            {formattedStartDate}
+            <Image src={ellipseIcon} width={3} height={3} alt="원아이콘" />
+            {formattedDateTime}
+          </BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -268,8 +285,16 @@ const BtTitleContainer = styled.div`
 `;
 
 const BtTitle = styled.h3`
+  display: flex;
+  align-items: center;
+
   ${({ theme }) => theme.fonts.body2_medium};
   color: ${({ theme }) => theme.colors.gray01};
+
+  img {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+  }
 `;
 
 const HorizontalLine = styled.hr`

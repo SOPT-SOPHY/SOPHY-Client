@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import icPeople from '../../assets/icon/ic_people_count.svg';
+import ellipseIcon from '../../assets/icon/EllipseIcon.svg';
 
 interface BooktalkProps {
   booktalk_id: number;
@@ -27,6 +28,19 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
       onClick(item?.booktalk_id);
     }
   };
+  const startDate = new Date(item?.start_date);
+  const endDate = new Date(item?.end_date);
+
+  const formattedStartDate = `${startDate
+    .getFullYear()
+    .toString()
+    .slice(2)}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일`;
+
+  const formattedStartTime = `${startDate.getHours()}시`;
+  const formattedEndTime = `${endDate.getHours()}시`;
+
+  const formattedDateTime = `${formattedStartTime}~${formattedEndTime}`;
+
   return (
     <>
       <HorizontalLine />
@@ -37,7 +51,11 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
         <TextWrapper>
           <BookName>{item?.title}</BookName>
           <WriterName>{item?.author}</WriterName>
-          <Date>{item?.start_date}</Date>
+          <BTDate>
+            {formattedStartDate}
+            <Image src={ellipseIcon} width={3} height={3} alt="원아이콘" />
+            {formattedDateTime}
+          </BTDate>
           <Space>
             {Array.isArray(item?.place) ? item?.place.join(', ') : item?.place}
           </Space>
@@ -65,6 +83,7 @@ const BookTalkWrapper = styled.div`
   flex-direction: row;
 
   position: relative;
+  cursor: pointer;
 
   margin-top: 1.7rem;
   margin-bottom: 1.3rem;
@@ -118,11 +137,19 @@ const WriterName = styled.h2`
   color: ${({ theme }) => theme.colors.gray01};
 `;
 
-const Date = styled.h3`
+const BTDate = styled.h3`
+  display: flex;
+  align-items: center;
+
   margin-bottom: 0.5rem;
 
   ${({ theme }) => theme.fonts.body3_regular};
   color: ${({ theme }) => theme.colors.gray04};
+
+  img {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+  }
 `;
 
 const Space = styled.h3`

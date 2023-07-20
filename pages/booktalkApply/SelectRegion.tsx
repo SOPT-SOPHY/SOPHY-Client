@@ -25,6 +25,10 @@ function SelectRegion() {
     router.push(`/booktalk/search/${encodedRegion}`);
   };
 
+  const handlePreviousButtonClick = () => {
+    router.back();
+  };
+
   const encodeRegion = (region: string) => {
     switch (region) {
       case '의정부시 전체':
@@ -60,7 +64,13 @@ function SelectRegion() {
     <Body>
       <Header>
         <ImageContainer>
-          <Image src={backArrow} width={44} height={44} alt="뒤로가기" />
+          <Image
+            src={backArrow}
+            width={44}
+            height={44}
+            alt="뒤로가기"
+            onClick={handlePreviousButtonClick}
+          />
         </ImageContainer>
         <Title>지역 선택</Title>
       </Header>
@@ -295,6 +305,7 @@ const Header = styled.div`
 const ImageContainer = styled.div`
   width: 4.4rem;
   height: 4.4rem;
+  cursor: pointer;
 
   img {
     width: 4.4rem;
@@ -313,6 +324,8 @@ const RegionContainer = styled.div`
   flex-shrink: 0;
 
   height: 55rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   margin-top: 2.4rem;
   margin-left: 2rem;
@@ -382,6 +395,7 @@ const DongBox = styled.div<DongBoxProps>`
   width: 16.1rem;
   height: 4rem;
   flex-shrink: 0;
+  cursor: pointer;
 
   background-color: ${({ theme }) => theme.colors.gray12};
 
