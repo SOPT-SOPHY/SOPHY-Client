@@ -98,21 +98,6 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('가능동')}
-                isSelected={selectedRegion === '가능동'}>
-                <li>가능동</li>
-                <span>
-                  {selectedRegion === '가능동' && (
-                    <Image
-                      src={icCheck}
-                      width={16}
-                      height={16}
-                      alt="지역선택 체크 아이콘"
-                    />
-                  )}
-                </span>
-              </DongBox>
-              <DongBox
                 onClick={() => handleRegionSelect('의정부동')}
                 isSelected={selectedRegion === '의정부동'}>
                 <li>의정부동</li>
@@ -128,41 +113,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('고산동')}
-                isSelected={selectedRegion === '고산동'}>
-                <li>고산동</li>
+                onClick={() => handleRegionSelect('호원동')}
+                isSelected={selectedRegion === '호원동'}>
+                <li>호원동</li>
                 <span>
-                  {selectedRegion === '고산동' && (
-                    <Image
-                      src={icCheck}
-                      width={16}
-                      height={16}
-                      alt="지역선택 체크 아이콘"
-                    />
-                  )}
-                </span>
-              </DongBox>
-              <DongBox
-                onClick={() => handleRegionSelect('금오동')}
-                isSelected={selectedRegion === '금오동'}>
-                <li>금오동</li>
-                <span>
-                  {selectedRegion === '금오동' && (
-                    <Image
-                      src={icCheck}
-                      width={16}
-                      height={16}
-                      alt="지역선택 체크 아이콘"
-                    />
-                  )}
-                </span>
-              </DongBox>
-              <DongBox
-                onClick={() => handleRegionSelect('낙양동')}
-                isSelected={selectedRegion === '낙양동'}>
-                <li>낙양동</li>
-                <span>
-                  {selectedRegion === '낙양동' && (
+                  {selectedRegion === '호원동' && (
                     <Image
                       src={icCheck}
                       width={24}
@@ -188,41 +143,11 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('민락동')}
-                isSelected={selectedRegion === '민락동'}>
-                <li>민락동</li>
-                <span>
-                  {selectedRegion === '민락동' && (
-                    <Image
-                      src={icCheck}
-                      width={24}
-                      height={24}
-                      alt="지역선택 체크 아이콘"
-                    />
-                  )}
-                </span>
-              </DongBox>
-              <DongBox
                 onClick={() => handleRegionSelect('신곡동')}
                 isSelected={selectedRegion === '신곡동'}>
                 <li>신곡동</li>
                 <span>
                   {selectedRegion === '신곡동' && (
-                    <Image
-                      src={icCheck}
-                      width={24}
-                      height={24}
-                      alt="지역선택 체크 아이콘"
-                    />
-                  )}
-                </span>
-              </DongBox>
-              <DongBox
-                onClick={() => handleRegionSelect('녹양동')}
-                isSelected={selectedRegion === '녹양동'}>
-                <li>녹양동</li>
-                <span>
-                  {selectedRegion === '녹양동' && (
                     <Image
                       src={icCheck}
                       width={24}
@@ -248,15 +173,90 @@ function SelectRegion() {
                 </span>
               </DongBox>
               <DongBox
-                onClick={() => handleRegionSelect('호원동')}
-                isSelected={selectedRegion === '호원동'}>
-                <li>호원동</li>
+                onClick={() => handleRegionSelect('민락동')}
+                isSelected={selectedRegion === '민락동'}>
+                <li>민락동</li>
                 <span>
-                  {selectedRegion === '호원동' && (
+                  {selectedRegion === '민락동' && (
                     <Image
                       src={icCheck}
                       width={24}
                       height={24}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
+              </DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('낙양동')}
+                isSelected={selectedRegion === '낙양동'}>
+                <li>낙양동</li>
+                <span>
+                  {selectedRegion === '낙양동' && (
+                    <Image
+                      src={icCheck}
+                      width={24}
+                      height={24}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
+              </DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('금오동')}
+                isSelected={selectedRegion === '금오동'}>
+                <li>금오동</li>
+                <span>
+                  {selectedRegion === '금오동' && (
+                    <Image
+                      src={icCheck}
+                      width={16}
+                      height={16}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
+              </DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('가능동')}
+                isSelected={selectedRegion === '가능동'}>
+                <li>가능동</li>
+                <span>
+                  {selectedRegion === '가능동' && (
+                    <Image
+                      src={icCheck}
+                      width={16}
+                      height={16}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
+              </DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('녹양동')}
+                isSelected={selectedRegion === '녹양동'}>
+                <li>녹양동</li>
+                <span>
+                  {selectedRegion === '녹양동' && (
+                    <Image
+                      src={icCheck}
+                      width={24}
+                      height={24}
+                      alt="지역선택 체크 아이콘"
+                    />
+                  )}
+                </span>
+              </DongBox>
+              <DongBox
+                onClick={() => handleRegionSelect('고산동')}
+                isSelected={selectedRegion === '고산동'}>
+                <li>고산동</li>
+                <span>
+                  {selectedRegion === '고산동' && (
+                    <Image
+                      src={icCheck}
+                      width={16}
+                      height={16}
                       alt="지역선택 체크 아이콘"
                     />
                   )}
