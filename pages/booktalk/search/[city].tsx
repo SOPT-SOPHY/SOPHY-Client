@@ -199,7 +199,7 @@ const Header = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  position: fixed;
+  position: sticky;
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
@@ -225,10 +225,11 @@ const Title = styled.h1`
 `;
 
 const SelectBoxContainer = styled.div`
-  position: fixed;
+  display: flex;
+  /* position: fixed; */
   width: 37.5rem;
-  height: 5.3rem;
-  top: 4.4rem;
+  height: 5.2rem;
+  /* top: 4.4rem; */
 
   z-index: 3;
   background-color: ${({ theme }) => theme.colors.white};
@@ -236,13 +237,13 @@ const SelectBoxContainer = styled.div`
 
 const SelectBox = styled.button`
   display: flex;
+  position: relative;
   align-items: center;
-
   height: 2.4rem;
   /* z-index: 2; */
 
-  margin-top: 2.1rem;
-  margin-left: 2rem;
+  margin-top: 1.6rem;
+  margin-left: 2.2rem;
 
   gap: 0.2rem;
 
@@ -256,7 +257,7 @@ const SubTitle = styled.h2`
 `;
 
 const DropdownContainer = styled.div`
-  position: fixed;
+  position: absolute;
 
   top: 9.7rem;
   margin-left: 2rem;
@@ -302,7 +303,7 @@ const DropdownButton = styled.button`
 
 const SingleBookTalkContainer = styled.div`
   width: 37.5rem;
-  margin-top: 9.7rem;
+  /* margin-top: 9.7rem; */
   margin-bottom: 8.3rem;
 `;
 
