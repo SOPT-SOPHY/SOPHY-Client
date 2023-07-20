@@ -75,7 +75,7 @@ function BTList() {
       case 'GEUMO_DONG':
         return '금오동';
       case 'YOUNGHYUN_DONG':
-        return '영현동';
+        return '용현동';
       default:
         return '';
     }
@@ -125,9 +125,9 @@ function BTList() {
             <DropdownItem onClick={() => handleRegionSelect()}>
               {decodeCity(city as string)}
             </DropdownItem>
-            <DropdownButton onClick={() => router.back()}>
-              지역 선택
-            </DropdownButton>
+            <Link href="/booktalkApply/SelectRegion">
+              <DropdownButton>지역 선택</DropdownButton>
+            </Link>
           </DropdownBox>
         </DropdownContainer>
       )}
