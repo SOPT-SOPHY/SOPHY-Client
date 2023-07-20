@@ -13,7 +13,7 @@ import icPreinfo from '../../assets/icon/ic_preinformation.svg';
 import icQuotes from '../../assets/icon/ic_quotes.svg';
 import icSchedule from '../../assets/icon/ic_schedule.svg';
 import sophySpaceinfo from '../../assets/img/sophy_spaceinfo.svg';
-import ellipseIcon from '../../assets/icon/ellipseIcon.svg';
+import ellipseIcon from '../../assets/icon/EllipseIcon.svg';
 
 interface BTInfoProps {
   // booktalk_image_url: string;
