@@ -49,9 +49,12 @@ function ManagingInfo() {
   const [isSaveAvailable, setIsSaveAvailable] = useState(false);
   const [isRegionChanged, setIsRegionChanged] =
     useRecoilState(isRegionChangedState);
+  const [hasValueChanged, setHasValueChanged] = useState(false);
+
   useEffect(() => {
     if (isRegionChanged) {
       setRegion(region);
+      setHasValueChanged(true);
     } else {
       setRegion(myInfo?.city);
     }
@@ -98,12 +101,12 @@ function ManagingInfo() {
   };
 
   useEffect(() => {
-    if (gender !== '선택안함' || birth !== '' || marketingTerm !== false) {
+    if (hasValueChanged) {
       setIsSaveAvailable(true);
     } else {
       setIsSaveAvailable(false);
     }
-  }, [gender, birth, marketingTerm]);
+  }, [gender, birth, marketingTerm, hasValueChanged]);
 
   const handleSaveButton = () => {
     mutate({
@@ -115,6 +118,7 @@ function ManagingInfo() {
       city: region,
       marketing_agree: marketingTerm,
     });
+    setHasValueChanged(false);
   };
 
   return (
@@ -171,7 +175,12 @@ function ManagingInfo() {
             src={gender !== '여성' ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
-            onClick={() => setGender('여성')}
+            onClick={() => {
+              setGender('여성');
+              if (gender !== '여성') {
+                setHasValueChanged(true);
+              }
+            }}
           />
           여성
         </Radio>
@@ -180,7 +189,12 @@ function ManagingInfo() {
             src={gender !== '남성' ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
-            onClick={() => setGender('남성')}
+            onClick={() => {
+              setGender('남성');
+              if (gender !== '남성') {
+                setHasValueChanged(true);
+              }
+            }}
           />
           남성
         </Radio>
@@ -189,7 +203,12 @@ function ManagingInfo() {
             src={gender !== null ? EmptyRadioIcon : ColoredRadioIcon}
             alt="빈 라디오 아이콘"
             style={{ marginRight: '1rem' }}
-            onClick={() => setGender(null)}
+            onClick={() => {
+              setGender(null);
+              if (gender !== null) {
+                setHasValueChanged(true);
+              }
+            }}
           />
           선택안함
         </Radio>
@@ -207,19 +226,28 @@ function ManagingInfo() {
         <BirthYearInput
           placeholder="YYYY"
           type="number"
-          onChange={(e: any) => setBirthYear(e.target.value)}
+          onChange={(e: any) => {
+            setBirthYear(e.target.value);
+            setHasValueChanged(true);
+          }}
           value={birthYear}
         />
         <BirthMonthInput
           placeholder="MM"
           type="number"
-          onChange={(e: any) => setBirthMonth(e.target.value)}
+          onChange={(e: any) => {
+            setBirthMonth(e.target.value);
+            setHasValueChanged(true);
+          }}
           value={birthMonth}
         />
         <BirthDayInput
           placeholder="DD"
           type="number"
-          onChange={(e: any) => setBirthDay(e.target.value)}
+          onChange={(e: any) => {
+            setBirthDay(e.target.value);
+            setHasValueChanged(true);
+          }}
           value={birthDay}
         />
       </BirthInputWrapper>
@@ -246,14 +274,24 @@ function ManagingInfo() {
             src={ColoredCheckboxIcon}
             alt="체크된 체크 박스 아이콘"
             style={{ marginRight: '0.8rem' }}
-            onClick={() => setMarketingTerm(!marketingTerm)}
+            onClick={() => {
+              setMarketingTerm(!marketingTerm);
+              if (marketingTerm) {
+                setHasValueChanged(true);
+              }
+            }}
           />
         ) : (
           <Image
             src={EmptyCheckboxIcon}
             alt="체크되지 않은 체크 박스 아이콘"
             style={{ marginRight: '0.8rem' }}
-            onClick={() => setMarketingTerm(!marketingTerm)}
+            onClick={() => {
+              setMarketingTerm(!marketingTerm);
+              if (!marketingTerm) {
+                setHasValueChanged(true);
+              }
+            }}
           />
         )}
         (선택)마케팅 정보수신 동의
