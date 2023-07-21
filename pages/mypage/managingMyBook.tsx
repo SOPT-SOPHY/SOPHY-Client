@@ -26,7 +26,7 @@ const managingMyBook = () => {
   //   console.log(mypage);
 
   const handleGoBack = () => {
-    router.back();
+    router.push('/mypage/home');
   };
 
   return (
