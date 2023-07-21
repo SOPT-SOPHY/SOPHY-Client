@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { GoBackIcon } from '../../../assets/icon';
 import Layout from '../../../components/Layout';
 import theme from '../../../styles/theme';
-import { EmptyBooktalkImg } from '../../../assets/img';
+import { NewEmptyBooktalkImg } from '../../../assets/img';
 import { uesFetchMyInfo } from '../../../hooks/queries/mypage';
 
 function EmptyBookTalk() {
@@ -29,9 +29,11 @@ function EmptyBookTalk() {
       </Head>
       <HeadBlank />
       <Image
-        src={EmptyBooktalkImg}
+        src={NewEmptyBooktalkImg}
         alt="북토크가 없음을 나타내는 이미지"
         style={{ marginTop: '5.2rem' }}
+        width={375}
+        height={348}
       />
       <BookTalkEmpty>
         <BookTalkEmptyBold>아직 확정된 일정이 없어요</BookTalkEmptyBold>

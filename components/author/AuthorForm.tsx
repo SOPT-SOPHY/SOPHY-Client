@@ -512,12 +512,12 @@ const UploadInput = styled.input`
 `;
 const UploadText = styled.span`
   margin-top: 1.4rem;
-  font: ${theme.fonts.body2_medium};
+  ${theme.fonts.body2_medium};
   color: ${theme.colors.gray08};
 `;
 const FormHeading = styled.h1`
   margin-top: 3rem;
-  fonts: ${theme.fonts.subhead4_semibold};
+  ${theme.fonts.subhead4_semibold};
   color: ${theme.colors.gray01};
 `;
 const InputContainer = styled.div``;
@@ -529,21 +529,21 @@ const NumInputWrapper = styled.div`
 const NumInput = styled.input`
   width: inherit;
   border: none;
-  fonts: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
   border-radius: 0.6rem;
   border: none;
   outline: none;
 
   &::placeholder {
-    fonts: ${theme.fonts.body2_regular};
+    ${theme.fonts.body2_regular};
     color: ${theme.colors.gray08};
   }
 `;
 const WonSpan = styled.span`
   height: 4rem;
   padding-top: 1rem;
-  fonts: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
 `;
 const CheckBox = styled.div`
@@ -552,7 +552,7 @@ const CheckBox = styled.div`
   margin-top: 1.2rem;
   flex-direction: reverse;
   gap: 0.8rem;
-  fonts: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
 `;
 const ImageWrapper = styled.div``;
@@ -561,11 +561,11 @@ const TitleInput = styled.input`
   margin: 1rem 0rem;
   border: none;
   outline: none;
-  fonts: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
 
   &::placeholder {
-    fonts: ${theme.fonts.body2_regular};
+    ${theme.fonts.body2_regular};
     color: ${theme.colors.gray08};
   }
 `;
@@ -586,7 +586,7 @@ const CategoryContainer = styled.div<Props>`
   border: none;
   cursor: pointer;
   background: ${theme.colors.gray11};
-  fonts: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${({ setPrimary, setGray }) =>
     setGray
       ? theme.colors.gray08
@@ -619,7 +619,7 @@ const BookInfoContainer = styled.div`
   cursor: pointer;
 
   color: ${theme.colors.green08};
-  fonts: ${theme.fonts.body2_medium};
+  ${theme.fonts.body2_medium};
   background: ${theme.colors.green03};
 `;
 const BookInfoButton = styled.div``;
@@ -703,7 +703,7 @@ const EndHourInput = styled.input`
   }
 `;
 const SubDescription = styled.span`
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   color: ${theme.colors.gray07};
 `;
 const PreInfoContainer = styled.div`
@@ -721,7 +721,7 @@ const PreInfoButton = styled.div<Props>`
   border-radius: 2rem;
   border: none;
   cursor: pointer;
-  fonts: ${({ isClick }) =>
+  ${({ isClick }) =>
     isClick ? theme.fonts.body2_medium : theme.fonts.body2_regular};
   color: ${({ isClick }) =>
     isClick ? theme.colors.green01 : theme.colors.gray05};
@@ -749,7 +749,7 @@ const AuthorModalButton = styled.button`
   margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.white};
   border-radius: 0.375rem;
   background: ${theme.colors.green05};
@@ -762,7 +762,7 @@ const InactiveAuthorModalButton = styled.div`
   margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.gray07};
   border-radius: 0.375rem;
   background: ${theme.colors.gray11};

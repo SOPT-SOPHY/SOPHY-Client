@@ -44,13 +44,13 @@ const ConfirmSection = styled.div`
 `;
 const ConfirmTitle = styled.h1`
   margin-top: 2.4rem;
-  fonts: ${theme.fonts.headline3_bold};
+  ${theme.fonts.headline3_bold};
   color: ${theme.colors.black};
 `;
 const ConfirmSubTitle = styled.h2`
   margin-top: 0.8rem;
   margin-bottom: 9.3rem;
-  fonts: ${theme.fonts.body1_medium};
+  ${theme.fonts.body1_medium};
   color: ${theme.colors.gray06};
 `;
 
@@ -58,7 +58,7 @@ const ConfirmButton = styled.button`
   margin: 0 2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.white};
   border-radius: 0.375rem;
   background: ${theme.colors.green05};

@@ -729,7 +729,7 @@ const SignupButton = styled.button`
 
   border-radius: 0.6rem;
   border: none;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   background-color: ${(props) =>
     props.disabled ? theme.colors.gray11 : theme.colors.primary};
   color: ${(props) =>

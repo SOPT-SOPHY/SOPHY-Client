@@ -73,14 +73,14 @@ const List = styled.li<CategoryProps>`
 
   height: 4.4rem;
 
-  font: ${theme.fonts.body2_regular};
+  ${theme.fonts.body2_regular};
   color: ${theme.colors.gray01};
   z-index: 1;
   cursor: pointer;
 
   &:hover {
     background: ${theme.colors.green02};
-    font: ${theme.fonts.body2_medium};
+    ${theme.fonts.body2_medium};
     color: ${theme.colors.primary};
   }
 `;

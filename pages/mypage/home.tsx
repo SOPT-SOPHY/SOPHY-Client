@@ -328,6 +328,8 @@ const IconWrapper = styled.div`
   text-align: center;
   width: 4.9rem;
   height: 5.1rem;
+
+  cursor: pointer;
 `;
 
 const IconText = styled.div`

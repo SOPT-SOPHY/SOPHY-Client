@@ -5,12 +5,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import theme from '../styles/theme';
 import { PinIcon, PointIcon, ScheduleIcon } from '../assets/icon';
 
 export default function SimpleSlider(props: any) {
   const { data } = props;
-  // console.log(data);
+  const router = useRouter();
+  console.log(data);
   const settings = {
     dots: false,
     infinite: false,
@@ -27,7 +29,10 @@ export default function SimpleSlider(props: any) {
         <StyledSlider {...settings}>
           {data?.map((item: any) => (
             <ImageContainer key={item}>
-              <SlideCard>
+              <SlideCard
+                onClick={() =>
+                  router.push(`/booktalk/${item?.booktalk_id}/detail`)
+                }>
                 <SlideTitle>{item.title}</SlideTitle>
                 <SlideContent>
                   <Image
