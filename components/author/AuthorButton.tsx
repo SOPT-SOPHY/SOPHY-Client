@@ -6,7 +6,7 @@ import theme from '../../styles/theme';
 //   children: React.ReactNode;
 // }
 function AuthorButton() {
-  //   const { children } = props;
+  // const { children } = props;
 
   return <NextButton type="button">다음</NextButton>;
 }

@@ -112,7 +112,7 @@ function AuthorRegion() {
       </RegionSection>
       {isRegionValid ? (
         <Link href="space">
-          <AuthorButton>다음</AuthorButton>
+          <AuthorButton />
         </Link>
       ) : (
         <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
