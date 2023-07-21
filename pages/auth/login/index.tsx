@@ -46,8 +46,8 @@ function Login() {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
         password,
-        access_token_expired_time: 3000,
-        refresh_token_expired_time: 4000,
+        access_token_expired_time: 3600, // 1시간
+        refresh_token_expired_time: 1209600, // 2주
       });
 
       console.log(response);
