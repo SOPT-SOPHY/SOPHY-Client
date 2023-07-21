@@ -219,6 +219,8 @@ const ImageContainer = styled.div`
   width: 4.4rem;
   height: 4.4rem;
 
+  cursor: pointer;
+
   img {
     width: 4.4rem;
     height: 4.4rem;
