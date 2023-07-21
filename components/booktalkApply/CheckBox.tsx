@@ -3,6 +3,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import Cookies from 'js-cookie';
+import router from 'next/router';
 import useToast from '../../hooks/toast/useToast';
 import Toast from './Toast';
 import InactiveIcon from '../../assets/icon/checkbox_inactive.svg';
@@ -112,6 +113,16 @@ function CheckBox(props: any) {
       setShowError(true);
     } else {
       setShowError(false);
+
+      const accessToken = Cookies.get('accessToken');
+      const memberId = Cookies.get('memberId');
+
+      if (!accessToken || !memberId) {
+        alert('로그인 후에 신청 가능합니다.');
+        router.push('/auth');
+        return;
+      }
+
       try {
         const member_id = Cookies.get('memberId');
         mutate({ booktalk_id, member_id });
