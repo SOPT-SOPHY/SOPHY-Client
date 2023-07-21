@@ -29,6 +29,12 @@ const managingMyBook = () => {
     router.push('/mypage/home');
   };
 
+  const handleGoToLanding = () => {
+    router.push(
+      'https://spicy-gatsby-1c7.notion.site/ca91c889bb2b45239fe377054a86400e',
+    );
+  };
+
   return (
     <Body>
       <Layout noHeader noMenuBar noFooter>
@@ -65,7 +71,9 @@ const managingMyBook = () => {
           ))} */}
           </SingleMyBookContainer>
           <RegisterButtonWrapper>
-            <RegisterButton>작품 등록하기</RegisterButton>
+            <RegisterButton onClick={handleGoToLanding}>
+              작품 등록하기
+            </RegisterButton>
           </RegisterButtonWrapper>
         </Content>
       </Layout>
