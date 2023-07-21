@@ -92,20 +92,23 @@ function MySophy() {
         is_author={data?.is_author}
       />
       {data?.is_author ? (
-        <AuthorBooktalkManageWrapper>
-          <Image
-            src={AuthorBooktalkManageImg}
-            alt="북토크 관리하기 이미지"
-            width={193}
-            height={42}
-            style={{ marginLeft: '2.8rem' }}
-          />
-          <Image
-            src={AuthorBooktalkManageMoreIcon}
-            alt="더 보기 아이콘"
-            style={{ marginLeft: '11rem' }}
-          />
-        </AuthorBooktalkManageWrapper>
+        <>
+          <AuthorBooktalkManageWrapper>
+            <Image
+              src={AuthorBooktalkManageImg}
+              alt="북토크 관리하기 이미지"
+              width={193}
+              height={42}
+              style={{ marginLeft: '2.8rem', marginBottom: '2.4rem' }}
+            />
+            <Image
+              src={AuthorBooktalkManageMoreIcon}
+              alt="더 보기 아이콘"
+              style={{ marginLeft: '11rem' }}
+            />
+          </AuthorBooktalkManageWrapper>
+          <Devider style={{ marginBottom: '3.2rem' }} />
+        </>
       ) : (
         <></>
       )}

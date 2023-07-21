@@ -14,7 +14,6 @@ import theme from '../../styles/theme';
 import Layout from '../../components/Layout';
 import HomeTopImg from '../../assets/img/HomeTopImg.png';
 import {
-  MainLogoIcon,
   BooktalkScheduleIcon,
   HomeMoreIcon,
   PinIcon,
@@ -36,6 +35,7 @@ import {
   uesFetchNonMemberHome,
 } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
+import { NewLogoWhite } from '../../assets/img';
 
 function Home() {
   const router = useRouter();
@@ -203,12 +203,14 @@ function Home() {
   */}
       <TopBackground image={HomeTopImg}>
         <Image
-          src={MainLogoIcon}
+          src={NewLogoWhite}
           alt="로고 이미지"
+          width={87}
+          height={23}
           style={{
-            marginTop: '4.7rem',
-            marginLeft: '1.4rem',
-            marginBottom: '1.7rem',
+            marginTop: '5.5rem',
+            marginLeft: '2rem',
+            marginBottom: '2.3rem',
           }}
         />
         <TopText>
