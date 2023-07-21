@@ -126,7 +126,22 @@ function BTInfo({
 
   const decodeCategory = encodeCategory(book_category);
 
-  // const encodePreliminary = (preliminary: string) => {
+  const encodePreliminary = (preliminary: string) => {
+    switch (preliminary) {
+      case 'PRE_READING':
+        return '미리 읽어와주세요';
+      case 'PROVIDE_EXCERPT':
+        return '발췌문을 드려요';
+      case 'COMFORTABLE_COMING':
+        return '편하게 와주세요';
+      case 'PREPARE_QUESTION':
+        return '질문을 준비해주세요';
+      default:
+        return '';
+    }
+  };
+
+  const decodePreliminary = encodePreliminary(preliminary_info);
 
   return (
     <>
@@ -234,7 +249,7 @@ function BTInfo({
           <InfoCategory>사전정보</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{preliminary_info}</BtTitle>
+          <BtTitle>{decodePreliminary}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
