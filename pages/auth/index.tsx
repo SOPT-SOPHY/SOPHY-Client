@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 */
 import Image from 'next/image';
 import Layout from '../../components/Layout';
-import { sophyLogoImg, loginhomeImg } from '../../assets/img';
+import { loginhomeImg, NewLogo } from '../../assets/img';
 import theme from '../../styles/theme';
 
 function Auth() {
@@ -24,11 +24,11 @@ function Auth() {
     <Layout noHeader noMenuBar noFooter>
       <LoginWrapper>
         <Image
-          src={sophyLogoImg}
-          width={161}
-          height={58}
+          src={NewLogo}
+          width={159}
+          height={42}
           alt="sophy 로고"
-          style={{ marginTop: '5.9rem' }}
+          style={{ marginTop: '5.9rem', marginBottom: '1.2rem' }}
         />
         <Title>모든 순간 언제나 소피와 함께</Title>
         <Image
