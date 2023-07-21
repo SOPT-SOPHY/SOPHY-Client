@@ -159,6 +159,7 @@
 |-- 📁 pages
        |-- 📁 auth
        |-- 📁 author
+       |-- 📁 booktalk
        |-- 📁 booktalkApply
        |-- 📁 home
        |-- 📁 mypage
