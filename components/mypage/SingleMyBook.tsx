@@ -5,7 +5,19 @@ import rectangleBook from '../../assets/img/rectangleBook.png';
 import MyBookNextIcon from '../../assets/icon/MyBookNextIcon.svg';
 import MyBookNextIconGray from '../../assets/icon/MyBookNextIconGray.svg';
 
-function SingleMyBook() {
+interface SingleMyBookProps {
+  title: string;
+  bookCategory: string;
+  booktalkOpenCount: number;
+  isRegistration: boolean;
+}
+
+function SingleMyBook({
+  title,
+  bookCategory,
+  booktalkOpenCount,
+  isRegistration,
+}: SingleMyBookProps) {
   return (
     <>
       <MyBookWrapper>
@@ -19,32 +31,35 @@ function SingleMyBook() {
             />
           </MyBookImageContainer>
           <MyBookInfoContainer>
-            <MyBookTitle>주니어 기획자를 위한 개론서</MyBookTitle>
-            <MyBookCategory>IT/컴퓨터</MyBookCategory>
-            <MyBooktalkCount>출판사</MyBooktalkCount>
+            <MyBookTitle>{title}</MyBookTitle>
+            <MyBookCategory>{bookCategory}</MyBookCategory>
+            <MyBooktalkCount>{booktalkOpenCount}</MyBooktalkCount>
           </MyBookInfoContainer>
-          <BooktalkRegistrationTrue>
-            이 책으로 북토크 열러가기
-            <Image
-              src={MyBookNextIcon}
-              width={5.647}
-              height={9.882}
-              alt="북토크 등록하기"
-            />
-          </BooktalkRegistrationTrue>
-          <BooktalkRegistrationFalse>
-            등록 심사중
-            <Image
-              src={MyBookNextIconGray}
-              width={5.647}
-              height={9.882}
-              alt="북토크 등록하기"
-            />
-          </BooktalkRegistrationFalse>
+          {isRegistration ? (
+            <BooktalkRegistrationTrue>
+              이 책으로 북토크 열러가기
+              <Image
+                src={MyBookNextIcon}
+                width={5.647}
+                height={9.882}
+                alt="북토크 등록하기"
+              />
+            </BooktalkRegistrationTrue>
+          ) : (
+            <BooktalkRegistrationFalse>
+              등록 심사중
+              <Image
+                src={MyBookNextIconGray}
+                width={5.647}
+                height={9.882}
+                alt="북토크 등록하기"
+              />
+            </BooktalkRegistrationFalse>
+          )}
         </MyBookContainer>
-        {/* <HorizontalLine /> */}
+        <HorizontalLine />
       </MyBookWrapper>
-      <HorizontalLine />
+      {/* <HorizontalLine /> */}
     </>
   );
 }
@@ -52,10 +67,12 @@ function SingleMyBook() {
 export default SingleMyBook;
 
 const MyBookWrapper = styled.div`
-  display: flex;
+  /* display: flex;
 
   width: 33.3rem;
-  height: 13.3rem;
+  height: 13.3rem; */
+  /* margin-top: 1.6rem; */
+  margin-bottom: 1.6rem;
 `;
 
 const MyBookContainer = styled.div`
