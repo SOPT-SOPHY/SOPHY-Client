@@ -104,16 +104,20 @@ function AuthorSpace() {
 
 export default AuthorSpace;
 const Space = styled.div`
+  width: 33.5rem;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Layout = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 14rem;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 33.5rem;
+  height: 14rem;
   background: ${theme.colors.white};
 `;
 
@@ -143,6 +147,7 @@ const SpaceSection = styled.div`
   flex-direction: column;
   margin-top: 14rem; //14 + 3
 
+  width: 100%;
   height: 51.8rem;
   overflow-y: auto;
 `;
