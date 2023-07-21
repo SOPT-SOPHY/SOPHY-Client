@@ -201,11 +201,13 @@ const BooktalkRegistrationFalse = styled.button`
 
   position: absolute;
 
-  margin-left: 22.3rem;
+  margin-left: 23.8rem;
   margin-top: 8.9rem;
-  /* margin-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
 
-  padding: 0.6rem 0.8rem; */
+  padding: 0.6rem 0.8rem;
+
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.gray05};
   ${({ theme }) => theme.fonts.body3_regular};
