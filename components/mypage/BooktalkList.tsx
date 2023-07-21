@@ -1,126 +1,50 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import MypageLayout from './@MypageLayout';
 import theme from '../../styles/theme';
 import { PeopleIcon } from '../../assets/icon';
 import { getDate } from '../../utils/date';
+import { uesFetchMypage } from '../../hooks/queries/mypage';
 
 function BooktalkList() {
-  const booktalks = [
-    {
-      booktalk_id: 1,
-      booktalk_image_url: 'dwqE@EWQDQFQEWQ',
-      title: '테스트 타이틀',
-      author: '작가',
-      start_date: '2023-07-13T13:00:00',
-      end_date: '2023-07-13T15:00:00',
-      place: '장소',
-      participant: 1,
-      maximum: 6,
-      booktalk_status: 'RECRUITING',
-    },
-    {
-      booktalk_id: 2,
-      booktalk_image_url: 'dwqE@EWQDQFQEWQ',
-      title: '테스트 타이틀2',
-      author: '작가',
-      start_date: '2023-07-18T16:00:00',
-      end_date: '2023-07-18T18:00:00',
-      place: '장소',
-      participant: 1,
-      maximum: 6,
-      booktalk_status: 'PLACE_CONFIRMED',
-    },
-    {
-      booktalk_id: 3,
-      booktalk_image_url: 'dwqE@EWQDQFQEWQ',
-      title: '테스트 타이틀3',
-      author: '작가',
-      start_date: '2023-08-13T13:00:00',
-      end_date: '2023-08-13T15:00:00',
-      place: '장소',
-      participant: 1,
-      maximum: 6,
-      booktalk_status: 'RECRUITING',
-    },
-    {
-      booktalk_id: 4,
-      booktalk_image_url: 'dwqE@EWQDQFQEWQ',
-      title: '테스트 타이틀4',
-      author: '작가',
-      start_date: '2023-10-18T16:00:00',
-      end_date: '2023-10-18T18:00:00',
-      place: '장소',
-      participant: 1,
-      maximum: 6,
-      booktalk_status: 'PLACE_CONFIRMED',
-    },
-  ];
+  const { mypage } = uesFetchMypage();
 
-  // 날짜와 북토크객체의 쌍을 이루는 객체를 만들어주는 함수
-  const newBookTalkList = {};
-  const yearMonthList = [];
-  const handleBooktalkByDate = (year: number, month: number, id: number) => {
-    const yearMonth = `${year}${month}`;
-    if (Object.keys(newBookTalkList).includes(yearMonth)) {
-      newBookTalkList[yearMonth].push(id);
-    } else {
-      newBookTalkList[yearMonth] = [id];
-      yearMonthList.push(yearMonth);
-    }
-  };
-
-  useEffect(() => {
-    booktalks.map((booktalk) =>
-      handleBooktalkByDate(
-        getDate(booktalk.start_date).year,
-        getDate(booktalk.start_date).month,
-        booktalk.booktalk_id,
-      ),
-    );
-    for (let i = 0; i < yearMonthList.length; i += 1) {
-      //   newBookTalkList[yearMonthList[i]].map((id) => {
-      //     console.log(yearMonthList[i]);
-      //     console.log(booktalks[id - 1]);
-      //   });
-    }
-  }, [booktalks]);
-
+  const booktalkList = mypage?.my_page_booktalk_dtos;
+  //   getDate(booktalk?.start_date).year;
+  //   getDate(booktalk?.start_date).month;
   return (
     <>
       <MypageLayout title="예정된 북토크" />
       <BooktalkByMonthSection>
-        {newBookTalkList[yearMonthList[0]]?.map((id) => (
-          <>
-            <BooktalkByMonthHeader>
-              <Month>7</Month>
-              <Number>2건</Number>
-            </BooktalkByMonthHeader>
-            <BooktalkByMonthWrapper>
-              <Divider />
+        <BooktalkByMonthHeader>
+          <Month>7</Month>
+          <Number>2건</Number>
+        </BooktalkByMonthHeader>
+        {booktalkList &&
+          booktalkList.map((booktalk) => (
+            <BooktalkByMonthWrapper key={booktalk?.booktalk_id}>
               <BooktalkByMonth>
                 <BooktalkImage>
-                  {/* <Image /> */}
                   <ImageCaption>D-16</ImageCaption>
                 </BooktalkImage>
                 <BooktalkInfo>
-                  <Title>{booktalks[id - 1].title}</Title>
-                  <Author>{booktalks[id - 1].author}</Author>
+                  <Title>{booktalk?.title}</Title>
+                  <Author>{booktalk?.author}</Author>
                   <DateHour>
                     <Date>
-                      {getDate(booktalks[id - 1].start_date).year}년{' '}
-                      {getDate(booktalks[id - 1].start_date).month}월{' '}
-                      {getDate(booktalks[id - 1].start_date).date}일
+                      {getDate(booktalk?.start_date).year}년{' '}
+                      {getDate(booktalk?.start_date).month}월{' '}
+                      {getDate(booktalk?.start_date).date}일
                     </Date>
                     <Dot />
                     <Hour>
-                      {getDate(booktalks[id - 1].start_date).hour}시~
-                      {getDate(booktalks[id - 1].end_date).hour}시
+                      {getDate(booktalk?.start_date).hour}시~
+                      {getDate(booktalk?.end_date).hour}시
                     </Hour>
                   </DateHour>
                   <SpacePeopleWrapper>
-                    <Space>{booktalks[id - 1].place}</Space>
+                    <Space>{booktalk?.place}</Space>
                     <BooktalkPeople>
                       <Image
                         src={PeopleIcon}
@@ -128,16 +52,15 @@ function BooktalkList() {
                         width={24}
                         height={24}
                       />
-                      <span>{booktalks[id - 1].participant}</span>/
-                      {booktalks[id - 1].maximum}
+                      <span>{booktalk?.participant}</span>/{booktalk?.maximum}
                     </BooktalkPeople>
                   </SpacePeopleWrapper>
                 </BooktalkInfo>
               </BooktalkByMonth>
               <Divider />
             </BooktalkByMonthWrapper>
-          </>
-        ))}
+          ))}
+
         <Footer>
           신청 취소를 원하실 경우 소피 공식 이메일
           (sophykoreaofficial@gmail.com) 로 문의를 남겨주세요
