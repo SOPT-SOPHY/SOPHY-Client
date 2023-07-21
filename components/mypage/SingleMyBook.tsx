@@ -33,7 +33,7 @@ function SingleMyBook({
           <MyBookInfoContainer>
             <MyBookTitle>{title}</MyBookTitle>
             <MyBookCategory>{bookCategory}</MyBookCategory>
-            <MyBooktalkCount>{booktalkOpenCount}</MyBooktalkCount>
+            <MyBooktalkCount>북토크 개최 {booktalkOpenCount}회</MyBooktalkCount>
           </MyBookInfoContainer>
           {isRegistration ? (
             <BooktalkRegistrationTrue>
