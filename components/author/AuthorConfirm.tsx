@@ -2,14 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { logincompleteImg } from '../../assets/img';
 import theme from '../../styles/theme';
-import AuthorLayout from './@AuthorLayout';
+import { BackButton } from '../../assets/icon';
 
 function AuthorConfirm() {
   return (
     <Confirm>
-      <AuthorLayout noPageNum noPageTitle title="" />
+      <Layout>
+        <Header>
+          <Link href="/home">
+            <Image
+              src={BackButton}
+              alt="뒤로가기"
+              height={44}
+              width={44}
+              style={{
+                marginLeft: '-17px',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
+        </Header>
+      </Layout>
       <ConfirmSection>
         <Image
           src={logincompleteImg}
@@ -32,6 +48,15 @@ function AuthorConfirm() {
   );
 }
 export default AuthorConfirm;
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+`;
 const Confirm = styled.div`
   display: flex;
   flex-direction: column;

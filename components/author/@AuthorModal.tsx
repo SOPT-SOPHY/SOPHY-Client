@@ -28,7 +28,9 @@ function AuthorModal({ onClose }: any) {
         />
         <ModalTitle>북토크 개설을 신청하시겠어요?</ModalTitle>
         <ModalSubTitle>
-          공간 매칭 완료 전까지 북토크 철회가 가능해요
+          공간 확정 후 익일 10시부터 청중 모집을 시작해요
+          <br />
+          매칭 완료 전까지 북토크 철회가 가능해요
         </ModalSubTitle>
         <ButtonWrapper>
           <ModalCancelButton type="button" onClick={onClose}>
@@ -68,7 +70,7 @@ const Modal = styled.div`
   align-items: center;
 
   width: 33.5rem;
-  height: 23rem;
+  height: 24.3rem;
 
   background-color: ${theme.colors.white};
   border-radius: 1.2rem;
@@ -79,6 +81,7 @@ const ModalTitle = styled.h1`
   color: ${theme.colors.black};
 `;
 const ModalSubTitle = styled.h2`
+  text-align: center;
   margin-top: 0.6rem;
   ${theme.fonts.body2_medium};
   color: ${theme.colors.gray06};

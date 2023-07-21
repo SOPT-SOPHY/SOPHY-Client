@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 import theme from '../../styles/theme';
 import ModalPortal from '../ModalPortal';
 import AuthorModal from './@AuthorModal';
@@ -310,10 +311,12 @@ function AuthorForm() {
         </DropDownWrapper>
 
         <FormHeading>도서 정보 불러오기</FormHeading>
-        <BookInfoContainer>
-          <BookInfoButton>내 도서 관리로 이동하기</BookInfoButton>
-          <Image src={NextButton} alt="이동버튼" width={24} height={24} />
-        </BookInfoContainer>
+        <Link href="/mypage/managingMyBook">
+          <BookInfoContainer>
+            <BookInfoButton>내 도서 관리로 이동하기</BookInfoButton>
+            <Image src={NextButton} alt="이동버튼" width={24} height={24} />
+          </BookInfoContainer>
+        </Link>
         <FormHeading>개최 일정</FormHeading>
         <DayContainer>
           <Image src={ScheduleBigIcon} alt="달력" width={24} height={24} />
