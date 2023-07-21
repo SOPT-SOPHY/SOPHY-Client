@@ -129,17 +129,17 @@ const Header = styled.header`
 const PageNumber = styled.h1`
   margin-top: 0.8rem;
   color: ${theme.colors.gray06};
-  font: ${theme.fonts.subhead2_medium};
+  ${theme.fonts.subhead2_medium};
   & > span {
     margin-right: 0.19rem;
     color: #56b5b3;
-    font: ${theme.fonts.headline3_bold};
+    ${theme.fonts.headline3_bold};
   }
 `;
 
 const PageTitle = styled.h1`
   margin-top: 1.6rem;
-  font: ${theme.fonts.headline2};
+  ${theme.fonts.headline2};
 `;
 
 const SpaceSection = styled.div`
@@ -182,18 +182,18 @@ const SpaceInfo = styled.div<SpaceProps>`
 `;
 const SpaceName = styled.h1`
   margin-bottom: 0.6rem;
-  fonts: ${theme.fonts.body2_bold};
+  ${theme.fonts.body2_bold};
   /* color: ${theme.colors.black}; */
 `;
 const SpaceAddress = styled.h2`
   margin-bottom: 0.8rem;
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   /* color: ${theme.colors.black}; */
 `;
 const MaxPeople = styled.span`
   display: flex;
   gap: 0.4rem;
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   color: ${theme.colors.green05};
 `;
 const Divider = styled.div`
@@ -208,7 +208,7 @@ const InactiveAuthorModalButton = styled.div`
   margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.gray07};
   border-radius: 0.375rem;
   background: ${theme.colors.gray11};

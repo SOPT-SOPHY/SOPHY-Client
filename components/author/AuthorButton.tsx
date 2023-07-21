@@ -16,7 +16,7 @@ const NextButton = styled.button`
   margin: 0 2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.white};
   border-radius: 0.375rem;
   background: ${theme.colors.green05};

@@ -61,15 +61,15 @@ const Header = styled.header`
 const PageNumber = styled.h1`
   margin-top: 0.8rem;
   color: ${theme.colors.gray06};
-  font: ${theme.fonts.subhead2_medium};
+  ${theme.fonts.subhead2_medium};
   & > span {
     margin-right: 0.19rem;
     color: #56b5b3;
-    font: ${theme.fonts.headline3_bold};
+    ${theme.fonts.headline3_bold};
   }
 `;
 
 const PageTitle = styled.h1`
   margin-top: 1.6rem;
-  font: ${theme.fonts.headline2};
+  ${theme.fonts.headline2};
 `;

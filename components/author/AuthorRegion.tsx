@@ -148,7 +148,7 @@ const UpperRegion = styled.div`
   border: none;
 
   background: ${theme.colors.green05};
-  fonts: ${theme.fonts.subhead4_bold};
+  ${theme.fonts.subhead4_bold};
   color: ${theme.colors.green01};
 `;
 const Divider = styled.div`
@@ -178,7 +178,7 @@ const Regions = styled.div<RegionProps>`
   padding-right: 0.8rem;
 
   cursor: pointer;
-  fonts: ${theme.fonts.body1_medium};
+  ${theme.fonts.body1_medium};
   color: ${({ isClick }) =>
     isClick ? theme.colors.primary : theme.colors.gray02};
 `;
@@ -192,7 +192,7 @@ const InactiveAuthorModalButton = styled.div`
   margin-bottom: 11.2rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.gray07};
   border-radius: 0.375rem;
   background: ${theme.colors.gray11};
