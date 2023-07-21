@@ -54,7 +54,7 @@ function AuthorSpace() {
               height={44}
               width={44}
               style={{
-                marginLeft: '-17px',
+                marginLeft: '-21px',
                 cursor: 'pointer',
               }}
             />
