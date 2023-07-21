@@ -234,6 +234,7 @@ const Header = styled.div`
   flex-shrink: 0;
 
   position: fixed;
+  top: 0;
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
