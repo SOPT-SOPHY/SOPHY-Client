@@ -143,6 +143,10 @@ function CheckBox(props: any) {
         // } else {
         //   console.log('response.data가 없음');
         // }
+
+        setTimeout(() => {
+          router.push('../../mypage/home');
+        }, 3000);
       } catch (error) {
         console.error('북토크 신청 에러 발생', error);
       }
