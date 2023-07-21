@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { HomeBannerImg } from '../assets/img';
+import { HomeBannerImg, SecondBannerImg, ThirdBannerImg } from '../assets/img';
 import theme from '../styles/theme';
 
 export default function SimpleSlider() {
@@ -40,7 +40,7 @@ export default function SimpleSlider() {
         </ImageContainer>
         <ImageContainer>
           <Image
-            src={HomeBannerImg}
+            src={SecondBannerImg}
             alt="배너 이미지"
             width={313}
             height={84}
@@ -53,7 +53,7 @@ export default function SimpleSlider() {
         </ImageContainer>
         <ImageContainer>
           <Image
-            src={HomeBannerImg}
+            src={ThirdBannerImg}
             alt="배너 이미지"
             width={313}
             height={84}
