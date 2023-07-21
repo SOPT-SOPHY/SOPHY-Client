@@ -116,7 +116,9 @@ function ManagingInfo() {
       name: myInfo.name,
       phone_num: myInfo.phone_num,
       gender,
-      birth: `${birthYear}${birthMonth}${birthDay}`,
+      birth: `${birthYear !== undefined ? birthYear : null}${
+        birthMonth !== undefined ? birthMonth : null
+      }${birthDay !== undefined ? birthDay : null}`,
       city: region,
       marketing_agree: marketingTerm,
     });
