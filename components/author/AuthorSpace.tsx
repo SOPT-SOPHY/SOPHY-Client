@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
 import { BackButton, PeopleIcon } from '../../assets/icon';
@@ -32,11 +31,7 @@ function AuthorSpace() {
   const setSelectedSpaces = useSetRecoilState(spaceSelect); // 각 지역 선택
   const [clickedId, setClickedId] = useState<number>(-1);
   const [isSpaceValid, setIsSpaceValid] = useState<boolean>(false);
-  const router = useRouter();
 
-  const handleGoBack = () => {
-    router.back();
-  };
   const handleClickSpaces = (index: number) => {
     setClickedId(index);
   };
@@ -52,17 +47,18 @@ function AuthorSpace() {
     <Space>
       <Layout>
         <Header>
-          <Image
-            src={BackButton}
-            alt="뒤로가기"
-            onClick={handleGoBack}
-            height={44}
-            width={44}
-            style={{
-              marginLeft: '-17px',
-              cursor: 'pointer',
-            }}
-          />
+          <Link href="/author/region">
+            <Image
+              src={BackButton}
+              alt="뒤로가기"
+              height={44}
+              width={44}
+              style={{
+                marginLeft: '-17px',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
           <PageNumber>
             <span>2</span>/ 3
           </PageNumber>
@@ -108,16 +104,20 @@ function AuthorSpace() {
 
 export default AuthorSpace;
 const Space = styled.div`
+  width: 33.5rem;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Layout = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 14rem;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 33.5rem;
+  height: 14rem;
   background: ${theme.colors.white};
 `;
 
@@ -147,6 +147,7 @@ const SpaceSection = styled.div`
   flex-direction: column;
   margin-top: 14rem; //14 + 3
 
+  width: 100%;
   height: 51.8rem;
   overflow-y: auto;
 `;

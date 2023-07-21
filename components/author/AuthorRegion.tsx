@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useSetRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import AuthorButton from './AuthorButton';
-import { ColorCheckIcon } from '../../assets/icon/index';
-import AuthorLayout from './@AuthorLayout';
+import { ColorCheckIcon, BackButton } from '../../assets/icon/index';
 import { regionSelect } from '../../atoms/selector';
 
 interface RegionProps {
@@ -67,12 +66,26 @@ function AuthorRegion() {
 
   return (
     <Region>
-      <AuthorLayout
-        noPageNum={false}
-        noPageTitle={false}
-        pageNum="1"
-        title="지역을 선택해주세요"
-      />
+      <Layout>
+        <Header>
+          <Link href="/home">
+            <Image
+              src={BackButton}
+              alt="뒤로가기"
+              height={44}
+              width={44}
+              style={{
+                marginLeft: '-17px',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
+          <PageNumber>
+            <span>1</span>/ 3
+          </PageNumber>
+          <PageTitle>지역을 선택해주세요</PageTitle>
+        </Header>
+      </Layout>
       <RegionSection>
         <RegionWrapper>
           <UpperRegion>의정부</UpperRegion>
@@ -82,22 +95,8 @@ function AuthorRegion() {
               onClick={() => handleClickAllRegions()}
               isClick={!isAllClicked}>
               의정부시 전체
-              <ImageContainer isClick={!isAllClicked}>
-                <Image
-                  src={ColorCheckIcon}
-                  alt="체크 표시"
-                  width={16}
-                  height={12}
-                />
-              </ImageContainer>
-            </Regions>
-            {regions.map((region, index) => (
-              <Regions
-                key={region}
-                onClick={() => handleClickRegions(index)}
-                isClick={clickedId === index || !isAllClicked}>
-                {region}
-                <ImageContainer isClick={clickedId === index || !isAllClicked}>
+              {!isAllClicked ? (
+                <ImageContainer isClick={!isAllClicked}>
                   <Image
                     src={ColorCheckIcon}
                     alt="체크 표시"
@@ -105,6 +104,29 @@ function AuthorRegion() {
                     height={12}
                   />
                 </ImageContainer>
+              ) : (
+                <div />
+              )}
+            </Regions>
+            {regions.map((region, index) => (
+              <Regions
+                key={region}
+                onClick={() => handleClickRegions(index)}
+                isClick={clickedId === index || !isAllClicked}>
+                {region}
+                {clickedId === index || !isAllClicked ? (
+                  <ImageContainer
+                    isClick={clickedId === index || !isAllClicked}>
+                    <Image
+                      src={ColorCheckIcon}
+                      alt="체크 표시"
+                      width={16}
+                      height={12}
+                    />
+                  </ImageContainer>
+                ) : (
+                  <div />
+                )}
               </Regions>
             ))}
           </LowerRegion>
@@ -122,15 +144,46 @@ function AuthorRegion() {
 }
 
 export default AuthorRegion;
+
 const Region = styled.div`
+  width: 33.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const Layout = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
-const RegionSection = styled.div`
-  width: 33.5rem;
-  height: 50rem;
-  margin: 2.4rem 0rem 4.5rem 0rem;
 
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PageNumber = styled.h1`
+  margin-top: 0.8rem;
+  color: ${theme.colors.gray06};
+  ${theme.fonts.subhead2_medium};
+  & > span {
+    margin-right: 0.19rem;
+    color: #56b5b3;
+    ${theme.fonts.headline3_bold};
+  }
+`;
+
+const PageTitle = styled.h1`
+  margin-top: 1.6rem;
+  ${theme.fonts.headline2};
+`;
+const RegionSection = styled.div`
+  width: 100%;
+  height: 50rem;
+
+  margin: 2.4rem 0rem 4.5rem 0rem;
   border-radius: 0.8rem;
   border: none;
   background: ${theme.colors.gray11};
@@ -182,8 +235,9 @@ const Regions = styled.div<RegionProps>`
   color: ${({ isClick }) =>
     isClick ? theme.colors.primary : theme.colors.gray02};
 `;
+
 const ImageContainer = styled.div<{ isClick: boolean }>`
-  display: ${({ isClick }) => (isClick ? 'block' : 'none')};
+  /* display: ${({ isClick }) => (isClick ? 'block' : 'none')}; */
 `;
 const InactiveAuthorModalButton = styled.div`
   display: flex;

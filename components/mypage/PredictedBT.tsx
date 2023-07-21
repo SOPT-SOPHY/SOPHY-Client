@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+
+import Link from 'next/link';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 // import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -19,15 +21,18 @@ function PredictedBT(props: any) {
         {booktalkList?.length === 0 ? (
           <></>
         ) : (
-          <MoreWrapper>
-            <More>더보기</More>
-            <Image
-              src={NextIcon}
-              width={20}
-              height={20}
-              alt="유저 정보 수정 아이콘"
-            />
-          </MoreWrapper>
+          <Link href="/mypage/bookedBookTalk">
+            {' '}
+            <MoreWrapper>
+              <More>더보기</More>
+              <Image
+                src={NextIcon}
+                width={20}
+                height={20}
+                alt="유저 정보 수정 아이콘"
+              />
+            </MoreWrapper>
+          </Link>
         )}
       </Header>
       <PredictedBTSlider booktalkList={booktalkList} />
