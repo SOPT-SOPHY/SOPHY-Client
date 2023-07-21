@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Image from 'next/image';
-import { SophyStoryRomanceCard, SophyStoryMoneyCard } from '../assets/img';
+import { SophyStoryRedCardImg, SophyStoryBlueCardImg } from '../assets/img';
 import theme from '../styles/theme';
 
-export default function SophyStorySlider() {
+export default function SophyStorySlider(props: any) {
+  const { sophyStory } = props;
   // console.log(data);
   const settings = {
     dots: true,
@@ -24,30 +24,25 @@ export default function SophyStorySlider() {
     <ContainerWrapper>
       <Container>
         <StyledSlider {...settings}>
-          <ImageContainer>
-            <Image
-              src={SophyStoryRomanceCard}
-              alt="로맨스 카드"
-              width={303}
-              height={323}
-            />
-          </ImageContainer>
-          <ImageContainer>
-            <Image
-              src={SophyStoryMoneyCard}
-              alt="화폐 카드"
-              width={303}
-              height={323}
-            />
-          </ImageContainer>
-          <ImageContainer>
-            <Image
-              src={SophyStoryRomanceCard}
-              alt="로맨스 카드"
-              width={303}
-              height={323}
-            />
-          </ImageContainer>
+          {sophyStory?.map((item: any) => (
+            <ImageContainer key={item}>
+              <SophyStoryCard
+                image={
+                  item?.book_category === 'LITERATURE'
+                    ? SophyStoryRedCardImg
+                    : SophyStoryBlueCardImg
+                }>
+                <CardTitle>{item?.title}</CardTitle>
+                <BookName>「{item?.book_name}」</BookName>
+                <AuthorName>{item?.author_name} 작가</AuthorName>
+                <DateAndPlace>
+                  {item?.booktalk_date?.slice(2, 4)}년{' '}
+                  {item?.booktalk_date?.slice(5, 7)}월{' '}
+                  {item?.booktalk_date?.slice(8, 10)}일 {item?.place_name}
+                </DateAndPlace>
+              </SophyStoryCard>
+            </ImageContainer>
+          ))}
         </StyledSlider>
       </Container>
     </ContainerWrapper>
@@ -109,4 +104,44 @@ const ImageContainer = styled.div`
   height: 32.3rem;
   display: flex;
   align-items: center;
+`;
+
+const SophyStoryCard = styled.div<{ image: any }>`
+  background-image: url(${(props) => props.image.src});
+  width: 100%;
+  height: 37.9rem;
+  background-size: 100%;
+  background-repeat: no-repeat;
+`;
+
+const CardTitle = styled.div`
+  width: 13rem;
+  ${theme.fonts.headline2_bold};
+  color: ${theme.colors.white};
+
+  margin-left: 3.5rem;
+  padding-top: 9.8rem;
+`;
+
+const BookName = styled.div`
+  ${theme.fonts.body2_medium};
+  color: rgba(255, 255, 255, 0.75);
+
+  padding-top: 0.8rem;
+  margin-left: 3.5rem;
+`;
+
+const AuthorName = styled.div`
+  ${theme.fonts.body2_medium};
+  color: rgba(255, 255, 255, 0.75);
+
+  margin-left: 3.5rem;
+  margin-bottom: 6.1rem;
+`;
+
+const DateAndPlace = styled.div`
+  ${theme.fonts.body3_regular};
+  color: rgba(255, 255, 255, 0.75);
+
+  margin-left: 3.5rem;
 `;

@@ -40,7 +40,7 @@ function EmptyBookTalk() {
       <OurRegionBookTalkButton
         onClick={() => {
           if (myInfo?.city === null) {
-            router.push('/booktalk/search/의정부시%20전체');
+            router.push('/booktalk/search/UIJEONGBU_SI');
           } else {
             router.push(`/booktalk/search/${myInfo?.city}`);
           }

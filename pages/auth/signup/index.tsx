@@ -50,11 +50,13 @@ function Signup() {
   const [onlyEssentialAgreed, setOnlyEssentialAgreed] = useState(false);
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isDuplicatedEmailChecked, setIsDuplicatedEmailChecked] =
+    useState(false);
 
   const { mutate, data, isError } = usePostDuplicatedEmail();
 
   useEffect(() => {
-    if (!isError) {
+    if (isError === false) {
       setIsEmailAvailable(true);
     } else {
       setIsEmailAvailable(false);
@@ -78,6 +80,30 @@ function Signup() {
     console.log(e.target.value);
     mutate({ email });
     console.log(data);
+    setIsDuplicatedEmailChecked(true);
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(`${baseURL}/auth/login`, {
+        email,
+        password,
+        access_token_expired_time: 3000,
+        refresh_token_expired_time: 4000,
+      });
+
+      console.log(response);
+
+      // eslint-disable-next-line camelcase
+      const { access_token, refresh_token, member_id } = response.data.data;
+      console.log(access_token);
+
+      Cookies.set('accessToken', access_token);
+      Cookies.set('refreshToken', refresh_token);
+      Cookies.set('memberId', member_id);
+    } catch (error) {
+      console.error('로그인 에러 발생', error);
+    }
   };
 
   const handleSignup = async () => {
@@ -96,6 +122,8 @@ function Signup() {
       Cookies.set('token', token);
 
       router.push('/auth/firstSignup');
+
+      handleLogin();
     } catch (e: any) {
       console.log(e);
     }
@@ -157,7 +185,8 @@ function Signup() {
       confirmPassword &&
       name &&
       phone &&
-      term
+      term &&
+      isDuplicatedEmailChecked
     ) {
       setIsFormValid(true);
     } else {
@@ -173,6 +202,7 @@ function Signup() {
     phone,
     onlyEssentialAgreed,
     allAgreed,
+    isDuplicatedEmailChecked,
   ]);
 
   const handleGoBack = () => {
@@ -183,6 +213,15 @@ function Signup() {
     const koreanRegex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]*$/;
     if (koreanRegex.test(e.target.value)) {
       setName(e.target.value);
+    } else {
+      e.target.value = '';
+    }
+  };
+
+  const handleConfirmPassword = (e: any) => {
+    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+    if (alphanumericRegex.test(e.target.value)) {
+      setConfirmPassword(e.target.value);
     } else {
       e.target.value = '';
     }
@@ -290,7 +329,7 @@ function Signup() {
           type="password"
           placeholder="비밀번호를 다시 입력해주세요."
           value={confirmPassword}
-          onChange={(e: any) => setConfirmPassword(e.target.value)}
+          onChange={handleConfirmPassword}
         />
       </InputWrapper>
       <ConfirmPasswordLine

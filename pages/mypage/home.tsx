@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
+  AuthorAuthorizationIcon,
+  AuthorBooktalkManageMoreIcon,
   AuthorCertificationIcon,
   AuthorMypageMoreIcon,
   LocalCertificationIcon,
@@ -20,6 +22,7 @@ import { uesFetchMemberHome } from '../../hooks/queries/home';
 import theme from '../../styles/theme';
 import MyBookSlider from '../../components/MyBookSlider';
 import Card from '../../components/mypage/Card';
+import { AuthorBooktalkManageImg } from '../../assets/img';
 
 function MySophy() {
   const router = useRouter();
@@ -66,6 +69,7 @@ function MySophy() {
               width={87}
               height={28}
               alt="지역 인증 전 아이콘"
+              onClick={() => router.push('/mypage/managingInfo/selectRegion')}
             />
           )}
           {data?.is_author ? (
@@ -87,7 +91,24 @@ function MySophy() {
         completed={mypage?.complete_book_talk_count}
         is_author={data?.is_author}
       />
-      {data?.is_author ? <>북토크 관리하기</> : <></>}
+      {data?.is_author ? (
+        <AuthorBooktalkManageWrapper>
+          <Image
+            src={AuthorBooktalkManageImg}
+            alt="북토크 관리하기 이미지"
+            width={193}
+            height={42}
+            style={{ marginLeft: '2.8rem' }}
+          />
+          <Image
+            src={AuthorBooktalkManageMoreIcon}
+            alt="더 보기 아이콘"
+            style={{ marginLeft: '11rem' }}
+          />
+        </AuthorBooktalkManageWrapper>
+      ) : (
+        <></>
+      )}
       {mypage?.my_page_booktalk_dtos?.length === 0 ? (
         <>
           <EmptyExpectedBooktalkTitle>예정된 북토크</EmptyExpectedBooktalkTitle>
@@ -95,7 +116,7 @@ function MySophy() {
             type="button"
             onClick={() => {
               if (myInfo?.city === null) {
-                router.push('/booktalk/search/의정부시%20전체');
+                router.push('/booktalk/search/UIJEONGBU_SI');
               } else {
                 router.push(`/booktalk/search/${myInfo?.city}`);
               }
@@ -104,7 +125,9 @@ function MySophy() {
           </EmptyExpectedBooktalk>
         </>
       ) : (
-        <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+        <>
+          <PredictedBT booktalkList={mypage?.my_page_booktalk_dtos} />
+        </>
       )}
       {data?.is_author ? (
         <>
@@ -122,9 +145,25 @@ function MySophy() {
 
       <ListWrapper>
         <List>
-          <h1>작가 인증하기</h1>
-          <h1>개인정보 처리 방침</h1>
-          <h1>서비스 이용 약관</h1>
+          {data?.is_author ? (
+            <>
+              <h1>개인정보 처리 방침</h1>
+              <h1>서비스 이용 약관</h1>
+            </>
+          ) : (
+            <>
+              <AuthorAuthorization>
+                <Image
+                  src={AuthorAuthorizationIcon}
+                  alt="작가 인증 아이콘"
+                  style={{ marginRight: '0.2rem' }}
+                />
+                작가 인증하기
+              </AuthorAuthorization>
+              <RuleText>개인정보 처리 방침</RuleText>
+              <RuleText>서비스 이용 약관</RuleText>
+            </>
+          )}
         </List>
       </ListWrapper>
       <FooterWrapper>
@@ -144,7 +183,7 @@ function MySophy() {
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
                   if (myInfo?.city === null) {
-                    router.push('/booktalk/search/의정부시%20전체');
+                    router.push('/booktalk/search/UIJEONGBU_SI');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
                   }
@@ -336,6 +375,8 @@ const EmptyExpectedBooktalk = styled.button`
   border: none;
   border-radius: 0.6rem;
 
+  ${theme.fonts.subhead4_semibold};
+
   background-color: ${theme.colors.green03};
   color: ${theme.colors.green08};
 
@@ -375,4 +416,23 @@ const Devider = styled.div`
   background-color: ${theme.colors.gray11};
 
   margin-left: 2rem;
+`;
+
+const AuthorBooktalkManageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+const AuthorAuthorization = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  ${theme.fonts.body1_medium}
+`;
+
+const RuleText = styled.div`
+  color: ${theme.colors.gray05};
+  ${theme.fonts.body1_medium};
 `;

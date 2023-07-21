@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import api from '.';
 // import axios from 'axios';
 
@@ -33,6 +34,6 @@ export const fetchBooktalkDetail = async (
 ) => {
   const {
     data: { data },
-  } = await api.get(`booktalk/${id}/detail`); // 1번 test
+  } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`); // 1번 test
   return data;
 };
