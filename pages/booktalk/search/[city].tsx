@@ -12,6 +12,7 @@ import SingleBookTalk from '../../../components/booktalkApply/SingleBookTalk';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import {
   NavBookGrayIcon,
+  NavHomeGrayIcon,
   NavPersonGrayIcon,
   NavPinColorIcon,
 } from '../../../assets/icon';
@@ -154,7 +155,7 @@ function BTList() {
           <IconsWrapper>
             <IconWrapper>
               <Image
-                src={NavPersonGrayIcon}
+                src={NavHomeGrayIcon}
                 alt="홈 화면 바로가기 아이콘"
                 onClick={() => router.push('/home')}
               />

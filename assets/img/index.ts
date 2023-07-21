@@ -18,3 +18,5 @@ export { default as SophyStoryBlueCardImg } from './SophyStoryBlueCardImg.png';
 export { default as NewEmptyBooktalkImg } from './NewEmptyBooktalkImg.png';
 export { default as SecondBannerImg } from './SecondBannerImg.png';
 export { default as ThirdBannerImg } from './ThirdBannerImg.png';
+export { default as NewLogo } from './NewLogo.png';
+export { default as NewLogoWhite } from './NewLogoWhite.png';

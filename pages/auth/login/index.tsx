@@ -7,7 +7,7 @@ import { styled } from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Layout from '../../../components/Layout';
-import { sophyLogoImg } from '../../../assets/img';
+import { NewLogo } from '../../../assets/img';
 import {
   DeleteButtonIcon,
   GoBackIcon,
@@ -98,11 +98,11 @@ function Login() {
         />
       </GoBackImageWrapper>
       <Image
-        src={sophyLogoImg}
-        width={161}
-        height={58}
+        src={NewLogo}
+        width={159}
+        height={42}
         alt="sophy 로고"
-        style={{ marginTop: '5.9rem', marginBottom: '7.9rem' }}
+        style={{ marginTop: '5.9rem', marginBottom: '9.5rem' }}
       />
       <InputsWrapper>
         <InputTitle>이메일 주소</InputTitle>
