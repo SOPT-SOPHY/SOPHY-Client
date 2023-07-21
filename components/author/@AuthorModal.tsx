@@ -2,18 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import theme from '../../styles/theme';
 import { BookIcon } from '../../assets/icon';
 import { usePostBookTalkOpen } from '../../hooks/queries/author';
-import { formComplete } from '../../atoms/selector';
+import { formComplete, isModalOpen } from '../../atoms/selector';
 
 function AuthorModal({ onClose }: any) {
   const form = useRecoilValue(formComplete);
+  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+
   const { mutate, data } = usePostBookTalkOpen();
   const handleOpen = () => {
     mutate(form);
     console.log(data);
+    console.log(modalOpen);
+
+    setModalOpen(false);
   };
   return (
     <ModalSection>
