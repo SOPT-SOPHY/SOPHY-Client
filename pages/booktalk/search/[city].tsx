@@ -50,6 +50,10 @@ function BTList() {
     console.log(booktalkId);
   };
 
+  const handlePreviousButtonClick = () => {
+    router.back();
+  };
+
   const decodeCity = (city: string) => {
     switch (city) {
       case 'UIJEONGBU_SI':
@@ -101,11 +105,15 @@ function BTList() {
   return (
     <Body>
       <Header>
-        <Link href="/booktalkApply/SelectRegion">
-          <ImageContainer>
-            <Image src={backArrow} width={30} height={30} alt="뒤로가기" />
-          </ImageContainer>
-        </Link>
+        <ImageContainer>
+          <Image
+            src={backArrow}
+            width={30}
+            height={30}
+            alt="뒤로가기"
+            onClick={handlePreviousButtonClick}
+          />
+        </ImageContainer>
         <Title>우리 동네 북토크</Title>
       </Header>
       <SelectBoxContainer>
