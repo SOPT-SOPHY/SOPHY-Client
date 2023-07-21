@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import AuthorButton from './AuthorButton';
+import Link from 'next/link';
 import { logincompleteImg } from '../../assets/img';
 import theme from '../../styles/theme';
 import AuthorLayout from './@AuthorLayout';
@@ -25,7 +25,9 @@ function AuthorConfirm() {
           북토크 내용 수정은 나의 소피에서 가능해요
         </ConfirmSubTitle>
       </ConfirmSection>
-      <AuthorButton>나의 소피에서 확인하기</AuthorButton>
+      <Link href="/mypage/home">
+        <ConfirmButton>나의 소피에서 확인하기</ConfirmButton>
+      </Link>
     </Confirm>
   );
 }
@@ -50,4 +52,15 @@ const ConfirmSubTitle = styled.h2`
   margin-bottom: 9.3rem;
   fonts: ${theme.fonts.body1_medium};
   color: ${theme.colors.gray06};
+`;
+
+const ConfirmButton = styled.button`
+  margin: 0 2rem;
+  width: 33.5rem;
+  height: 5.2rem;
+  font: ${theme.fonts.subhead3_semibold};
+  color: ${theme.colors.white};
+  border-radius: 0.375rem;
+  background: ${theme.colors.green05};
+  border: none;
 `;
