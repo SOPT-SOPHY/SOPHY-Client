@@ -259,6 +259,8 @@ const StyledButton = styled.button<{ checked: boolean }>`
   background-color: ${({ theme }) => theme.colors.green01};
   border: none;
 
+  cursor: pointer;
+
   ${CheckIconWrapper} {
     ${(props) => !props.checked && css``}
   }
