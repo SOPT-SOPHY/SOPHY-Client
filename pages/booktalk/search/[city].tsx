@@ -59,27 +59,27 @@ function BTList() {
       case 'UIJEONGBU_SI':
         return '의정부시 전체';
       case 'UIJEONGBU_DONG':
-        return '의정부동';
+        return '의정부시 의정부동';
       case 'HOWON_DONG':
-        return '호원동';
+        return '의정부시 호원동';
       case 'NOKYANG_DONG':
-        return '녹양동';
+        return '의정부시 녹양동';
       case 'NAKYANG_DONG':
-        return '낙양동';
+        return '의정부시 낙양동';
       case 'MINRAK_DONG':
-        return '민락동';
+        return '의정부시 민락동';
       case 'SINGOK_DONG':
-        return '신곡동';
+        return '의정부시 신곡동';
       case 'JANGAM_DONG':
-        return '장암동';
+        return '의정부시 장암동';
       case 'GANEUNG_DONG':
-        return '가능동';
+        return '의정부시 가능동';
       case 'GOSAN_DONG':
-        return '고산동';
+        return '의정부시 고산동';
       case 'GEUMO_DONG':
-        return '금오동';
+        return '의정부시 금오동';
       case 'YOUNGHYUN_DONG':
-        return '용현동';
+        return '의정부시 용현동';
       default:
         return '';
     }
