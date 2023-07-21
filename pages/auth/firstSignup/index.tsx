@@ -38,18 +38,18 @@ const Button = styled.button`
   height: 4.4rem;
   border: none;
   border-radius: 0.6rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   background: ${theme.colors.primary};
   color: ${theme.colors.white};
 `;
 const Title = styled.h1`
   margin-top: 9.6rem;
   text-align: center;
-  font: ${theme.fonts.headline2_bold};
+  ${theme.fonts.headline2_bold};
   color: ${theme.colors.black};
 `;
 const Subtitle = styled.h2`
   margin-top: 1rem;
-  font: ${theme.fonts.subhead2_medium};
+  ${theme.fonts.subhead2_medium};
   color: ${theme.colors.gray06};
 `;

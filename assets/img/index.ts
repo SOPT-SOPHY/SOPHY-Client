@@ -15,3 +15,4 @@ export { default as SignupConfirm } from './SignupConfirm.svg';
 export { default as AuthorBooktalkManageImg } from './AuthorBooktalkManageImg.png';
 export { default as SophyStoryRedCardImg } from './SophyStoryRedCardImg.png';
 export { default as SophyStoryBlueCardImg } from './SophyStoryBlueCardImg.png';
+export { default as NewEmptyBooktalkImg } from './NewEmptyBooktalkImg.png';

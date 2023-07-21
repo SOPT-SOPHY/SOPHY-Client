@@ -58,17 +58,19 @@ function ManagingInfo() {
     } else {
       setRegion(myInfo?.city);
     }
-    console.log(myInfo?.city);
   }, [myInfo]);
 
   // 맨 처음 데이터 fetch (get 의 데이터)
   useEffect(() => {
     setFinalData(myInfo);
     setGender(myInfo?.gender);
-    setBirth(myInfo?.birth);
-    setBirthYear(myInfo?.birth?.slice(0, 4));
-    setBirthMonth(myInfo?.birth?.slice(4, 6));
-    setBirthDay(myInfo?.birth?.slice(6, 8));
+    // setBirth(myInfo?.birth);
+    if (myInfo?.birth !== null) {
+      console.log(`birth${myInfo?.birth}`);
+      setBirthYear(myInfo?.birth?.slice(0, 4));
+      setBirthMonth(myInfo?.birth?.slice(4, 6));
+      setBirthDay(myInfo?.birth?.slice(6, 8));
+    }
     setMarketingTerm(myInfo?.marketing_agree);
   }, [myInfo]);
 
@@ -114,11 +116,14 @@ function ManagingInfo() {
       name: myInfo.name,
       phone_num: myInfo.phone_num,
       gender,
-      birth: `${birthYear}${birthMonth}${birthDay}`,
+      birth: `${birthYear !== undefined ? birthYear : null}${
+        birthMonth !== undefined ? birthMonth : null
+      }${birthDay !== undefined ? birthDay : null}`,
       city: region,
       marketing_agree: marketingTerm,
     });
     setHasValueChanged(false);
+    setIsRegionChanged(false);
   };
 
   return (
@@ -225,8 +230,13 @@ function ManagingInfo() {
         /> */}
         <BirthYearInput
           placeholder="YYYY"
-          type="number"
+          type="text"
+          inputMode="numeric"
           onChange={(e: any) => {
+            if (e.target.value.length >= 5) {
+              e.preventDefault();
+              return;
+            }
             setBirthYear(e.target.value);
             setHasValueChanged(true);
           }}
@@ -234,8 +244,13 @@ function ManagingInfo() {
         />
         <BirthMonthInput
           placeholder="MM"
-          type="number"
+          type="text"
+          inputMode="numeric"
           onChange={(e: any) => {
+            if (e.target.value.length >= 3) {
+              e.preventDefault();
+              return;
+            }
             setBirthMonth(e.target.value);
             setHasValueChanged(true);
           }}
@@ -243,8 +258,13 @@ function ManagingInfo() {
         />
         <BirthDayInput
           placeholder="DD"
-          type="number"
+          type="text"
+          inputMode="numeric"
           onChange={(e: any) => {
+            if (e.target.value.length >= 3) {
+              e.preventDefault();
+              return;
+            }
             setBirthDay(e.target.value);
             setHasValueChanged(true);
           }}

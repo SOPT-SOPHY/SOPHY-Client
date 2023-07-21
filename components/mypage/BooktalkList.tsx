@@ -130,11 +130,11 @@ const BooktalkByMonthHeader = styled.header`
   height: 4.8rem;
 `;
 const Month = styled.h1`
-  font: ${theme.fonts.subhead2_bold};
+  ${theme.fonts.subhead2_bold};
   color: ${theme.colors.gray01};
 `;
 const Number = styled.h2`
-  font: ${theme.fonts.subhead2_bold};
+  ${theme.fonts.subhead2_bold};
   color: ${theme.colors.gray04};
 `;
 const BooktalkByMonthWrapper = styled.div`
@@ -159,7 +159,7 @@ const ImageCaption = styled.div`
   align-items: center;
   height: 2.8rem;
   margin-top: 7.1rem;
-  font: ${theme.fonts.body3_medium};
+  ${theme.fonts.body3_medium};
   color: ${theme.colors.white};
   background: ${theme.colors.black};
   backdrop-filter: blur(40px);
@@ -179,12 +179,12 @@ const BooktalkInfo = styled.div`
 `;
 const Title = styled.h1`
   padding-bottom: 0.3rem;
-  fonts: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.gray01};
 `;
 const Author = styled.h2`
   padding-bottom: 1.6rem;
-  fonts: ${theme.fonts.body3_medium};
+  ${theme.fonts.body3_medium};
   color: ${theme.colors.gray01};
 `;
 const DateHour = styled.div`
@@ -192,7 +192,7 @@ const DateHour = styled.div`
   align-items: center;
   /* padding-bottom: 0.5rem; */
 
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   color: ${theme.colors.gray04};
 `;
 const Dot = styled.div`
@@ -211,13 +211,13 @@ const SpacePeopleWrapper = styled.div`
   align-items: center;
 `;
 const Space = styled.h3`
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   color: ${theme.colors.gray04};
 `;
 const BooktalkPeople = styled.div`
   display: flex;
   align-items: center;
-  fonts: ${theme.fonts.body2_medium};
+  ${theme.fonts.body2_medium};
   color: ${theme.colors.gray06};
   & > span {
     color: ${theme.colors.primary};
@@ -226,6 +226,6 @@ const BooktalkPeople = styled.div`
 const Footer = styled.footer`
   margin-top: 1.6rem;
   margin-left: 2.6rem;
-  fonts: ${theme.fonts.body3_regular};
+  ${theme.fonts.body3_regular};
   color: ${theme.colors.gray05};
 `;

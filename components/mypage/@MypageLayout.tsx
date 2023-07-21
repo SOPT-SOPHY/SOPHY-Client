@@ -46,6 +46,6 @@ const Header = styled.header`
 const PageTitle = styled.h1`
   margin-left: 9.4rem;
 
-  font: ${theme.fonts.subhead2_bold};
+  ${theme.fonts.subhead2_bold};
   color: ${theme.colors.black};
 `;

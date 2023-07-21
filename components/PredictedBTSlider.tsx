@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import styled from 'styled-components';
@@ -11,9 +12,13 @@ const ContainerWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ length: number }>`
   width: 50rem;
-  margin-left: -16rem;
+  margin-left: ${(props) => {
+    if (props.length === 1) return '-9.6rem';
+    if (props.length === 2) return '-3rem';
+    if (props.length >= 3) return '-16.3rem';
+  }};
 `;
 
 const StyledSlider = styled(Slider)`
@@ -159,7 +164,7 @@ export default function SimpleSlider(props: any) {
 
   return (
     <ContainerWrapper>
-      <Container>
+      <Container length={booktalkList?.length}>
         <StyledSlider {...settings}>
           {booktalkList?.map((item: any) => (
             <SliderItem key={item}>

@@ -75,12 +75,12 @@ const Modal = styled.div`
 `;
 const ModalTitle = styled.h1`
   margin-top: 1.2rem;
-  fonts: ${theme.fonts.subhead2_bold};
+  ${theme.fonts.subhead2_bold};
   color: ${theme.colors.black};
 `;
 const ModalSubTitle = styled.h2`
   margin-top: 0.6rem;
-  fonts: ${theme.fonts.body2_medium};
+  ${theme.fonts.body2_medium};
   color: ${theme.colors.gray06};
 `;
 const ButtonWrapper = styled.div`
@@ -96,7 +96,7 @@ const ModalCancelButton = styled.button`
   border-radius: 0.6rem;
   border: none;
 
-  fonts: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   background: ${theme.colors.gray11};
   color: ${theme.colors.gray07};
 `;
@@ -108,7 +108,7 @@ const ModalConfirmButton = styled.button`
   border-radius: 0.6rem;
   border: none;
 
-  fonts: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   background: ${theme.colors.primary};
   color: ${theme.colors.white};
 `;

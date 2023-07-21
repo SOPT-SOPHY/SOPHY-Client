@@ -299,7 +299,7 @@ const City = styled.div`
   background-color: ${theme.colors.green05};
   color: ${theme.colors.green01};
 
-  font: ${theme.fonts.subhead4_bold};
+  ${theme.fonts.subhead4_bold};
 `;
 
 const Devider = styled.div`
@@ -351,7 +351,7 @@ const RegionSelectedButton = styled.button`
   width: 33.5rem;
   height: 5.2rem;
 
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.white};
   background-color: ${theme.colors.primary};
 
@@ -369,7 +369,7 @@ const InactiveAuthorModalButton = styled.div`
   margin-bottom: 4rem;
   width: 33.5rem;
   height: 5.2rem;
-  font: ${theme.fonts.subhead3_semibold};
+  ${theme.fonts.subhead3_semibold};
   color: ${theme.colors.gray07};
   border-radius: 0.375rem;
   background: ${theme.colors.gray11};
