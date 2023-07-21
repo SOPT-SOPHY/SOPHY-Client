@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import MypageLayout from './@MypageLayout';
@@ -9,63 +9,125 @@ import { uesFetchMypage } from '../../hooks/queries/mypage';
 
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
-
   const booktalkList = mypage?.my_page_booktalk_dtos;
-  //   getDate(booktalk?.start_date).year;
-  //   getDate(booktalk?.start_date).month;
+
+  const [booktalkListByDate, setBooktalkListByDate] = useState<any>({});
+  const [bookedYearMonth, setBookedYearMonth] = useState<string[]>([]);
+
+  // 날짜와 북토크객체의 쌍을 이루는 객체를 만들어주는 함수
+  const newBookTalkList: any = {};
+  const yearMonthList: string[] = [];
+  const handleBooktalkByDate: any = (
+    year: number,
+    month: number,
+    booktalk: object,
+  ) => {
+    const yearMonth = `${year}${month}`;
+    if (Object.keys(newBookTalkList).includes(yearMonth)) {
+      newBookTalkList[yearMonth].push(booktalk);
+    } else {
+      newBookTalkList[yearMonth] = [booktalk];
+      yearMonthList.push(yearMonth);
+    }
+  };
+  useEffect(() => {
+    if (booktalkList) {
+      for (let i = 0; i < booktalkList.length; i += 1) {
+        const { year, month } = getDate(booktalkList[i].start_date);
+        handleBooktalkByDate(year, month, booktalkList[i]);
+      }
+    }
+    // booktalkList?.map((booktalk: any) => {
+    //   const { year, month } = getDate(booktalk.start_date);
+    //   handleBooktalkByDate(year, month, booktalk);
+    // });
+    setBooktalkListByDate(newBookTalkList);
+    setBookedYearMonth(yearMonthList);
+  }, [newBookTalkList, yearMonthList, booktalkList]);
+
+  //   const countDday = (dDay: any) => {
+  //     const setDate = new Date(dDay);
+  //     // D-day 날짜의 연,월,일 구하기
+  //     // const setDateYear = setDate.getFullYear();
+  //     // getMonth 메서드는 0부터 세기 때문에 +1 해준다.
+  //     // 현재 날짜를 new 연산자를 사용해서 Date 객체를 생성
+  //     const now = new Date();
+
+  //     // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
+  //     const distance = setDate.getTime() - now.getTime();
+
+  //     // Math.floor 함수를 이용해서 근접한 정수값을 가져온다.
+  //     // 밀리초 값이기 때문에 1000을 곱한다.
+  //     // 1000*60 => 60초(1분)*60 => 60분(1시간)*24 = 24시간(하루)
+  //     // 나머지 연산자(%)를 이용해서 시/분/초를 구한다.
+  //     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+  //     return day;
+  //   };
+
   return (
     <>
       <MypageLayout title="예정된 북토크" />
-      <BooktalkByMonthSection>
-        <BooktalkByMonthHeader>
-          <Month>7</Month>
-          <Number>2건</Number>
-        </BooktalkByMonthHeader>
-        {booktalkList &&
-          booktalkList.map((booktalk) => (
-            <BooktalkByMonthWrapper key={booktalk?.booktalk_id}>
-              <BooktalkByMonth>
-                <BooktalkImage>
-                  <ImageCaption>D-16</ImageCaption>
-                </BooktalkImage>
-                <BooktalkInfo>
-                  <Title>{booktalk?.title}</Title>
-                  <Author>{booktalk?.author}</Author>
-                  <DateHour>
-                    <Date>
-                      {getDate(booktalk?.start_date).year}년{' '}
-                      {getDate(booktalk?.start_date).month}월{' '}
-                      {getDate(booktalk?.start_date).date}일
-                    </Date>
-                    <Dot />
-                    <Hour>
-                      {getDate(booktalk?.start_date).hour}시~
-                      {getDate(booktalk?.end_date).hour}시
-                    </Hour>
-                  </DateHour>
-                  <SpacePeopleWrapper>
-                    <Space>{booktalk?.place}</Space>
-                    <BooktalkPeople>
-                      <Image
-                        src={PeopleIcon}
-                        alt="사람 아이콘"
-                        width={24}
-                        height={24}
-                      />
-                      <span>{booktalk?.participant}</span>/{booktalk?.maximum}
-                    </BooktalkPeople>
-                  </SpacePeopleWrapper>
-                </BooktalkInfo>
-              </BooktalkByMonth>
-              <Divider />
-            </BooktalkByMonthWrapper>
-          ))}
-
-        <Footer>
-          신청 취소를 원하실 경우 소피 공식 이메일
-          (sophykoreaofficial@gmail.com) 로 문의를 남겨주세요
-        </Footer>
-      </BooktalkByMonthSection>
+      {bookedYearMonth.map((yearMonth) => {
+        return (
+          <BooktalkByMonthSection key={yearMonth}>
+            <BooktalkByMonthHeader>
+              <Month>
+                {yearMonth.slice(2, 4)}년 {yearMonth.slice(4, 5)}월
+              </Month>
+              <Number>{booktalkListByDate[yearMonth].length}건</Number>
+            </BooktalkByMonthHeader>
+            {booktalkListByDate &&
+              booktalkListByDate[yearMonth] &&
+              booktalkListByDate[yearMonth].map((booktalk: any) => {
+                return (
+                  <BooktalkByMonthWrapper key={booktalk?.booktalk_id}>
+                    <BooktalkByMonth>
+                      <BooktalkImage>
+                        <ImageCaption>
+                          D{/* D-{countDday(booktalk?.start_date)} */}
+                        </ImageCaption>
+                      </BooktalkImage>
+                      <BooktalkInfo>
+                        <Title>{booktalk?.title}</Title>
+                        <Author>{booktalk?.author}</Author>
+                        <DateHour>
+                          <Date>
+                            {getDate(booktalk?.start_date).year}년{' '}
+                            {getDate(booktalk?.start_date).month}월{' '}
+                            {getDate(booktalk?.start_date).date}일
+                          </Date>
+                          <Dot />
+                          <Hour>
+                            {getDate(booktalk?.start_date).hour}시~
+                            {getDate(booktalk?.end_date).hour}시
+                          </Hour>
+                        </DateHour>
+                        <SpacePeopleWrapper>
+                          <Space>{booktalk?.place}</Space>
+                          <BooktalkPeople>
+                            <Image
+                              src={PeopleIcon}
+                              alt="사람 아이콘"
+                              width={24}
+                              height={24}
+                            />
+                            <span>{booktalk?.participant}</span>/
+                            {booktalk?.maximum}
+                          </BooktalkPeople>
+                        </SpacePeopleWrapper>
+                      </BooktalkInfo>
+                    </BooktalkByMonth>
+                    <Divider />
+                  </BooktalkByMonthWrapper>
+                );
+              })}
+          </BooktalkByMonthSection>
+        );
+      })}
+      <Footer>
+        신청 취소를 원하실 경우 소피 공식 이메일 (sophykoreaofficial@gmail.com)
+        로 문의를 남겨주세요
+      </Footer>
     </>
   );
 }
@@ -94,7 +156,9 @@ const Number = styled.h2`
   font: ${theme.fonts.subhead2_bold};
   color: ${theme.colors.gray04};
 `;
-const BooktalkByMonthWrapper = styled.div``;
+const BooktalkByMonthWrapper = styled.div`
+  margin-bottom: 1.6rem;
+`;
 const BooktalkByMonth = styled.div`
   display: flex;
   align-items: center;
