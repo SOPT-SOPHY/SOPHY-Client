@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useSetRecoilState } from 'recoil';
 import theme from '../../styles/theme';
 import AuthorButton from './AuthorButton';
-import { ColorCheckIcon } from '../../assets/icon/index';
-import AuthorLayout from './@AuthorLayout';
+import { ColorCheckIcon, BackButton } from '../../assets/icon/index';
 import { regionSelect } from '../../atoms/selector';
 
 interface RegionProps {
@@ -67,12 +66,26 @@ function AuthorRegion() {
 
   return (
     <Region>
-      <AuthorLayout
-        noPageNum={false}
-        noPageTitle={false}
-        pageNum="1"
-        title="지역을 선택해주세요"
-      />
+      <Layout>
+        <Header>
+          <Link href="/home">
+            <Image
+              src={BackButton}
+              alt="뒤로가기"
+              height={44}
+              width={44}
+              style={{
+                marginLeft: '-17px',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
+          <PageNumber>
+            <span>1</span>/ 3
+          </PageNumber>
+          <PageTitle>지역을 선택해주세요</PageTitle>
+        </Header>
+      </Layout>
       <RegionSection>
         <RegionWrapper>
           <UpperRegion>의정부</UpperRegion>
@@ -122,6 +135,31 @@ function AuthorRegion() {
 }
 
 export default AuthorRegion;
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PageNumber = styled.h1`
+  margin-top: 0.8rem;
+  color: ${theme.colors.gray06};
+  ${theme.fonts.subhead2_medium};
+  & > span {
+    margin-right: 0.19rem;
+    color: #56b5b3;
+    ${theme.fonts.headline3_bold};
+  }
+`;
+
+const PageTitle = styled.h1`
+  margin-top: 1.6rem;
+  ${theme.fonts.headline2};
+`;
 const Region = styled.div`
   display: flex;
   flex-direction: column;

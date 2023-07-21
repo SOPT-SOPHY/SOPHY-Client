@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { useRouter } from 'next/router';
 import AuthorButton from './AuthorButton';
 import theme from '../../styles/theme';
 import { BackButton, PeopleIcon } from '../../assets/icon';
@@ -32,11 +31,7 @@ function AuthorSpace() {
   const setSelectedSpaces = useSetRecoilState(spaceSelect); // 각 지역 선택
   const [clickedId, setClickedId] = useState<number>(-1);
   const [isSpaceValid, setIsSpaceValid] = useState<boolean>(false);
-  const router = useRouter();
 
-  const handleGoBack = () => {
-    router.back();
-  };
   const handleClickSpaces = (index: number) => {
     setClickedId(index);
   };
@@ -52,17 +47,18 @@ function AuthorSpace() {
     <Space>
       <Layout>
         <Header>
-          <Image
-            src={BackButton}
-            alt="뒤로가기"
-            onClick={handleGoBack}
-            height={44}
-            width={44}
-            style={{
-              marginLeft: '-17px',
-              cursor: 'pointer',
-            }}
-          />
+          <Link href="/author/region">
+            <Image
+              src={BackButton}
+              alt="뒤로가기"
+              height={44}
+              width={44}
+              style={{
+                marginLeft: '-17px',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
           <PageNumber>
             <span>2</span>/ 3
           </PageNumber>
