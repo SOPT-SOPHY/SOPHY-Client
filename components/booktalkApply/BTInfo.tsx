@@ -87,6 +87,47 @@ function BTInfo({
 
   const formatted_fee = formattedFee();
 
+  const encodeCategory = (category: string) => {
+    switch (category) {
+      case 'HUMANITIES':
+        return '인문';
+      case 'LITERATURE':
+        return '문학';
+      case 'SOCIETY':
+        return '사회';
+      case 'ESSAY':
+        return '에세이';
+      case 'ART':
+        return '예술';
+      case 'SCIENCE':
+        return '과학';
+      case 'PARENTING':
+        return '육아';
+      case 'DAILY_HOBBY':
+        return '일상_취미';
+      case 'CHILDREN':
+        return '어린이';
+      case 'YOUTH':
+        return '청소년';
+      case 'IT_COMPUTER':
+        return 'IT_컴퓨터';
+      case 'SELF_DEVELOPMENT':
+        return '자기계발';
+      case 'HEALTH_COOKING':
+        return '건강_요리';
+      case 'TRAVEL':
+        return '여행';
+      case 'ETC':
+        return '기타';
+      default:
+        return '';
+    }
+  };
+
+  const decodeCategory = encodeCategory(book_category);
+
+  // const encodePreliminary = (preliminary: string) => {
+
   return (
     <>
       <InfoContainer>
@@ -129,7 +170,7 @@ function BTInfo({
           <InfoCategory>분야</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{book_category}</BtTitle>
+          <BtTitle>{decodeCategory}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
