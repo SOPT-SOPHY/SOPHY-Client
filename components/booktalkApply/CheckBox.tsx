@@ -259,6 +259,8 @@ const StyledButton = styled.button<{ checked: boolean }>`
   background-color: ${({ theme }) => theme.colors.green01};
   border: none;
 
+  cursor: pointer;
+
   ${CheckIconWrapper} {
     ${(props) => !props.checked && css``}
   }
@@ -270,6 +272,8 @@ const Content = styled.label`
   width: 12.2rem;
   height: 2.3rem;
   flex-shrink: 0;
+
+  cursor: pointer;
 
   ${({ theme }) => theme.fonts.subhead4_semibold};
   color: ${({ theme }) => theme.colors.gray02};

@@ -29,9 +29,9 @@ const ToastMessage = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  /* position: absolute;
+  position: absolute;
   top: -1.6rem;
-  left: 2rem; */
+  /* left: 2rem; */
 
   width: 335px;
   height: 52px;
@@ -39,7 +39,8 @@ const ToastMessage = styled.div`
   z-index: 3;
 
   margin-left: 2rem;
-  margin-bottom: 6.4rem;
+  /* margin-bottom: 6.4rem; */
+  /* margin-bottom: 1.6rem; */
 
   ${({ theme }) => theme.fonts.subhead3_semibold};
   background-color: ${({ theme }) => theme.colors.gray01};
