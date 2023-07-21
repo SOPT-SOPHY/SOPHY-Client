@@ -97,7 +97,7 @@ function AuthorSpace() {
       </SpaceSection>
       {isSpaceValid ? (
         <Link href="form">
-          <AuthorButton>다음</AuthorButton>
+          <AuthorButton />
         </Link>
       ) : (
         <InactiveAuthorModalButton>다음</InactiveAuthorModalButton>
