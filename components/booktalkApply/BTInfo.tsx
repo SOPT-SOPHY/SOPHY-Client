@@ -78,6 +78,15 @@ function BTInfo({
 
   const formattedDateTime = `${formattedStartTime}~${formattedEndTime}`;
 
+  const formattedFee = () => {
+    if (participation_fee === 0) {
+      return '무료';
+    }
+    return `${participation_fee}`;
+  };
+
+  const formatted_fee = formattedFee();
+
   return (
     <>
       <InfoContainer>
@@ -172,7 +181,7 @@ function BTInfo({
           <InfoCategory>참가비</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{participation_fee}</BtTitle>
+          <BtTitle>{formatted_fee}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />

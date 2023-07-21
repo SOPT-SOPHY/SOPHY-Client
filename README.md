@@ -18,36 +18,52 @@
 
 <br/>
 
-## ✅ **소피의 핵심기능 4가지**
+## 💚 **소피의 핵심기능 4가지** 💚
 
 1️⃣ **작가의 북토크 개설 신청**
 
 - Flow
+  ![image](https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/1ccabffe-ae7c-41cc-ac0f-fe27af09d31e)
+
     - 지역 선택 > 북토크 진행할 공간 선택 > 신청서 작성 > 신청 완료
 - 세부 기능
-    - 신청 완료 후 수정 / 삭제 가능
     - 신청서 작성 시, 마이페이지에 사전 등록한 도서 정보 불러오기 가능
 
 2️⃣ **주민의 북토크 참여 신청**
-
 - Flow
-    - 지역 선택 > 진행 중인 북토크 선택 > 북토크 상세 정보 확인 > 신청서 작성 (회원의 경우만) > 신청 완료
+![image](https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/16daee87-dbdb-45b0-a1c5-5726f64f44dd)
+    - 지역 선택 > 진행 중인 북토크 선택 > 북토크 상세 정보 확인 > 신청하기 > 신청 완료
+ 
 - 세부 기능
-    - 비회원은 신청서 작성 클릭 시 로그인 화면으로 Redirect
+
+<img src="https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/17459866-10ef-4162-8c90-7a9648353338" width="30%">
+
+    - 비회원은 신청하기 클릭 시 로그인 화면으로 Redirect
 
 3️⃣ **작가, 주민의 북토크 기록 관리**
 
-- 세부 기능
+- 마이페이지
     - 주민
+      <img src = "https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/605e8e27-6d18-4bfe-a977-564afe8eeba0)" width = "30%">
+
         - 예정된 북토크 확인
         - 참여 완료한 북토크 목록 확인
         - 참여한 북토크 도서 정보 확인 기능
     - 작가
+      <img src = "https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/9830b029-f5a2-49a2-95e7-39e8e6806b6a" width= "30%">
+
         - 예정된 북토크 확인
             - 공간 매칭 전, 중, 후로 구분하여 확인 가능
             - 공간 매칭된 북토크라면, 청중 모집 전, 중, 후로 구분하여 확인 가능
         - 참여 완료한 북토크 목록 확인
         - 등록한 도서 관리 기능
+          
+  - 소피스토리
+    <img src = "https://github.com/SOPT-SOPHY/SOPHY-Client/assets/91827379/c2329807-6154-4993-9388-c1bc6d839f58" width="30%">
+
+    - 지금까지 참여한 북토크를 카테고리에 맞게 다른 색상으로 카드 형식으로 보여줌
+    - 북토크 참여 횟수, 카테고리에 따른 소피 타입 키워드 보여줌
+    
 
 4️⃣ **공간운영자의 공간 제공 (데모데이 이후 구현 예정)**
 
@@ -60,6 +76,58 @@
     
 
 <br/>
+
+## 👸 소피 TEAM
+
+<div align='center'>
+<b> 📚 지역 기반 북토크 플랫폼의 시작, 팀 소피아노 웨비들 📚 </b>
+</div>
+<br/>
+<table align="center">
+    <tr align="center">
+        <td style="min-width: 150px; height: 150px">
+              <br/>
+             <img src="https://avatars.githubusercontent.com/u/86764406?v=4" width="150" height="150"> 
+            </a>
+        </td>
+        <td style="min-width: 150px; height: 150px" background-color="white">
+              <br/>
+             <img src="https://avatars.githubusercontent.com/u/49463954?v=4" width="150" height="150">
+            </a> 
+        </td>
+        <td style="min-width: 150px;">
+               <br />
+               <img src="https://avatars.githubusercontent.com/u/91827379?v=4" width="150" height="150">
+            </a>
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            현수 <br/>
+           💜 Web FE 💜
+      </td>
+        <td>
+            보미 <br />
+           🧡 Web FE 🧡
+        </td>
+        <td>
+            예현 <br />
+           💛 Web FE 💛
+        </td>
+    </tr>
+     <tr align="center">
+        <td>
+     (https://github.com/borimong)
+      </td>
+        <td>
+     (https://github.com/kwonET) 
+        </td>
+        <td>
+     (https://github.com/yesongoget)
+        </td>
+    </tr>
+</table>
+</aside>
 
 ## **🛠️** 기술 스택 및 사용 라이브러리
 
@@ -75,11 +143,17 @@
 ## 📂 폴더 구조
 
 ```bash
+|-- 📁 apis
 |-- 📁 assets
 |-- 📁 atoms
 |-- 📁 components
        |-- Layout.tsx
+       |-- 📁 author
+       |-- 📁 booktalkApply
+       |-- 📁 mypage
 |-- 📁 hooks
+       |-- 📁 queries
+       |-- 📁 toast
 |-- 📁 lib
 |-- 📁 node_modules
 |-- 📁 pages
@@ -88,10 +162,10 @@
        |-- 📁 booktalkApply
        |-- 📁 home
        |-- 📁 mypage
+       |-- 📁 sophyStory
        |-- _app.tsx
        |-- _document.tsx
 |-- 📁 public
-|-- 📁 src
 |-- 📁 styles
        |-- global-style.ts
        |-- styled.d.ts
@@ -111,9 +185,3 @@
 
 <br/>
 
-## ✨ OUR TEAM
-
-| <img src="https://avatars.githubusercontent.com/u/86764406?v=4" width="40%"> | <img src="https://avatars.githubusercontent.com/u/49463954?v=4" width="70%"> | <img src="https://avatars.githubusercontent.com/u/91827379?v=4" width="40%"> | 
-| :---: | :---: | :---: |
-| <div align = "center"><b>현수</b></div> | <div align = "center"><b>보미</b></div> | <div align = "center"><b>예현</b></div>  | 
-| [@borimong](https://github.com/borimong) | [@kwonET](https://github.com/kwonET) | [@yesongoget](https://github.com/yesongoget) | 
