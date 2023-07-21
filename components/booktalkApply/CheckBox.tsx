@@ -273,6 +273,8 @@ const Content = styled.label`
   height: 2.3rem;
   flex-shrink: 0;
 
+  cursor: pointer;
+
   ${({ theme }) => theme.fonts.subhead4_semibold};
   color: ${({ theme }) => theme.colors.gray02};
 `;
