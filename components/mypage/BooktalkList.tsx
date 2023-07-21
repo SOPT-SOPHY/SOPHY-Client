@@ -4,7 +4,7 @@ import Image from 'next/image';
 import MypageLayout from './@MypageLayout';
 import theme from '../../styles/theme';
 import { PeopleIcon } from '../../assets/icon';
-import { getDate } from '../../utils/date';
+import { getDate, countDday } from '../../utils/date';
 import { uesFetchMypage } from '../../hooks/queries/mypage';
 
 function BooktalkList() {
@@ -45,25 +45,6 @@ function BooktalkList() {
     setBookedYearMonth(yearMonthList);
   }, [newBookTalkList, yearMonthList, booktalkList]);
 
-  //   const countDday = (dDay: any) => {
-  //     const setDate = new Date(dDay);
-  //     // D-day 날짜의 연,월,일 구하기
-  //     // const setDateYear = setDate.getFullYear();
-  //     // getMonth 메서드는 0부터 세기 때문에 +1 해준다.
-  //     // 현재 날짜를 new 연산자를 사용해서 Date 객체를 생성
-  //     const now = new Date();
-
-  //     // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
-  //     const distance = setDate.getTime() - now.getTime();
-
-  //     // Math.floor 함수를 이용해서 근접한 정수값을 가져온다.
-  //     // 밀리초 값이기 때문에 1000을 곱한다.
-  //     // 1000*60 => 60초(1분)*60 => 60분(1시간)*24 = 24시간(하루)
-  //     // 나머지 연산자(%)를 이용해서 시/분/초를 구한다.
-  //     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-  //     return day;
-  //   };
-
   return (
     <>
       <MypageLayout title="예정된 북토크" />
@@ -84,7 +65,7 @@ function BooktalkList() {
                     <BooktalkByMonth>
                       <BooktalkImage>
                         <ImageCaption>
-                          D{/* D-{countDday(booktalk?.start_date)} */}
+                          D-{countDday(booktalk?.start_date)}
                         </ImageCaption>
                       </BooktalkImage>
                       <BooktalkInfo>
