@@ -16,3 +16,5 @@ export { default as AuthorBooktalkManageImg } from './AuthorBooktalkManageImg.pn
 export { default as SophyStoryRedCardImg } from './SophyStoryRedCardImg.png';
 export { default as SophyStoryBlueCardImg } from './SophyStoryBlueCardImg.png';
 export { default as NewEmptyBooktalkImg } from './NewEmptyBooktalkImg.png';
+export { default as SecondBannerImg } from './SecondBannerImg.png';
+export { default as ThirdBannerImg } from './ThirdBannerImg.png';
