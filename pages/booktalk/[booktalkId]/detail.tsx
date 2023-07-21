@@ -113,16 +113,18 @@ const Header = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  position: sticky;
+  position: fixed;
   width: 37.5rem;
   height: 4.4rem;
   z-index: 2;
+
+  top: 0;
 
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const DetailImg = styled.div`
-  margin-top: 2.1rem;
+  margin-top: 6.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 1.9rem;
