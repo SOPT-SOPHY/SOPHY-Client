@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import router from 'next/router';
 import rectangleBook from '../../assets/img/rectangleBook.png';
 import MyBookNextIcon from '../../assets/icon/MyBookNextIcon.svg';
 import MyBookNextIconGray from '../../assets/icon/MyBookNextIconGray.svg';
@@ -57,6 +58,10 @@ function SingleMyBook({
 
   const decodeCategory = encodeCategory(bookCategory);
 
+  const handleGoToBooktalkOpen = () => {
+    router.push('../author/form');
+  };
+
   return (
     <>
       <MyBookWrapper>
@@ -75,7 +80,7 @@ function SingleMyBook({
             <MyBooktalkCount>북토크 개최 {booktalkOpenCount}회</MyBooktalkCount>
           </MyBookInfoContainer>
           {isRegistration ? (
-            <BooktalkRegistrationTrue>
+            <BooktalkRegistrationTrue onClick={handleGoToBooktalkOpen}>
               이 책으로 북토크 열러가기
               <Image
                 src={MyBookNextIcon}
