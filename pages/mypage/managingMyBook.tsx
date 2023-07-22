@@ -13,6 +13,7 @@ interface BookData {
   book_category: string;
   booktalk_open_count: number;
   is_registration: boolean;
+  book_image_url: string;
 }
 
 // interface MyPageData {
@@ -59,6 +60,7 @@ const managingMyBook = () => {
                 bookCategory={item.book_category}
                 booktalkOpenCount={item.booktalk_open_count}
                 isRegistration={item.is_registration}
+                imageUrl={item?.book_image_url}
               />
             ))}
             {/* {booktalkList &&
@@ -130,16 +132,16 @@ const Title = styled.h1`
 
 const Content = styled.div`
   display: flex;
+  width: 33.3rem;
 `;
 
 const SingleMyBookContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 37.5rem;
+  width: 33.3rem;
   /* height: calc(100vh - 7.9rem - 5.2rem - 4.8rem - 2rem); */
   height: calc(100vh - 7.9rem - 5.2rem);
-  overflow: auto;
 
   padding-top: 7.9rem;
   padding-bottom: 5.2rem;
@@ -157,7 +159,6 @@ const RegisterButton = styled.button`
   flex-shrink: 0;
 
   /* margin-top: 5rem; */
-  margin-left: 2rem;
   margin-right: 2rem;
 
   border: none;
@@ -170,6 +171,9 @@ const RegisterButton = styled.button`
 `;
 
 const RegisterButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
   position: fixed;
   bottom: 4.8rem;
 `;

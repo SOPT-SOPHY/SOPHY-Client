@@ -153,7 +153,11 @@ function MySophy() {
           <Devider />
           <MyBookTitle>
             내 도서 관리
-            <Image src={AuthorMypageMoreIcon} alt="더보기 아이콘" />
+            <Image
+              src={AuthorMypageMoreIcon}
+              alt="더보기 아이콘"
+              onClick={() => router.push('/mypage/managingMyBook')}
+            />
           </MyBookTitle>
           <MyBookSlider booktalkList={mypage?.my_book_dtos} />
           <Devider />
@@ -171,7 +175,12 @@ function MySophy() {
             </>
           ) : (
             <>
-              <AuthorAuthorization>
+              <AuthorAuthorization
+                onClick={() =>
+                  router.push(
+                    'https://spicy-gatsby-1c7.notion.site/ca91c889bb2b45239fe377054a86400e',
+                  )
+                }>
                 <Image
                   src={AuthorAuthorizationIcon}
                   alt="작가 인증 아이콘"

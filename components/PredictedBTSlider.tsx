@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useRouter } from 'next/router';
 import theme from '../styles/theme';
 
 const ContainerWrapper = styled.div`
@@ -127,6 +128,8 @@ const ImageContainer = styled.img`
 
 export default function SimpleSlider(props: any) {
   const { booktalkList } = props;
+  const router = useRouter();
+
   console.log(booktalkList);
   const settings = {
     dots: false,
@@ -166,7 +169,11 @@ export default function SimpleSlider(props: any) {
       <Container length={booktalkList?.length}>
         <StyledSlider {...settings}>
           {booktalkList?.map((item: any) => (
-            <SliderItem key={item}>
+            <SliderItem
+              key={item}
+              onClick={() =>
+                router.push(`/booktalk/${item?.booktalk_id}/detail`)
+              }>
               <ImageContainer
                 src={item?.booktalk_image_url}
                 alt="북토크 썸네일"
