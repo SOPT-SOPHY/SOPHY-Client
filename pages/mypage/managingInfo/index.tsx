@@ -33,7 +33,7 @@ function ManagingInfo() {
   }, [accessToken, refreshToken, router]);
 
   const handleGoBack = () => {
-    router.back();
+    router.push('/mypage/home');
   };
 
   const { myInfo } = uesFetchMyInfo();
