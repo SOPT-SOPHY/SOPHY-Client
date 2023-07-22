@@ -190,5 +190,5 @@ const HorizontalLine = styled.hr`
   margin-left: 2.2rem;
   margin-right: 2rem;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.gray11};
+  border: 1px solid ${({ theme }) => theme.colors.gray11};
 `;

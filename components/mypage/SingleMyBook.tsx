@@ -1,11 +1,67 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import router from 'next/router';
 import rectangleBook from '../../assets/img/rectangleBook.png';
 import MyBookNextIcon from '../../assets/icon/MyBookNextIcon.svg';
 import MyBookNextIconGray from '../../assets/icon/MyBookNextIconGray.svg';
 
-function SingleMyBook() {
+interface SingleMyBookProps {
+  title: string;
+  bookCategory: string;
+  booktalkOpenCount: number;
+  isRegistration: boolean;
+}
+
+function SingleMyBook({
+  title,
+  bookCategory,
+  booktalkOpenCount,
+  isRegistration,
+}: SingleMyBookProps) {
+  const encodeCategory = (category: string) => {
+    switch (category) {
+      case 'HUMANITIES':
+        return '인문';
+      case 'LITERATURE':
+        return '문학';
+      case 'SOCIETY':
+        return '사회';
+      case 'ESSAY':
+        return '에세이';
+      case 'ART':
+        return '예술';
+      case 'SCIENCE':
+        return '과학';
+      case 'PARENTING':
+        return '육아';
+      case 'DAILY_HOBBY':
+        return '일상_취미';
+      case 'CHILDREN':
+        return '어린이';
+      case 'YOUTH':
+        return '청소년';
+      case 'IT_COMPUTER':
+        return 'IT_컴퓨터';
+      case 'SELF_DEVELOPMENT':
+        return '자기계발';
+      case 'HEALTH_COOKING':
+        return '건강_요리';
+      case 'TRAVEL':
+        return '여행';
+      case 'ETC':
+        return '기타';
+      default:
+        return '';
+    }
+  };
+
+  const decodeCategory = encodeCategory(bookCategory);
+
+  const handleGoToBooktalkOpen = () => {
+    router.push('../author/form');
+  };
+
   return (
     <>
       <MyBookWrapper>
@@ -19,32 +75,35 @@ function SingleMyBook() {
             />
           </MyBookImageContainer>
           <MyBookInfoContainer>
-            <MyBookTitle>주니어 기획자를 위한 개론서</MyBookTitle>
-            <MyBookCategory>IT/컴퓨터</MyBookCategory>
-            <MyBooktalkCount>출판사</MyBooktalkCount>
+            <MyBookTitle>{title}</MyBookTitle>
+            <MyBookCategory>{decodeCategory}</MyBookCategory>
+            <MyBooktalkCount>북토크 개최 {booktalkOpenCount}회</MyBooktalkCount>
           </MyBookInfoContainer>
-          <BooktalkRegistrationTrue>
-            이 책으로 북토크 열러가기
-            <Image
-              src={MyBookNextIcon}
-              width={5.647}
-              height={9.882}
-              alt="북토크 등록하기"
-            />
-          </BooktalkRegistrationTrue>
-          <BooktalkRegistrationFalse>
-            등록 심사중
-            <Image
-              src={MyBookNextIconGray}
-              width={5.647}
-              height={9.882}
-              alt="북토크 등록하기"
-            />
-          </BooktalkRegistrationFalse>
+          {isRegistration ? (
+            <BooktalkRegistrationTrue onClick={handleGoToBooktalkOpen}>
+              이 책으로 북토크 열러가기
+              <Image
+                src={MyBookNextIcon}
+                width={5.647}
+                height={9.882}
+                alt="북토크 등록하기"
+              />
+            </BooktalkRegistrationTrue>
+          ) : (
+            <BooktalkRegistrationFalse>
+              등록 심사중
+              <Image
+                src={MyBookNextIconGray}
+                width={5.647}
+                height={9.882}
+                alt="북토크 등록하기"
+              />
+            </BooktalkRegistrationFalse>
+          )}
         </MyBookContainer>
-        {/* <HorizontalLine /> */}
+        <HorizontalLine />
       </MyBookWrapper>
-      <HorizontalLine />
+      {/* <HorizontalLine /> */}
     </>
   );
 }
@@ -52,10 +111,12 @@ function SingleMyBook() {
 export default SingleMyBook;
 
 const MyBookWrapper = styled.div`
-  display: flex;
+  /* display: flex;
 
   width: 33.3rem;
-  height: 13.3rem;
+  height: 13.3rem; */
+  /* margin-top: 1.6rem; */
+  margin-bottom: 1.6rem;
 `;
 
 const MyBookContainer = styled.div`
@@ -145,11 +206,13 @@ const BooktalkRegistrationFalse = styled.button`
 
   position: absolute;
 
-  margin-left: 22.3rem;
+  margin-left: 23.8rem;
   margin-top: 8.9rem;
   margin-bottom: 1.6rem;
 
   padding: 0.6rem 0.8rem;
+
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.gray05};
   ${({ theme }) => theme.fonts.body3_regular};
