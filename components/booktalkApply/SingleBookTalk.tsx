@@ -44,7 +44,7 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
   return (
     <>
       <BookTalkWrapper onClick={handleBooktalkClick}>
-        <ImageContainer>
+        <ImageContainer src={item?.booktalk_image_url} alt="북토크 썸네일">
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
         </ImageContainer>
         <TextWrapper>
@@ -91,20 +91,15 @@ const BookTalkWrapper = styled.div`
   margin-right: 2rem;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.img`
   width: 9.9rem;
   height: 9.9rem;
   flex-shrink: 0;
 
   margin-right: 1.5rem;
 
-  border-radius: 10px;
+  border-radius: 1rem;
   background: #f4f4f4;
-
-  img {
-    width: 9.9rem;
-    height: 9.9rem;
-  }
 `;
 
 const TextWrapper = styled.div`

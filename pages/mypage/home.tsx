@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 import NextIcon from '../../assets/icon/NextIcon.svg';
 import NonLocalCertificationIcon from '../../assets/icon/NonLocalCertificationIcon.svg';
 import {
@@ -33,6 +34,21 @@ function MySophy() {
 
   console.log(myInfo);
   console.log(mypage);
+
+  const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+  const memberId = Cookies.get('memberId');
+
+  useEffect(() => {
+    if (!refreshToken && !accessToken && memberId) {
+      Cookies.remove('memberId');
+      router.push('auth/login');
+    }
+    if (!memberId) {
+      alert('비회원은 접근할 수 없는 페이지예요 :(');
+      router.push('auth');
+    }
+  }, [accessToken, refreshToken, router]);
 
   return (
     <Body>
@@ -137,7 +153,11 @@ function MySophy() {
           <Devider />
           <MyBookTitle>
             내 도서 관리
-            <Image src={AuthorMypageMoreIcon} alt="더보기 아이콘" />
+            <Image
+              src={AuthorMypageMoreIcon}
+              alt="더보기 아이콘"
+              onClick={() => router.push('/mypage/managingMyBook')}
+            />
           </MyBookTitle>
           <MyBookSlider booktalkList={mypage?.my_book_dtos} />
           <Devider />
@@ -155,7 +175,12 @@ function MySophy() {
             </>
           ) : (
             <>
-              <AuthorAuthorization>
+              <AuthorAuthorization
+                onClick={() =>
+                  router.push(
+                    'https://spicy-gatsby-1c7.notion.site/ca91c889bb2b45239fe377054a86400e',
+                  )
+                }>
                 <Image
                   src={AuthorAuthorizationIcon}
                   alt="작가 인증 아이콘"

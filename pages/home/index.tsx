@@ -260,7 +260,7 @@ function Home() {
                       if (data?.booktalk_count === 0) {
                         router.push('/home/emptyBookTalk');
                       } else {
-                        router.push('/mypage/booktalkList');
+                        router.push('/mypage/bookedBookTalk');
                       }
                     }}
                   />

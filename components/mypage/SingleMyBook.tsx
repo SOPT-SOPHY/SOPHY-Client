@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import router from 'next/router';
-import rectangleBook from '../../assets/img/rectangleBook.png';
 import MyBookNextIcon from '../../assets/icon/MyBookNextIcon.svg';
 import MyBookNextIconGray from '../../assets/icon/MyBookNextIconGray.svg';
 
@@ -11,6 +10,7 @@ interface SingleMyBookProps {
   bookCategory: string;
   booktalkOpenCount: number;
   isRegistration: boolean;
+  imageUrl: string;
 }
 
 function SingleMyBook({
@@ -18,6 +18,7 @@ function SingleMyBook({
   bookCategory,
   booktalkOpenCount,
   isRegistration,
+  imageUrl,
 }: SingleMyBookProps) {
   const encodeCategory = (category: string) => {
     switch (category) {
@@ -62,17 +63,14 @@ function SingleMyBook({
     router.push('../author/form');
   };
 
+  console.log(imageUrl);
+
   return (
     <>
       <MyBookWrapper>
         <MyBookContainer>
           <MyBookImageContainer>
-            <Image
-              src={rectangleBook}
-              width={80}
-              height={117}
-              alt="내 도서 이미지"
-            />
+            <MyBookImage src={imageUrl} alt="내 도서 이미지" />
           </MyBookImageContainer>
           <MyBookInfoContainer>
             <MyBookTitle>{title}</MyBookTitle>
@@ -136,10 +134,7 @@ const MyBookImageContainer = styled.div`
   width: 8rem;
   height: 11.7rem;
 
-  img {
-    width: 8rem;
-    height: 11.7rem;
-  }
+  border-radius: 0.6rem;
 `;
 
 const MyBookInfoContainer = styled.div`
@@ -226,8 +221,14 @@ const BooktalkRegistrationFalse = styled.button`
 `;
 
 const HorizontalLine = styled.hr`
-  margin-left: 2.8rem;
-  margin-right: 1.4rem;
+  width: 33.3rem;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.gray10};
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray10};
+`;
+
+const MyBookImage = styled.img`
+  width: 8rem;
+  height: 11.7rem;
+
+  border-radius: 0.6rem;
 `;

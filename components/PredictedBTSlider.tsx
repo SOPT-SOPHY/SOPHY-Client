@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useRouter } from 'next/router';
 import theme from '../styles/theme';
 
 const ContainerWrapper = styled.div`
@@ -85,13 +86,6 @@ const SliderItem = styled.div`
     align-items: center;
   }
 `;
-const ImageContainer = styled.div`
-  width: 12.7rem;
-  height: 10rem;
-  background-color: ${theme.colors.gray12};
-  border-radius: 1rem 1rem 0 0;
-  cursor: pointer;
-`;
 
 const BlankImageContainer = styled.div`
   width: 12.7rem;
@@ -126,8 +120,16 @@ const BlankDdayContainer = styled.div`
   align-items: center;
 `;
 
+const ImageContainer = styled.img`
+  width: 12.7rem;
+  height: 10rem;
+  border-radius: 1rem 1rem 0 0;
+`;
+
 export default function SimpleSlider(props: any) {
   const { booktalkList } = props;
+  const router = useRouter();
+
   console.log(booktalkList);
   const settings = {
     dots: false,
@@ -167,8 +169,15 @@ export default function SimpleSlider(props: any) {
       <Container length={booktalkList?.length}>
         <StyledSlider {...settings}>
           {booktalkList?.map((item: any) => (
-            <SliderItem key={item}>
-              <ImageContainer />
+            <SliderItem
+              key={item}
+              onClick={() =>
+                router.push(`/booktalk/${item?.booktalk_id}/detail`)
+              }>
+              <ImageContainer
+                src={item?.booktalk_image_url}
+                alt="북토크 썸네일"
+              />
               <DdayContainer>D-{countDday(item?.start_date)}</DdayContainer>
               <div className="title">{item?.title}</div>
               <div className="author">{item?.author} 작가</div>

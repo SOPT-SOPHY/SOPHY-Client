@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import MypageLayout from './@MypageLayout';
 import theme from '../../styles/theme';
 import { PeopleIcon } from '../../assets/icon';
@@ -10,6 +11,7 @@ import { uesFetchMypage } from '../../hooks/queries/mypage';
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
   const booktalkList = mypage?.my_page_booktalk_dtos;
+  const router = useRouter();
 
   const [booktalkListByDate, setBooktalkListByDate] = useState<any>({});
   const [bookedYearMonth, setBookedYearMonth] = useState<string[]>([]);
@@ -43,7 +45,7 @@ function BooktalkList() {
     // });
     setBooktalkListByDate(newBookTalkList);
     setBookedYearMonth(yearMonthList);
-  }, [newBookTalkList, yearMonthList, booktalkList]);
+  }, [mypage]);
 
   return (
     <>
@@ -61,13 +63,21 @@ function BooktalkList() {
               booktalkListByDate[yearMonth] &&
               booktalkListByDate[yearMonth].map((booktalk: any) => {
                 return (
-                  <BooktalkByMonthWrapper key={booktalk?.booktalk_id}>
+                  <BooktalkByMonthWrapper
+                    key={booktalk?.booktalk_id}
+                    onClick={() =>
+                      router.push(`/booktalk/${booktalk?.booktalk_id}/detail`)
+                    }>
                     <BooktalkByMonth>
-                      <BooktalkImage>
+                      <BooktalkImageWrapper>
+                        <BooktalkImage
+                          src={booktalk?.booktalk_image_url}
+                          alt="북토크 썸네일"
+                        />
                         <ImageCaption>
                           D-{countDday(booktalk?.start_date)}
                         </ImageCaption>
-                      </BooktalkImage>
+                      </BooktalkImageWrapper>
                       <BooktalkInfo>
                         <Title>{booktalk?.title}</Title>
                         <Author>{booktalk?.author}</Author>
@@ -146,19 +156,29 @@ const BooktalkByMonth = styled.div`
   width: 33.5rem;
   height: 13rem;
 `;
-const BooktalkImage = styled.div`
+const BooktalkImageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   width: 9.9rem;
   height: 9.9rem;
   border-radius: 1rem;
   border: none;
   background: ${theme.colors.gray11};
 `;
+
+const BooktalkImage = styled.img`
+  width: 9.9rem;
+  height: 7.1rem;
+
+  border-radius: 1rem 1rem 0 0rem;
+`;
+
 const ImageCaption = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 9.9rem;
   height: 2.8rem;
-  margin-top: 7.1rem;
   ${theme.fonts.body3_medium};
   color: ${theme.colors.white};
   background: ${theme.colors.black};
