@@ -80,10 +80,9 @@ const SliderItem = styled.div`
     align-items: center;
   }
 `;
-const ImageContainer = styled.div`
+const ImageContainer = styled.img`
   width: 9.4rem;
   height: 14.2rem;
-  background-color: ${theme.colors.gray12};
   border-radius: 1rem;
   cursor: pointer;
 `;
@@ -126,7 +125,10 @@ export default function SimpleSlider(props: any) {
         <StyledSlider {...settings}>
           {booktalkList?.map((item: any) => (
             <SliderItem key={item}>
-              <ImageContainer />
+              <ImageContainer
+                src={item?.book_image_url}
+                alt="나의 도서 썸네일"
+              />
             </SliderItem>
           ))}
           <SliderItem>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import backArrow from '../../../assets/icon/ic_backArrow.svg';
-import detailImage from '../../../assets/img/detailImage.png';
 import BTInfo from '../../../components/booktalkApply/BTInfo';
 // import BTData from '../../data/BTData';
 import CheckBox from '../../../components/booktalkApply/CheckBox';
@@ -67,7 +66,10 @@ function BTDetail() {
       </Header>
       {/* <hr style={{ borderTop: '1px solid #F6F7FA' }} /> */}
       <DetailImg>
-        <Image src={detailImage} width={335} height={184} alt="북토크이미지" />
+        <DetailImageContainer
+          src={data?.booktalk_image_url}
+          alt="북토크 상세 이미지"
+        />
       </DetailImg>
       <div>
         {/* {filteredData.map((data) => {
@@ -124,16 +126,14 @@ const Header = styled.div`
 `;
 
 const DetailImg = styled.div`
+  /* 이미지 가운데 정렬 위해 수정했어요!*/
+
+  display: flex;
+  justify-content: center;
   margin-top: 6.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 1.9rem;
-
-  img {
-    width: 33.5rem;
-    height: 18.4rem;
-    flex-shrink: 0;
-  }
 `;
 
 const ImageContainer = styled.div`
@@ -152,4 +152,9 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.black};
 
   margin-right: 12.8rem;
+`;
+
+const DetailImageContainer = styled.img`
+  width: 18.4rem;
+  height: 18.4rem;
 `;
