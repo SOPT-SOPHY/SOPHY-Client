@@ -72,7 +72,11 @@ function AuthorSpace() {
             <SpaceWrapper
               onClick={() => handleClickSpaces(space?.place_id)}
               isClick={clickedId === space?.place_id}>
-              <SpaceImage />
+              {space?.place_image ? (
+                <SpaceImage src={space?.place_image} alt="공간 이미지 썸네일" />
+              ) : (
+                <BlankSpaceImage />
+              )}
               <SpaceInfo isClick={clickedId === space?.place_id}>
                 <SpaceName>{space?.name}</SpaceName>
                 <SpaceAddress>{space?.address}</SpaceAddress>
@@ -167,13 +171,22 @@ const SpaceWrapper = styled.div<SpaceProps>`
     background: ${theme.colors.gray11};
   }
 `;
-const SpaceImage = styled.div`
+const SpaceImage = styled.img`
   width: 7.2rem;
   height: 7.2rem;
   border-radius: 1rem;
-  border: none;
+  border: 0rem;
   background: ${theme.colors.gray11};
 `;
+
+const BlankSpaceImage = styled.div`
+  width: 7.2rem;
+  height: 7.2rem;
+  border-radius: 1rem;
+  border: 0rem;
+  background: ${theme.colors.gray11};
+`;
+
 const SpaceInfo = styled.div<SpaceProps>`
   display: flex;
   flex-direction: column;

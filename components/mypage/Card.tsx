@@ -55,7 +55,7 @@ function Card(props: any) {
           <Line />
           <CompletedParticipation>
             <CompletedParticipationCount>
-              {expected === null ? 0 : expected}
+              {completed === null ? 0 : completed}
             </CompletedParticipationCount>
             <CompletedTitle>참여완료</CompletedTitle>
           </CompletedParticipation>{' '}
