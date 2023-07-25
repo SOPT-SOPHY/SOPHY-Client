@@ -38,8 +38,9 @@ function SophyStory() {
       router.push('auth/login');
     }
     if (!memberId) {
+      console.log('비회원 접근 불가');
       alert('비회원은 접근할 수 없는 페이지예요 :(');
-      router.push('auth');
+      // router.push('auth');
     }
   }, [accessToken, refreshToken, router]);
 

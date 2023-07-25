@@ -46,7 +46,7 @@ function MySophy() {
     }
     if (!memberId) {
       alert('비회원은 접근할 수 없는 페이지예요 :(');
-      router.push('auth');
+      // router.push('auth');
     }
   }, [accessToken, refreshToken, router]);
 

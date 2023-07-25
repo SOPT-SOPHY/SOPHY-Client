@@ -429,6 +429,7 @@ function Home() {
                 alt="소피스토리 화면 바로가기 아이콘"
                 onClick={() => {
                   if (data?.name === null) {
+                    alert('비회원은 접근할 수 없는 페이지예요 :(');
                     router.push('/auth');
                   } else {
                     router.push('/sophyStory');
@@ -443,6 +444,7 @@ function Home() {
                 alt="MY 페이지 바로가기 아이콘"
                 onClick={() => {
                   if (data?.name === null) {
+                    alert('비회원은 접근할 수 없는 페이지예요 :(');
                     router.push('/auth');
                   } else {
                     router.push('/mypage/home');

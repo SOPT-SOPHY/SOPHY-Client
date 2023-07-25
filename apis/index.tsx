@@ -50,6 +50,7 @@ api.interceptors.response.use(
     } = error;
     console.log('에러입니다', error.response.data);
     if (status === 401) {
+      console.log('error message', error);
       if (error.response.data.message === '만료된 액세스 토큰입니다.') {
         const originalRequest = config;
         const refreshToken = await Cookies.get('refreshToken');
