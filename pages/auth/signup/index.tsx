@@ -88,8 +88,10 @@ function Signup() {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
         password,
-        access_token_expired_time: 3600,
-        refresh_token_expired_time: 1209600,
+        // access_token_expired_time: 3600,
+        // refresh_token_expired_time: 1209600,
+        access_token_expired_time: 50,
+        refresh_token_expired_time: 100,
       });
 
       console.log(response);
