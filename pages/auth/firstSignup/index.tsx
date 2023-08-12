@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import { SignupConfirm } from '../../../assets/img';
 import theme from '../../../styles/theme';
 import { uesFetchMemberHome } from '../../../hooks/queries/home';

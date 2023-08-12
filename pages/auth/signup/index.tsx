@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { styled } from 'styled-components';
 import Image from 'next/image';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import {
   GoBackIcon,
   ColorCheckIcon,
@@ -88,21 +88,16 @@ function Signup() {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
         password,
-        // access_token_expired_time: 3600,
-        // refresh_token_expired_time: 1209600,
-        access_token_expired_time: 50,
-        refresh_token_expired_time: 100,
       });
 
-      console.log(response);
+      console.log(`response: ${response}`);
 
       // eslint-disable-next-line camelcase
-      const { access_token, refresh_token, member_id } = response.data.data;
-      console.log(access_token);
+      const { accessToken, refreshToken } = response.data.data;
+      console.log(accessToken);
 
-      Cookies.set('accessToken', access_token);
-      Cookies.set('refreshToken', refresh_token);
-      Cookies.set('memberId', member_id);
+      Cookies.set('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshToken);
     } catch (error) {
       console.error('로그인 에러 발생', error);
     }
@@ -114,14 +109,11 @@ function Signup() {
         email,
         name,
         password,
-        phone_num: phone,
+        phoneNum: phone,
+        marketingAgree: marketingAgreed,
       });
 
       console.log(response);
-
-      const { token } = response.data;
-
-      Cookies.set('token', token);
 
       router.push('/auth/firstSignup');
 

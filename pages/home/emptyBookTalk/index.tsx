@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { GoBackIcon } from '../../../assets/icon';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import theme from '../../../styles/theme';
 import { NewEmptyBooktalkImg } from '../../../assets/img';
 import { uesFetchMyInfo } from '../../../hooks/queries/mypage';

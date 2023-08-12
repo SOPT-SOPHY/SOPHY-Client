@@ -5,7 +5,7 @@ import router from 'next/router';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import Cookies from 'js-cookie';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import {
   ColoredCheckboxIcon,
   ColoredRadioIcon,

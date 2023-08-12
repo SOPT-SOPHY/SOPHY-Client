@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import theme from '../../styles/theme';
 import {
   BlackDownIcon,

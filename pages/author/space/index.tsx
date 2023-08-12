@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthorSpace from '../../../components/author/AuthorSpace';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 
 const index = () => {
   return (

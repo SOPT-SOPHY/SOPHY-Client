@@ -4,22 +4,14 @@ import { styled } from 'styled-components';
 
 interface LayoutProps {
   children: React.ReactNode;
-  noHeader?: boolean;
-  noMenuBar?: boolean;
-  noFooter?: boolean;
 }
 
 function Layout(props: LayoutProps) {
-  const { children, noHeader, noMenuBar, noFooter } = props;
+  const { children } = props;
 
   return (
     <LayoutWrapper>
-      <ContentWrapper>
-        {!noHeader && <div>헤더</div>}
-        {!noMenuBar && <div>메뉴바</div>}
-        {children}
-        {!noFooter && <div>푸터</div>}
-      </ContentWrapper>
+      <ContentWrapper>{children}</ContentWrapper>
     </LayoutWrapper>
   );
 }

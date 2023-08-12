@@ -6,7 +6,7 @@ import axios from 'axios';
 import { styled } from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import { NewLogo } from '../../../assets/img';
 import {
   DeleteButtonIcon,
@@ -48,19 +48,16 @@ function Login() {
         password,
         // access_token_expired_time: 3600, // 1시간
         // refresh_token_expired_time: 1209600, // 2주
-        access_token_expired_time: 50,
-        refresh_token_expired_time: 100,
       });
 
-      console.log(response);
+      console.log(`response : ${response}`);
 
       // eslint-disable-next-line camelcase
-      const { access_token, refresh_token, member_id } = response.data.data;
-      console.log(access_token);
+      const { accessToken, refreshToken } = response.data.data;
+      console.log(accessToken);
 
-      Cookies.set('accessToken', access_token);
-      Cookies.set('refreshToken', refresh_token);
-      Cookies.set('memberId', member_id);
+      Cookies.set('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshToken);
 
       router.push('/home');
     } catch (error) {
