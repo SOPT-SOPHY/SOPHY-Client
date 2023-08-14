@@ -2,27 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import theme from '../../styles/theme';
+import { loginhomeImg, NewLogo } from '../../assets/img';
 
-interface AuthImageType {
-  logoImage: any;
-  titleText: string;
-  illustration: any;
-}
-
-function AuthImage(props: AuthImageType) {
-  const { logoImage, titleText, illustration } = props;
+function AuthImage() {
   return (
     <>
       <Image
-        src={logoImage}
+        src={NewLogo}
         width={159}
         height={42}
         alt="sophy 로고"
         style={{ marginTop: '5.9rem', marginBottom: '1.2rem' }}
       />
-      <Title>{titleText}</Title>
+      <Title>모든 순간 언제나 소피와 함께</Title>
       <Image
-        src={illustration}
+        src={loginhomeImg}
         width={276}
         height={328}
         alt="로그인 홈 이미지"

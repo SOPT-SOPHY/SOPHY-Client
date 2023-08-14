@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
-import Layout from '../../../components/common/Layout';
 import { SignupConfirm } from '../../../assets/img';
 import theme from '../../../styles/theme';
 import { uesFetchMemberHome } from '../../../hooks/queries/home';
@@ -12,7 +11,7 @@ const firstSignup = () => {
   const data = uesFetchMemberHome();
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <>
       <Title>
         {data?.name}님,
         <br />
@@ -23,7 +22,7 @@ const firstSignup = () => {
       <Button type="button" onClick={() => router.push('/home')}>
         소피 홈으로
       </Button>
-    </Layout>
+    </>
   );
 };
 

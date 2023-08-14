@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import theme from '../../styles/theme';
-import Layout from '../../components/common/Layout';
 import HomeTopImg from '../../assets/img/HomeTopImg.png';
 import {
   BooktalkScheduleIcon,
@@ -69,12 +68,12 @@ function Home() {
     }
   }, [accessToken, refreshToken, router, memberId]);
 
-  const data = memberId ? uesFetchMemberHome() : uesFetchNonMemberHome();
+  const data = accessToken ? uesFetchMemberHome() : uesFetchNonMemberHome();
   console.log(data);
   if (!data) return;
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <>
       <TopBackground image={HomeTopImg}>
         <Image
           src={NewLogoWhite}
@@ -329,7 +328,7 @@ function Home() {
           </div>
         )) */}
       </St.Header>
-    </Layout>
+    </>
   );
 }
 

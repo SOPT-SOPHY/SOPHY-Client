@@ -63,19 +63,6 @@ function Signup() {
     }
   }, [isError]);
 
-  /*
-  const handleEmailCheck = async () => {
-    try {
-      // 이메일 중복확인을 위한 API 호출
-      const response = await axios.get(`${baseURL}/auth/dupl-check`);
-      console.log(response);
-      const { isAvailable } = response.data;
-      setIsEmailAvailable(isAvailable);
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-*/
   const handleEmailDuplicateCheck = (e: any) => {
     console.log(e.target.value);
     mutate({ email });
@@ -250,7 +237,7 @@ function Signup() {
   };
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <>
       <Head>
         <GoBackImage
           src={GoBackIcon}
@@ -490,7 +477,7 @@ function Signup() {
         disabled={!isFormValid}>
         회원가입
       </SignupButton>
-    </Layout>
+    </>
   );
 }
 
