@@ -17,7 +17,7 @@ function EmptyBookTalk() {
     router.back();
   };
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <Head>
         <GoBackImage
           src={GoBackIcon}

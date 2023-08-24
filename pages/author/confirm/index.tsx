@@ -4,7 +4,7 @@ import Layout from '../../../components/common/Layout';
 
 const index = () => {
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <AuthorConfirm />
     </Layout>
   );

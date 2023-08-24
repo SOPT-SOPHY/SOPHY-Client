@@ -22,7 +22,7 @@ function SelectRegion() {
     useRecoilState<boolean>(isRegionChangedState);
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <Head>
         <Image
           src={GoBackIcon}

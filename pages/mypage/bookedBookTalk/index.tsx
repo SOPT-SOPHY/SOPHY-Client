@@ -4,7 +4,7 @@ import BooktalkList from '../../../components/mypage/BooktalkList';
 
 const index = () => {
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <BooktalkList />
     </Layout>
   );
