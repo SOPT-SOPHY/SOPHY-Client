@@ -127,7 +127,7 @@ function ManagingInfo() {
   };
 
   return (
-    <Layout noFooter noMenuBar noHeader>
+    <Layout>
       <Head>
         <Image
           src={GoBackIcon}
