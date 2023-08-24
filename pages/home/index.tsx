@@ -59,14 +59,12 @@ function Home() {
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
-  const memberId = Cookies.get('memberId');
 
   useEffect(() => {
-    if (!refreshToken && !accessToken && memberId) {
-      Cookies.remove('memberId');
+    if (!refreshToken && !accessToken) {
       router.push('auth/login');
     }
-  }, [accessToken, refreshToken, router, memberId]);
+  }, [accessToken, refreshToken, router]);
 
   const data = accessToken ? uesFetchMemberHome() : uesFetchNonMemberHome();
   console.log(data);
@@ -343,26 +341,6 @@ const St = {
     padding-left: 3rem;
   `,
 };
-/*
-const CustomPaging = styled.div`
-  position: fixed;
-  top: 9rem;
-  right: 20px;
-  z-index: 999;
-  padding: 10px;
-  color: #fff;
-  background-color: rgb(0 0 0 / 50%);
-  border-radius: 4px;
-`;
-
-const Item = styled.div`
-  width: 10px;
-  height: 200px;
-  color: ${theme.colors.primary};
-  background-color: ${theme.colors.green01};
-  ${theme.fonts.display}
-`;
-*/
 const TopBackground = styled.div<{ image: StaticImageData }>`
   background-image: url(${(props) => props.image.src});
   width: 100%;
@@ -442,50 +420,7 @@ const ScheduledBookTalkInnerTextWrapper = styled.div`
   flex-wrap: wrap;
   align-items: center;
 `;
-/*
-const RegionBookTalkWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
-const RegionBookTalk = styled.div`
-  width: 33.5rem;
-  height: 5.3rem;
-
-  ${theme.fonts.subhead2_bold};
-  color: ${theme.colors.gray01};
-  background-color: ${theme.colors.white};
-
-  display: flex;
-  align-items: center;
-
-  margin-top: 1.2rem;
-
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-`;
-
-const RegionBookTalkUnderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const RegionBookTalkUnder = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 33.5rem;
-  height: 5.6rem;
-
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-
-  color: ${theme.colors.gray05};
-  ${theme.fonts.body1_medium};
-
-  box-shadow: 0rem 0.1rem 0.18rem pink;
-`;
-*/
 const UserRegionWrapper = styled.div`
   width: 33.5rem;
   height: 10.8rem;

@@ -38,7 +38,7 @@ const managingMyBook = () => {
 
   return (
     <Body>
-      <Layout noHeader noMenuBar noFooter>
+      <Layout>
         <Header>
           <ImageContainer>
             <Image
