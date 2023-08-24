@@ -47,7 +47,7 @@ function SophyStory() {
   const data = uesFetchMemberHome();
 
   return (
-    <Layout noHeader noFooter noMenuBar>
+    <Layout>
       <Head>
         지금까지
         <span
