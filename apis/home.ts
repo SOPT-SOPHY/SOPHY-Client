@@ -1,11 +1,9 @@
-import Cookies from 'js-cookie';
 import api from '.';
 
 export const fetchMemberHome = async () => {
-  const memberId = Cookies.get('memberId');
   const {
     data: { data },
-  } = await api.get(`myhome/${memberId}`);
+  } = await api.get(`myhome`);
   return data;
 };
 

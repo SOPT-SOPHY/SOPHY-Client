@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { styled } from 'styled-components';
 import Image from 'next/image';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import {
   GoBackIcon,
   ColorCheckIcon,
@@ -63,19 +63,6 @@ function Signup() {
     }
   }, [isError]);
 
-  /*
-  const handleEmailCheck = async () => {
-    try {
-      // 이메일 중복확인을 위한 API 호출
-      const response = await axios.get(`${baseURL}/auth/dupl-check`);
-      console.log(response);
-      const { isAvailable } = response.data;
-      setIsEmailAvailable(isAvailable);
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-*/
   const handleEmailDuplicateCheck = (e: any) => {
     console.log(e.target.value);
     mutate({ email });
@@ -88,19 +75,16 @@ function Signup() {
       const response = await axios.post(`${baseURL}/auth/login`, {
         email,
         password,
-        access_token_expired_time: 3600,
-        refresh_token_expired_time: 1209600,
       });
 
-      console.log(response);
+      console.log(`response: ${response}`);
 
       // eslint-disable-next-line camelcase
-      const { access_token, refresh_token, member_id } = response.data.data;
-      console.log(access_token);
+      const { accessToken, refreshToken } = response.data.data;
+      console.log(accessToken);
 
-      Cookies.set('accessToken', access_token);
-      Cookies.set('refreshToken', refresh_token);
-      Cookies.set('memberId', member_id);
+      Cookies.set('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshToken);
     } catch (error) {
       console.error('로그인 에러 발생', error);
     }
@@ -112,14 +96,11 @@ function Signup() {
         email,
         name,
         password,
-        phone_num: phone,
+        phoneNum: phone,
+        marketingAgree: marketingAgreed,
       });
 
       console.log(response);
-
-      const { token } = response.data;
-
-      Cookies.set('token', token);
 
       router.push('/auth/firstSignup');
 
@@ -256,7 +237,7 @@ function Signup() {
   };
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <>
       <Head>
         <GoBackImage
           src={GoBackIcon}
@@ -496,7 +477,7 @@ function Signup() {
         disabled={!isFormValid}>
         회원가입
       </SignupButton>
-    </Layout>
+    </>
   );
 }
 

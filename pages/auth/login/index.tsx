@@ -1,102 +1,21 @@
-/* eslint-disable no-useless-escape */
-import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
-import axios from 'axios';
+import React from 'react';
 import { styled } from 'styled-components';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import Layout from '../../../components/Layout';
+import { useRecoilValue } from 'recoil';
 import { NewLogo } from '../../../assets/img';
-import {
-  DeleteButtonIcon,
-  GoBackIcon,
-  HideButtonIcon,
-} from '../../../assets/icon';
 import theme from '../../../styles/theme';
-
-interface ButtonProps {
-  onClick: () => void;
-  isLoginAvailable: boolean;
-}
-
-interface StyledComponentProps {
-  string?: string | null;
-  boolean?: boolean | null;
-  confirmPassword?: string | null;
-}
+import GoBackButton from '../../../components/common/GoBackButton';
+import LoginInputs from '../../../components/auth/LoginInputs';
+import { showLoginToastState } from '../../../atoms/auth';
+import LoginButton from '../../../components/auth/LoginButton';
+import FindingUserInfo from '../../../components/auth/FindingUserInfo';
 
 function Login() {
-  // next.js 에서 환경 변수 쓸 땐 NEXT_PUBLIC_ 을 변수 앞에 꼭 붙여줘야 한다.
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-
-  const [showPswd, setShowPswd] = useState<boolean>(false);
-
-  const [showToast, setShowToast] = useState(false);
-
-  const [isLoginAvailable, setIsLoginAvailable] = useState(false);
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post(`${baseURL}/auth/login`, {
-        email,
-        password,
-        access_token_expired_time: 3600, // 1시간
-        refresh_token_expired_time: 1209600, // 2주
-      });
-
-      console.log(response);
-
-      // eslint-disable-next-line camelcase
-      const { access_token, refresh_token, member_id } = response.data.data;
-      console.log(access_token);
-
-      Cookies.set('accessToken', access_token);
-      Cookies.set('refreshToken', refresh_token);
-      Cookies.set('memberId', member_id);
-
-      router.push('/home');
-    } catch (error) {
-      console.error('로그인 에러 발생', error);
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
-    }
-  };
-
-  useEffect(() => {
-    const emailRegex =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    if (!emailRegex.test(email) && email) {
-      setEmailError('일치하지 않는 이메일 형식입니다.');
-    } else {
-      setEmailError('');
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (password && !emailError && email.length > 0) {
-      setIsLoginAvailable(true);
-    } else {
-      setIsLoginAvailable(false);
-    }
-  }, [password, emailError, email]);
+  const showToast = useRecoilValue(showLoginToastState);
 
   return (
-    <Layout noHeader noMenuBar noFooter>
-      <GoBackImageWrapper>
-        <GoBackImage
-          src={GoBackIcon}
-          alt="뒤로가기 아이콘"
-          onClick={() => router.push('/auth')}
-        />
-      </GoBackImageWrapper>
+    <>
+      <GoBackButton />
       <Image
         src={NewLogo}
         width={159}
@@ -104,173 +23,18 @@ function Login() {
         alt="sophy 로고"
         style={{ marginTop: '5.9rem', marginBottom: '9.5rem' }}
       />
-      <InputsWrapper>
-        <InputTitle>이메일 주소</InputTitle>
-        <InputWrapper>
-          <LoginInput
-            placeholder="이메일을 입력해주세요"
-            value={email}
-            onChange={(e: any) => setEmail(e.target.value)}
-          />
-          {email.length > 0 ? (
-            <DeleteButton
-              src={DeleteButtonIcon}
-              alt="이메일 입력 초기화 아이콘"
-              onClick={() => setEmail('')}
-            />
-          ) : (
-            <NonEmailInput />
-          )}
-          <LoginLine string={emailError} />
-          {emailError ? (
-            <ErrorMessage>{emailError}</ErrorMessage>
-          ) : (
-            <NonError />
-          )}
-        </InputWrapper>
-        <InputTitle>비밀번호</InputTitle>
-        <InputWrapper>
-          <LoginInput
-            placeholder="비밀번호를 입력해주세요"
-            value={password}
-            onChange={(e: any) => setPassword(e.target.value)}
-            type={showPswd ? 'text' : 'password'}
-          />
-          <HideButton
-            src={HideButtonIcon}
-            alt="비밀번호 숨기기 아이콘"
-            onClick={() => {
-              setShowPswd(!showPswd);
-            }}
-          />
-          <PasswordLine string={password} />
-        </InputWrapper>
-      </InputsWrapper>
-      <Button onClick={handleLogin} isLoginAvailable={isLoginAvailable}>
-        로그인
-      </Button>
-      <FindingUserInfo>
-        <LinkText>이메일 찾기</LinkText> <Separator>|</Separator>
-        <LinkText>비밀번호 찾기</LinkText>
-      </FindingUserInfo>
+      <LoginInputs inputType="이메일 주소" />
+      <LoginInputs inputType="비밀번호" />
+      <LoginButton />
+      <FindingUserInfo />
       {showToast && (
         <ToastContainer>이메일 또는 비밀번호를 확인해 주세요</ToastContainer>
       )}
-    </Layout>
+    </>
   );
 }
 
 export default Login;
-
-const Button = styled.button<ButtonProps>`
-  width: 33.5rem;
-  height: 5.2rem;
-
-  border-radius: 0.6rem;
-  border: none;
-
-  margin-top: 3.2rem;
-  margin-bottom: 2rem;
-
-  ${theme.fonts.subhead3_semibold};
-
-  color: ${(props) =>
-    props.isLoginAvailable ? theme.colors.white : theme.colors.gray07};
-  background-color: ${(props) =>
-    props.isLoginAvailable ? theme.colors.primary : theme.colors.gray11};
-
-  cursor: ${(props) => (props.isLoginAvailable ? 'pointer' : 'not-allowed')};
-`;
-
-const InputsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 33.5rem;
-`;
-
-const LoginInput = styled.input`
-  width: 25rem;
-  border: none;
-
-  outline: none;
-
-  ::placeholder {
-    color: ${theme.colors.gray08};
-    ${theme.fonts.body2_regular}
-  }
-`;
-
-const LoginLine = styled.div<StyledComponentProps>`
-  width: 33.5rem;
-  border-top: 0.1rem solid
-    ${(props) => (props.string ? theme.colors.dangerRed : theme.colors.gray09)};
-`;
-
-const PasswordLine = styled.div<StyledComponentProps>`
-  width: 33.5rem;
-  border-top: 0.1rem solid
-    ${(props) =>
-      props.string && props.string.length > 0
-        ? theme.colors.primary
-        : theme.colors.gray09};
-`;
-
-const InputTitle = styled.div`
-  font-size: 2.4rem;
-  width: 33.5rem;
-  ${theme.fonts.subhead4_semibold}
-  color: ${theme.colors.gray01};
-  margin-bottom: 1rem;
-`;
-
-const FindingUserInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  width: 16.9rem;
-  height: 1.6rem;
-
-  ${theme.fonts.body3_regular}
-
-  color: ${theme.colors.gray04};
-`;
-
-const LinkText = styled.span`
-  cursor: pointer;
-`;
-
-const Separator = styled.span`
-  color: ${theme.colors.gray10};
-`;
-
-const ErrorMessage = styled.div`
-  height: 1.6rem;
-  margin-top: 0.4rem;
-  margin-bottom: 1.2rem;
-
-  ${theme.fonts.body3_regular};
-  color: ${theme.colors.dangerRed};
-`;
-
-const NonError = styled.div`
-  height: 3.2rem;
-  width: 15.8rem;
-`;
-
-const HideButton = styled(Image)`
-  cursor: pointer;
-`;
-
-const DeleteButton = styled(Image)`
-  cursor: pointer;
-`;
 
 const ToastContainer = styled.div`
   display: flex;
@@ -289,17 +53,4 @@ const ToastContainer = styled.div`
   color: ${theme.colors.white};
 
   border-radius: 0.6rem;
-`;
-
-const NonEmailInput = styled.div`
-  width: 3.6rem;
-  height: 3.6rem;
-`;
-
-const GoBackImage = styled(Image)`
-  cursor: pointer;
-`;
-
-const GoBackImageWrapper = styled.div`
-  width: 37.5rem;
 `;

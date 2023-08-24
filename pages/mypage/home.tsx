@@ -37,16 +37,12 @@ function MySophy() {
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
-  const memberId = Cookies.get('memberId');
 
   useEffect(() => {
-    if (!refreshToken && !accessToken && memberId) {
+    if (!refreshToken && !accessToken) {
       Cookies.remove('memberId');
       router.push('auth/login');
-    }
-    if (!memberId) {
       alert('비회원은 접근할 수 없는 페이지예요 :(');
-      router.push('auth');
     }
   }, [accessToken, refreshToken, router]);
 

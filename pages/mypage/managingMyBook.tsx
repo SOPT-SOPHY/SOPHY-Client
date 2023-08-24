@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import backArrow from '../../assets/icon/ic_backArrow.svg';
 import SingleMyBook from '../../components/mypage/SingleMyBook';
 import { uesFetchMypage } from '../../hooks/queries/mypage';
@@ -38,7 +38,7 @@ const managingMyBook = () => {
 
   return (
     <Body>
-      <Layout noHeader noMenuBar noFooter>
+      <Layout>
         <Header>
           <ImageContainer>
             <Image

@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import theme from '../../styles/theme';
 import {
   BlackDownIcon,
@@ -38,15 +38,16 @@ function SophyStory() {
       router.push('auth/login');
     }
     if (!memberId) {
+      console.log('비회원 접근 불가');
       alert('비회원은 접근할 수 없는 페이지예요 :(');
-      router.push('auth');
+      // router.push('auth');
     }
   }, [accessToken, refreshToken, router]);
 
   const data = uesFetchMemberHome();
 
   return (
-    <Layout noHeader noFooter noMenuBar>
+    <Layout>
       <Head>
         지금까지
         <span

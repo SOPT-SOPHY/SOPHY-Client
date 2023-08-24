@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import { ColorCheckIcon, GoBackIcon } from '../../assets/icon';
 import theme from '../../styles/theme';
 import { memberSelectedSpaceState } from '../../atoms/atom';
@@ -29,7 +29,7 @@ function SelectRegion() {
   ];
 
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <Head>
         <Image
           src={GoBackIcon}

@@ -31,7 +31,7 @@ export default function SimpleSlider(props: any) {
             <ImageContainer key={item}>
               <SlideCard
                 onClick={() =>
-                  router.push(`/booktalk/${item?.booktalk_id}/detail`)
+                  router.push(`/booktalk/${item?.booktalkId}/detail`)
                 }>
                 <SlideTitle>{item.title}</SlideTitle>
                 <SlideContent>
@@ -40,10 +40,10 @@ export default function SimpleSlider(props: any) {
                     alt="달력 모양 아이콘"
                     style={{ marginRight: '0.4rem' }}
                   />
-                  {item.start_date.slice(0, 4)}.{item.start_date.slice(5, 7)}.
-                  {item.start_date.slice(8, 10)}
-                  <Dot /> {item.start_date.slice(11, 13)}시~
-                  {item.end_date.slice(11, 13)}시
+                  {item.startDate.slice(0, 4)}.{item.startDate.slice(5, 7)}.
+                  {item.startDate.slice(8, 10)}
+                  <Dot /> {item.startDate.slice(11, 13)}시~
+                  {item.endDate.slice(11, 13)}시
                 </SlideContent>
                 <SlideContent>
                   <Image
@@ -51,7 +51,7 @@ export default function SimpleSlider(props: any) {
                     alt="화살표 모양 아이콘"
                     style={{ marginRight: '0.4rem' }}
                   />
-                  {item.place_name}
+                  {item.placeName}
                 </SlideContent>
                 <SlideContent>
                   <Image
@@ -61,7 +61,7 @@ export default function SimpleSlider(props: any) {
                     height={18}
                     style={{ marginRight: '0.4rem' }}
                   />
-                  {item.place_address}
+                  {item.placeAddress}
                 </SlideContent>
               </SlideCard>
             </ImageContainer>

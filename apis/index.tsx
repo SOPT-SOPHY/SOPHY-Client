@@ -6,12 +6,12 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-const accessToken = Cookies.get('accessToken');
+const accessTokenFromCookie = Cookies.get('accessToken');
 
 // url 호출 시 기본 값 셋팅
 const api = axios.create({
   baseURL,
-  headers: { Authorization: `Bearer ${accessToken}` }, // data type
+  headers: { Authorization: `Bearer ${accessTokenFromCookie}` }, // data type
 });
 
 api.interceptors.request.use(
@@ -50,30 +50,29 @@ api.interceptors.response.use(
     } = error;
     console.log('에러입니다', error.response.data);
     if (status === 401) {
+      console.log('error message', error);
       if (error.response.data.message === '만료된 액세스 토큰입니다.') {
         const originalRequest = config;
-        const refreshToken = await Cookies.get('refreshToken');
+        const refreshTokenFromCookie = await Cookies.get('refreshToken');
         // token refresh 요청
         try {
-          const { data } = await axios.post(
-            `${baseURL}/auth/reissue`, // token refresh api
-            {
-              access_token: accessToken,
-              refresh_token: refreshToken,
-              access_token_expired_time: 3600,
-              refresh_token_expired_time: 1209600,
+          const { data } = await axios.post(`${baseURL}/auth/reissue`, null, {
+            headers: {
+              Refresh: refreshTokenFromCookie,
+              Authorization: `Bearer ${accessTokenFromCookie}`,
             },
-          );
+          });
           // 리프레시 토큰 에러처리
           // 새로운 토큰 저장
           // eslint-disable-next-line camelcase
-          const { access_token, refresh_token } = data.data;
-          console.log(data);
-          console.log(access_token);
-          console.log(refresh_token);
-          Cookies.set('accessToken', access_token);
-          Cookies.set('refreshToken', refresh_token);
-          originalRequest.headers.authorization = `Bearer ${access_token}`;
+          const { accessToken, refreshToken } = data.data;
+          console.log(`data: ${data}`);
+          console.log(accessToken);
+          console.log(refreshToken);
+          Cookies.set('accessToken', accessToken);
+          Cookies.set('refreshToken', refreshToken);
+          originalRequest.headers.authorization = `Bearer ${accessToken}`;
+          originalRequest.headers.Refresh = refreshToken;
           // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
           return api(originalRequest);
         } catch (e: any) {

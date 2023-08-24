@@ -1,10 +1,10 @@
 import React from 'react';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/common/Layout';
 import BooktalkList from '../../../components/mypage/BooktalkList';
 
 const index = () => {
   return (
-    <Layout noHeader noMenuBar noFooter>
+    <Layout>
       <BooktalkList />
     </Layout>
   );

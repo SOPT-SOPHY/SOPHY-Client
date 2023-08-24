@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from '../styles/global-style';
 import theme from '../styles/theme';
 import '../public/static/fonts/style.css';
+import Layout from '../components/common/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>
