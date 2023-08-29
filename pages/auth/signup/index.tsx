@@ -1,16 +1,11 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
-import axios from 'axios';
 import { styled } from 'styled-components';
 import Image from 'next/image';
-import Layout from '../../../components/common/Layout';
+import { useRouter } from 'next/router';
 import {
-  GoBackIcon,
   ColorCheckIcon,
   GrayCheckIcon,
   InactiveCheckboxIcon,
@@ -19,6 +14,18 @@ import {
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 import { usePostDuplicatedEmail } from '../../../hooks/queries/auth';
+import PageTitle from '../../../components/common/PageTitle';
+import {
+  handleAllAgree,
+  handleConfirmPassword,
+  handleMarketingAgree,
+  handleNameChange,
+  handlePasswordChange,
+  handlePrivacyAgree,
+  handleSignup,
+  handleTermsAgree,
+  phoneChange,
+} from '../../../hooks/auth/signup';
 
 interface StyledComponentProps {
   string?: string | null;
@@ -27,9 +34,8 @@ interface StyledComponentProps {
 }
 
 function Signup() {
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-
   const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
     null,
@@ -68,68 +74,6 @@ function Signup() {
     mutate({ email });
     console.log(data);
     setIsDuplicatedEmailChecked(true);
-  };
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post(`${baseURL}/auth/login`, {
-        email,
-        password,
-      });
-
-      console.log(`response: ${response}`);
-
-      // eslint-disable-next-line camelcase
-      const { accessToken, refreshToken } = response.data.data;
-      console.log(accessToken);
-
-      Cookies.set('accessToken', accessToken);
-      Cookies.set('refreshToken', refreshToken);
-    } catch (error) {
-      console.error('로그인 에러 발생', error);
-    }
-  };
-
-  const handleSignup = async () => {
-    try {
-      const response = await axios.post(`${baseURL}/auth/signup`, {
-        email,
-        name,
-        password,
-        phoneNum: phone,
-        marketingAgree: marketingAgreed,
-      });
-
-      console.log(response);
-
-      router.push('/auth/firstSignup');
-
-      handleLogin();
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-
-  const handleAllAgree = () => {
-    setAllAgreed(!allAgreed);
-    setTermsAgreed(!allAgreed);
-    setPrivacyAgreed(!allAgreed);
-    setMarketingAgreed(!allAgreed);
-  };
-
-  const handleTermsAgree = () => {
-    setTermsAgreed(!termsAgreed);
-    setAllAgreed(false);
-  };
-
-  const handlePrivacyAgree = () => {
-    setPrivacyAgreed(!privacyAgreed);
-    setAllAgreed(false);
-  };
-
-  const handleMarketingAgree = () => {
-    setMarketingAgreed(!marketingAgreed);
-    setAllAgreed(false);
   };
 
   useEffect(() => {
@@ -186,68 +130,9 @@ function Signup() {
     isDuplicatedEmailChecked,
   ]);
 
-  const handleGoBack = () => {
-    router.back();
-  };
-
-  const handleNameChange = (e: any) => {
-    const koreanRegex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]*$/;
-    if (koreanRegex.test(e.target.value)) {
-      setName(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-  };
-
-  const handleConfirmPassword = (e: any) => {
-    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
-    if (alphanumericRegex.test(e.target.value)) {
-      setConfirmPassword(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-  };
-
-  const phoneChange = (e: any) => {
-    const numberRegex = /^[0-9]*$/;
-    if (numberRegex.test(e.target.value)) {
-      setPhone(e.target.value);
-    } else {
-      e.target.value = '';
-    }
-  };
-
-  const handlePasswordChange = (e: any) => {
-    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
-    if (alphanumericRegex.test(e.target.value)) {
-      setPassword(e.target.value);
-    } else {
-      e.target.value = '';
-      return;
-    }
-
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
-    if (e.target.value === '') {
-      setIsPasswordAvailable(null);
-    } else if (passwordRegex.test(e.target.value)) {
-      setIsPasswordAvailable(true);
-    } else {
-      setIsPasswordAvailable(false);
-    }
-  };
-
   return (
     <>
-      <Head>
-        <GoBackImage
-          src={GoBackIcon}
-          alt="뒤로가기 아이콘"
-          onClick={handleGoBack}
-        />
-        <PageTitle>회원가입</PageTitle>
-        <TitleBlank />
-      </Head>
-      <HeadBlank />
+      <PageTitle pageTitleText="회원가입" />
       <InputTitle>
         <InputTitleContent>이메일 주소</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
@@ -284,7 +169,9 @@ function Signup() {
           type="password"
           placeholder="비밀번호를 입력해주세요."
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e: any) =>
+            handlePasswordChange(e, setPassword, setIsPasswordAvailable)
+          }
         />
       </InputWrapper>
       <PasswordLine boolean={isPasswordAvailable} />
@@ -310,7 +197,7 @@ function Signup() {
           type="password"
           placeholder="비밀번호를 다시 입력해주세요."
           value={confirmPassword}
-          onChange={handleConfirmPassword}
+          onChange={(e: any) => handleConfirmPassword(e, setConfirmPassword)}
         />
       </InputWrapper>
       <ConfirmPasswordLine
@@ -341,7 +228,7 @@ function Signup() {
           type="text"
           placeholder="이름을 입력해주세요."
           value={name}
-          onChange={handleNameChange}
+          onChange={(event: any) => handleNameChange(event, setName)}
         />
       </InputWrapper>
       <LoginLine boolean string={name} />
@@ -360,7 +247,7 @@ function Signup() {
           type="tel"
           placeholder="번호를 입력해주세요."
           value={phone}
-          onChange={phoneChange}
+          onChange={(e: any) => phoneChange(e, setPhone)}
         />
       </InputWrapper>
       <LoginLine boolean string={phone} />
@@ -368,7 +255,17 @@ function Signup() {
         <InputTitleContent>이용약관 동의</InputTitleContent>
         <PrimaryColorStar>*</PrimaryColorStar>
       </InputTitle>
-      <AllAgreeButton type="button" onClick={handleAllAgree}>
+      <AllAgreeButton
+        type="button"
+        onClick={() =>
+          handleAllAgree(
+            setAllAgreed,
+            setTermsAgreed,
+            setPrivacyAgreed,
+            setMarketingAgreed,
+            allAgreed,
+          )
+        }>
         네, 모두 동의합니다
         {allAgreed ? (
           <Image
@@ -392,14 +289,18 @@ function Signup() {
                 src={ActiveCheckboxIcon}
                 alt="체크되었음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handleTermsAgree}
+                onClick={() =>
+                  handleTermsAgree(setTermsAgreed, setAllAgreed, termsAgreed)
+                }
               />
             ) : (
               <Image
                 src={InactiveCheckboxIcon}
                 alt="체크되지 않았음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handleTermsAgree}
+                onClick={() =>
+                  handleTermsAgree(setTermsAgreed, setAllAgreed, termsAgreed)
+                }
               />
             )}
             <div>(필수) 이용약관 동의</div>
@@ -420,14 +321,26 @@ function Signup() {
                 src={ActiveCheckboxIcon}
                 alt="체크되었음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handlePrivacyAgree}
+                onClick={() =>
+                  handlePrivacyAgree(
+                    setPrivacyAgreed,
+                    setAllAgreed,
+                    privacyAgreed,
+                  )
+                }
               />
             ) : (
               <Image
                 src={InactiveCheckboxIcon}
                 alt="체크되지 않았음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handlePrivacyAgree}
+                onClick={() =>
+                  handlePrivacyAgree(
+                    setPrivacyAgreed,
+                    setAllAgreed,
+                    privacyAgreed,
+                  )
+                }
               />
             )}
             <div>(필수) 개인정보 취급방침 동의</div>
@@ -448,14 +361,26 @@ function Signup() {
                 src={ActiveCheckboxIcon}
                 alt="체크되었음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handleMarketingAgree}
+                onClick={() =>
+                  handleMarketingAgree(
+                    setMarketingAgreed,
+                    setAllAgreed,
+                    marketingAgreed,
+                  )
+                }
               />
             ) : (
               <Image
                 src={InactiveCheckboxIcon}
                 alt="체크되지 않았음을 나타내는 아이콘"
                 style={{ marginRight: '0.6rem' }}
-                onClick={handleMarketingAgree}
+                onClick={() =>
+                  handleMarketingAgree(
+                    setMarketingAgreed,
+                    setAllAgreed,
+                    marketingAgreed,
+                  )
+                }
               />
             )}
             <div>(선택) 마케팅 정보 수신 동의</div>
@@ -473,7 +398,9 @@ function Signup() {
 
       <SignupButton
         type="button"
-        onClick={handleSignup}
+        onClick={() =>
+          handleSignup(email, name, password, phone, marketingAgreed, router)
+        }
         disabled={!isFormValid}>
         회원가입
       </SignupButton>
@@ -482,37 +409,6 @@ function Signup() {
 }
 
 export default Signup;
-
-const Head = styled.header`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-
-  position: fixed;
-
-  background-color: ${theme.colors.white};
-
-  width: 37.5rem;
-`;
-
-const GoBackImage = styled(Image)`
-  cursor: pointer;
-`;
-
-const HeadBlank = styled.div`
-  width: 37.5rem;
-  height: 4.4rem;
-`;
-
-const PageTitle = styled.div`
-  ${theme.fonts.subhead2_bold};
-`;
-
-const TitleBlank = styled.div`
-  width: 4.4rem;
-  height: 4.4rem;
-`;
 
 const InputTitle = styled.div`
   font-size: 2.4rem;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import theme from '../../styles/theme';
-import { loginhomeImg, NewLogo } from '../../assets/img';
+import theme from '../../../styles/theme';
+import { loginhomeImg, NewLogo } from '../../../assets/img';
 
 function AuthImage() {
   return (

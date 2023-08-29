@@ -5,10 +5,10 @@ import { useRecoilValue } from 'recoil';
 import { NewLogo } from '../../../assets/img';
 import theme from '../../../styles/theme';
 import GoBackButton from '../../../components/common/GoBackButton';
-import LoginInputs from '../../../components/auth/LoginInputs';
+import LoginInputs from '../../../components/auth/login/LoginInputs';
 import { showLoginToastState } from '../../../atoms/auth';
-import LoginButton from '../../../components/auth/LoginButton';
-import FindingUserInfo from '../../../components/auth/FindingUserInfo';
+import LoginButton from '../../../components/auth/login/LoginButton';
+import FindingUserInfo from '../../../components/auth/login/FindingUserInfo';
 
 function Login() {
   const showToast = useRecoilValue(showLoginToastState);
