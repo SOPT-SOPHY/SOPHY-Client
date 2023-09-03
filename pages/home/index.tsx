@@ -35,6 +35,7 @@ import {
 } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 import { NewLogoWhite } from '../../assets/img';
+import RenderWhen from '../../components/common/RenderWhen';
 
 function Home() {
   const router = useRouter();
@@ -85,18 +86,16 @@ function Home() {
           }}
         />
         <TopText>
-          {data.booktalkCount !== null ? (
-            <>
-              <TopBoldText>{data && data.name}님,</TopBoldText>
-              <TopTextUnder>반가워요</TopTextUnder>
-            </>
-          ) : (
-            <>
+          <RenderWhen>
+            <RenderWhen.If isTrue={data.booktalkCount === null}>
               <TopBoldText>안녕하세요</TopBoldText>
               <NonMemberTopTextUnder />
-            </>
-          )}
-
+            </RenderWhen.If>
+            <RenderWhen.If isTrue={data.booktalkCount !== null}>
+              <TopBoldText>{data && data.name}님,</TopBoldText>
+              <TopTextUnder>반가워요</TopTextUnder>
+            </RenderWhen.If>
+          </RenderWhen>
           <br />
           <TopTextUnder>오늘도 소피로운 하루 보내세요</TopTextUnder>
         </TopText>

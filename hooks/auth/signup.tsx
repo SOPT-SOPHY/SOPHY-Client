@@ -42,7 +42,7 @@ export const handleSignup = async (
 
     console.log(response);
 
-    router.push('/auth/firstSignup');
+    router?.push('/auth/firstSignup');
 
     handleLogin(email, password);
   } catch (e: any) {
