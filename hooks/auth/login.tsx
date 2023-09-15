@@ -44,6 +44,7 @@ const useLogin = () => {
     }
   };
 
+  // 이렇게 하면 안돼 현수야..
   useEffect(() => {
     if (password && !emailError && email.length > 0) {
       setIsLoginAvailable(true);

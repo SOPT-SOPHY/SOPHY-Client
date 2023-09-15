@@ -15,7 +15,7 @@ const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 export const fetchBooktalkRegion = async (city: string) => {
   const {
     data: { data },
-  } = await api.get(`booktalk/search/${city}`);
+  } = await api.get(`booktalk/search?cities=${city}`);
   return data;
 };
 
