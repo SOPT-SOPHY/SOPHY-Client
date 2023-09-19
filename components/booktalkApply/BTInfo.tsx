@@ -18,74 +18,55 @@ import ellipseIcon from '../../assets/icon/EllipseIcon.svg';
 interface BTInfoProps {
   // booktalk_image_url: string;
   title: string;
-  book_category: string;
+  bookCategory: string;
   book: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
   participant: number;
-  participation_fee: number;
-  preliminary_info: string;
+  participationFee: number;
+  preliminaryInfo: string;
   description: string;
-  place_name: string;
-  place_address: string;
+  placeName: string;
+  placeAddress: string;
   author: string;
-  //   {
-  //     "code": 200,
-  //     "message": "북토크 상세정보를 성공적으로 불러왔습니다.",
-  //     "data": {
-  //         "booktalk_image_url": "dwqE@EWQDQFQEWQ",
-  //         "title": "테스트 타이틀2",
-  //         "book_category": "HEALTH_COOKING",
-  //         "book": "책이름",
-  //         "start_date": "2023-07-18T16:00:00",
-  //         "end_date": "2023-07-18T18:00:00",
-  //         "participant": 1,
-  //         "participation_fee": 10000,
-  //         "preliminary_info": "PRE_READING",
-  //         "description": "재밌습니다~",
-  //         "place_name": "장소",
-  //         "place_address": "의정부시 낙양동",
-  //         "author": "작가"
-  //     }
-  // }
 }
 
 function BTInfo({
   title,
   // booktalk_image_url,
-  book_category,
+  bookCategory,
   book,
-  start_date,
-  end_date,
+  startDate,
+  endDate,
   participant,
-  participation_fee,
-  preliminary_info,
+  participationFee,
+  preliminaryInfo,
   description,
-  place_name,
-  place_address,
+  placeName,
+  placeAddress,
   author,
 }: BTInfoProps) {
-  const startDate = new Date(start_date);
-  const endDate = new Date(end_date);
+  const start_Date = new Date(startDate);
+  const end_Date = new Date(endDate);
 
-  const formattedStartDate = `${startDate
+  const formattedStartDate = `${start_Date
     .getFullYear()
     .toString()
-    .slice(2)}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일`;
+    .slice(2)}년 ${start_Date.getMonth() + 1}월 ${start_Date.getDate()}일`;
 
-  const formattedStartTime = `${startDate.getHours()}시`;
-  const formattedEndTime = `${endDate.getHours()}시`;
+  const formattedStartTime = `${start_Date.getHours()}시`;
+  const formattedEndTime = `${end_Date.getHours()}시`;
 
   const formattedDateTime = `${formattedStartTime}~${formattedEndTime}`;
 
-  const formattedFee = () => {
-    if (participation_fee === 0) {
+  const handleFormattedFee = () => {
+    if (participationFee === 0) {
       return '무료';
     }
-    return `${participation_fee}`;
+    return `${participationFee}`;
   };
 
-  const formatted_fee = formattedFee();
+  const formattedFee = handleFormattedFee();
 
   const encodeCategory = (category: string) => {
     switch (category) {
@@ -124,7 +105,7 @@ function BTInfo({
     }
   };
 
-  const decodeCategory = encodeCategory(book_category);
+  const decodeCategory = encodeCategory(bookCategory);
 
   const encodePreliminary = (preliminary: string) => {
     switch (preliminary) {
@@ -141,7 +122,7 @@ function BTInfo({
     }
   };
 
-  const decodePreliminary = encodePreliminary(preliminary_info);
+  const decodePreliminary = encodePreliminary(preliminaryInfo);
 
   return (
     <>
@@ -237,7 +218,7 @@ function BTInfo({
           <InfoCategory>참가비</InfoCategory>
         </InfoBox>
         <BtTitleContainer>
-          <BtTitle>{formatted_fee}</BtTitle>
+          <BtTitle>{formattedFee}</BtTitle>
         </BtTitleContainer>
       </InfoContainer>
       <HorizontalLine />
@@ -280,8 +261,8 @@ function BTInfo({
             <Image src={icPin} width={28} height={28} alt="핀아이콘" />
             <span>공간정보</span>
           </SpaceIcon>
-          <SpaceName>{place_name}</SpaceName>
-          <SpaceDetail>{place_address}</SpaceDetail>
+          <SpaceName>{placeName}</SpaceName>
+          <SpaceDetail>{placeAddress}</SpaceDetail>
         </SpaceImage>
       </SpaceBox>
       <Line />

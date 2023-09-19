@@ -40,7 +40,6 @@ function MySophy() {
 
   useEffect(() => {
     if (!refreshToken && !accessToken) {
-      Cookies.remove('memberId');
       router.push('auth/login');
       alert('비회원은 접근할 수 없는 페이지예요 :(');
     }

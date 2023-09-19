@@ -30,17 +30,12 @@ function SophyStory() {
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
-  const memberId = Cookies.get('memberId');
 
   useEffect(() => {
-    if (!refreshToken && !accessToken && memberId) {
-      Cookies.remove('memberId');
-      router.push('auth/login');
-    }
-    if (!memberId) {
+    if (!refreshToken && !accessToken) {
       console.log('비회원 접근 불가');
       alert('비회원은 접근할 수 없는 페이지예요 :(');
-      // router.push('auth');
+      router.push('auth');
     }
   }, [accessToken, refreshToken, router]);
 

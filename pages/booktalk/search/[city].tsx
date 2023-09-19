@@ -19,16 +19,16 @@ import {
 import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
 
 interface BooktalkProps {
-  booktalk_id: number;
-  preliminary_info: string;
+  booktalkId: number;
+  preliminaryInfo: string;
   title: string;
   author: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
   place: string;
   participant: number;
   maximum: number;
-  booktalk_image_url: string;
+  booktalkImageUrl: string;
 }
 
 function BTList() {
@@ -144,9 +144,9 @@ function BTList() {
         {booktalkList &&
           booktalkList.map((item: BooktalkProps) => (
             <SingleBookTalk
-              key={item?.booktalk_id}
+              key={item?.booktalkId}
               item={item}
-              onClick={() => handleBooktalkClick(item?.booktalk_id)}
+              onClick={() => handleBooktalkClick(item?.booktalkId)}
             />
           ))}
       </SingleBookTalkContainer>
