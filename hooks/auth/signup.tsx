@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const handleLogin = async (email, password) => {
+export const handleLogin = async (email: any, password: any) => {
   try {
     const response = await axios.post(`${baseURL}/auth/login`, {
       email,
@@ -24,12 +24,12 @@ export const handleLogin = async (email, password) => {
 };
 
 export const handleSignup = async (
-  email,
-  name,
-  password,
-  phone,
-  marketingAgreed,
-  router,
+  email: any,
+  name: any,
+  password: any,
+  phone: any,
+  marketingAgreed: any,
+  router: any,
 ) => {
   try {
     const response = await axios.post(`${baseURL}/auth/signup`, {
@@ -51,11 +51,11 @@ export const handleSignup = async (
 };
 
 export const handleAllAgree = (
-  setAllAgreed,
-  setTermsAgreed,
-  setPrivacyAgreed,
-  setMarketingAgreed,
-  allAgreed,
+  setAllAgreed: any,
+  setTermsAgreed: any,
+  setPrivacyAgreed: any,
+  setMarketingAgreed: any,
+  allAgreed: any,
 ) => {
   setAllAgreed(!allAgreed);
   setTermsAgreed(!allAgreed);
@@ -63,30 +63,34 @@ export const handleAllAgree = (
   setMarketingAgreed(!allAgreed);
 };
 
-export const handleTermsAgree = (setTermsAgreed, setAllAgreed, termsAgreed) => {
+export const handleTermsAgree = (
+  setTermsAgreed: any,
+  setAllAgreed: any,
+  termsAgreed: any,
+) => {
   setTermsAgreed(!termsAgreed);
   setAllAgreed(false);
 };
 
 export const handlePrivacyAgree = (
-  setPrivacyAgreed,
-  setAllAgreed,
-  privacyAgreed,
+  setPrivacyAgreed: any,
+  setAllAgreed: any,
+  privacyAgreed: any,
 ) => {
   setPrivacyAgreed(!privacyAgreed);
   setAllAgreed(false);
 };
 
 export const handleMarketingAgree = (
-  setMarketingAgreed,
-  setAllAgreed,
-  marketingAgreed,
+  setMarketingAgreed: any,
+  setAllAgreed: any,
+  marketingAgreed: any,
 ) => {
   setMarketingAgreed(!marketingAgreed);
   setAllAgreed(false);
 };
 
-export const handleNameChange = (e: any, setName) => {
+export const handleNameChange = (e: any, setName: any) => {
   const koreanRegex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]*$/;
   if (koreanRegex.test(e.target.value)) {
     setName(e.target.value);
@@ -95,7 +99,7 @@ export const handleNameChange = (e: any, setName) => {
   }
 };
 
-export const handleConfirmPassword = (e: any, setConfirmPassword) => {
+export const handleConfirmPassword = (e: any, setConfirmPassword: any) => {
   const alphanumericRegex = /^[a-zA-Z0-9]*$/;
   if (alphanumericRegex.test(e.target.value)) {
     setConfirmPassword(e.target.value);
@@ -104,7 +108,7 @@ export const handleConfirmPassword = (e: any, setConfirmPassword) => {
   }
 };
 
-export const phoneChange = (e: any, setPhone) => {
+export const phoneChange = (e: any, setPhone: any) => {
   const numberRegex = /^[0-9]*$/;
   if (numberRegex.test(e.target.value)) {
     setPhone(e.target.value);
@@ -115,8 +119,8 @@ export const phoneChange = (e: any, setPhone) => {
 
 export const handlePasswordChange = (
   e: any,
-  setPassword,
-  setIsPasswordAvailable,
+  setPassword: any,
+  setIsPasswordAvailable: any,
 ) => {
   const alphanumericRegex = /^[a-zA-Z0-9]*$/;
   if (alphanumericRegex.test(e.target.value)) {
