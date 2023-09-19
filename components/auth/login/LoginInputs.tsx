@@ -3,14 +3,14 @@ import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { DeleteButtonIcon, HideButtonIcon } from '../../assets/icon';
+import { DeleteButtonIcon, HideButtonIcon } from '../../../assets/icon';
 import {
   emailState,
   emailErrorState,
   passwordState,
   showPswdState,
-} from '../../atoms/auth';
-import theme from '../../styles/theme';
+} from '../../../atoms/auth';
+import theme from '../../../styles/theme';
 
 interface LoginInputsProps {
   inputType: string;

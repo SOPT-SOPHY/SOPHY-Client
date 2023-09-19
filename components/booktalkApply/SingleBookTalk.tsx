@@ -5,16 +5,16 @@ import icPeople from '../../assets/icon/ic_people_count.svg';
 import ellipseIcon from '../../assets/icon/EllipseIcon.svg';
 
 interface BooktalkProps {
-  booktalk_id: number;
-  preliminary_info: string;
+  booktalkId: number;
+  preliminaryInfo: string;
   title: string;
   author: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
   place: string;
   participant: number;
   maximum: number;
-  booktalk_image_url: string;
+  booktalkImageUrl: string;
 }
 
 interface SingleBookTalkProps {
@@ -25,11 +25,12 @@ interface SingleBookTalkProps {
 function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
   const handleBooktalkClick = () => {
     if (onClick) {
-      onClick(item?.booktalk_id);
+      onClick(item?.booktalkId);
     }
   };
-  const startDate = new Date(item?.start_date);
-  const endDate = new Date(item?.end_date);
+
+  const startDate = new Date(item?.startDate);
+  const endDate = new Date(item?.endDate);
 
   const formattedStartDate = `${startDate
     .getFullYear()
@@ -44,7 +45,7 @@ function SingleBookTalk({ item, onClick }: SingleBookTalkProps) {
   return (
     <>
       <BookTalkWrapper onClick={handleBooktalkClick}>
-        <ImageContainer src={item?.booktalk_image_url} alt="북토크 썸네일">
+        <ImageContainer src={item?.booktalkImageUrl} alt="북토크 썸네일">
           {/* <Image src={item.flag.large} width={99} height={99} alt="국가 이미지" /> */}
         </ImageContainer>
         <TextWrapper>

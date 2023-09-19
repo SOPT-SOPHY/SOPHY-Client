@@ -79,16 +79,16 @@ function BTDetail() {
           // booktalk_image_url={data?.booktalk_image_url}
           title={data?.title}
           author={data?.author}
-          book_category={data?.book_category}
+          bookCategory={data?.bookCategory}
           book={data?.book}
-          start_date={data?.start_date}
-          end_date={data?.end_date}
+          startDate={data?.startDate}
+          endDate={data?.endDate}
           participant={data?.participant}
-          participation_fee={data?.participation_fee}
-          preliminary_info={data?.preliminary_info}
+          participationFee={data?.participationFee}
+          preliminaryInfo={data?.preliminaryInfo}
           description={data?.description}
-          place_name={data?.place_name}
-          place_address={data?.place_address}
+          placeName={data?.placeName}
+          placeAddress={data?.placeAddress}
         />
       </div>
       <CheckBox booktalk_id={id?.booktalkId} />

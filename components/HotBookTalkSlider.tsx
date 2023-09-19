@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import theme from '../styles/theme';
 import { PinIcon, PointIcon, ScheduleIcon } from '../assets/icon';
 
+/* keen slider */
+
 export default function SimpleSlider(props: any) {
   const { data } = props;
   const router = useRouter();
@@ -17,10 +19,10 @@ export default function SimpleSlider(props: any) {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.35,
     slidesToScroll: 1,
     arrows: false,
-    centerMode: true,
+    centerMode: false,
     dotsClass: 'dots_custom',
   };
   return (
@@ -79,12 +81,12 @@ const ContainerWrapper = styled.div`
 
 const Container = styled.div`
   width: 40rem;
-  margin-left: -3.8rem;
 `;
 
 const StyledSlider = styled(Slider)`
   .slick-slide div {
     outline: none;
+    margin-left: 1rem;
   }
 `;
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import theme from '../../styles/theme';
-import useLogin from '../../hooks/auth/login';
-import { isLoginAvailableState } from '../../atoms/auth';
+import theme from '../../../styles/theme';
+import useLogin from '../../../hooks/auth/login';
+import { isLoginAvailableState } from '../../../atoms/auth';
 
 interface ButtonProps {
   onClick: () => void;

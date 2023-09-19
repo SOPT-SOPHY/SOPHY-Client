@@ -35,6 +35,7 @@ import {
 } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 import { NewLogoWhite } from '../../assets/img';
+import RenderWhen from '../../components/common/RenderWhen';
 
 function Home() {
   const router = useRouter();
@@ -70,6 +71,8 @@ function Home() {
   console.log(data);
   if (!data) return;
 
+  console.log(data.booktalkDeadlineUpcoming);
+
   return (
     <>
       <TopBackground image={HomeTopImg}>
@@ -85,18 +88,16 @@ function Home() {
           }}
         />
         <TopText>
-          {data.booktalkCount !== null ? (
-            <>
-              <TopBoldText>{data && data.name}님,</TopBoldText>
-              <TopTextUnder>반가워요</TopTextUnder>
-            </>
-          ) : (
-            <>
+          <RenderWhen>
+            <RenderWhen.If isTrue={data.booktalkCount === null}>
               <TopBoldText>안녕하세요</TopBoldText>
               <NonMemberTopTextUnder />
-            </>
-          )}
-
+            </RenderWhen.If>
+            <RenderWhen.If isTrue={data.booktalkCount !== null}>
+              <TopBoldText>{data && data.name}님,</TopBoldText>
+              <TopTextUnder>반가워요</TopTextUnder>
+            </RenderWhen.If>
+          </RenderWhen>
           <br />
           <TopTextUnder>오늘도 소피로운 하루 보내세요</TopTextUnder>
         </TopText>
@@ -267,7 +268,7 @@ function Home() {
                 src={NavPinGrayIcon}
                 alt="지역 화면 바로가기 아이콘"
                 onClick={() => {
-                  if (data?.my_city_booktalk_count === null) {
+                  if (data?.myCityBooktalkCount === null) {
                     router.push('/booktalk/search/UIJEONGBU_SI');
                   } else {
                     router.push(`/booktalk/search/${myInfo?.city}`);
@@ -309,38 +310,18 @@ function Home() {
           </IconsWrapper>
         </Footer>
       </FooterWrapper>
+
       {data?.is_author && data?.booktalkCount !== null && (
         <OpenBookTalkButton onClick={() => router.push('/author/region')}>
           북토크 개설하기
         </OpenBookTalkButton>
       )}
-      <St.Header>
-        {/* 
-         <button type="button" onClick={handleLogout}>
-          Logout
-        </button>
-        arr.map((obj, index) => (
-          <div key={index}>
-            <span>{obj.id}</span>
-            <span>{obj.title}</span>
-          </div>
-        )) */}
-      </St.Header>
     </>
   );
 }
 
 export default Home;
 
-const St = {
-  Header: styled.div`
-    font-size: 8rem;
-    color: rgb(255 192 203);
-  `,
-  Page: styled.span`
-    padding-left: 3rem;
-  `,
-};
 const TopBackground = styled.div<{ image: StaticImageData }>`
   background-image: url(${(props) => props.image.src});
   width: 100%;
