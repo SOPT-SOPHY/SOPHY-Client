@@ -4,9 +4,12 @@ import Image from 'next/image';
 import { GoBackIcon } from '../../assets/icon';
 import theme from '../../styles/theme';
 import { handleGoBack } from '../../hooks/common';
-import { pageTitleProps } from '../../types/signup';
 
-function PageTitle(props: pageTitleProps) {
+interface PageTitleProps {
+  pageTitleText: string;
+}
+
+function PageTitle(props: PageTitleProps) {
   const { pageTitleText } = props;
   return (
     <>

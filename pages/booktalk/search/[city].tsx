@@ -177,7 +177,7 @@ function BTList() {
               <Image
                 src={NavPersonGrayIcon}
                 alt="MY 페이지 바로가기 아이콘"
-                onClick={() => router.push('/mypage/home')}
+                onClick={() => router.push('/mypage')}
               />
               <UnClickedIconText>나의 소피</UnClickedIconText>
             </IconWrapper>

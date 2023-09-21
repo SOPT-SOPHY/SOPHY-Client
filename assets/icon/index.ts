@@ -47,3 +47,5 @@ export { default as AuthorCertificationIcon } from './AuthorCertificationIcon.sv
 export { default as AuthorMypageMoreIcon } from './AuthorMypageMoreIcon.svg';
 export { default as AuthorBooktalkManageMoreIcon } from './AuthorBooktalkManageMoreIcon.svg';
 export { default as AuthorAuthorizationIcon } from './AuthorAuthorizationIcon.svg';
+export { default as ProfileImg } from './ProfileIcon.svg'
+export { default as ProfileMore } from './ProfileMore.svg'

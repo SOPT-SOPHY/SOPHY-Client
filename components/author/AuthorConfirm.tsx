@@ -41,7 +41,7 @@ function AuthorConfirm() {
           북토크 내용 수정은 나의 소피에서 가능해요
         </ConfirmSubTitle>
       </ConfirmSection>
-      <Link href="/mypage/home">
+      <Link href="/mypage">
         <ConfirmButton>나의 소피에서 확인하기</ConfirmButton>
       </Link>
     </Confirm>
