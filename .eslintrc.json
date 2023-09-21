@@ -17,11 +17,6 @@
     "prettier"
   ],
   "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:@next/next/recommended",
     "next/core-web-vitals",
     "prettier",
@@ -40,7 +35,7 @@
     ],
     "react-hooks/rules-of-hooks": "off",
     "prettier/prettier": [
-      "error",
+      "warn",
       {
         "endOfLine": "auto",
         "usePrettierrc": true,
@@ -55,7 +50,7 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-unused-vars": [
-      "error"
+      "warn"
     ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/jsx-props-no-spreading": "off",

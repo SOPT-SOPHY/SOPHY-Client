@@ -4,7 +4,7 @@ import MyProfile from '../../components/mypage/MyProfile';
 const Mypage = () => {
   return (
     <div>
-      <MyProfile></MyProfile>
+      <MyProfile />
     </div>
   );
 };
