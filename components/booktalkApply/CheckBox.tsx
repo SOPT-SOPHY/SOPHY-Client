@@ -145,7 +145,7 @@ function CheckBox(props: any) {
         // }
 
         setTimeout(() => {
-          router.push('../../mypage/home');
+          router.push('../../mypage');
         }, 3000);
       } catch (error) {
         console.error('북토크 신청 에러 발생', error);

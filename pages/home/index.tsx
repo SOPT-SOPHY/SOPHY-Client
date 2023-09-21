@@ -301,7 +301,7 @@ function Home() {
                     alert('비회원은 접근할 수 없는 페이지예요 :(');
                     router.push('/auth');
                   } else {
-                    router.push('/mypage/home');
+                    router.push('/mypage');
                   }
                 }}
               />
