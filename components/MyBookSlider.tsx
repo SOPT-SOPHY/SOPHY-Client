@@ -16,7 +16,7 @@ const Container = styled.div`
   margin-left: -35.5rem;
 `;
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider as any)`
   .slick-slide div {
     outline: none;
   }

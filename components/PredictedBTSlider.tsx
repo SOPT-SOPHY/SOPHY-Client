@@ -22,7 +22,7 @@ const Container = styled.div<{ length: number }>`
   }};
 `;
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider as any)`
   .slick-slide div {
     outline: none;
   }
