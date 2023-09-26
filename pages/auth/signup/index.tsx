@@ -14,7 +14,7 @@ import {
 } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 import { usePostDuplicatedEmail } from '../../../hooks/queries/auth';
-import PageTitle from '../../../components/common/PageTitle';
+import PageTitle from '../../../components/common/Title/PageTitle';
 import {
   handleAllAgree,
   handleConfirmPassword,

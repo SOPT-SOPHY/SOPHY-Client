@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRecoilValue } from 'recoil';
 import { NewLogo } from '../../../assets/img';
 import theme from '../../../styles/theme';
-import GoBackButton from '../../../components/common/GoBackButton';
+import GoBackButton from '../../../components/common/Title/GoBackButton';
 import LoginInputs from '../../../components/auth/login/LoginInputs';
 import { showLoginToastState } from '../../../atoms/auth';
 import LoginButton from '../../../components/auth/login/LoginButton';

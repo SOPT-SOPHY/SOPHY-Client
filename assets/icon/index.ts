@@ -53,3 +53,4 @@ export { default as NavBooktalkColorIcon } from './NavBooktalkColorIcon.svg';
 export { default as NavBooktalkGrayIcon } from './NavBooktalkGrayIcon.svg';
 export { default as NavMySophyColorIcon } from './NavMySophyColorIcon.svg';
 export { default as NavMySophyGrayIcon } from './NavMySophyGrayIcon.svg';
+export { default as BooktalkPeopleIcon } from './BooktalkPeopleIcon.svg';
