@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import theme from '../../styles/theme';
-import { ProfileImg, ProfileMore } from '../../assets/icon';
+import theme from '../../../styles/theme';
+import { ProfileImg, ProfileMore } from '../../../assets/icon';
 import Image from 'next/image';
 
 function MyProfile() {
