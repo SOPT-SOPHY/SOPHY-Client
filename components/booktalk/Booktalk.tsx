@@ -8,16 +8,14 @@ import { BooktalkPeopleIcon } from '../../assets/icon';
 import dayjs from 'dayjs';
 import { countDday } from '../../utils/date';
 
-const Booktalk = ({ data }) => {
-  console.log(data);
-
+const Booktalk = ({ data }: any) => {
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
       <SelectRegionToggle>의정부시</SelectRegionToggle>
       <ProductCount>검색 결과 {data.length}건</ProductCount>
       <BooktalkListWrapper>
-        {data.map((item) => (
+        {data.map((item: any) => (
           <BooktalkComponent key={item.id}>
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>

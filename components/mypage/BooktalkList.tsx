@@ -210,7 +210,6 @@ const Author = styled.h2`
 const DateHour = styled.div`
   display: flex;
   align-items: center;
-  /* padding-bottom: 0.5rem; */
 
   ${theme.fonts.body3_regular};
   color: ${theme.colors.gray04};
