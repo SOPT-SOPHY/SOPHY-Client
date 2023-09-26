@@ -47,5 +47,9 @@ export { default as AuthorCertificationIcon } from './AuthorCertificationIcon.sv
 export { default as AuthorMypageMoreIcon } from './AuthorMypageMoreIcon.svg';
 export { default as AuthorBooktalkManageMoreIcon } from './AuthorBooktalkManageMoreIcon.svg';
 export { default as AuthorAuthorizationIcon } from './AuthorAuthorizationIcon.svg';
-export { default as ProfileImg } from './ProfileIcon.svg'
-export { default as ProfileMore } from './ProfileMore.svg'
+export { default as ProfileImg } from './ProfileIcon.svg';
+export { default as ProfileMore } from './ProfileMore.svg';
+export { default as NavBooktalkColorIcon } from './NavBooktalkColorIcon.svg';
+export { default as NavBooktalkGrayIcon } from './NavBooktalkGrayIcon.svg';
+export { default as NavMySophyColorIcon } from './NavMySophyColorIcon.svg';
+export { default as NavMySophyGrayIcon } from './NavMySophyGrayIcon.svg';

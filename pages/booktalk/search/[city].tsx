@@ -17,6 +17,7 @@ import {
   NavPinColorIcon,
 } from '../../../assets/icon';
 import { useFetchBooktalkRegion } from '../../../hooks/queries/booktalk';
+import Footer from '../../../components/common/Footer/Footer';
 
 interface BooktalkProps {
   booktalkId: number;
@@ -150,40 +151,7 @@ function BTList() {
             />
           ))}
       </SingleBookTalkContainer>
-      <FooterWrapper>
-        <Footer>
-          <IconsWrapper>
-            <IconWrapper>
-              <Image
-                src={NavHomeGrayIcon}
-                alt="홈 화면 바로가기 아이콘"
-                onClick={() => router.push('/home')}
-              />
-              <UnClickedIconText>홈</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image src={NavPinColorIcon} alt="지역 화면 바로가기 아이콘" />
-              <IconText>지역</IconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavBookGrayIcon}
-                alt="소피스토리 화면 바로가기 아이콘"
-                onClick={() => router.push('/sophyStory')}
-              />
-              <UnClickedIconText>소피스토리</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavPersonGrayIcon}
-                alt="MY 페이지 바로가기 아이콘"
-                onClick={() => router.push('/mypage')}
-              />
-              <UnClickedIconText>나의 소피</UnClickedIconText>
-            </IconWrapper>
-          </IconsWrapper>
-        </Footer>
-      </FooterWrapper>
+      <Footer />
     </Body>
   );
 }
@@ -319,56 +287,4 @@ const SingleBookTalkContainer = styled.div`
   margin-bottom: 8.3rem;
   /* overflow-x: hidden; */
   /* overflow-y: scroll; */
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  width: 37.5rem;
-  height: 8.3rem;
-  cursor: pointer;
-
-  padding-left: 3rem;
-  padding-right: 3rem;
-
-  margin-top: 1rem;
-
-  background-color: ${theme.colors.white};
-
-  box-shadow: 0rem -0.4rem 0.8rem rgba(54, 57, 60, 4%);
-`;
-
-const FooterWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-`;
-
-const IconWrapper = styled.div`
-  text-align: center;
-  width: 4.9rem;
-  height: 5.1rem;
-`;
-
-const IconText = styled.div`
-  color: ${theme.colors.green06};
-  ${theme.fonts.caption};
-  text-align: center;
-`;
-
-const UnClickedIconText = styled.div`
-  color: ${theme.colors.gray06};
-  ${theme.fonts.caption};
-  text-align: center;
-`;
-
-const IconsWrapper = styled.div`
-  width: 32.5rem;
-  display: flex;
-  justify-content: space-between;
 `;

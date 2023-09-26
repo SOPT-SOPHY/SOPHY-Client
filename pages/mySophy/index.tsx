@@ -19,6 +19,7 @@ import { ComputerType, GroupType, LoveType } from '../../assets/img';
 import { uesFetchMemberHome } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 import { uesFetchSophyStory } from '../../hooks/queries/sophyStory';
+import Footer from '../../components/common/Footer/Footer';
 
 function SophyStory() {
   const [isSelected, setIsSelected] = useState('category');
@@ -91,49 +92,7 @@ function SophyStory() {
         height={67}
         style={{ marginBottom: '11.9rem' }}
       />
-      <FooterWrapper>
-        <Footer>
-          <IconsWrapper>
-            <IconWrapper>
-              <Image
-                src={NavHomeGrayIcon}
-                alt="홈 화면 바로가기 아이콘"
-                onClick={() => router.push('/home')}
-              />
-              <UnClickedIconText>홈</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavPinGrayIcon}
-                alt="지역 화면 바로가기 아이콘"
-                onClick={() => {
-                  if (myInfo?.city === null) {
-                    router.push('/booktalk/search/UIJEONGBU_SI');
-                  } else {
-                    router.push(`/booktalk/search/${myInfo?.city}`);
-                  }
-                }}
-              />
-              <UnClickedIconText>지역</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavBookColorIcon}
-                alt="소피스토리 화면 바로가기 아이콘"
-              />
-              <IconText>소피스토리</IconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavPersonGrayIcon}
-                alt="MY 페이지 바로가기 아이콘"
-                onClick={() => router.push('/mypage')}
-              />
-              <UnClickedIconText>나의 소피</UnClickedIconText>
-            </IconWrapper>
-          </IconsWrapper>
-        </Footer>
-      </FooterWrapper>
+      <Footer />
     </Layout>
   );
 }
@@ -207,57 +166,4 @@ const SophyType = styled.div`
 
   margin-top: 4.8rem;
   margin-bottom: 1.7rem;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  width: 37.5rem;
-  height: 8.3rem;
-
-  padding-left: 3rem;
-  padding-right: 3rem;
-
-  margin-top: 1rem;
-
-  background-color: ${theme.colors.white};
-
-  box-shadow: 0rem -0.4rem 0.8rem rgba(54, 57, 60, 4%);
-`;
-
-const FooterWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-`;
-
-const IconWrapper = styled.div`
-  text-align: center;
-  width: 4.9rem;
-  height: 5.1rem;
-
-  cursor: pointer;
-`;
-
-const IconText = styled.div`
-  color: ${theme.colors.green06};
-  ${theme.fonts.caption};
-  text-align: center;
-`;
-
-const UnClickedIconText = styled.div`
-  color: ${theme.colors.gray06};
-  ${theme.fonts.caption};
-  text-align: center;
-`;
-
-const IconsWrapper = styled.div`
-  width: 32.5rem;
-  display: flex;
-  justify-content: space-between;
 `;

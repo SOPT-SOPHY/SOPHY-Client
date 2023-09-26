@@ -11,7 +11,7 @@ function Layout(props: LayoutProps) {
 
   return (
     <LayoutWrapper>
-      <ContentWrapper>{children}</ContentWrapper>
+      <ContentWrapper>{children}= </ContentWrapper>
     </LayoutWrapper>
   );
 }

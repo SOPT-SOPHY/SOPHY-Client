@@ -24,6 +24,7 @@ import theme from '../../styles/theme';
 import MyBookSlider from '../../components/MyBookSlider';
 import Card from '../../components/mypage/Card';
 import { AuthorBooktalkManageImg } from '../../assets/img';
+import Footer from '../../components/common/Footer/Footer';
 
 function MySophy() {
   const router = useRouter();
@@ -189,50 +190,7 @@ function MySophy() {
           )}
         </List>
       </ListWrapper>
-      <FooterWrapper>
-        <Footer>
-          <IconsWrapper>
-            <IconWrapper>
-              <Image
-                src={NavHomeGrayIcon}
-                alt="홈 화면 바로가기 아이콘"
-                onClick={() => router.push('/home')}
-              />
-              <UnClickedIconText>홈</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavPinGrayIcon}
-                alt="지역 화면 바로가기 아이콘"
-                onClick={() => {
-                  if (myInfo?.city === null) {
-                    router.push('/booktalk/search/UIJEONGBU_SI');
-                  } else {
-                    router.push(`/booktalk/search/${myInfo?.city}`);
-                  }
-                }}
-              />
-              <UnClickedIconText>지역</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavBookGrayIcon}
-                alt="소피스토리 화면 바로가기 아이콘"
-                onClick={() => router.push('/sophyStory')}
-              />
-              <UnClickedIconText>소피스토리</UnClickedIconText>
-            </IconWrapper>
-            <IconWrapper>
-              <Image
-                src={NavPersonColorIcon}
-                alt="MY 페이지 바로가기 아이콘"
-                onClick={() => router.push('/mypage')}
-              />
-              <IconText>나의 소피</IconText>
-            </IconWrapper>
-          </IconsWrapper>
-        </Footer>
-      </FooterWrapper>
+      <Footer />
     </Body>
   );
 }
@@ -319,61 +277,6 @@ const NonLocalCertification = styled.div`
     width: 8.7rem;
     height: 2.8rem;
   }
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  width: 37.5rem;
-  height: 8.3rem;
-
-  padding-left: 3rem;
-  padding-right: 3rem;
-
-  margin-top: 1rem;
-
-  background-color: ${({ theme }) => theme.colors.white};
-
-  box-shadow: 0rem -0.4rem 0.8rem rgba(54, 57, 60, 4%);
-`;
-
-const FooterWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-`;
-
-const IconWrapper = styled.div`
-  text-align: center;
-  width: 4.9rem;
-  height: 5.1rem;
-
-  cursor: pointer;
-`;
-
-const IconText = styled.div`
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.caption};
-  color: ${({ theme }) => theme.colors.green06};
-`;
-
-const UnClickedIconText = styled.div`
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.caption};
-  color: ${({ theme }) => theme.colors.gray06};
-`;
-
-const IconsWrapper = styled.div`
-  width: 32.5rem;
-  display: flex;
-  justify-content: space-between;
 `;
 
 const ListWrapper = styled.div`
