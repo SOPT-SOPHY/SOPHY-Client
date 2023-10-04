@@ -9,21 +9,32 @@ import dayjs from 'dayjs';
 import { countDday } from '../../utils/date';
 
 const Booktalk = ({ data }: any) => {
+  console.log(data);
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
       <SelectRegionToggle>의정부시</SelectRegionToggle>
-      <ProductCount>검색 결과 {data.length}건</ProductCount>
+      <ProductCount>검색 결과 {data?.length}건</ProductCount>
       <BooktalkListWrapper>
-        {data.map((item: any) => (
+        {data?.map((item: any) => (
           <BooktalkComponent key={item.id}>
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>
-                <BooktalkImage src={HomeTopImg} alt="북토크 썸네일 이미지" />
+                <BooktalkImage
+                  src={item.booktalkImageUrl}
+                  alt="북토크 썸네일 이미지"
+                  width="3"
+                  height="3"
+                />
                 <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
-              <BooktalkImage src={HomeTopImg} alt="북토크 썸네일 이미지" />
+              <BooktalkImage
+                src={item.booktalkImageURL}
+                alt="북토크 썸네일 이미지"
+                width="3"
+                height="3"
+              />
             )}
 
             <BooktalkTitle>{item.title}</BooktalkTitle>

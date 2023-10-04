@@ -45,6 +45,8 @@ const Head = styled.header`
   background-color: ${theme.colors.white};
 
   width: 37.5rem;
+
+  z-index: 3;
 `;
 
 const GoBackImage = styled(Image)`
