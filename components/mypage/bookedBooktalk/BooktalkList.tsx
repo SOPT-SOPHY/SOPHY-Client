@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import MypageLayout from './@MypageLayout';
-import theme from '../../styles/theme';
-import { PeopleIcon } from '../../assets/icon';
-import { getDate, countDday } from '../../utils/date';
-import { uesFetchMypage } from '../../hooks/queries/mypage';
+import MypageLayout from '../@MypageLayout';
+import theme from '../../../styles/theme';
+import { PeopleIcon } from '../../../assets/icon';
+import { getDate, countDday } from '../../../utils/date';
+import { uesFetchMypage } from '../../../hooks/queries/mypage';
 
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
@@ -46,6 +46,8 @@ function BooktalkList() {
     setBooktalkListByDate(newBookTalkList);
     setBookedYearMonth(yearMonthList);
   }, [mypage]);
+
+  console.log(bookedYearMonth);
 
   return (
     <>

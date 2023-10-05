@@ -17,23 +17,23 @@ const Booktalk = ({ data }: any) => {
       <ProductCount>검색 결과 {data?.length}건</ProductCount>
       <BooktalkListWrapper>
         {data?.map((item: any) => (
-          <BooktalkComponent key={item.id}>
+          <BooktalkComponent key={item.booktalkId}>
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>
                 <BooktalkImage
-                  src={item.booktalkImageUrl}
+                  src={item?.booktalkImageUrl}
                   alt="북토크 썸네일 이미지"
-                  width="3"
-                  height="3"
+                  width="100"
+                  height="100"
                 />
                 <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
               <BooktalkImage
-                src={item.booktalkImageURL}
+                src={item?.booktalkImageUrl}
                 alt="북토크 썸네일 이미지"
-                width="3"
-                height="3"
+                width="100"
+                height="100"
               />
             )}
 
@@ -87,6 +87,7 @@ const BooktalkListWrapper = styled.div`
   grid-column-gap: 0.7rem;
 
   margin-left: 1.6rem;
+  margin-bottom: 10.9rem;
 `;
 
 const BooktalkComponent = styled.div`
