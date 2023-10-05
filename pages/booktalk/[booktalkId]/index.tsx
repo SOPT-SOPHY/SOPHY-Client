@@ -6,53 +6,22 @@ import backArrow from '../../../assets/icon/ic_backArrow.svg';
 import BTInfo from '../../../components/booktalkApply/BTInfo';
 import CheckBox from '../../../components/booktalkApply/CheckBox';
 import { useFetchBookTalkDetail } from '../../../hooks/queries/booktalk';
+import PageTitle from '../../../components/common/Title/PageTitle';
 
 function BTDetail() {
   const router = useRouter();
   const id = router.query;
-
   const data = useFetchBookTalkDetail(id?.booktalkId);
-
-  const handleGoBack = () => {
-    router.back();
-  };
 
   return (
     <Body>
-      <Header>
-        <ImageContainer>
-          <Image
-            src={backArrow}
-            width={44}
-            height={44}
-            alt="뒤로가기"
-            onClick={handleGoBack}
-          />
-        </ImageContainer>
-        <Title>북토크 상세정보</Title>
-      </Header>
+      <PageTitle pageTitleText="북토크 상세정보" booktalkDetail={true} />
       <DetailImg>
         <DetailImageContainer
           src={data?.booktalkImageUrl}
           alt="북토크 상세 이미지"
         />
       </DetailImg>
-      <div>
-        <BTInfo
-          title={data?.title}
-          author={data?.author}
-          bookCategory={data?.bookCategory}
-          book={data?.book}
-          startDate={data?.startDate}
-          endDate={data?.endDate}
-          participant={data?.participant}
-          participationFee={data?.participationFee}
-          preliminaryInfo={data?.preliminaryInfo}
-          description={data?.description}
-          placeName={data?.placeName}
-          placeAddress={data?.placeAddress}
-        />
-      </div>
       <CheckBox booktalk_id={id?.booktalkId} />
     </Body>
   );
