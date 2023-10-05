@@ -7,9 +7,10 @@ import { HomeTopImg } from '../../assets/img';
 import { BooktalkPeopleIcon } from '../../assets/icon';
 import dayjs from 'dayjs';
 import { countDday } from '../../utils/date';
+import { useRouter } from 'next/router';
 
 const Booktalk = ({ data }: any) => {
-  console.log(data);
+  const router = useRouter();
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
@@ -17,7 +18,9 @@ const Booktalk = ({ data }: any) => {
       <ProductCount>검색 결과 {data?.length}건</ProductCount>
       <BooktalkListWrapper>
         {data?.map((item: any) => (
-          <BooktalkComponent key={item.booktalkId}>
+          <BooktalkComponent
+            key={item.booktalkId}
+            onClick={() => router.push(`/booktalk/${item.booktalkId}`)}>
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>
                 <BooktalkImage
@@ -93,6 +96,8 @@ const BooktalkListWrapper = styled.div`
 const BooktalkComponent = styled.div`
   width: 16.8rem;
   height: 27rem; //todo: style 수정
+
+  cursor: pointer;
 `;
 
 const BooktalkImage = styled(Image)`
