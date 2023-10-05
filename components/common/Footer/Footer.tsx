@@ -107,6 +107,7 @@ const FooterWrapper = styled.div`
   overflow-x: hidden;
   display: flex;
   justify-content: center;
+  z-index: 3;
 `;
 
 const _Footer = styled.div`
