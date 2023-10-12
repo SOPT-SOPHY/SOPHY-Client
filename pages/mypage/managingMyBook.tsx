@@ -63,14 +63,6 @@ const managingMyBook = () => {
                 imageUrl={item?.book_image_url}
               />
             ))}
-            {/* {booktalkList &&
-          booktalkList.map((item: BooktalkProps) => (
-            <SingleBookTalk
-              key={item?.booktalk_id}
-              item={item}
-              onClick={() => handleBooktalkClick(item?.booktalk_id)}
-            />
-          ))} */}
           </SingleMyBookContainer>
           <RegisterButtonWrapper>
             <RegisterButton onClick={handleGoToLanding}>

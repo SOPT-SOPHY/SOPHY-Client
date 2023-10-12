@@ -8,6 +8,7 @@ import BTInfo from '../../../components/booktalkApply/BTInfo';
 import CheckBox from '../../../components/booktalkApply/CheckBox';
 import { useFetchBookTalkDetail } from '../../../hooks/queries/booktalk';
 import PageTitle from '../../../components/common/Title/PageTitle';
+import BooktalkImage from '../../../components/common/booktalk/BooktalkImage';
 
 function BTDetail() {
   const router = useRouter();
@@ -28,6 +29,7 @@ function BTDetail() {
           alt="북토크 상세 이미지"
         />
       </DetailImg>
+
       <div>
         <BTInfo
           title={data?.title}
@@ -44,7 +46,7 @@ function BTDetail() {
           placeAddress={data?.placeAddress}
         />
       </div>
-      <CheckBox booktalk_id={id?.booktalkId} />
+      <CheckBox booktalkId={id?.booktalkId} />
     </Body>
   );
 }

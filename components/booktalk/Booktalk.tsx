@@ -8,6 +8,7 @@ import { BooktalkPeopleIcon } from '../../assets/icon';
 import dayjs from 'dayjs';
 import { countDday } from '../../utils/date';
 import { useRouter } from 'next/router';
+import BooktalkImage from '../common/booktalk/BooktalkImage';
 
 const Booktalk = ({ data }: any) => {
   const router = useRouter();
@@ -24,19 +25,21 @@ const Booktalk = ({ data }: any) => {
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>
                 <BooktalkImage
-                  src={item?.booktalkImageUrl}
-                  alt="북토크 썸네일 이미지"
-                  width="100"
-                  height="100"
+                  preliminaryInfo={item.preliminaryInfo}
+                  booktalkImageUrl={item?.booktalkImageUrl}
+                  startDate={item.startDate}
+                  width={168}
+                  height={168}
                 />
                 <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
               <BooktalkImage
-                src={item?.booktalkImageUrl}
-                alt="북토크 썸네일 이미지"
-                width="100"
-                height="100"
+                preliminaryInfo={item.preliminaryInfo}
+                booktalkImageUrl={item?.booktalkImageUrl}
+                startDate={item.startDate}
+                width={168}
+                height={168}
               />
             )}
 
@@ -98,13 +101,6 @@ const BooktalkComponent = styled.div`
   height: 27rem; //todo: style 수정
 
   cursor: pointer;
-`;
-
-const BooktalkImage = styled(Image)`
-  width: 16.8rem;
-  height: 16.8rem;
-
-  border-radius: 0.8rem;
 `;
 
 const BooktalkTitle = styled.div`

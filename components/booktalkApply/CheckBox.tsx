@@ -1,19 +1,16 @@
-/* eslint-disable camelcase */
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
-import Cookies from 'js-cookie';
-import router from 'next/router';
-import useToast from '../../hooks/toast/useToast';
-import Toast from './Toast';
 import InactiveIcon from '../../assets/icon/checkbox_inactive.svg';
 import ActiveIcon from '../../assets/icon/checkbox_active.svg';
 import CheckIcon from '../../assets/icon/check_icon.svg';
 import icCheckActive from '../../assets/icon/ic_check_active.svg';
-import icApplied from '../../assets/icon/ic_applied.svg';
 import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
-// import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
-// import Cookies from 'js-cookie';
+import theme from '../../styles/theme';
+import { ShareIcon } from '../../assets/icon';
+import BooktalkApplyingModal from '../booktalk/detail/BooktalkApplyingModal';
+import useModal from '../../hooks/modal/useModal';
+
 interface Agreeds {
   infoConfirm: boolean;
   serviceConfirm: boolean;
@@ -23,14 +20,6 @@ interface AllAgreedButtonProps {
   onClick: () => void;
   checked: boolean;
 }
-
-// interface BooktalkApplyProps {
-//   data: {
-//     booktalk_id: number;
-//     member_id: number;
-//   };
-// }
-
 function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
   const handleClick = () => {
     onClick();
@@ -63,178 +52,105 @@ function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
 }
 
 function CheckBox(props: any) {
-  const { booktalk_id } = props;
-  const [allAgreed, setAllAgreed] = useState(false);
+  const { booktalkId } = props;
   const [agreeds, setAgreeds] = useState<Agreeds>({
     infoConfirm: false,
     serviceConfirm: false,
   });
-  const [showError, setShowError] = useState(false);
-  const toastHook = useToast();
-  const { isOpenToast, toastMsg, showToast } = toastHook;
   const [isApplied, setIsApplied] = useState(false);
+  const [applyingState, setApplyingState] = useState('');
 
-  const handleAgreedChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = event.target;
-    setAgreeds((prevAgreeds) => ({ ...prevAgreeds, [name]: checked }));
-
-    const allChecked = Object.values({ ...agreeds, [name]: checked }).every(
-      (value) => value === true,
-    );
-    setAllAgreed(allChecked);
-
-    if (showError) {
-      setShowError(false);
-    }
-  };
-
-  const handleAllAgreedChange = () => {
-    const checked = !allAgreed;
-    setAgreeds({
-      infoConfirm: checked,
-      serviceConfirm: checked,
-    });
-    setAllAgreed(checked);
-
-    if (showError) {
-      setShowError(false);
-    }
-  };
-
-  const handleToastClose = () => {
-    setIsApplied(true);
-  };
-
-  // const postBookTalkApplyMutation = usePostBookTalkApply();
   const { mutate } = usePostBookTalkApply();
+  const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
 
-  const handleSubmit = async () => {
+  const allAgreed = agreeds.infoConfirm && agreeds.serviceConfirm;
+  const handleAllAgreedChange = () => {
     if (!allAgreed) {
-      setShowError(true);
+      setAgreeds({ serviceConfirm: true, infoConfirm: true });
     } else {
-      setShowError(false);
-
-      const accessToken = Cookies.get('accessToken');
-      const memberId = Cookies.get('memberId');
-
-      if (!accessToken || !memberId) {
-        alert('로그인 후에 신청 가능합니다.');
-        router.push('/auth');
-        return;
-      }
-
-      try {
-        const member_id = Cookies.get('memberId');
-        mutate({ booktalk_id, member_id });
-        // const response = await postBookTalkApplyMutation.mutateAsync({
-        //   booktalk_id: 1,
-        //   member_id: 1,
-        // });
-
-        // if (response.data) {
-        //   const { booktalk_id, member_id } = response.data ?? {}; //response.data가 존재하면 그 값을 사용하고, 존재하지 않으면 빈 객체({})를 사용
-        //   console.log(response.data);
-
-        //   // Cookies.set('memberId', member_id.toString());
-        //   // Cookies.set('booktalkId', booktalk_id.toString());
-
-        showToast('신청이 완료되었습니다.');
-        handleToastClose(); // 토스트 메시지 닫고 신청완료로 전환
-        // } else {
-        //   console.log('response.data가 없음');
-        // }
-
-        setTimeout(() => {
-          router.push('../../mypage');
-        }, 3000);
-      } catch (error) {
-        console.error('북토크 신청 에러 발생', error);
-      }
+      setAgreeds({ serviceConfirm: false, infoConfirm: false });
     }
   };
 
-  useEffect(() => {
-    // 신청 완료 상태를 로컬 스토리지에 저장
-    localStorage.setItem('isApplied', JSON.stringify(isApplied));
-  }, [isApplied]);
-
-  useEffect(() => {
-    // 로컬 스토리지로부터 상태 검색
-    const storedIsApplied = localStorage.getItem('isApplied');
-    if (storedIsApplied === 'true') {
-      setIsApplied(true);
+  const handleShare = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 링크가 복사되었어요.');
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  };
 
   return (
     <>
       {!isApplied && (
         <>
           <HorizontalLine />
-          <ul>
-            <li>
-              <AllAgreedButton
-                onClick={handleAllAgreedChange}
-                checked={allAgreed}
-              />
-            </li>
-            <li>
-              <CheckContainer>
-                <Input
-                  type="checkbox"
-                  id="agree_check_info"
-                  name="infoConfirm"
-                  required
-                  checked={agreeds.infoConfirm}
-                  onChange={handleAgreedChange}
-                />
-                <Label htmlFor="agree_check_info">
-                  북토크 정보 및 장소를 확인하였습니다.
-                </Label>
-              </CheckContainer>
-            </li>
-            <li>
-              <CheckContainer>
-                <Input
-                  type="checkbox"
-                  id="agree_check_service"
-                  name="serviceConfirm"
-                  required
-                  checked={agreeds.serviceConfirm}
-                  onChange={handleAgreedChange}
-                />
-                <Label htmlFor="agree_check_service">
-                  사전 연락 없이 무단으로 불참할 경우 추후 서비스 이용에 제약이
-                  있을 수 있음을 확인하였습니다.
-                </Label>
-              </CheckContainer>
-            </li>
-          </ul>
-          {!isApplied && (
-            <ApplyButtonStyling
-              type="button"
-              onClick={handleSubmit}
-              disabled={!agreeds.infoConfirm || !agreeds.serviceConfirm}
-              isactive={agreeds.infoConfirm && agreeds.serviceConfirm}>
+          <AllAgreedButton
+            onClick={handleAllAgreedChange}
+            checked={allAgreed}
+          />
+          <CheckContainer>
+            <Input
+              type="checkbox"
+              id="agree_check_info"
+              name="infoConfirm"
+              required
+              checked={agreeds.infoConfirm}
+              onClick={() =>
+                setAgreeds({ ...agreeds, infoConfirm: !agreeds.infoConfirm })
+              }
+            />
+            <Label htmlFor="agree_check_info">
+              북토크 정보 및 장소를 확인하였습니다.
+            </Label>
+          </CheckContainer>
+          <CheckContainer>
+            <Input
+              type="checkbox"
+              id="agree_check_service"
+              name="serviceConfirm"
+              required
+              checked={agreeds.serviceConfirm}
+              onClick={() =>
+                setAgreeds({
+                  ...agreeds,
+                  serviceConfirm: !agreeds.serviceConfirm,
+                })
+              }
+            />
+            <Label htmlFor="agree_check_service">
+              사전 연락 없이 무단으로 불참할 경우 추후 서비스 이용에 제약이 있을
+              수 있습니다.
+            </Label>
+          </CheckContainer>
+          <BooktalkApplyAndShareWrapper>
+            <BooktalkApplyButton
+              applyingState={applyingState}
+              onClick={() => {
+                handleModalOpen();
+              }}>
               신청하기
-            </ApplyButtonStyling>
-          )}
+            </BooktalkApplyButton>
+            <ShareButton
+              onClick={() => {
+                handleShare(location.href);
+              }}>
+              <Image src={ShareIcon} width={32} height={32} alt="" />
+            </ShareButton>
+          </BooktalkApplyAndShareWrapper>
         </>
       )}
-      {isApplied && (
-        <div style={{ position: 'relative' }}>
-          {isOpenToast && <Toast msg={toastMsg} onClose={handleToastClose} />}
-          <SubmitButtonStyling disabled>
-            신청완료
-            <Image
-              src={icApplied.src}
-              alt="신청완료 아이콘"
-              width={24}
-              height={24}
-            />
-          </SubmitButtonStyling>
-        </div>
-      )}
+      <BooktalkApplyingModal
+        isModalOpened={isModalOpened}
+        message={`북토크 개설을 신청하시겠어요?, 북토크 신청 취소를 원하실 경우 소피 공식 \n 인스타그램(@sophyinlocal)에 문의를 남겨주세요.`}
+        confirmButton="확인"
+        handleModalClose={handleModalClose}
+        handleConfirm={() => {
+          mutate({ booktalkId });
+          handleModalClose();
+        }}
+      />
     </>
   );
 }
@@ -352,61 +268,36 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.gray01};
 `;
 
-const ApplyButtonStyling = styled.button<{ isactive: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+const BooktalkApplyAndShareWrapper = styled.div`
   width: 33.5rem;
-  height: 5.2rem;
-  flex-shrink: 0;
-
-  margin-top: 3.5rem;
+  display: flex;
+  justify-content: space-between;
   margin-left: 2rem;
-  margin-right: 2rem;
-  margin-bottom: 4.8rem;
-
-  ${({ theme }) => theme.fonts.subhead3_semibold};
-  background-color: ${({ theme }) => theme.colors.gray11};
-
-  border-radius: 0.6rem;
-  border: none;
-
-  ${(props) =>
-    props.isactive &&
-    css`
-      /* 신청하기 버튼이 활성화된 상태일 때의 스타일 */
-      background-color: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.white};
-    `}
-
-  ${(props) =>
-    !props.isactive &&
-    css`
-      /* 신청하기 버튼이 비활성화된 상태일 때의 스타일 */
-      color: ${({ theme }) => theme.colors.gray07};
-      cursor: not-allowed;
-    `};
+  margin-top: 2rem;
+  margin-bottom: 5.1rem;
 `;
 
-const SubmitButtonStyling = styled.button`
+const BooktalkApplyButton = styled.div<{ applyingState: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  width: 33.5rem;
+  width: 26.5rem;
   height: 5.2rem;
-  flex-shrink: 0;
-
-  margin-top: 3.5rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  margin-bottom: 4.8rem;
-
-  ${({ theme }) => theme.fonts.subhead3_semibold};
-  background-color: ${({ theme }) => theme.colors.green04};
-  color: ${({ theme }) => theme.colors.green08};
-
   border-radius: 0.6rem;
+  background-color: ${theme.colors.gray11};
+  /* background-color: ${(props) => props.applyingState}; */
+  color: ${(props) => props.applyingState};
+  ${theme.fonts.subhead3_semibold};
+  cursor: pointer;
+`;
+
+const ShareButton = styled.button`
+  width: 5.9rem;
+  height: 5.2rem;
+  border-radius: 0.6rem; //todo: design
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${theme.colors.green02};
 `;
