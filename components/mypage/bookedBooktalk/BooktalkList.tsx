@@ -7,10 +7,12 @@ import theme from '../../../styles/theme';
 import { PeopleIcon } from '../../../assets/icon';
 import { getDate, countDday } from '../../../utils/date';
 import { uesFetchMypage } from '../../../hooks/queries/mypage';
+import { uesFetchSophyStory } from '../../../hooks/queries/sophyStory';
 
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
-  const booktalkList = mypage?.my_page_booktalk_dtos;
+  const { sophyStory } = uesFetchSophyStory();
+  const booktalkList = sophyStory;
   const router = useRouter();
 
   const [booktalkListByDate, setBooktalkListByDate] = useState<any>({});
@@ -35,19 +37,14 @@ function BooktalkList() {
   useEffect(() => {
     if (booktalkList) {
       for (let i = 0; i < booktalkList.length; i += 1) {
-        const { year, month } = getDate(booktalkList[i].start_date);
+        const { year, month } = getDate(booktalkList[i].startDate);
         handleBooktalkByDate(year, month, booktalkList[i]);
       }
     }
-    // booktalkList?.map((booktalk: any) => {
-    //   const { year, month } = getDate(booktalk.start_date);
-    //   handleBooktalkByDate(year, month, booktalk);
-    // });
+
     setBooktalkListByDate(newBookTalkList);
     setBookedYearMonth(yearMonthList);
-  }, [mypage]);
-
-  console.log(bookedYearMonth);
+  }, [mypage, sophyStory]);
 
   return (
     <>
@@ -68,16 +65,16 @@ function BooktalkList() {
                   <BooktalkByMonthWrapper
                     key={booktalk?.booktalkId}
                     onClick={() =>
-                      router.push(`/booktalk/${booktalk?.booktalkId}/detail`)
+                      router.push(`/booktalk/${booktalk?.booktalkId}`)
                     }>
                     <BooktalkByMonth>
                       <BooktalkImageWrapper>
                         <BooktalkImage
-                          src={booktalk?.booktalk_image_url}
+                          src={booktalk?.booktalkImageUrl}
                           alt="북토크 썸네일"
                         />
                         <ImageCaption>
-                          D-{countDday(booktalk?.start_date)}
+                          D-{countDday(booktalk?.startDate)}
                         </ImageCaption>
                       </BooktalkImageWrapper>
                       <BooktalkInfo>
@@ -85,14 +82,14 @@ function BooktalkList() {
                         <Author>{booktalk?.author}</Author>
                         <DateHour>
                           <Date>
-                            {getDate(booktalk?.start_date).year}년{' '}
-                            {getDate(booktalk?.start_date).month}월{' '}
-                            {getDate(booktalk?.start_date).date}일
+                            {getDate(booktalk?.startDate).year}년{' '}
+                            {getDate(booktalk?.startDate).month}월{' '}
+                            {getDate(booktalk?.startDate).date}일
                           </Date>
                           <Dot />
                           <Hour>
-                            {getDate(booktalk?.start_date).hour}시~
-                            {getDate(booktalk?.end_date).hour}시
+                            {getDate(booktalk?.startDate).hour}시~
+                            {getDate(booktalk?.endDate).hour}시
                           </Hour>
                         </DateHour>
                         <SpacePeopleWrapper>
