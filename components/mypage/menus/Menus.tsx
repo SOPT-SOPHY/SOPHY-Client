@@ -2,8 +2,17 @@ import React from 'react';
 import { styled } from 'styled-components';
 import theme from '../../../styles/theme';
 import router from 'next/router';
+import { usePostLogout } from '../../../hooks/queries/mypage';
+import Cookies from 'js-cookie';
+import { Router } from 'react-router-dom';
 
 const Menus = () => {
+  const { mutate } = usePostLogout();
+  const handleLogout = () => {
+    mutate();
+    alert('정상적으로 로그아웃되었습니다.');
+    router.push('auth/login');
+  };
   return (
     <MenusWrapper>
       <MenuWrapper onClick={() => router.push('/mypage/managingInfo')}>
@@ -11,7 +20,7 @@ const Menus = () => {
       </MenuWrapper>
       <MenuWrapper>이용약관</MenuWrapper>
       <MenuWrapper>개인정보 처리 방침</MenuWrapper>
-      <MenuWrapper>로그아웃</MenuWrapper>
+      <MenuWrapper onClick={handleLogout}>로그아웃</MenuWrapper>
     </MenusWrapper>
   );
 };

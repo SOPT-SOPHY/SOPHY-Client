@@ -10,6 +10,8 @@ import theme from '../../styles/theme';
 import { ShareIcon } from '../../assets/icon';
 import BooktalkApplyingModal from '../booktalk/detail/BooktalkApplyingModal';
 import useModal from '../../hooks/modal/useModal';
+import { Router, useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 interface Agreeds {
   infoConfirm: boolean;
@@ -64,6 +66,10 @@ function CheckBox(props: any) {
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
 
   const allAgreed = agreeds.infoConfirm && agreeds.serviceConfirm;
+
+  const accessToken = Cookies.get('accessToken');
+  const router = useRouter();
+
   const handleAllAgreedChange = () => {
     if (!allAgreed) {
       setAgreeds({ serviceConfirm: true, infoConfirm: true });
@@ -147,7 +153,12 @@ function CheckBox(props: any) {
         confirmButton="확인"
         handleModalClose={handleModalClose}
         handleConfirm={() => {
-          mutate({ booktalkId });
+          if (accessToken) {
+            mutate({ booktalkId });
+          } else {
+            alert('로그인 후 신청 가능합니다.');
+            router.push('/auth/login');
+          }
           handleModalClose();
         }}
       />
