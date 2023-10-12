@@ -39,9 +39,9 @@ function ManagingInfo() {
 
   const [gender, setGender] = useState<null | string>(null);
   const [birth, setBirth] = useState('');
-  const [birthYear, setBirthYear] = useState<number>();
-  const [birthMonth, setBirthMonth] = useState<number>();
-  const [birthDay, setBirthDay] = useState<number>();
+  // const [birthYear, setBirthYear] = useState<number>();
+  // const [birthMonth, setBirthMonth] = useState<number>();
+  // const [birthDay, setBirthDay] = useState<number>();
   const [marketingTerm, setMarketingTerm] = useState(false);
   const [region, setRegion] = useRecoilState(mypageSelectedSpaceState);
   const [isSaveAvailable, setIsSaveAvailable] = useState(false);
@@ -62,14 +62,15 @@ function ManagingInfo() {
   useEffect(() => {
     setFinalData(myInfo);
     setGender(myInfo?.gender);
+    setBirth(myInfo?.birth);
     // setBirth(myInfo?.birth);
     if (myInfo?.birth !== null) {
       console.log(`birth${myInfo?.birth}`);
-      setBirthYear(myInfo?.birth?.slice(0, 4));
-      setBirthMonth(myInfo?.birth?.slice(4, 6));
-      setBirthDay(myInfo?.birth?.slice(6, 8));
+      // setBirthYear(myInfo?.birth?.slice(0, 4));
+      // setBirthMonth(myInfo?.birth?.slice(4, 6));
+      // setBirthDay(myInfo?.birth?.slice(6, 8));
     }
-    setMarketingTerm(myInfo?.marketing_agree);
+    setMarketingTerm(myInfo?.marketingAgree);
   }, [myInfo]);
 
   // 수정된 이후 데이터 fetch (patch 의 데이터)
@@ -77,10 +78,10 @@ function ManagingInfo() {
     setFinalData(data);
     setGender(myInfo?.gender);
     setBirth(myInfo?.birth);
-    setBirthYear(myInfo?.birth?.slice(0, 4));
-    setBirthMonth(myInfo?.birth?.slice(4, 6));
-    setBirthDay(myInfo?.birth?.slice(6, 8));
-    setMarketingTerm(myInfo?.marketing_agree);
+    // setBirthYear(myInfo?.birth?.slice(0, 4));
+    // setBirthMonth(myInfo?.birth?.slice(4, 6));
+    // setBirthDay(myInfo?.birth?.slice(6, 8));
+    setMarketingTerm(myInfo?.marketingAgree);
   }, [data]);
 
   const [finalData, setFinalData] = useState<any>();
@@ -114,11 +115,9 @@ function ManagingInfo() {
       name: myInfo.name,
       phone_num: myInfo.phone_num,
       gender,
-      birth: `${birthYear !== undefined ? birthYear : null}${
-        birthMonth !== undefined ? birthMonth : null
-      }${birthDay !== undefined ? birthDay : null}`,
+      birth: birth,
       city: region,
-      marketing_agree: marketingTerm,
+      marketingAgree: marketingTerm,
     });
     setHasValueChanged(false);
     setIsRegionChanged(false);
@@ -159,7 +158,7 @@ function ManagingInfo() {
         <InputTitleContent>휴대폰 번호</InputTitleContent>
       </InputTitle>
       <InputWrapper>
-        <Input>{finalData?.phone_num}</Input>
+        <Input>{finalData?.phoneNum}</Input>
       </InputWrapper>
       <LoginLine />
       <InputTitle>
@@ -221,12 +220,15 @@ function ManagingInfo() {
         <InputTitleContent>생년월일</InputTitleContent>
       </InputTitle>
       <BirthInputWrapper>
-        {/* <BirthInput
+        <BirthInput
           placeholder="YYYY년 MM월 DD일"
-          onChange={(e: any) => setBirth(e.target.value)}
+          onChange={(e: any) => {
+            setBirth(e.target.value);
+            setHasValueChanged(true);
+          }}
           value={birth}
-        /> */}
-        <BirthYearInput
+        />
+        {/* <BirthYearInput
           placeholder="YYYY"
           type="text"
           inputMode="numeric"
@@ -267,7 +269,7 @@ function ManagingInfo() {
             setHasValueChanged(true);
           }}
           value={birthDay}
-        />
+        /> */}
       </BirthInputWrapper>
       <BirthNotice>
         회원님의 성별, 생년월일은 맞춤 서비스를 제공하는 데 사용됩니다.
