@@ -7,44 +7,13 @@ import BTInfo from '../../../components/booktalkApply/BTInfo';
 // import BTData from '../../data/BTData';
 import CheckBox from '../../../components/booktalkApply/CheckBox';
 import { useFetchBookTalkDetail } from '../../../hooks/queries/booktalk';
+import PageTitle from '../../../components/common/Title/PageTitle';
+import BooktalkImage from '../../../components/common/booktalk/BooktalkImage';
 
 function BTDetail() {
   const router = useRouter();
   const id = router.query;
-  console.log(id?.booktalkId);
-  // const id = 1;
-  // const data = useFetchBookTalkDetail(id as number);
-  //   const id = 1;
-  //   const data = useFetchBookTalkDetail(id as number);
-  // const booktalkId = typeof id === 'string' ? parseInt(id, 10) : undefined;
-  // const booktalkId =
-  //   typeof id === 'string'
-  //     ? parseInt(id, 10)
-  //     : typeof id === 'number'
-  //     ? id
-  //     : undefined;
-
-  // const { data, isLoading, isError } = useFetchBookTalkDetail(booktalkId);
   const data = useFetchBookTalkDetail(id?.booktalkId);
-  // let data = {};
-  // if (typeof booktalkId === 'number') {
-  //   data = useFetchBookTalkDetail(booktalkId);
-  // }
-  // const filteredData = BTData.filter((data) => data.id === 1);
-
-  console.log(data);
-
-  // if (isLoading) {
-  //   // 로딩 중 화면
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (isError) {
-  //   // 에러 발생 화면
-  //   return <div>Error occurred</div>;
-  // }
-
-  // if (!data) return;
 
   const handleGoBack = () => {
     router.back();
@@ -52,18 +21,7 @@ function BTDetail() {
 
   return (
     <Body>
-      <Header>
-        <ImageContainer>
-          <Image
-            src={backArrow}
-            width={44}
-            height={44}
-            alt="뒤로가기"
-            onClick={handleGoBack}
-          />
-        </ImageContainer>
-        <Title>북토크 상세정보</Title>
-      </Header>
+      <PageTitle pageTitleText="북토크 상세정보" booktalkDetail={true} />
       {/* <hr style={{ borderTop: '1px solid #F6F7FA' }} /> */}
       <DetailImg>
         <DetailImageContainer
@@ -71,12 +29,9 @@ function BTDetail() {
           alt="북토크 상세 이미지"
         />
       </DetailImg>
+
       <div>
-        {/* {filteredData.map((data) => {
-        return ( */}
         <BTInfo
-          // key={data?.id}
-          // booktalk_image_url={data?.booktalk_image_url}
           title={data?.title}
           author={data?.author}
           bookCategory={data?.bookCategory}
@@ -91,7 +46,7 @@ function BTDetail() {
           placeAddress={data?.placeAddress}
         />
       </div>
-      <CheckBox booktalk_id={id?.booktalkId} />
+      <CheckBox booktalkId={id?.booktalkId} />
     </Body>
   );
 }
@@ -105,8 +60,6 @@ const Body = styled.div`
   padding: 0;
 
   background-color: ${({ theme }) => theme.colors.white};
-
-  /* border: 1px solid ${({ theme }) => theme.colors.gray11}; */
 `;
 
 const Header = styled.div`

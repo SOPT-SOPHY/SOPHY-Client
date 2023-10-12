@@ -23,11 +23,9 @@ import { uesFetchMyInfo, usePatchMyInfo } from '../../../hooks/queries/mypage';
 function ManagingInfo() {
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
-  const memberId = Cookies.get('memberId');
 
   useEffect(() => {
-    if (!refreshToken && !accessToken && memberId) {
-      Cookies.remove('memberId');
+    if (!refreshToken && !accessToken) {
       router.push('/auth/login');
     }
   }, [accessToken, refreshToken, router]);

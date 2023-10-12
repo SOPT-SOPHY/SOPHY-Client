@@ -172,7 +172,7 @@ export default function SimpleSlider(props: any) {
             <SliderItem
               key={item}
               onClick={() =>
-                router.push(`/booktalk/${item?.booktalk_id}/detail`)
+                router.push(`/booktalk/${item?.booktalkId}/detail`)
               }>
               <ImageContainer
                 src={item?.booktalk_image_url}

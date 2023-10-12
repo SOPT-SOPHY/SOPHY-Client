@@ -66,9 +66,9 @@ function BooktalkList() {
               booktalkListByDate[yearMonth].map((booktalk: any) => {
                 return (
                   <BooktalkByMonthWrapper
-                    key={booktalk?.booktalk_id}
+                    key={booktalk?.booktalkId}
                     onClick={() =>
-                      router.push(`/booktalk/${booktalk?.booktalk_id}/detail`)
+                      router.push(`/booktalk/${booktalk?.booktalkId}/detail`)
                     }>
                     <BooktalkByMonth>
                       <BooktalkImageWrapper>

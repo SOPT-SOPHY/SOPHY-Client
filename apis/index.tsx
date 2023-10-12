@@ -29,10 +29,8 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${accessToken}`;
       return config;
     }
-    console.log('request start', config);
   },
   function (error) {
-    console.log('request error', error);
     return Promise.reject(error);
   },
 );
@@ -40,7 +38,6 @@ api.interceptors.request.use(
 // Add a response interceptor
 api.interceptors.response.use(
   function (response) {
-    console.log('get response', response);
     return response;
   },
   async (error) => {
@@ -50,36 +47,27 @@ api.interceptors.response.use(
     } = error;
     console.log('에러입니다', error.response.data);
     if (status === 401) {
-      console.log('error message', error);
       if (error.response.data.message === '만료된 액세스 토큰입니다.') {
         const originalRequest = config;
         const refreshTokenFromCookie = await Cookies.get('refreshToken');
-        // token refresh 요청
         try {
           const { data } = await axios.post(`${baseURL}/auth/reissue`, null, {
             headers: {
               Refresh: refreshTokenFromCookie,
               Authorization: `Bearer ${accessTokenFromCookie}`,
+              accept: 'application/json;charset=UTF-8',
             },
           });
-          // 리프레시 토큰 에러처리
-          // 새로운 토큰 저장
           // eslint-disable-next-line camelcase
           const { accessToken, refreshToken } = data.data;
-          console.log(`data: ${data}`);
-          console.log(accessToken);
-          console.log(refreshToken);
           Cookies.set('accessToken', accessToken);
           Cookies.set('refreshToken', refreshToken);
-          originalRequest.headers.authorization = `Bearer ${accessToken}`;
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           originalRequest.headers.Refresh = refreshToken;
           // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
           return api(originalRequest);
         } catch (e: any) {
-          console.log(e);
           if (e?.response?.data.message === '만료된 리프레시 토큰입니다.') {
-            console.log('리프레시 에러');
-            console.log(e);
             Cookies.remove('accessToken');
             Cookies.remove('refreshToken');
             alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');

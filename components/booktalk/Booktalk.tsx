@@ -7,9 +7,11 @@ import { HomeTopImg } from '../../assets/img';
 import { BooktalkPeopleIcon } from '../../assets/icon';
 import dayjs from 'dayjs';
 import { countDday } from '../../utils/date';
+import { useRouter } from 'next/router';
+import BooktalkImage from '../common/booktalk/BooktalkImage';
 
 const Booktalk = ({ data }: any) => {
-  console.log(data);
+  const router = useRouter();
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
@@ -17,23 +19,27 @@ const Booktalk = ({ data }: any) => {
       <ProductCount>검색 결과 {data?.length}건</ProductCount>
       <BooktalkListWrapper>
         {data?.map((item: any) => (
-          <BooktalkComponent key={item.booktalkId}>
+          <BooktalkComponent
+            key={item.booktalkId}
+            onClick={() => router.push(`/booktalk/${item.booktalkId}`)}>
             {item.preliminaryInfo === 'PRE_READING' ? (
               <PreBooktalkImageWrapper>
                 <BooktalkImage
-                  src={item?.booktalkImageUrl}
-                  alt="북토크 썸네일 이미지"
-                  width="100"
-                  height="100"
+                  preliminaryInfo={item.preliminaryInfo}
+                  booktalkImageUrl={item?.booktalkImageUrl}
+                  startDate={item.startDate}
+                  width={168}
+                  height={168}
                 />
                 <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
               <BooktalkImage
-                src={item?.booktalkImageUrl}
-                alt="북토크 썸네일 이미지"
-                width="100"
-                height="100"
+                preliminaryInfo={item.preliminaryInfo}
+                booktalkImageUrl={item?.booktalkImageUrl}
+                startDate={item.startDate}
+                width={168}
+                height={168}
               />
             )}
 
@@ -93,13 +99,8 @@ const BooktalkListWrapper = styled.div`
 const BooktalkComponent = styled.div`
   width: 16.8rem;
   height: 27rem; //todo: style 수정
-`;
 
-const BooktalkImage = styled(Image)`
-  width: 16.8rem;
-  height: 16.8rem;
-
-  border-radius: 0.8rem;
+  cursor: pointer;
 `;
 
 const BooktalkTitle = styled.div`

@@ -4,18 +4,31 @@ import Image from 'next/image';
 import { GoBackIcon } from '../../../assets/icon';
 import theme from '../../../styles/theme';
 import { handleGoBack } from '../../../hooks/common';
+import { useRouter } from 'next/router';
 
 interface PageTitleProps {
   pageTitleText: string;
   goBack?: boolean;
+  booktalkDetail?: boolean;
 }
 
 function PageTitle(props: PageTitleProps) {
-  const { pageTitleText, goBack } = props;
+  const { pageTitleText, goBack, booktalkDetail } = props;
+  const router = useRouter();
+  const handleBooktalkDetailGoBack = () => {
+    router.push('/booktalk');
+  };
+  console.log(booktalkDetail);
   return (
     <>
       <Head>
-        {goBack ? (
+        {booktalkDetail ? (
+          <GoBackImage
+            src={GoBackIcon}
+            alt="뒤로가기 아이콘"
+            onClick={handleBooktalkDetailGoBack}
+          />
+        ) : goBack ? (
           <GoBackImage
             src={GoBackIcon}
             alt="뒤로가기 아이콘"

@@ -5,7 +5,7 @@ import api from '.';
 // import axios from 'axios';
 
 interface BooktalkApplyProps {
-  booktalk_id?: number;
+  booktalkId?: number;
   member_id?: number | string;
   data?: null;
 }
@@ -22,7 +22,6 @@ export const fetchBooktalkRegion = async (city: string) => {
 export const postBooktalkApply = async (
   props: BooktalkApplyProps,
 ): Promise<BooktalkApplyProps> => {
-  // const memberId = Cookies.get('memberId');
   const {
     data: { data },
   } = await api.post(`booktalk/participation`, props);
