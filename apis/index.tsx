@@ -4,6 +4,7 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Router from 'next/router';
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 const accessTokenFromCookie = Cookies.get('accessToken');

@@ -58,12 +58,6 @@ function Home() {
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
 
-  useEffect(() => {
-    if (!refreshToken && !accessToken) {
-      router.push('auth/login');
-    }
-  }, [accessToken, refreshToken, router]);
-
   const data = accessToken ? uesFetchMemberHome() : uesFetchNonMemberHome();
   console.log(data);
   if (!data) return;

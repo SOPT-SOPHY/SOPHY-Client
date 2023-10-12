@@ -27,3 +27,10 @@ export const postMyInfo = async (props: any) => {
   } = await api.post(`member/my-info`, props);
   return data;
 };
+
+export const postLogout = async () => {
+  const {
+    data: { data },
+  } = await api.post(`/auth/logout`);
+  return data;
+};
