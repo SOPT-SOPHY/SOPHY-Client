@@ -22,7 +22,6 @@ function PredictedBT(props: any) {
           <></>
         ) : (
           <Link href="/mypage/bookedBookTalk">
-            {' '}
             <MoreWrapper>
               <More>더보기</More>
               <Image

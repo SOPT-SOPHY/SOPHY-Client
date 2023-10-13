@@ -31,12 +31,12 @@ export const useFetchBookTalkDetail = (id: string | string[] | undefined) => {
   return data || {};
 };
 
-export const usePostBookTalkApply = () => {
+export const usePostBookTalkApply = (id?: any) => {
   const queryClient = useQueryClient();
 
   return useMutation(postBooktalkApply, {
     onSuccess() {
-      queryClient.invalidateQueries([QUERY_KEY.booktalkApply]);
+      queryClient.invalidateQueries([QUERY_KEY.booktalkDetail, id]);
     },
   });
 };

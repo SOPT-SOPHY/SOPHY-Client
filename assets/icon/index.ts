@@ -56,3 +56,4 @@ export { default as NavMySophyGrayIcon } from './NavMySophyGrayIcon.svg';
 export { default as BooktalkPeopleIcon } from './BooktalkPeopleIcon.svg';
 export { default as ShareIcon } from './ShareIcon.svg';
 export { default as ModalIcon } from './ModalIcon.svg';
+export { default as BooktalkApplyingCheckIcon } from './BooktalkApplyingCheckIcon.svg';

@@ -5,7 +5,7 @@ import theme from '../../../styles/theme';
 import dayjs from 'dayjs';
 
 interface booktalkDetailProps {
-  preliminaryInfo: string;
+  booktalkStatus: string;
   booktalkImageUrl: string;
   startDate: string;
   width: number;
@@ -13,7 +13,7 @@ interface booktalkDetailProps {
 }
 
 const BooktalkImage = ({
-  preliminaryInfo,
+  booktalkStatus,
   booktalkImageUrl,
   startDate,
   width,
@@ -24,7 +24,7 @@ const BooktalkImage = ({
   const dday = Math.floor(booktalkStartDate.diff(now, 'day')) + 1;
   return (
     <div>
-      {preliminaryInfo === 'PRE_READING' ? (
+      {booktalkStatus === 'RECRUITING_EXPECTED' ? (
         <PreBooktalkImageWrapper width={width} height={height}>
           <SBooktalkImage
             src={booktalkImageUrl}

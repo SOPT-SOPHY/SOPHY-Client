@@ -13,6 +13,7 @@ function BooktalkList() {
   const { mypage } = uesFetchMypage();
   const { sophyStory } = uesFetchSophyStory();
   const booktalkList = sophyStory;
+  console.log(booktalkList);
   const router = useRouter();
 
   const [booktalkListByDate, setBooktalkListByDate] = useState<any>({});
@@ -54,7 +55,7 @@ function BooktalkList() {
           <BooktalkByMonthSection key={yearMonth}>
             <BooktalkByMonthHeader>
               <Month>
-                {yearMonth.slice(2, 4)}년 {yearMonth.slice(4, 5)}월
+                {yearMonth.slice(2, 4)}년 {yearMonth.slice(4, 6)}월
               </Month>
               <Number>{booktalkListByDate[yearMonth].length}건</Number>
             </BooktalkByMonthHeader>
@@ -221,8 +222,14 @@ const Dot = styled.div`
   border: 1rem;
   background: ${theme.colors.gray08};
 `;
-const Date = styled.h3``;
-const Hour = styled.h3``;
+const Date = styled.div`
+  ${theme.fonts.body3_regular};
+  color: ${theme.colors.gray04};
+`;
+const Hour = styled.div`
+  ${theme.fonts.body3_regular};
+  color: ${theme.colors.gray04};
+`;
 const SpacePeopleWrapper = styled.div`
   display: flex;
   justify-content: space-between;

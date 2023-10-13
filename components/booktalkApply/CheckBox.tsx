@@ -7,7 +7,11 @@ import CheckIcon from '../../assets/icon/check_icon.svg';
 import icCheckActive from '../../assets/icon/ic_check_active.svg';
 import { usePostBookTalkApply } from '../../hooks/queries/booktalk';
 import theme from '../../styles/theme';
-import { ShareIcon } from '../../assets/icon';
+import {
+  BooktalkApplyingCheckIcon,
+  ColorCheckIcon,
+  ShareIcon,
+} from '../../assets/icon';
 import BooktalkApplyingModal from '../booktalk/detail/BooktalkApplyingModal';
 import useModal from '../../hooks/modal/useModal';
 import { Router, useRouter } from 'next/router';
@@ -54,20 +58,21 @@ function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
 }
 
 function CheckBox(props: any) {
-  const { booktalkId } = props;
+  const { booktalkId, data } = props;
   const [agreeds, setAgreeds] = useState<Agreeds>({
     infoConfirm: false,
     serviceConfirm: false,
   });
   const [isApplied, setIsApplied] = useState(false);
-  const [applyingState, setApplyingState] = useState('');
 
-  const { mutate } = usePostBookTalkApply();
+  const { mutate } = usePostBookTalkApply(booktalkId);
   const { isModalOpened, handleModalOpen, handleModalClose } = useModal();
 
   const allAgreed = agreeds.infoConfirm && agreeds.serviceConfirm;
 
   const accessToken = Cookies.get('accessToken');
+  const isApplyingButtonActive = accessToken && allAgreed;
+
   const router = useRouter();
 
   const handleAllAgreedChange = () => {
@@ -131,13 +136,29 @@ function CheckBox(props: any) {
             </Label>
           </CheckContainer>
           <BooktalkApplyAndShareWrapper>
-            <BooktalkApplyButton
-              applyingState={applyingState}
-              onClick={() => {
-                handleModalOpen();
-              }}>
-              신청하기
-            </BooktalkApplyButton>
+            {data?.booktalkStatus === 'RECRUITING_EXPECTED' ? (
+              <PlannedBooktalkButton>모집예정</PlannedBooktalkButton>
+            ) : data?.booktalkStatus === 'RECRUITING_CLOSED' ? (
+              <CompletedBooktalkButton>마감</CompletedBooktalkButton>
+            ) : data?.isApply ? (
+              <BooktalkApplyCompletedButton>
+                신청완료
+                <Image
+                  src={BooktalkApplyingCheckIcon}
+                  alt=""
+                  width={24}
+                  height={24}
+                />
+              </BooktalkApplyCompletedButton>
+            ) : (
+              <BooktalkApplyButton
+                isApplyingButtonActive={isApplyingButtonActive}
+                onClick={() => {
+                  isApplyingButtonActive && handleModalOpen();
+                }}>
+                신청하기
+              </BooktalkApplyButton>
+            )}
             <ShareButton
               onClick={() => {
                 handleShare(location.href);
@@ -289,7 +310,7 @@ const BooktalkApplyAndShareWrapper = styled.div`
   margin-bottom: 5.1rem;
 `;
 
-const BooktalkApplyButton = styled.div<{ applyingState: string }>`
+const BooktalkApplyButton = styled.div<{ isApplyingButtonActive?: any }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -297,8 +318,23 @@ const BooktalkApplyButton = styled.div<{ applyingState: string }>`
   height: 5.2rem;
   border-radius: 0.6rem;
   background-color: ${theme.colors.gray11};
-  /* background-color: ${(props) => props.applyingState}; */
-  color: ${(props) => props.applyingState};
+  background-color: ${(props) =>
+    props.isApplyingButtonActive ? theme.colors.primary : theme.colors.gray11};
+  color: ${(props) =>
+    props.isApplyingButtonActive ? theme.colors.white : theme.colors.gray07};
+  ${theme.fonts.subhead3_semibold};
+  cursor: pointer;
+`;
+
+const BooktalkApplyCompletedButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26.5rem;
+  height: 5.2rem;
+  border-radius: 0.6rem;
+  background-color: ${theme.colors.green04};
+  color: ${theme.colors.green08};
   ${theme.fonts.subhead3_semibold};
   cursor: pointer;
 `;
@@ -312,4 +348,28 @@ const ShareButton = styled.button`
   justify-content: center;
   align-items: center;
   background-color: ${theme.colors.green02};
+`;
+
+const PlannedBooktalkButton = styled.div`
+  width: 26.5rem;
+  height: 5.2rem;
+  background-color: ${theme.colors.green03};
+  color: ${theme.colors.green08};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  ${theme.fonts.subhead3_semibold};
+`;
+
+const CompletedBooktalkButton = styled.div`
+  width: 26.5rem;
+  height: 5.2rem;
+  background-color: ${theme.colors.gray11};
+  color: ${theme.colors.gray07};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  ${theme.fonts.subhead3_semibold};
 `;

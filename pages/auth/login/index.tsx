@@ -15,7 +15,8 @@ function Login() {
 
   return (
     <>
-      <GoBackButton />
+      {/* <GoBackButton /> */}
+      <Blank />
       <Image
         src={NewLogo}
         width={159}
@@ -53,4 +54,9 @@ const ToastContainer = styled.div`
   color: ${theme.colors.white};
 
   border-radius: 0.6rem;
+`;
+
+const Blank = styled.div`
+  height: 4.4rem;
+  width: 100%;
 `;
