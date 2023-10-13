@@ -140,7 +140,7 @@ function CheckBox(props: any) {
               <PlannedBooktalkButton>모집예정</PlannedBooktalkButton>
             ) : data?.booktalkStatus === 'RECRUITING_CLOSED' ? (
               <CompletedBooktalkButton>마감</CompletedBooktalkButton>
-            ) : data.isApply ? (
+            ) : data?.isApply ? (
               <BooktalkApplyCompletedButton>
                 신청완료
                 <Image
