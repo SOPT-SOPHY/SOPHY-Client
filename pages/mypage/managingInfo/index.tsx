@@ -319,10 +319,14 @@ function ManagingInfo() {
           마케팅 정보 수신에 동의하시면, 1)소피 매거진 제공 2)제휴 혜택 안내
           3)이벤트 소식을 빠르게 전해드립니다.
         </TermContent>
+        <WithdrawalMent>
+          회원탈퇴를 원하실 경우 소피 공식 인스타그램(@sophyinlocal)
+          <br /> 혹은 이메일(sophyofficial@naver.com)로 문의를 남겨주세요.
+        </WithdrawalMent>
       </TermWrapper>
       <WithdrawalWrapper>
-        <WithdrawalText>로그아웃</WithdrawalText>
-        <WithdrawalText>회원탈퇴</WithdrawalText>
+        {/* <WithdrawalText>로그아웃</WithdrawalText>
+        <WithdrawalText>회원탈퇴</WithdrawalText> */}
       </WithdrawalWrapper>
     </Layout>
   );
@@ -599,4 +603,10 @@ const BirthDayInput = styled.input`
     color: ${theme.colors.gray08};
     ${theme.fonts.body1_medium};
   }
+`;
+
+const WithdrawalMent = styled.div`
+  margin-top: 2rem;
+  color: ${theme.colors.gray05};
+  ${theme.fonts.body3_regular};
 `;

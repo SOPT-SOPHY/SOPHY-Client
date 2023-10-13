@@ -20,16 +20,18 @@ function BTDetail() {
     <div>
       <PageTitle pageTitleText="북토크 상세정보" booktalkDetail={true} />
       <BooktalkBlank />
-      <BooktalkImage
-        preliminaryInfo={data.preliminaryInfo}
-        booktalkImageUrl={data?.booktalkImageUrl}
-        startDate={data.startDate}
-        width={335}
-        height={184}
-      />
+      <div style={{ marginLeft: '2rem' }}>
+        <BooktalkImage
+          preliminaryInfo={data.preliminaryInfo}
+          booktalkImageUrl={data?.booktalkImageUrl}
+          startDate={data.startDate}
+          width={335}
+          height={184}
+        />
+      </div>
       <BootalkDetailHead data={data} />
       <BootalkDetailContent data={data} />
-      <CheckBox booktalkId={id?.booktalkId} />
+      <CheckBox booktalkId={id?.booktalkId} data={data} />
     </div>
   );
 }

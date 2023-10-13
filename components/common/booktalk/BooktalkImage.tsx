@@ -5,7 +5,7 @@ import { countDday } from '../../../utils/date';
 import theme from '../../../styles/theme';
 
 interface booktalkDetailProps {
-  preliminaryInfo: string;
+  booktalkStatus: string;
   booktalkImageUrl: string;
   startDate: string;
   width: number;
@@ -13,7 +13,7 @@ interface booktalkDetailProps {
 }
 
 const BooktalkImage = ({
-  preliminaryInfo,
+  booktalkStatus,
   booktalkImageUrl,
   startDate,
   width,
@@ -21,7 +21,7 @@ const BooktalkImage = ({
 }: booktalkDetailProps) => {
   return (
     <div>
-      {preliminaryInfo === 'PRE_READING' ? (
+      {booktalkStatus === 'RECRUITING_EXPECTED' ? (
         <PreBooktalkImageWrapper width={width} height={height}>
           <SBooktalkImage
             src={booktalkImageUrl}

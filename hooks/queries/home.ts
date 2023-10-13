@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { fetchMemberHome, fetchNonMemberHome } from '../../apis/home';
+import { fetchMemberHome, fetchNonMemberHome, fetchUijeongbuBooktalk } from '../../apis/home';
 
 const QUERY_KEY = {
   memberHome: 'memberHome',
@@ -33,3 +33,10 @@ export const uesFetchRegionBooktalk = (city: string) => {
   return data;
 };
 */
+
+export const useFetchUijeongbuBooktalk = () => {
+  const { data } = useQuery([QUERY_KEY.regionBooktalk], () =>
+    fetchUijeongbuBooktalk(),
+  );
+  return data;
+};

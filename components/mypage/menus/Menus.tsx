@@ -11,7 +11,7 @@ const Menus = () => {
   const handleLogout = () => {
     mutate();
     alert('정상적으로 로그아웃되었습니다.');
-    router.push('auth/login');
+    router.push('/home');
   };
   return (
     <MenusWrapper>

@@ -22,11 +22,13 @@ export const fetchRegionSpace = async (region: string) => {
   return data;
 };
 
-export const fetchRegionBooktalk = async (city: string) => {
+*/
+
+export const fetchUijeongbuBooktalk = async () => {
   const {
     data: { data },
-  } = await api.get(`booktalk/search/${city}`);
+  } = await api.get(`booktalk/search?cities=UIJEONGBU_SI`);
   return data;
 };
 
-*/
+
