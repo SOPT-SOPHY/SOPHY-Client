@@ -22,7 +22,7 @@ function BTDetail() {
       <BooktalkBlank />
       <div style={{ marginLeft: '2rem' }}>
         <BooktalkImage
-          booktalkStatus={data.booktalkStatus}
+          booktalkStatus={data?.booktalkStatus}
           booktalkImageUrl={data?.booktalkImageUrl}
           startDate={data.startDate}
           width={335}

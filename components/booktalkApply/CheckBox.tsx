@@ -136,9 +136,9 @@ function CheckBox(props: any) {
             </Label>
           </CheckContainer>
           <BooktalkApplyAndShareWrapper>
-            {data.booktalkStatus === 'RECRUITING_EXPECTED' ? (
+            {data?.booktalkStatus === 'RECRUITING_EXPECTED' ? (
               <PlannedBooktalkButton>모집예정</PlannedBooktalkButton>
-            ) : data.booktalkStatus === 'RECRUITING_CLOSED' ? (
+            ) : data?.booktalkStatus === 'RECRUITING_CLOSED' ? (
               <CompletedBooktalkButton>마감</CompletedBooktalkButton>
             ) : data.isApply ? (
               <BooktalkApplyCompletedButton>

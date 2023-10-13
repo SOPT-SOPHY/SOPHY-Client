@@ -22,12 +22,12 @@ const Booktalk = ({ data }: any) => {
           <BooktalkComponent
             key={item.booktalkId}
             onClick={() => router.push(`/booktalk/${item.booktalkId}`)}>
-            {item.booktalkStatus === 'RECRUITING_EXPECTED' ? (
+            {item?.booktalkStatus === 'RECRUITING_EXPECTED' ? (
               <PreBooktalkImageWrapper>
                 <BooktalkImage
-                  booktalkStatus={item.booktalkStatus}
+                  booktalkStatus={item?.booktalkStatus}
                   booktalkImageUrl={item?.booktalkImageUrl}
-                  startDate={item.startDate}
+                  startDate={item?.startDate}
                   width={168}
                   height={168}
                 />
@@ -35,9 +35,9 @@ const Booktalk = ({ data }: any) => {
               </PreBooktalkImageWrapper>
             ) : (
               <BooktalkImage
-                booktalkStatus={item.booktalkStatus}
+                booktalkStatus={item?.booktalkStatus}
                 booktalkImageUrl={item?.booktalkImageUrl}
-                startDate={item.startDate}
+                startDate={item?.startDate}
                 width={168}
                 height={168}
               />
