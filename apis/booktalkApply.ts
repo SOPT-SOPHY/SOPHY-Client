@@ -22,17 +22,28 @@ export const fetchBooktalkRegion = async (city: string) => {
 export const postBooktalkApply = async (
   props: BooktalkApplyProps,
 ): Promise<BooktalkApplyProps> => {
+  const accessToken = Cookies.get('accessToken');
   const {
     data: { data },
-  } = await api.post(`booktalk/participation`, props);
+  } = await api.post(`booktalk/participation`, props, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return data;
 };
 
 export const fetchBooktalkDetail = async (
   id: string | string[] | undefined,
 ) => {
+  const accessToken = Cookies.get('accessToken');
+
   const {
     data: { data },
-  } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`); // 1번 test
+  } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  }); // 1번 test
   return data;
 };

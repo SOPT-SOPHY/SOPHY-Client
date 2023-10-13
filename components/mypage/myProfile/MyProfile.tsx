@@ -1,18 +1,23 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import theme from '../../../styles/theme';
-import { ProfileImg, ProfileMore } from '../../../assets/icon';
+import { ProfileImg } from '../../../assets/icon';
 import Image from 'next/image';
+import { uesFetchMyInfo } from '../../../hooks/queries/mypage';
 
 function MyProfile() {
+  const { myInfo } = uesFetchMyInfo();
+  console.log(myInfo);
+
+  if (!myInfo) return <></>;
   return (
     <MyProfileWrapper>
-      <MypageTitleName>나의 소피</MypageTitleName>
+      <MypageTitleName>마이페이지</MypageTitleName>
       <MyProfileInfo>
         <Image src={ProfileImg} alt="" style={{ marginRight: '1.8rem' }} />
         <ProfileText>
           <UserName>
-            강민지
+            {myInfo?.name}
             <span
               style={{
                 fontWeight: 500,
@@ -23,9 +28,15 @@ function MyProfile() {
               님
             </span>
           </UserName>
-          <UserEmail>sophyofficial@naver.com</UserEmail>
+          <UserEmail>{myInfo?.email}</UserEmail>
         </ProfileText>
-        <Image src={ProfileMore} alt="프로필 더보기 아이콘" />
+        {/* <Image
+          src={ProfileMore}
+          alt="프로필 더보기 아이콘"
+          width={24}
+          height={24}
+        /> */}
+        <div style={{ width: '2.4rem', height: '2.4rem' }} />
       </MyProfileInfo>
     </MyProfileWrapper>
   );

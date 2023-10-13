@@ -20,6 +20,7 @@ const BootalkDetailHead = (props: BootalkDetailHeadType) => {
 export default BootalkDetailHead;
 
 const BootalkDetailHeadWrapper = styled.div`
+  width: 33.5rem;
   margin-left: 2rem;
   margin-bottom: 2.1rem;
 `;

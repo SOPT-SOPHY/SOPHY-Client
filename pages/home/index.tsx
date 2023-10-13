@@ -28,6 +28,7 @@ import HotBookTalkSlider from '../../components/HotBookTalkSlider';
 import {
   uesFetchMemberHome,
   uesFetchNonMemberHome,
+  useFetchUijeongbuBooktalk,
 } from '../../hooks/queries/home';
 import { uesFetchMyInfo } from '../../hooks/queries/mypage';
 import { NewLogoWhite } from '../../assets/img';
@@ -39,6 +40,7 @@ function Home() {
 
   const { myInfo } = uesFetchMyInfo();
   console.log(myInfo);
+  const UIJEONGBUSI = useFetchUijeongbuBooktalk();
 
   const regions: any = {
     UIJEONGBU_SI: '의정부시',
@@ -59,25 +61,36 @@ function Home() {
   const refreshToken = Cookies.get('refreshToken');
 
   const data = accessToken ? uesFetchMemberHome() : uesFetchNonMemberHome();
-  console.log(data);
   if (!data) return;
-
-  console.log(data.booktalkDeadlineUpcoming);
 
   return (
     <>
       <TopBackground image={HomeTopImg}>
-        <Image
-          src={NewLogoWhite}
-          alt="로고 이미지"
-          width={87}
-          height={23}
+        <div
           style={{
-            marginTop: '5.5rem',
-            marginLeft: '2rem',
-            marginBottom: '2.3rem',
-          }}
-        />
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}>
+          <Image
+            src={NewLogoWhite}
+            alt="로고 이미지"
+            width={87}
+            height={23}
+            style={{
+              marginTop: '5.5rem',
+              marginLeft: '2rem',
+              marginBottom: '2.3rem',
+            }}
+          />
+          {accessToken && refreshToken ? (
+            <></>
+          ) : (
+            <LoginButton onClick={() => router.push('/auth/login')}>
+              로그인
+            </LoginButton>
+          )}
+        </div>
         <TopText>
           <RenderWhen>
             <RenderWhen.If isTrue={data.booktalkCount === null}>
@@ -146,7 +159,23 @@ function Home() {
           </ScheduledBookTalk>
         </ScheduledBookTalkWrapper>
       </TopBackground>
-      {data?.is_author && data?.booktalkCount !== null ? (
+      {
+        <UserRegionWrapper onClick={() => router.push(`/booktalk`)}>
+          <PlaceNameWrapper>
+            <Image
+              src={PinIcon}
+              alt="핀 아이콘"
+              style={{ marginLeft: '1.4rem' }}
+            />
+            <PlaceName>의정부시 {/*regions[myInfo?.city]*/}</PlaceName>
+          </PlaceNameWrapper>
+          <PlaceNumber>
+            <BoldPlaceNumber>{UIJEONGBUSI?.length}개</BoldPlaceNumber>의 소피
+            북토크가 기다리고 있어요
+          </PlaceNumber>
+        </UserRegionWrapper>
+      }
+      {/* {data?.is_author && data?.booktalkCount !== null ? (
         <WriterRegionWrapper>
           <WriterRegionText>
             이번 달, 책과 이야기로 가득한 지역은
@@ -196,7 +225,7 @@ function Home() {
             <PlaceName>의정부시 {regions[myInfo?.city]}</PlaceName>
           </PlaceNameWrapper>
           <PlaceNumber>
-            <BoldPlaceNumber>{data?.my_city_booktalk_count}개</BoldPlaceNumber>
+            <BoldPlaceNumber>{data?.myCityBooktalkCount}개</BoldPlaceNumber>
             의 소피 북토크가 기다리고 있어요
           </PlaceNumber>
         </UserRegionWrapper>
@@ -221,7 +250,7 @@ function Home() {
             </InterestingRegion>
           </PlaceNameWrapper>
         </UserRegionRecommendationWrapper>
-      )}
+      )} */}
       {data?.is_author && data?.booktalkCount !== null ? (
         <AuthorSliderWrapper>
           <SimpleSlider />
@@ -541,4 +570,15 @@ const OpenBookTalkButton = styled.button`
   color: ${theme.colors.white};
 
   z-index: 5;
+`;
+
+const LoginButton = styled.button`
+  border: none;
+  background-color: transparent;
+  ${theme.fonts.subhead4_semibold};
+  color: ${theme.colors.white};
+  margin-right: 2.4rem;
+  display: flex;
+  align-items: baseline;
+  margin-top: 5.2rem;
 `;

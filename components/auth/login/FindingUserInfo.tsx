@@ -5,8 +5,8 @@ import theme from '../../../styles/theme';
 function FindingUserInfo() {
   return (
     <FindingUserInfoWrapper>
-      <LinkText>이메일 찾기</LinkText> <Separator>|</Separator>
-      <LinkText>비밀번호 찾기</LinkText>
+      {/* <LinkText>이메일 찾기</LinkText> <Separator>|</Separator>
+      <LinkText>비밀번호 찾기</LinkText> */}
     </FindingUserInfoWrapper>
   );
 }
