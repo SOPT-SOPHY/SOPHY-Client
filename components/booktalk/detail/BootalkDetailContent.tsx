@@ -12,7 +12,8 @@ interface BootalkDetailContentType {
 
 const BootalkDetailContent = (props: BootalkDetailContentType) => {
   const { data } = props;
-
+  console.log('here' + data.startDate);
+  console.log(dayjs(data.startDate));
   return (
     <div>
       <ContentWrapper>
@@ -22,8 +23,8 @@ const BootalkDetailContent = (props: BootalkDetailContentType) => {
       <ContentWrapper>
         <ContentTitle>개최일정</ContentTitle>
         <Content>
-          {dayjs(data.startDate).year()}.{dayjs(data.startDate).month()}.
-          {dayjs(data.startDate).day()} {dayjs(data.startDate).hour()}시~
+          {dayjs(data.startDate).year()}.{dayjs(data.startDate).month() + 1}.
+          {dayjs(data.startDate).date()} {dayjs(data.startDate).hour()}시~
           {dayjs(data.endDate).hour()}시
         </Content>
       </ContentWrapper>

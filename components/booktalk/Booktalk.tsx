@@ -12,6 +12,8 @@ import BooktalkImage from '../common/booktalk/BooktalkImage';
 
 const Booktalk = ({ data }: any) => {
   const router = useRouter();
+  const now = dayjs();
+  console.log(now.diff(now.format(), 'd'));
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
@@ -31,7 +33,10 @@ const Booktalk = ({ data }: any) => {
                   width={168}
                   height={168}
                 />
-                <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
+
+                <BooktalkDday>
+                  D - {dayjs(item?.startDate).diff(now, 'd')}
+                </BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
               <BooktalkImage
@@ -148,6 +153,15 @@ const PreBooktalkImageWrapper = styled.div`
   opacity: 0.5;
   z-index: 1;
 
+  border-radius: 0.8rem;
+
+  width: fit-content;
+  height: 16.8rem;
+
+  position: relative;
+`;
+
+const BooktalkImageWrapper = styled.div`
   border-radius: 0.8rem;
 
   width: fit-content;

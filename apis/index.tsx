@@ -76,6 +76,7 @@ api.interceptors.response.use(
         }
       }
     }
+    Router.push('/auth/login');
 
     return Promise.reject(error);
   },
