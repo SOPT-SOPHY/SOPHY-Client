@@ -33,8 +33,10 @@ const BooktalkImage = ({
             width={width}
             height={height}
           />
-          {booktalkStartDate.isBefore(now) ? (
-            <BooktalkDday>D - {booktalkStartDate.diff(now, 'd')}</BooktalkDday>
+          {booktalkStartDate.isAfter(now) ? (
+            <BooktalkDday>
+              D - {booktalkStartDate.diff(now, 'd') + 1}
+            </BooktalkDday>
           ) : (
             <></>
           )}
@@ -47,8 +49,10 @@ const BooktalkImage = ({
             width={width}
             height={height}
           />
-          {booktalkStartDate.isBefore(now) ? (
-            <BooktalkDday>D - {booktalkStartDate.diff(now, 'd')}</BooktalkDday>
+          {booktalkStartDate.isAfter(now) ? (
+            <BooktalkDday>
+              D - {booktalkStartDate.diff(now, 'd') + 1}
+            </BooktalkDday>
           ) : (
             <></>
           )}

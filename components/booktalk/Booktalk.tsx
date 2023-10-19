@@ -51,8 +51,8 @@ const Booktalk = ({ data }: any) => {
             <BooktalkTitle>{item.title}</BooktalkTitle>
             <AuthorName>{item.author} 작가</AuthorName>
             <BooktalkDate>
-              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month()}월{' '}
-              {dayjs(item.endDate).day()}일
+              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month() + 1}월
+              {dayjs(item.endDate).date()}일
             </BooktalkDate>
             <PriceAndParticipantWrapper>
               <BooktalkPrice>무료</BooktalkPrice>
@@ -179,7 +179,7 @@ const BooktalkDday = styled.div`
 
   border-radius: 0rem 0rem 0.8rem 0.8rem;
 
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.2); //todo: design check
 
   color: white;
   ${theme.fonts.body3_medium};
