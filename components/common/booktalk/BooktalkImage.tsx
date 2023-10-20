@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import Image from 'next/image';
-import { countDday } from '../../../utils/date';
 import theme from '../../../styles/theme';
+import dayjs from 'dayjs';
 
 interface booktalkDetailProps {
   booktalkStatus: string;
@@ -19,6 +19,9 @@ const BooktalkImage = ({
   width,
   height,
 }: booktalkDetailProps) => {
+  const now = dayjs();
+  const booktalkStartDate = dayjs(startDate);
+  const dday = Math.floor(booktalkStartDate.diff(now, 'day')) + 1;
   return (
     <div>
       {booktalkStatus === 'RECRUITING_EXPECTED' ? (
@@ -29,15 +32,26 @@ const BooktalkImage = ({
             width={width}
             height={height}
           />
-          <BooktalkDday>D - {countDday(startDate)}</BooktalkDday>
+          {booktalkStartDate.isAfter(now) ? (
+            <BooktalkDday>D - {dday}</BooktalkDday>
+          ) : (
+            <></>
+          )}
         </PreBooktalkImageWrapper>
       ) : (
-        <SBooktalkImage
-          src={booktalkImageUrl}
-          alt="북토크 썸네일 이미지"
-          width={width}
-          height={height}
-        />
+        <BooktalkImageWrapper width={width} height={height}>
+          <SBooktalkImage
+            src={booktalkImageUrl}
+            alt="북토크 썸네일 이미지"
+            width={width}
+            height={height}
+          />
+          {booktalkStartDate.isAfter(now) ? (
+            <BooktalkDday>D - {dday}</BooktalkDday>
+          ) : (
+            <></>
+          )}
+        </BooktalkImageWrapper>
       )}
     </div>
   );
@@ -49,6 +63,14 @@ const PreBooktalkImageWrapper = styled.div<{ width: number; height: number }>`
   background-color: #d9d9d9;
   opacity: 0.5;
   z-index: 1;
+  width: ${(props) => props.width / 10}rem;
+  height: ${(props) => props.height / 10}rem;
+
+  border-radius: 0.8rem;
+  position: relative;
+`;
+
+const BooktalkImageWrapper = styled.div<{ width: number; height: number }>`
   width: ${(props) => props.width / 10}rem;
   height: ${(props) => props.height / 10}rem;
 

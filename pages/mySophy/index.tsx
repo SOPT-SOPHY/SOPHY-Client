@@ -5,6 +5,7 @@ import { uesFetchSophyStory } from '../../hooks/queries/sophyStory';
 import BooktalkList from '../../components/mypage/bookedBooktalk/BooktalkList';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import Footer from '../../components/common/Footer/Footer';
 
 const MySophy = () => {
   const { sophyStory } = uesFetchSophyStory();
@@ -24,6 +25,7 @@ const MySophy = () => {
   return (
     <div>
       <BooktalkList />
+      <Footer />
     </div>
   );
 };

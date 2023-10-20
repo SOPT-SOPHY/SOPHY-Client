@@ -12,6 +12,8 @@ import BooktalkImage from '../common/booktalk/BooktalkImage';
 
 const Booktalk = ({ data }: any) => {
   const router = useRouter();
+  const now = dayjs();
+  console.log(now.diff(now.format(), 'd'));
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
@@ -31,23 +33,24 @@ const Booktalk = ({ data }: any) => {
                   width={168}
                   height={168}
                 />
-                <BooktalkDday>D - {countDday(item.startDate)}</BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
-              <BooktalkImage
-                booktalkStatus={item?.booktalkStatus}
-                booktalkImageUrl={item?.booktalkImageUrl}
-                startDate={item?.startDate}
-                width={168}
-                height={168}
-              />
+              <BooktalkImageWrapper>
+                <BooktalkImage
+                  booktalkStatus={item?.booktalkStatus}
+                  booktalkImageUrl={item?.booktalkImageUrl}
+                  startDate={item?.startDate}
+                  width={168}
+                  height={168}
+                />
+              </BooktalkImageWrapper>
             )}
 
             <BooktalkTitle>{item.title}</BooktalkTitle>
             <AuthorName>{item.author} 작가</AuthorName>
             <BooktalkDate>
-              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month()}월{' '}
-              {dayjs(item.endDate).day()}일
+              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month() + 1}월
+              {dayjs(item.endDate).date()}일
             </BooktalkDate>
             <PriceAndParticipantWrapper>
               <BooktalkPrice>무료</BooktalkPrice>
@@ -156,6 +159,15 @@ const PreBooktalkImageWrapper = styled.div`
   position: relative;
 `;
 
+const BooktalkImageWrapper = styled.div`
+  border-radius: 0.8rem;
+
+  width: fit-content;
+  height: 16.8rem;
+
+  position: relative;
+`;
+
 const BooktalkDday = styled.div`
   position: absolute;
   bottom: 0;
@@ -165,7 +177,7 @@ const BooktalkDday = styled.div`
 
   border-radius: 0rem 0rem 0.8rem 0.8rem;
 
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.2); //todo: design check
 
   color: white;
   ${theme.fonts.body3_medium};

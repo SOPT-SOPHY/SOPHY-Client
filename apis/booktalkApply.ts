@@ -42,8 +42,9 @@ export const fetchBooktalkDetail = async (
     data: { data },
   } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: accessToken && `Bearer ${accessToken}`,
     },
   }); // 1번 test
+
   return data;
 };

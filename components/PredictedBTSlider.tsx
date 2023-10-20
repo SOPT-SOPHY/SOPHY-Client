@@ -178,7 +178,7 @@ export default function SimpleSlider(props: any) {
                 src={item?.booktalk_image_url}
                 alt="북토크 썸네일"
               />
-              <DdayContainer>D-{countDday(item?.start_date)}</DdayContainer>
+              <DdayContainer>D-{countDday(item?.startDate)}</DdayContainer>
               <div className="title">{item?.title}</div>
               <div className="author">{item?.author} 작가</div>
             </SliderItem>

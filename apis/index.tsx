@@ -68,12 +68,29 @@ api.interceptors.response.use(
           // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
           return api(originalRequest);
         } catch (e: any) {
-          if (e?.response?.data.message === '만료된 리프레시 토큰입니다.') {
+          if (
+            e?.response?.data.message ===
+            '로그아웃 하여 리프레시 토큰이 존재하지 않는 상태입니다.'
+          ) {
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+            alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');
+          }
+          if (
+            e?.response?.data.message ===
+            '리프레시 토큰의 정보가 일치하지 않습니다.'
+          ) {
             Cookies.remove('accessToken');
             Cookies.remove('refreshToken');
             alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');
           }
         }
+      }
+    }
+    if (status === 404) {
+      if (error.response.data.message === '존재하지 않는 유저입니다') {
+        alert('로그인 후 이용해 주세요.');
+        Router.push('/auth/login');
       }
     }
 
