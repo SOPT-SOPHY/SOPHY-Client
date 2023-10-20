@@ -33,19 +33,17 @@ const Booktalk = ({ data }: any) => {
                   width={168}
                   height={168}
                 />
-
-                <BooktalkDday>
-                  D - {dayjs(item?.startDate).diff(now, 'd')}
-                </BooktalkDday>
               </PreBooktalkImageWrapper>
             ) : (
-              <BooktalkImage
-                preliminaryInfo={item.preliminaryInfo}
-                booktalkImageUrl={item?.booktalkImageUrl}
-                startDate={item.startDate}
-                width={168}
-                height={168}
-              />
+              <BooktalkImageWrapper>
+                <BooktalkImage
+                  booktalkStatus={item?.booktalkStatus}
+                  booktalkImageUrl={item?.booktalkImageUrl}
+                  startDate={item?.startDate}
+                  width={168}
+                  height={168}
+                />
+              </BooktalkImageWrapper>
             )}
 
             <BooktalkTitle>{item.title}</BooktalkTitle>

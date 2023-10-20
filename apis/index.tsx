@@ -76,6 +76,14 @@ api.interceptors.response.use(
             Cookies.remove('refreshToken');
             alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');
           }
+          if (
+            e?.response?.data.message ===
+            '리프레시 토큰의 정보가 일치하지 않습니다.'
+          ) {
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+            alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');
+          }
         }
       }
     }

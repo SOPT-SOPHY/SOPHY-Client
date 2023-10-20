@@ -149,12 +149,13 @@ function CheckBox(props: any) {
       )}
       <BooktalkApplyingModal
         isModalOpened={isModalOpened}
-        message={`북토크 개설을 신청하시겠어요?, 북토크 신청 취소를 원하실 경우 소피 공식 \n 인스타그램(@sophyinlocal)에 문의를 남겨주세요.`}
+        message={`북토크 참여를 신청하시겠어요?, 북토크 신청 취소를 원하실 경우 소피 공식 \n 인스타그램(@sophyinlocal)에 문의를 남겨주세요.`}
         confirmButton="확인"
         handleModalClose={handleModalClose}
         handleConfirm={() => {
           if (accessToken) {
             mutate({ booktalkId });
+            router.push('/home');
           } else {
             alert('로그인 후 신청 가능합니다.');
             router.push('/auth/login');

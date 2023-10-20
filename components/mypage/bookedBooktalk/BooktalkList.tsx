@@ -115,8 +115,8 @@ function BooktalkList() {
         );
       })}
       <Footer>
-        신청 취소를 원하실 경우 소피 공식 이메일 (sophykoreaofficial@gmail.com)
-        로 문의를 남겨주세요
+        신청 취소를 원하실 경우 소피 공식 인스타그램(@sophyinlocal)로 문의를
+        남겨주세요
       </Footer>
     </>
   );

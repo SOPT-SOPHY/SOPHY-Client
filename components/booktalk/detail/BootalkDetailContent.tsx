@@ -96,6 +96,7 @@ const IntroductionBox = styled.div`
   padding: 1.6rem;
   margin-bottom: 1.6rem;
   margin-left: 2rem;
+  border-radius: 0.6rem;
 `;
 
 const SpaceInfoWrapper = styled.div`

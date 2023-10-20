@@ -21,8 +21,7 @@ const BooktalkImage = ({
 }: booktalkDetailProps) => {
   const now = dayjs();
   const booktalkStartDate = dayjs(startDate);
-  console.log(startDate);
-  //console.log(booktalkStartDate.diff(now, 'day'));
+  const dday = Math.floor(booktalkStartDate.diff(now, 'day')) + 1;
   return (
     <div>
       {preliminaryInfo === 'PRE_READING' ? (
@@ -34,9 +33,7 @@ const BooktalkImage = ({
             height={height}
           />
           {booktalkStartDate.isAfter(now) ? (
-            <BooktalkDday>
-              D - {booktalkStartDate.diff(now, 'd') + 1}
-            </BooktalkDday>
+            <BooktalkDday>D - {dday}</BooktalkDday>
           ) : (
             <></>
           )}
@@ -50,9 +47,7 @@ const BooktalkImage = ({
             height={height}
           />
           {booktalkStartDate.isAfter(now) ? (
-            <BooktalkDday>
-              D - {booktalkStartDate.diff(now, 'd') + 1}
-            </BooktalkDday>
+            <BooktalkDday>D - {dday}</BooktalkDday>
           ) : (
             <></>
           )}

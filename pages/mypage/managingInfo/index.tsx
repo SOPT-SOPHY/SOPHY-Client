@@ -63,12 +63,8 @@ function ManagingInfo() {
     setFinalData(myInfo);
     setGender(myInfo?.gender);
     setBirth(myInfo?.birth);
-    // setBirth(myInfo?.birth);
     if (myInfo?.birth !== null) {
       console.log(`birth${myInfo?.birth}`);
-      // setBirthYear(myInfo?.birth?.slice(0, 4));
-      // setBirthMonth(myInfo?.birth?.slice(4, 6));
-      // setBirthDay(myInfo?.birth?.slice(6, 8));
     }
     setMarketingTerm(myInfo?.marketingAgree);
   }, [myInfo]);
@@ -78,9 +74,6 @@ function ManagingInfo() {
     setFinalData(data);
     setGender(myInfo?.gender);
     setBirth(myInfo?.birth);
-    // setBirthYear(myInfo?.birth?.slice(0, 4));
-    // setBirthMonth(myInfo?.birth?.slice(4, 6));
-    // setBirthDay(myInfo?.birth?.slice(6, 8));
     setMarketingTerm(myInfo?.marketingAgree);
   }, [data]);
 

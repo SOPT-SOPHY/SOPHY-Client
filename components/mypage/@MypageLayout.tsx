@@ -18,17 +18,6 @@ function MypageLayout(props: LayoutProps) {
 
   return (
     <Header>
-      <Image
-        src={BackButton}
-        alt="뒤로가기"
-        onClick={handleGoBack}
-        height={44}
-        width={44}
-        style={{
-          marginLeft: '-17px',
-          cursor: 'pointer',
-        }}
-      />
       <PageTitle>{title}</PageTitle>
     </Header>
   );
@@ -38,14 +27,13 @@ export default MypageLayout;
 
 const Header = styled.header`
   display: flex;
+  justify-content: center;
   align-items: center;
-  width: 33.5rem;
+  width: 37.5rem;
   height: 4.4rem;
 `;
 
-const PageTitle = styled.h1`
-  margin-left: 9.4rem;
-
+const PageTitle = styled.div`
   ${theme.fonts.subhead2_bold};
   color: ${theme.colors.black};
 `;
