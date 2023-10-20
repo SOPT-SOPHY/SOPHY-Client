@@ -40,22 +40,11 @@ export const fetchBooktalkDetail = async (
 
   const {
     data: { data },
-<<<<<<< HEAD
-<<<<<<< HEAD
-  } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`); // 1번 test
-=======
   } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`, {
     headers: {
       Authorization: accessToken && `Bearer ${accessToken}`,
     },
   }); // 1번 test
->>>>>>> 776ee8a (fix: 북토크 상세 비회원일 경우 get 되지 않는 오류 수정)
-=======
-  } = await axios.get(`${baseURL}/booktalk/search/${id}/detail`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }); // 1번 test
->>>>>>> f517edc (자잘한 수정사항 (#117))
+
   return data;
 };
