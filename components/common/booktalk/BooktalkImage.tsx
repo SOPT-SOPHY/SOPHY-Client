@@ -5,7 +5,7 @@ import theme from '../../../styles/theme';
 import dayjs from 'dayjs';
 
 interface booktalkDetailProps {
-  booktalkStatus: string;
+  booktalkStatus?: string;
   booktalkImageUrl: string;
   startDate: string;
   width: number;
@@ -19,9 +19,42 @@ const BooktalkImage = ({
   width,
   height,
 }: booktalkDetailProps) => {
-  const now = dayjs();
+  // const now = dayjs();
   const booktalkStartDate = dayjs(startDate);
-  const dday = Math.floor(booktalkStartDate.diff(now, 'day')) + 1;
+  const now = new Date();
+  const booktalkStartDate2 = new Date(startDate);
+  const date = booktalkStartDate2.getDate();
+  console.log(date);
+  console.log(now);
+  console.log(booktalkStartDate2);
+  // const dday = countDday(startDate);
+  // const dday = Math.floor(booktalkStartDate.diff(now, 'day')) + 1;
+
+  const getDday = () => {
+    if (booktalkStartDate2.getMonth() === now.getMonth()) {
+      const diff = booktalkStartDate2.getDate() - now.getDate();
+      return diff;
+    } else {
+      if (booktalkStartDate2.getMonth() === 1 || 3 || 5 || 7 || 8 || 10 || 12) {
+        const diff = 31 - now.getDate() + booktalkStartDate2.getDate();
+        return diff;
+      } else if (booktalkStartDate2.getMonth() === 4 || 6 || 9 || 11) {
+        const diff = 30 - now.getDate() + booktalkStartDate2.getDate();
+        return diff;
+      } else {
+        //2월
+        if (booktalkStartDate2.getFullYear() % 4 === 0) {
+          const diff = 29 - now.getDate() + booktalkStartDate2.getDate();
+          return diff;
+        } else {
+          const diff = 28 - now.getDate() + booktalkStartDate2.getDate();
+          return diff;
+        }
+      }
+    }
+  };
+  const dday = getDday();
+
   return (
     <div>
       {booktalkStatus === 'RECRUITING_EXPECTED' ? (

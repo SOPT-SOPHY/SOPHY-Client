@@ -8,6 +8,7 @@ import { PeopleIcon } from '../../../assets/icon';
 import { getDate, countDday } from '../../../utils/date';
 import { uesFetchMypage } from '../../../hooks/queries/mypage';
 import { uesFetchSophyStory } from '../../../hooks/queries/sophyStory';
+import BooktalkImage from '../../common/booktalk/BooktalkImage';
 
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
@@ -71,12 +72,11 @@ function BooktalkList() {
                     <BooktalkByMonth>
                       <BooktalkImageWrapper>
                         <BooktalkImage
-                          src={booktalk?.booktalkImageUrl}
-                          alt="북토크 썸네일"
+                          booktalkImageUrl={booktalk?.booktalkImageUrl}
+                          startDate={booktalk?.startDate}
+                          width={99}
+                          height={99}
                         />
-                        <ImageCaption>
-                          D-{countDday(booktalk?.startDate)}
-                        </ImageCaption>
                       </BooktalkImageWrapper>
                       <BooktalkInfo>
                         <Title>{booktalk?.title}</Title>
@@ -164,13 +164,6 @@ const BooktalkImageWrapper = styled.div`
   border-radius: 1rem;
   border: none;
   background: ${theme.colors.gray11};
-`;
-
-const BooktalkImage = styled.img`
-  width: 9.9rem;
-  height: 7.1rem;
-
-  border-radius: 1rem 1rem 0 0rem;
 `;
 
 const ImageCaption = styled.div`
