@@ -4,6 +4,7 @@ import theme from '../../../styles/theme';
 import { ProfileImg } from '../../../assets/icon';
 import Image from 'next/image';
 import { uesFetchMyInfo } from '../../../hooks/queries/mypage';
+import { UserDefaultImage } from '../../../assets/img';
 
 function MyProfile() {
   const { myInfo } = uesFetchMyInfo();
@@ -14,7 +15,13 @@ function MyProfile() {
     <MyProfileWrapper>
       <MypageTitleName>마이페이지</MypageTitleName>
       <MyProfileInfo>
-        <Image src={ProfileImg} alt="" style={{ marginRight: '1.8rem' }} />
+        <Image
+          src={UserDefaultImage}
+          alt=""
+          style={{ marginRight: '1.8rem', borderRadius: '50%' }}
+          width={52}
+          height={52}
+        />
         <ProfileText>
           <UserName>
             {myInfo?.name}

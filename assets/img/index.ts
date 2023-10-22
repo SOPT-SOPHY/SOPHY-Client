@@ -20,3 +20,4 @@ export { default as SecondBannerImg } from './SecondBannerImg.png';
 export { default as ThirdBannerImg } from './ThirdBannerImg.png';
 export { default as NewLogo } from './NewLogo.png';
 export { default as NewLogoWhite } from './NewLogoWhite.png';
+export { default as UserDefaultImage } from './UserDefaultImage.png';
