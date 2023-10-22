@@ -38,32 +38,6 @@ export default function SimpleSlider() {
             }
           />
         </ImageContainer>
-        <ImageContainer>
-          <Image
-            src={SecondBannerImg}
-            alt="배너 이미지"
-            width={313}
-            height={84}
-            onClick={() =>
-              router.push(
-                'https://www.notion.so/1fc2a417ca5445bd9d5bdf8a9cb5105a',
-              )
-            }
-          />
-        </ImageContainer>
-        <ImageContainer>
-          <Image
-            src={ThirdBannerImg}
-            alt="배너 이미지"
-            width={313}
-            height={84}
-            onClick={() =>
-              router.push(
-                'https://www.notion.so/1fc2a417ca5445bd9d5bdf8a9cb5105a',
-              )
-            }
-          />
-        </ImageContainer>
       </StyledSlider>
     </Container>
   );
