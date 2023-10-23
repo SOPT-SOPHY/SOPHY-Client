@@ -92,6 +92,10 @@ api.interceptors.response.use(
           }
         }
       }
+      if (error.response.data.message === '유효하지 않은 액세스 토큰입니다.') {
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+      }
     }
     if (status === 404) {
       if (error.response.data.message === '존재하지 않는 유저입니다') {
