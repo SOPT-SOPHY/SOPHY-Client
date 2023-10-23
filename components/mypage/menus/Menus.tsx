@@ -18,8 +18,18 @@ const Menus = () => {
       <MenuWrapper onClick={() => router.push('/mypage/managingInfo')}>
         내 정보 관리
       </MenuWrapper>
-      <MenuWrapper>이용약관</MenuWrapper>
-      <MenuWrapper>개인정보 처리 방침</MenuWrapper>
+      <MenuWrapper
+        onClick={() =>
+          router.push('https://www.notion.so/47e4fae575ed48999c005dc47c2134e1')
+        }>
+        이용약관
+      </MenuWrapper>
+      <MenuWrapper
+        onClick={() =>
+          router.push('https://www.notion.so/2238be6a69d84366ae2a1040ad943e49')
+        }>
+        개인정보 처리 방침
+      </MenuWrapper>
       <MenuWrapper onClick={handleLogout}>로그아웃</MenuWrapper>
     </MenusWrapper>
   );

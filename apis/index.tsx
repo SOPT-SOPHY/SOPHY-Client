@@ -84,6 +84,12 @@ api.interceptors.response.use(
             Cookies.remove('refreshToken');
             alert('로그인 정보가 만료되었습니다. 다시 로그인 해주세요.');
           }
+          if (
+            error.response.data.message === '유효하지 않은 액세스 토큰입니다.'
+          ) {
+            alert('로그인 후 이용해 주세요.');
+            Router.push('/auth/login');
+          }
         }
       }
     }

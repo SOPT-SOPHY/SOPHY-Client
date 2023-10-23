@@ -18,6 +18,7 @@ function PageTitle(props: PageTitleProps) {
   const handleBooktalkDetailGoBack = () => {
     router.push('/booktalk');
   };
+  console.log('booktalkdetail');
   console.log(booktalkDetail);
   return (
     <>
@@ -27,6 +28,7 @@ function PageTitle(props: PageTitleProps) {
             src={GoBackIcon}
             alt="뒤로가기 아이콘"
             onClick={handleBooktalkDetailGoBack}
+            style={{ cursor: 'pointer' }}
           />
         ) : goBack ? (
           <GoBackImage
