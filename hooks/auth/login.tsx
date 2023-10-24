@@ -36,7 +36,11 @@ const useLogin = () => {
 
       setEmail('');
       setPassword('');
-    } catch (error) {
+    } catch (error: any) {
+      if (
+        error?.response?.data.message === '유효하지 않은 액세스 토큰입니다.'
+      ) {
+      }
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);

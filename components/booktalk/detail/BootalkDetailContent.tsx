@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import SpaceInfoImage from '../../../assets/img/sophy_spaceinfo.svg';
 import icPin from '../../../assets/icon/ic_pin.svg';
+import { MakeBlank } from '../../../utils/MakeBlank';
 
 interface BootalkDetailContentType {
   data: any;
@@ -24,8 +25,14 @@ const BootalkDetailContent = (props: BootalkDetailContentType) => {
         <ContentTitle>개최일정</ContentTitle>
         <Content>
           {dayjs(data.startDate).year()}.{dayjs(data.startDate).month() + 1}.
-          {dayjs(data.startDate).date()} {dayjs(data.startDate).hour()}시~
-          {dayjs(data.endDate).hour()}시
+          {dayjs(data.startDate).date()} {dayjs(data.startDate).hour()}시{' '}
+          {dayjs(data.startDate).minute()
+            ? `${dayjs(data.startDate).minute()}분`
+            : ''}
+          ~ {dayjs(data.endDate).hour()}시{' '}
+          {dayjs(data.endDate).minute()
+            ? `${dayjs(data.endDate).minute()}분`
+            : ''}
         </Content>
       </ContentWrapper>
       <ContentWrapper>
@@ -45,7 +52,7 @@ const BootalkDetailContent = (props: BootalkDetailContentType) => {
       <ContentWrapper>
         <ContentTitle>소개</ContentTitle>
       </ContentWrapper>
-      <IntroductionBox>{data.description}</IntroductionBox>
+      <IntroductionBox>{MakeBlank(data.description)}</IntroductionBox>
       <SpaceInfoWrapper>
         <div style={{ display: 'flex' }}>
           <Image
@@ -77,8 +84,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ContentTitle = styled.div`
-  width: 4.9rem;
-  margin-right: 2rem;
+  width: 6.9rem;
   ${theme.fonts.body2_regular};
   color: ${theme.colors.gray05};
 `;

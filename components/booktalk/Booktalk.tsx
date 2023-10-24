@@ -49,7 +49,7 @@ const Booktalk = ({ data }: any) => {
             <BooktalkTitle>{item.title}</BooktalkTitle>
             <AuthorName>{item.author} 작가</AuthorName>
             <BooktalkDate>
-              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month() + 1}월
+              {dayjs(item.endDate).year()}년 {dayjs(item.endDate).month() + 1}월{' '}
               {dayjs(item.endDate).date()}일
             </BooktalkDate>
             <PriceAndParticipantWrapper>

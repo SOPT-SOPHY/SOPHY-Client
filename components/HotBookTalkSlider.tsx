@@ -8,13 +8,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import theme from '../styles/theme';
 import { PinIcon, PointIcon, ScheduleIcon } from '../assets/icon';
+import dayjs from 'dayjs';
 
 /* keen slider */
 
 export default function SimpleSlider(props: any) {
   const { data } = props;
   const router = useRouter();
-  console.log(data);
+  console.log(data?.startDate);
   const settings = {
     dots: false,
     infinite: false,
@@ -25,50 +26,107 @@ export default function SimpleSlider(props: any) {
     centerMode: false,
     dotsClass: 'dots_custom',
   };
+
   return (
     <ContainerWrapper>
       <Container>
-        <StyledSlider {...settings}>
-          {data?.map((item: any) => (
-            <ImageContainer key={item}>
-              <SlideCard
-                onClick={() =>
-                  router.push(`/booktalk/${item?.booktalkId}/detail`)
-                }>
-                <SlideTitle>{item.title}</SlideTitle>
-                <SlideContent>
-                  <Image
-                    src={ScheduleIcon}
-                    alt="달력 모양 아이콘"
-                    style={{ marginRight: '0.4rem' }}
-                  />
-                  {item.startDate.slice(0, 4)}.{item.startDate.slice(5, 7)}.
-                  {item.startDate.slice(8, 10)}
-                  <Dot /> {item.startDate.slice(11, 13)}시~
-                  {item.endDate.slice(11, 13)}시
-                </SlideContent>
-                <SlideContent>
-                  <Image
-                    src={PointIcon}
-                    alt="화살표 모양 아이콘"
-                    style={{ marginRight: '0.4rem' }}
-                  />
-                  {item.placeName}
-                </SlideContent>
-                <SlideContent>
-                  <Image
-                    src={PinIcon}
-                    alt="핀 모양 아이콘"
-                    width={18}
-                    height={18}
-                    style={{ marginRight: '0.4rem' }}
-                  />
-                  {item.placeAddress}
-                </SlideContent>
-              </SlideCard>
-            </ImageContainer>
-          ))}
-        </StyledSlider>
+        {data.length === 1 ? (
+          <>
+            {data?.map((item: any) => (
+              <ImageContainer key={item} style={{ marginLeft: '2rem' }}>
+                <SlideCard
+                  onClick={() => router.push(`/booktalk/${item?.booktalkId}`)}>
+                  <SlideTitle>{item.title}</SlideTitle>
+                  <SlideContent>
+                    <Image
+                      src={ScheduleIcon}
+                      alt="달력 모양 아이콘"
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {dayjs(item.startDate).year()}.
+                    {dayjs(item.startDate).month() + 1}.
+                    {dayjs(item.startDate).date()} <Dot />
+                    {dayjs(item.startDate).hour()}시{' '}
+                    {dayjs(item.startDate).minute()
+                      ? `${dayjs(item.startDate).minute()}분`
+                      : ''}
+                    ~ {dayjs(item.endDate).hour()}시{' '}
+                    {dayjs(item.endDate).minute()
+                      ? `${dayjs(item.endDate).minute()}분`
+                      : ''}
+                  </SlideContent>
+                  <SlideContent>
+                    <Image
+                      src={PointIcon}
+                      alt="화살표 모양 아이콘"
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {item.placeName}
+                  </SlideContent>
+                  <SlideContent>
+                    <Image
+                      src={PinIcon}
+                      alt="핀 모양 아이콘"
+                      width={18}
+                      height={18}
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {item.placeAddress}
+                  </SlideContent>
+                </SlideCard>
+              </ImageContainer>
+            ))}
+          </>
+        ) : (
+          <StyledSlider {...settings}>
+            {data?.map((item: any) => (
+              <ImageContainer key={item}>
+                <SlideCard
+                  onClick={() =>
+                    router.push(`/booktalk/${item?.booktalkId}/detail`)
+                  }>
+                  <SlideTitle>{item.title}</SlideTitle>
+                  <SlideContent>
+                    <Image
+                      src={ScheduleIcon}
+                      alt="달력 모양 아이콘"
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {dayjs(item.startDate).year()}.
+                    {dayjs(item.startDate).month() + 1}.
+                    {dayjs(item.startDate).date()} <Dot />
+                    {dayjs(item.startDate).hour()}시{' '}
+                    {dayjs(item.startDate).minute()
+                      ? `${dayjs(item.startDate).minute()}분`
+                      : ''}
+                    ~ {dayjs(item.endDate).hour()}시{' '}
+                    {dayjs(item.endDate).minute()
+                      ? `${dayjs(item.endDate).minute()}분`
+                      : ''}
+                  </SlideContent>
+                  <SlideContent>
+                    <Image
+                      src={PointIcon}
+                      alt="화살표 모양 아이콘"
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {item.placeName}
+                  </SlideContent>
+                  <SlideContent>
+                    <Image
+                      src={PinIcon}
+                      alt="핀 모양 아이콘"
+                      width={18}
+                      height={18}
+                      style={{ marginRight: '0.4rem' }}
+                    />
+                    {item.placeAddress}
+                  </SlideContent>
+                </SlideCard>
+              </ImageContainer>
+            ))}
+          </StyledSlider>
+        )}
       </Container>
     </ContainerWrapper>
   );
@@ -135,4 +193,5 @@ const Dot = styled.span`
   background-color: ${theme.colors.gray08};
 
   margin: 0 0.4rem;
+  margin-bottom: 0.2rem;
 `;

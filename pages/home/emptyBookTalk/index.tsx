@@ -7,6 +7,8 @@ import Layout from '../../../components/common/Layout';
 import theme from '../../../styles/theme';
 import { NewEmptyBooktalkImg } from '../../../assets/img';
 import { uesFetchMyInfo } from '../../../hooks/queries/mypage';
+import PageTitle from '../../../components/common/Title/PageTitle';
+import Footer from '../../../components/common/Footer/Footer';
 
 function EmptyBookTalk() {
   const router = useRouter();
@@ -19,12 +21,7 @@ function EmptyBookTalk() {
   return (
     <Layout>
       <Head>
-        <GoBackImage
-          src={GoBackIcon}
-          alt="뒤로가기 아이콘"
-          onClick={handleGoBack}
-        />
-        <PageTitle>예정된 북토크</PageTitle>
+        <PageTitle pageTitleText="예정된 북토크" />
         <TitleBlank />
       </Head>
       <HeadBlank />
@@ -35,20 +32,20 @@ function EmptyBookTalk() {
         width={375}
         height={348}
       />
-      <BookTalkEmpty>
-        <BookTalkEmptyBold>아직 확정된 일정이 없어요</BookTalkEmptyBold>
-        <BookTalkEmptyGray>새로운 북토크 일정을 만들어보세요</BookTalkEmptyGray>
-      </BookTalkEmpty>
-      <OurRegionBookTalkButton
+      <BookTalkEmptyBold>아직 확정된 일정이 없어요</BookTalkEmptyBold>
+      <BookTalkEmptyGray>새로운 북토크 일정을 만들어보세요</BookTalkEmptyGray>
+      {/* <OurRegionBookTalkButton
         onClick={() => {
-          if (myInfo?.city === null) {
-            router.push('/booktalk/search/UIJEONGBU_SI');
-          } else {
-            router.push(`/booktalk/search/${myInfo?.city}`);
-          }
+          router.push('/booktalk');
+          // if (myInfo?.city === null) {
+          //   router.push('/booktalk/search/UIJEONGBU_SI');
+          // } else {
+          //   router.push(`/booktalk/search/${myInfo?.city}`);
+          // }
         }}>
         우리동네 북토크 보러가기
-      </OurRegionBookTalkButton>
+      </OurRegionBookTalkButton> */}
+      <Footer />
     </Layout>
   );
 }
@@ -73,10 +70,6 @@ const HeadBlank = styled.div`
   height: 4.4rem;
 `;
 
-const PageTitle = styled.div`
-  ${theme.fonts.subhead2_bold};
-`;
-
 const TitleBlank = styled.div`
   width: 4.4rem;
   height: 4.4rem;
@@ -94,13 +87,16 @@ const BookTalkEmpty = styled.div`
 `;
 
 const BookTalkEmptyBold = styled.div`
-  width: 22.5rem;
   ${theme.fonts.headline3_bold};
+  text-align: center;
+  margin-top: 4.2rem;
+  margin-bottom: 0.8rem;
 `;
 
 const BookTalkEmptyGray = styled.div`
   ${theme.fonts.body1_medium};
   color: ${theme.colors.gray06};
+  text-align: center;
 `;
 
 const OurRegionBookTalkButton = styled.button`

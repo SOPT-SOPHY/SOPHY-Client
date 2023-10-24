@@ -71,7 +71,7 @@ function CheckBox(props: any) {
   const allAgreed = agreeds.infoConfirm && agreeds.serviceConfirm;
 
   const accessToken = Cookies.get('accessToken');
-  const isApplyingButtonActive = accessToken && allAgreed;
+  const isApplyingButtonActive = allAgreed;
 
   const router = useRouter();
 
@@ -154,7 +154,12 @@ function CheckBox(props: any) {
               <BooktalkApplyButton
                 isApplyingButtonActive={isApplyingButtonActive}
                 onClick={() => {
-                  isApplyingButtonActive && handleModalOpen();
+                  if (!accessToken) {
+                    alert('로그인 후 신청 가능합니다.');
+                    router.push('/auth');
+                  } else {
+                    isApplyingButtonActive && handleModalOpen();
+                  }
                 }}>
                 신청하기
               </BooktalkApplyButton>
@@ -176,6 +181,7 @@ function CheckBox(props: any) {
         handleConfirm={() => {
           if (accessToken) {
             mutate({ booktalkId });
+            alert('북토크 신청이 완료되었습니다.');
             router.push('/home');
           } else {
             alert('로그인 후 신청 가능합니다.');

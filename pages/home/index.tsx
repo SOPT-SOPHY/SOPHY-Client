@@ -86,8 +86,10 @@ function Home() {
           {accessToken && refreshToken ? (
             <></>
           ) : (
-            <LoginButton onClick={() => router.push('/auth/login')}>
+            <LoginButton onClick={() => router.push('/auth')}>
               로그인
+              <span style={{ marginRight: '0.8rem' }} />
+              회원가입
             </LoginButton>
           )}
         </div>
@@ -105,7 +107,10 @@ function Home() {
           <br />
           <TopTextUnder>오늘도 소피로운 하루 보내세요</TopTextUnder>
         </TopText>
-        <ScheduledBookTalkWrapper>
+        <ScheduledBookTalkWrapper
+          onClick={() => {
+            router.push('/mySophy');
+          }}>
           <ScheduledBookTalk>
             <ScheduledBookTalkInnerTextWrapper>
               <Image
@@ -118,27 +123,13 @@ function Home() {
             <ScheduledBookTalkInnerTextWrapper>
               {data?.booktalkCount !== null ? (
                 <>
-                  <ScheduledBookTalkNumberText
-                    onClick={() => {
-                      if (data?.booktalkCount === 0) {
-                        router.push('/home/emptyBookTalk');
-                      } else {
-                        router.push('/mypage/bookedBookTalk');
-                      }
-                    }}>
+                  <ScheduledBookTalkNumberText>
                     {data?.booktalkCount}개
                   </ScheduledBookTalkNumberText>
                   <Image
                     src={HomeMoreIcon}
                     alt="더보기 아이콘"
                     style={{ marginRight: '1.2rem' }}
-                    onClick={() => {
-                      if (data?.booktalkCount === 0) {
-                        router.push('/home/emptyBookTalk');
-                      } else {
-                        router.push('/mypage/bookedBookTalk');
-                      }
-                    }}
                   />
                 </>
               ) : (
@@ -268,10 +259,10 @@ function Home() {
           alt="하트 아이콘"
           style={{ marginTop: '2.1rem' }}
         />
-        <MoreHotBookTalk>
+        {/* <MoreHotBookTalk>
           더보기
           <Image src={HomeLightMoreIcon} alt="더보기 아이콘" />
-        </MoreHotBookTalk>
+        </MoreHotBookTalk> */}
       </HotBookTalk>
       <HotBookTalkSliderWrapper>
         <HotBookTalkSlider data={data?.booktalkDeadlineUpcoming} />
@@ -347,6 +338,7 @@ const ScheduledBookTalkWrapper = styled.div`
   justify-content: center;
 
   padding-top: 0.1rem;
+  cursor: pointer;
 `;
 
 const ScheduledBookTalkText = styled.span`

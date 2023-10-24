@@ -20,13 +20,17 @@ const Menus = () => {
       </MenuWrapper>
       <MenuWrapper
         onClick={() =>
-          router.push('https://www.notion.so/47e4fae575ed48999c005dc47c2134e1')
+          router.push(
+            'https://spicy-gatsby-1c7.notion.site/47e4fae575ed48999c005dc47c2134e1?pvs=4',
+          )
         }>
         이용약관
       </MenuWrapper>
       <MenuWrapper
         onClick={() =>
-          router.push('https://www.notion.so/2238be6a69d84366ae2a1040ad943e49')
+          router.push(
+            'https://spicy-gatsby-1c7.notion.site/2238be6a69d84366ae2a1040ad943e49?pvs=4',
+          )
         }>
         개인정보 처리 방침
       </MenuWrapper>
