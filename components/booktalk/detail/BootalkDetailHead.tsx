@@ -1,6 +1,8 @@
 import React from 'react';
 import theme from '../../../styles/theme';
 import { styled } from 'styled-components';
+import { UserDefaultImage } from '../../../assets/img';
+import Image from 'next/image';
 
 interface BootalkDetailHeadType {
   data: any;
@@ -12,7 +14,16 @@ const BootalkDetailHead = (props: BootalkDetailHeadType) => {
     <BootalkDetailHeadWrapper>
       <CategoryName>{data.bookCategory}</CategoryName>
       <BooktalkTitle>{data.title}</BooktalkTitle>
-      <AuthorName>{data.author} 작가</AuthorName>
+      <AuthorName>
+        <Image
+          src={UserDefaultImage}
+          alt=""
+          width={20}
+          height={20}
+          style={{ borderRadius: '50%', marginRight: '0.8rem' }}
+        />
+        {data.author} 작가
+      </AuthorName>
     </BootalkDetailHeadWrapper>
   );
 };
@@ -44,4 +55,7 @@ const AuthorName = styled.div`
   color: ${theme.colors.gray01};
 
   margin-top: 2.9rem;
+
+  display: flex;
+  align-items: center;
 `;

@@ -10,7 +10,6 @@ function MyProfile() {
   const { myInfo } = uesFetchMyInfo();
   console.log(myInfo);
 
-  if (!myInfo) return <></>;
   return (
     <MyProfileWrapper>
       <MypageTitleName>마이페이지</MypageTitleName>

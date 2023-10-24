@@ -9,6 +9,9 @@ import { getDate, countDday } from '../../../utils/date';
 import { uesFetchMypage } from '../../../hooks/queries/mypage';
 import { uesFetchSophyStory } from '../../../hooks/queries/sophyStory';
 import BooktalkImage from '../../common/booktalk/BooktalkImage';
+import EmptyBookTalk from '../../../pages/home/emptyBookTalk';
+import { NewEmptyBooktalkImg } from '../../../assets/img';
+import dayjs from 'dayjs';
 
 function BooktalkList() {
   const { mypage } = uesFetchMypage();
@@ -51,74 +54,105 @@ function BooktalkList() {
   return (
     <>
       <MypageLayout title="예정된 북토크" />
-      {bookedYearMonth.map((yearMonth) => {
-        return (
-          <BooktalkByMonthSection key={yearMonth}>
-            <BooktalkByMonthHeader>
-              <Month>
-                {yearMonth.slice(2, 4)}년 {yearMonth.slice(4, 6)}월
-              </Month>
-              <Number>{booktalkListByDate[yearMonth].length}건</Number>
-            </BooktalkByMonthHeader>
-            {booktalkListByDate &&
-              booktalkListByDate[yearMonth] &&
-              booktalkListByDate[yearMonth].map((booktalk: any) => {
-                return (
-                  <BooktalkByMonthWrapper
-                    key={booktalk?.booktalkId}
-                    onClick={() =>
-                      router.push(`/booktalk/${booktalk?.booktalkId}`)
-                    }>
-                    <BooktalkByMonth>
-                      <BooktalkImageWrapper>
-                        <BooktalkImage
-                          booktalkImageUrl={booktalk?.booktalkImageUrl}
-                          startDate={booktalk?.startDate}
-                          width={99}
-                          height={99}
-                        />
-                      </BooktalkImageWrapper>
-                      <BooktalkInfo>
-                        <Title>{booktalk?.title}</Title>
-                        <Author>{booktalk?.author}</Author>
-                        <DateHour>
-                          <Date>
-                            {getDate(booktalk?.startDate).year}년{' '}
-                            {getDate(booktalk?.startDate).month}월{' '}
-                            {getDate(booktalk?.startDate).date}일
-                          </Date>
-                          <Dot />
-                          <Hour>
-                            {getDate(booktalk?.startDate).hour}시~
-                            {getDate(booktalk?.endDate).hour}시
-                          </Hour>
-                        </DateHour>
-                        <SpacePeopleWrapper>
-                          <Space>{booktalk?.place}</Space>
-                          <BooktalkPeople>
-                            <Image
-                              src={PeopleIcon}
-                              alt="사람 아이콘"
-                              width={24}
-                              height={24}
+      {booktalkList?.length === 0 ? (
+        <>
+          <Image
+            src={NewEmptyBooktalkImg}
+            alt="북토크가 없음을 나타내는 이미지"
+            style={{ marginTop: '5.2rem' }}
+            width={375}
+            height={348}
+          />
+          <BookTalkEmptyBold>아직 확정된 일정이 없어요</BookTalkEmptyBold>
+          <BookTalkEmptyGray>
+            새로운 북토크 일정을 만들어보세요
+          </BookTalkEmptyGray>
+          {/* <OurRegionBookTalkButton
+            onClick={() => {
+              router.push('/booktalk');
+            }}>
+            우리동네 북토크 보러가기
+          </OurRegionBookTalkButton> */}
+        </>
+      ) : (
+        bookedYearMonth.map((yearMonth) => {
+          return (
+            <>
+              <BooktalkByMonthSection key={yearMonth}>
+                <BooktalkByMonthHeader>
+                  <Month>
+                    {yearMonth.slice(2, 4)}년 {yearMonth.slice(4, 6)}월
+                  </Month>
+                  <Number>{booktalkListByDate[yearMonth].length}건</Number>
+                </BooktalkByMonthHeader>
+                {booktalkListByDate &&
+                  booktalkListByDate[yearMonth] &&
+                  booktalkListByDate[yearMonth].map((booktalk: any) => {
+                    return (
+                      <BooktalkByMonthWrapper
+                        key={booktalk?.booktalkId}
+                        onClick={() =>
+                          router.push(`/booktalk/${booktalk?.booktalkId}`)
+                        }>
+                        <BooktalkByMonth>
+                          <BooktalkImageWrapper>
+                            <BooktalkImage
+                              booktalkImageUrl={booktalk?.booktalkImageUrl}
+                              startDate={booktalk?.startDate}
+                              width={99}
+                              height={99}
                             />
-                            <span>{booktalk?.participant}</span>/
-                            {booktalk?.maximum}
-                          </BooktalkPeople>
-                        </SpacePeopleWrapper>
-                      </BooktalkInfo>
-                    </BooktalkByMonth>
-                    <Divider />
-                  </BooktalkByMonthWrapper>
-                );
-              })}
-          </BooktalkByMonthSection>
-        );
-      })}
-      <Footer>
-        신청 취소를 원하실 경우 소피 공식 인스타그램(@sophyinlocal)로 문의를
-        남겨주세요
-      </Footer>
+                          </BooktalkImageWrapper>
+                          <BooktalkInfo>
+                            <Title>{booktalk?.title}</Title>
+                            <Author>{booktalk?.author}</Author>
+                            <DateHour>
+                              <Date>
+                                {dayjs(booktalk?.startDate).year()}.
+                                {dayjs(booktalk?.startDate).month() + 1}.
+                                {dayjs(booktalk?.startDate).date()}
+                              </Date>
+                              <Dot />
+                              <Hour>
+                                {dayjs(booktalk?.startDate).hour()}시{' '}
+                                {dayjs(booktalk?.startDate).minute()
+                                  ? `${dayjs(booktalk?.startDate).minute()}분`
+                                  : ''}
+                                ~ {dayjs(booktalk?.endDate).hour()}시{' '}
+                                {dayjs(booktalk?.endDate).minute()
+                                  ? `${dayjs(booktalk?.endDate).minute()}분`
+                                  : ''}
+                              </Hour>
+                            </DateHour>
+                            <SpacePeopleWrapper>
+                              <Space>{booktalk?.place}</Space>
+                              <BooktalkPeople>
+                                <Image
+                                  src={PeopleIcon}
+                                  alt="사람 아이콘"
+                                  width={24}
+                                  height={24}
+                                />
+                                <span>{booktalk?.participant}</span>/
+                                {booktalk?.maximum}
+                              </BooktalkPeople>
+                            </SpacePeopleWrapper>
+                          </BooktalkInfo>
+                        </BooktalkByMonth>
+                        <Divider />
+                      </BooktalkByMonthWrapper>
+                    );
+                  })}
+              </BooktalkByMonthSection>
+              <Footer>
+                신청 취소를 원하실 경우 소피 공식 인스타그램(@sophyinlocal)로
+                <br />
+                문의를 남겨주세요
+              </Footer>
+            </>
+          );
+        })
+      )}
     </>
   );
 }
@@ -246,4 +280,34 @@ const Footer = styled.footer`
   margin-left: 2.6rem;
   ${theme.fonts.body3_regular};
   color: ${theme.colors.gray05};
+`;
+
+const BookTalkEmptyBold = styled.div`
+  ${theme.fonts.headline3_bold};
+  text-align: center;
+  margin-top: 4.2rem;
+  margin-bottom: 0.8rem;
+`;
+
+const BookTalkEmptyGray = styled.div`
+  ${theme.fonts.body1_medium};
+  color: ${theme.colors.gray06};
+  text-align: center;
+`;
+
+const OurRegionBookTalkButton = styled.button`
+  width: 33.5rem;
+  height: 5.2rem;
+
+  margin-left: 2rem;
+  margin-top: 9.3rem;
+  margin-bottom: 10rem;
+
+  border: none;
+  border-radius: 0.6rem;
+
+  background-color: ${theme.colors.primary};
+  color: white;
+
+  ${theme.fonts.subhead3_semibold};
 `;
