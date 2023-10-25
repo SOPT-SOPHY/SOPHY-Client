@@ -13,8 +13,7 @@ interface BootalkDetailContentType {
 
 const BootalkDetailContent = (props: BootalkDetailContentType) => {
   const { data } = props;
-  console.log('here' + data.startDate);
-  console.log(dayjs(data.startDate));
+  console.log(data?.description);
   return (
     <div>
       <ContentWrapper>

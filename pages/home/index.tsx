@@ -62,6 +62,7 @@ function Home() {
 
   const data = accessToken ? uesFetchMemberHome() : uesFetchNonMemberHome();
   if (!data) return;
+  console.log(data?.booktalkDeadlineUpcoming);
 
   return (
     <>

@@ -65,11 +65,7 @@ const BooktalkImage = ({
             width={width}
             height={height}
           />
-          {booktalkStartDate.isAfter(now) ? (
-            <BooktalkDday>D - {dday}</BooktalkDday>
-          ) : (
-            <></>
-          )}
+          <BooktalkDday>D - {dday}</BooktalkDday>
         </PreBooktalkImageWrapper>
       ) : (
         <BooktalkImageWrapper width={width} height={height}>
@@ -95,7 +91,6 @@ export default BooktalkImage;
 const PreBooktalkImageWrapper = styled.div<{ width: number; height: number }>`
   background-color: #d9d9d9;
   opacity: 0.5;
-  z-index: 1;
   width: ${(props) => props.width / 10}rem;
   height: ${(props) => props.height / 10}rem;
 
