@@ -33,7 +33,7 @@ function AllAgreedButton({ onClick, checked }: AllAgreedButtonProps) {
 
   return (
     <StyledButton type="button" onClick={handleClick} checked={checked}>
-      <Content>네, 모두 동의합니다.</Content>
+      <Content>네, 모두 동의합니다</Content>
       {checked ? (
         <CheckIconWrapper>
           <Image
