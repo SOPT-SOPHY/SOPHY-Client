@@ -151,6 +151,7 @@ const StyledSlider = styled(Slider as any)`
 const ImageContainer = styled.div`
   width: 28rem;
   height: 20rem;
+  margin-top: -2rem;
   display: flex;
   align-items: center;
 `;

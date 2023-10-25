@@ -253,13 +253,10 @@ function Home() {
         </SliderWrapper>
       )}
       <HotBookTalk>
-        지금 인기있는
-        <br /> 소피 북토크 모아보기
-        <Image
-          src={HeartIcon}
-          alt="하트 아이콘"
-          style={{ marginTop: '2.1rem' }}
-        />
+        {/* 지금 인기있는
+        <br /> 소피 북토크 모아보기 */}
+        소피 북토크 모아보기
+        <Image src={HeartIcon} alt="하트 아이콘" />
         {/* <MoreHotBookTalk>
           더보기
           <Image src={HomeLightMoreIcon} alt="더보기 아이콘" />
@@ -518,7 +515,7 @@ const HotBookTalk = styled.div`
   align-items: center;
 
   width: 34.3rem;
-  height: 4.6rem;
+  height: 2.2rem;
 
   ${theme.fonts.subhead2_bold};
   color: ${theme.colors.gray01};
