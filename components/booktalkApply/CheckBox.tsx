@@ -238,11 +238,7 @@ const StyledButton = styled.button<{ checked: boolean }>`
 
 const Content = styled.label`
   display: flex;
-
-  width: 12.2rem;
-  height: 2.3rem;
-  flex-shrink: 0;
-
+  margin-right: 0.6rem;
   cursor: pointer;
 
   ${({ theme }) => theme.fonts.subhead4_semibold};
