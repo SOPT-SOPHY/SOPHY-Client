@@ -13,7 +13,7 @@ import BooktalkImage from '../common/booktalk/BooktalkImage';
 const Booktalk = ({ data }: any) => {
   const router = useRouter();
   const now = dayjs();
-  console.log(now.diff(now.format(), 'd'));
+  console.log(data);
   return (
     <div>
       <PageTitle pageTitleText="우리 동네 북토크" />
